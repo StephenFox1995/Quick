@@ -6,3 +6,8 @@ user.insert = function (db, id, firstname, lastname) {
   var insert = "INSERT INTO User(id, firstname, lastname) VALUES(?, ?, ?);";
   db.run(insert, [id, firstname, lastname]);
 };
+
+
+user.parsePOST = function (request, callback) {
+  
+};

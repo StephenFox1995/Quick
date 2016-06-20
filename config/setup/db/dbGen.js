@@ -1,5 +1,4 @@
 var fs = require('fs');
-var sqlite3 = require('sqlite3').verbose();
 var os = require('../../os');
 var createStmts = require('./create');
 var argv = require('minimist')(process.argv.slice(2));
@@ -31,7 +30,7 @@ if (!fs.existsSync(filepath)) {
   var file  = configDirectory + '/' + configFile;
   var contents = JSON.stringify({ "sqliteFilepath" : filepath });
   writeToConfig(file, contents, function (err) {
-    if (err) return;
+    if (err) return console.log(err);
     // Config file created successfully, create database.
     createSQLiteDatabase(filepath);
   });
@@ -39,6 +38,7 @@ if (!fs.existsSync(filepath)) {
 
 
 function createSQLiteDatabase(location) {
+  var sqlite3 = require('sqlite3').verbose();
   var db = new sqlite3.Database(filepath);
   db.serialize(function () {
     // Create User table.
