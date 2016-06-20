@@ -1,8 +1,9 @@
 'use strict';
 
 var express = require('express');
-var user = require('../libs/user');
+var User = require('../libs/User');
 var httpCodes = require('../libs/httpCodes');
+var hash = require('../libs/hash');
 
 var router = express.Router();
 
@@ -13,10 +14,16 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function (req, res) {
+  var user = new User();
   user.parsePOST(req,
     function sucess(user) {
-      // Do something with user.
-      console.log(user.firstname, user.lastname, user.password);
+      // Now hash password and store user in db.
+      var hashed = hash.hashPassword(user.password);
+
+      user.hash = hashed.hash;
+      user.salt = hashed.salt;
+
+
       res.sendStatus(httpCodes.SUCCESS);
     },
     function failure() {

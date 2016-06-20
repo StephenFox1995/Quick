@@ -1,7 +1,8 @@
 'use strict';
 
 var util = require('./util');
-var user = exports;
+
+function User() { }
 
 /**
  * Parses a JSON object from a POST request.
@@ -10,7 +11,7 @@ var user = exports;
  *  - last name
  *  - password
  * */
-user.parsePOST = function(request, parsed, failed) {
+User.prototype.parsePOST = function(request, parsed, failed) {
   var user = request.body.user;
   var firstname = user.firstname;
   var lastname = user.lastname;
@@ -18,10 +19,22 @@ user.parsePOST = function(request, parsed, failed) {
 
   // Check if any field are missing.
   if (util.isValidString(firstname) ||
-      util.isValidString(lastname)  ||
-      util.isValidString(password)) {
+    util.isValidString(lastname)  ||
+    util.isValidString(password)) {
     failed("Could not parse user.");
   } else {
     parsed(user);
   }
 };
+
+
+/**
+ * A helper function to insert the current user object into the database.
+ **/
+User.prototype.insert = function () {
+  
+};
+
+
+module.exports = User;
+
