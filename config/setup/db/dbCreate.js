@@ -9,44 +9,50 @@ var db;
 var configDirectory = '/etc/quick';
 var configFile = 'config';
 
-// Get the filepath for the database pass in via command line.
+// Get the file path for the database pass in via command line.
 var filepath = argv.f;
 
 
 if (filepath === undefined) {
-  console.log('No filepath specified.');
+  console.log('No file path specified.');
   return;
 }
 
 
 // Check if db exists.
 if (!fs.existsSync(filepath)) {
-  mkdirSync(configDirectory);
-  // Add filepath to config file on system.
-  writeToConfig(JSON.stringify({"sqliteFilepath": filepath}));
+  // Make the config directory.
+  try {
+    mkdirSync(configDirectory);
+  } catch (e) {
+    console.log(e);
+  }
 
-  db = new sqlite3.Database(filepath);
-  db.serialize(function () {
-    // Create User table.
-    db.run(createStmts.getCreateUserTableStatement());
-  });
+  // Create the config file and write where the SQLite db is stored.
+  var file  = configDirectory + '/' + configFile;
+  writeToConfig(file, JSON.stringify({ "sqliteFilepath": filepath }));
+
+  // db = new sqlite3.Database(filepath);
+  // db.serialize(function () {
+  //   // Create User table.
+  //   db.run(createStmts.getCreateUserTableStatement());
+  // });
 }
 
 
-function writeToConfig(contents) {
-  fs.writeFile(configDirectory + configFile, contents, function (err, data) {
+function writeToConfig(filepath, contents) {
+  fs.writeFile(filepath, contents, function (err) {
     if (err) {
       return console.log(err);
     }
-    return console.log(data);
   });
 }
 
-var mkdirSync = function (path) {
+function mkdirSync(path) {
   try {
     fs.mkdirSync(path);
   } catch(e) {
-    if ( e.code != 'EEXIST' ) throw e;
+    if (e.code != 'EEXIST') throw e;
   }
 }
 
