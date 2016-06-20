@@ -5,10 +5,6 @@ var createStmts = require('./create');
 var argv = require('minimist')(process.argv.slice(2));
 
 
-var db;
-var configDirectory = '/etc/quick';
-var configFile = 'config';
-
 // Get the file path for the database pass in via command line.
 var filepath = argv.f;
 
@@ -21,6 +17,9 @@ if (filepath === undefined) {
 
 // Check if db exists.
 if (!fs.existsSync(filepath)) {
+  var configDirectory = '/etc/quick';
+  var configFile = 'config';
+
   // Make the config directory.
   try {
     mkdirSync(configDirectory);
@@ -30,24 +29,35 @@ if (!fs.existsSync(filepath)) {
 
   // Create the config file and write where the SQLite db is stored.
   var file  = configDirectory + '/' + configFile;
-  writeToConfig(file, JSON.stringify({ "sqliteFilepath": filepath }));
-
-  // db = new sqlite3.Database(filepath);
-  // db.serialize(function () {
-  //   // Create User table.
-  //   db.run(createStmts.getCreateUserTableStatement());
-  // });
-}
-
-
-function writeToConfig(filepath, contents) {
-  fs.writeFile(filepath, contents, function (err) {
-    if (err) {
-      return console.log(err);
-    }
+  var contents = JSON.stringify({ "sqliteFilepath" : filepath });
+  writeToConfig(file, contents, function (err) {
+    if (err) return;
+    // Config file created successfully, create database.
+    createSQLiteDatabase(filepath);
   });
 }
 
+
+function createSQLiteDatabase(location) {
+  var db = new sqlite3.Database(filepath);
+  db.serialize(function () {
+    // Create User table.
+    db.run(createStmts.getCreateUserTableStatement());
+  });
+}
+
+/**
+ * Writes contents to a config file.
+ * */
+function writeToConfig(filepath, contents, callback) {
+  fs.writeFile(filepath, contents, function (err) {
+    callback(err);
+  });
+}
+
+/**
+ * Makes a directory synchronously.
+ * */
 function mkdirSync(path) {
   try {
     fs.mkdirSync(path);
