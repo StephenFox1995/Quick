@@ -7,7 +7,3 @@ user.insert = function (db, id, firstname, lastname) {
   db.run(insert, [id, firstname, lastname]);
 };
 
-
-user.parsePOST = function (request, callback) {
-  
-};

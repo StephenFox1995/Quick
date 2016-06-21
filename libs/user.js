@@ -1,6 +1,7 @@
 'use strict';
 
-var util = require('./util');
+const util = require('./util');
+const db = require('../models/db');
 
 function User() { }
 
@@ -16,14 +17,20 @@ User.prototype.parsePOST = function(request, parsed, failed) {
   var firstname = user.firstname;
   var lastname = user.lastname;
   var password = user.password;
+  var email = user.email;
 
   // Check if any field are missing.
   if (util.isValidString(firstname) ||
-    util.isValidString(lastname)  ||
-    util.isValidString(password)) {
+      util.isValidString(lastname)  ||
+      util.isValidString(email)     ||
+      util.isValidString(password)) {
     failed("Could not parse user.");
   } else {
-    parsed(user);
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.password = password;
+    this.email = email;
+    parsed(this);
   }
 };
 
@@ -32,7 +39,7 @@ User.prototype.parsePOST = function(request, parsed, failed) {
  * A helper function to insert the current user object into the database.
  **/
 User.prototype.insert = function () {
-  
+  db.insertUser(this);
 };
 
 

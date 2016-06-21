@@ -3,6 +3,7 @@ exports.getCreateUserTableStatement = function () {
           id          STRING PRIMARY KEY, \
           firstname   STRING,             \
           lastname    STRING,             \
+          email       STRING,             \
           password    STRING,             \
           salt        STRING              \
   )";

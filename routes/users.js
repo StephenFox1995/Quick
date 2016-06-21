@@ -1,17 +1,18 @@
 'use strict';
 
-var express = require('express');
+const express = require('express');
+const httpCodes = require('../libs/httpCodes');
+const hash = require('../libs/hash');
 var User = require('../libs/User');
-var httpCodes = require('../libs/httpCodes');
-var hash = require('../libs/hash');
 
-var router = express.Router();
+const router = express.Router();
 
 
 /* GET users listing. */
 router.get('/', function(req, res) {
   res.send('respond with a resource');
 });
+
 
 router.post('/', function (req, res) {
   var user = new User();
@@ -23,7 +24,9 @@ router.post('/', function (req, res) {
       user.hash = hashed.hash;
       user.salt = hashed.salt;
 
-
+      // Write to database.
+      console.log(user);
+      user.insert();
       res.sendStatus(httpCodes.SUCCESS);
     },
     function failure() {
