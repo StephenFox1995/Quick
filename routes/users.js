@@ -22,8 +22,8 @@ router.post('/', function (req, res) {
       // Now hash password and store user in db.
       var hashed = hash.hashPassword(user.password);
 
-      user.hash = hashed.hash;
-      user.salt = hashed.salt;
+      // Set the hashed user's password.
+      user.password = hashed.hash;
 
       // Generate id for user.
       user.id = util.generateID();

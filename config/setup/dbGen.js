@@ -2,7 +2,7 @@
 const fs = require('fs');
 const os = require('../os');
 const util = require('../../libs/util');
-const createStmts = require('./create');
+const usersql = require('../../models/usersql');
 const argv = require('minimist')(process.argv.slice(2));
 
 
@@ -50,7 +50,7 @@ function createSQLiteDatabase(location) {
   var db = new sqlite3.Database(filepath);
   db.serialize(function () {
     // Create User table.
-    db.run(createStmts.getCreateUserTableStatement());
+    db.run(usersql.create);
   });
 }
 
