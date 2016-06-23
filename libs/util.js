@@ -1,4 +1,7 @@
-var util = exports;
+'use strict';
+
+const shortid = require('shortid');
+const util = exports;
 
 util.isValidString = function (string) {
   switch (string) {
@@ -12,6 +15,11 @@ util.isValidString = function (string) {
     default:
       return false;
   }
+};
+
+
+util.generateID = function () {
+  return shortid.generate();
 };
 
 module.exports = util;

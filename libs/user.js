@@ -1,7 +1,8 @@
 'use strict';
 
 const util = require('./util');
-const db = require('../models/db');
+const db = require('../models/database');
+
 
 function User() { }
 

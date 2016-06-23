@@ -1,8 +1,9 @@
-var fs = require('fs');
-var os = require('../../os');
-var util = require('../../../libs/util')
-var createStmts = require('./create');
-var argv = require('minimist')(process.argv.slice(2));
+'use strict';
+const fs = require('fs');
+const os = require('../os');
+const util = require('../../libs/util');
+const createStmts = require('./create');
+const argv = require('minimist')(process.argv.slice(2));
 
 
 // Get the file path for the database pass in via command line.
@@ -31,6 +32,7 @@ var filepath = argv.f;
     // Create the config file and write where the SQLite db is stored.
     var file  = configDirectory + '/' + configFile;
     var contents = JSON.stringify({ "sqliteFilepath" : filepath });
+
     console.log('Writing database location to configuration file.');
     writeToConfig(file, contents, function (err) {
       if (err) return console.log('There was an error writing to configurations file. ' + err);

@@ -3,7 +3,8 @@
 const express = require('express');
 const httpCodes = require('../libs/httpCodes');
 const hash = require('../libs/hash');
-var User = require('../libs/User');
+const util = require('../libs/util');
+const User = require('../libs/User');
 
 const router = express.Router();
 
@@ -24,8 +25,10 @@ router.post('/', function (req, res) {
       user.hash = hashed.hash;
       user.salt = hashed.salt;
 
+      // Generate id for user.
+      user.id = util.generateID();
+
       // Write to database.
-      console.log(user);
       user.insert();
       res.sendStatus(httpCodes.SUCCESS);
     },
