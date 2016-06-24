@@ -4,7 +4,6 @@ const shortid = require('shortid');
 const util = exports;
 
 util.isValidString = function (string) {
-  console.log('String: ' + string);
   switch (string) {
     case "":
     case 0:
@@ -24,5 +23,4 @@ util.generateID = function () {
   return shortid.generate();
 };
 
-module.exports = util;
   

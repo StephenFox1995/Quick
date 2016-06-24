@@ -1,5 +1,7 @@
-var Globals = {
-  'dbFilepath': '/Users/stephenfox/Desktop/quick.db'
+'use strict';
+
+var globals = exports;
+globals.Globals = {
+  configFile: '/etc/quick/config'
 };
 
-module.exports = Globals;

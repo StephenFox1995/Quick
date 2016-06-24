@@ -41,7 +41,7 @@ var filepath = argv.f;
       console.log('Success created database file.');
     });
   }
-}());
+})();
 
 
 

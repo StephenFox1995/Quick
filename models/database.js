@@ -1,7 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
-const usersql = require('./usersql');
-const global = require('../libs/globals');
-var database = exports;
+const globals = require('../libs/globals');
+const usersql = require('../models/usersql');
+const database = exports;
 
 
 /**
@@ -25,9 +25,6 @@ database.insertUser = function (user) {
  * Get a connection to the database file stored on disk.
  **/
 database.getConnection = function (callback) {
-  var db = new sqlite3.Database(global.dbFilepath);
+  var db = new sqlite3.Database(globals.Globals.dbLocation);
   callback(db);
 };
-
-
-module.exports = database;

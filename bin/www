@@ -1,12 +1,35 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-
 var app = require('../app');
 var debug = require('debug')('Quick:server');
 var http = require('http');
+const fs = require('fs');
+const globals = require('../libs/globals');
+
+
+
+/**
+ * Get the database location on disk and set
+ * as global value upon start up of application.
+ */
+(function () {
+  var configFile;
+  try {
+    configFile = fs.readFileSync(globals.Globals.configFile, 'utf8');
+  } catch (e) {
+    if (e.code === 'ENOENT') {
+      return console.log('Could not find configurations file.');
+    }
+  }
+  // Parse the json for the db filepath.
+  var dbLocation = JSON.parse(configFile);
+  if (dbLocation) {
+    // Set location of database at a global level.
+    globals.Globals.dbLocation = dbLocation.sqliteFilepath;
+  } else {
+    return console.log('Configuration file does not contain location of database.');
+  }
+})();
 
 /**
  * Get port from environment and store in Express.
