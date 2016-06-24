@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const usersql = require('./usersql');
-
+const global = require('../libs/globals');
 var database = exports;
 
 
@@ -25,9 +25,7 @@ database.insertUser = function (user) {
  * Get a connection to the database file stored on disk.
  **/
 database.getConnection = function (callback) {
-  // TODO: Attach this to a global.
-  const filepath = '/Users/stephenfox/Desktop/quick.db';
-  var db = new sqlite3.Database(filepath);
+  var db = new sqlite3.Database(global.dbFilepath);
   callback(db);
 };
 

@@ -20,7 +20,7 @@ User.prototype.parsePOST = function(request, parsed, failed) {
   var password = user.password;
   var email = user.email;
 
-  // Check if any field are missing.
+  // Check if any fields are missing or incorrect.
   if (util.isValidString(firstname) &&
       util.isValidString(lastname) &&
       util.isValidString(email) &&
