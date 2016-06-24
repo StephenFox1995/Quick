@@ -39,8 +39,8 @@ User.prototype.parsePOST = function(request, parsed, failed) {
 /**
  * A helper function to insert the current user object into the database.
  **/
-User.prototype.insert = function () {
-  db.insertUser(this);
+User.prototype.insert = function (callback) {
+  db.insertUser(this, callback);
 };
 
 

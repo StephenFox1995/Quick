@@ -9,12 +9,11 @@ const User = require('../libs/User');
 const router = express.Router();
 
 
-/* GET users listing. */
-router.get('/', function(req, res) {
-  res.send('respond with a resource');
-});
 
-
+/**
+ * Adds a new user to the database.
+ * TODO: Make sure user doesn't already exist in database.
+ **/
 router.post('/', function (req, res) {
   var user = new User();
   user.parsePOST(req,
@@ -29,8 +28,10 @@ router.post('/', function (req, res) {
       user.id = util.generateID();
 
       // Write to database.
-      user.insert();
-      res.sendStatus(httpCodes.SUCCESS);
+      // TODO: Check if error occurred.
+      user.insert(function () {
+        res.sendStatus(httpCodes.SUCCESS);
+      });
     },
     function failure() {
       res.sendStatus(httpCodes.UNPROCESSABLE_ENTITY);

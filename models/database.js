@@ -1,14 +1,20 @@
+'use strict';
+
 const sqlite3 = require('sqlite3').verbose();
 const globals = require('../libs/globals');
 const usersql = require('../models/usersql');
 const database = exports;
 
+/**
+ * Database object shared by module.
+ * */
+var db;
 
 /**
  * Inserts a user into the database.
  * @param user The user to add to the databaase.
  **/
-database.insertUser = function (user) {
+database.insertUser = function (user, callback) {
   this.getConnection(function (db) {
     const insertQuery = usersql.insert;
     db.run(insertQuery,
@@ -18,6 +24,7 @@ database.insertUser = function (user) {
       user.email,
       user.password]);
   });
+  callback();
 };
 
 
@@ -25,6 +32,6 @@ database.insertUser = function (user) {
  * Get a connection to the database file stored on disk.
  **/
 database.getConnection = function (callback) {
-  var db = new sqlite3.Database(globals.Globals.dbLocation);
+  db = new sqlite3.Database(globals.Globals.dbLocation);
   callback(db);
 };
