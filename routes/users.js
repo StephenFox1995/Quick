@@ -28,8 +28,10 @@ router.post('/', function (req, res) {
       user.id = util.generateID();
 
       // Write to database.
-      // TODO: Check if error occurred.
-      user.insert(function () {
+      user.insert(function (err) {
+        if (err) {
+          return res.sendStatus(httpCodes.INTERNAL_SERVER_ERROR);
+        }
         res.sendStatus(httpCodes.SUCCESS);
       });
     },
