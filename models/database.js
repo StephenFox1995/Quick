@@ -12,11 +12,11 @@ database.insertUser = function (user) {
   this.getConnection(function (db) {
     const insertQuery = usersql.insert;
     db.run(insertQuery,
-      user.id,
+      [user.id,
       user.firstname,
       user.lastname,
       user.email,
-      user.password);
+      user.password]);
   });
 };
 

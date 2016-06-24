@@ -21,17 +21,17 @@ User.prototype.parsePOST = function(request, parsed, failed) {
   var email = user.email;
 
   // Check if any field are missing.
-  if (util.isValidString(firstname) ||
-      util.isValidString(lastname)  ||
-      util.isValidString(email)     ||
+  if (util.isValidString(firstname) &&
+      util.isValidString(lastname) &&
+      util.isValidString(email) &&
       util.isValidString(password)) {
-    failed("Could not parse user.");
-  } else {
     this.firstname = firstname;
     this.lastname = lastname;
     this.password = password;
     this.email = email;
     parsed(this);
+  } else {
+    failed("Could not parse user.");
   }
 };
 
