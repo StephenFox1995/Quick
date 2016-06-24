@@ -15,30 +15,32 @@ const router = express.Router();
  **/
 router.post('/', function (req, res) {
   var user = new User();
-  user.parsePOST(req,
-    function sucess(user) {
-      // Now hash password and store user in db.
-      var hashed = hash.hashPassword(user.password);
+  user.parsePOST(req, function (err, user) {
+    if (err) {
+      return res.sendStatus(httpCodes.UNPROCESSABLE_ENTITY);
+    }
 
-      // Set the hashed user's password.
-      user.password = hashed.hash;
+    // Now hash password and store user in db.
+    var hashed = hash.hashPassword(user.password);
 
-      // Generate id for user.
-      user.id = util.generateID();
+    // Set the hashed user's password.
+    user.password = hashed.hash;
 
-      // Write to database.
-      user.insert(function (err) {
-        if (err) {
-          return res.status(httpCodes.INTERNAL_SERVER_ERROR).json({reponseMessage: "User could not be created."});
-        }
-        res.status(httpCodes.SUCCESS).json({responseMessage: "User was successfully created."});
-      });
-    },
-    function failure() {
-      res.sendStatus(httpCodes.UNPROCESSABLE_ENTITY);
+    // Generate id for user.
+    user.id = util.generateID();
+
+    // Write to database.
+    user.insert(function (err) {
+      if (err) {
+        return res
+          .status(httpCodes.INTERNAL_SERVER_ERROR)
+          .json({responseMessage: "User could not be created."});
+      }
+      res.status(httpCodes.SUCCESS).json({responseMessage: "User was successfully created."});
     });
-});
 
+  })
+});
 
 
 module.exports = router;
