@@ -31,7 +31,7 @@ User.prototype.parsePOST = function(request, parsed, failed) {
     this.email = email;
     parsed(this);
   } else {
-    failed("Could not parse user.");
+    failed('Could not parse user.');
   }
 };
 

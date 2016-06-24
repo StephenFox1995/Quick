@@ -9,7 +9,6 @@ const User = require('../libs/User');
 const router = express.Router();
 
 
-
 /**
  * Adds a new user to the database.
  * TODO: Make sure user doesn't already exist in database.
@@ -30,9 +29,9 @@ router.post('/', function (req, res) {
       // Write to database.
       user.insert(function (err) {
         if (err) {
-          return res.sendStatus(httpCodes.INTERNAL_SERVER_ERROR);
+          return res.status(httpCodes.INTERNAL_SERVER_ERROR).json({reponseMessage: "User could not be created."});
         }
-        res.sendStatus(httpCodes.SUCCESS);
+        res.status(httpCodes.SUCCESS).json({responseMessage: "User was successfully created."});
       });
     },
     function failure() {

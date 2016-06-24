@@ -1,6 +1,5 @@
 'use strict';
 const fs = require('fs');
-const os = require('../os');
 const util = require('../../libs/util');
 const usersql = require('../../models/usersql');
 const argv = require('minimist')(process.argv.slice(2));

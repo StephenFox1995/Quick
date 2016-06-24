@@ -13,13 +13,13 @@ var db;
 
 /**
  * Inserts a user into the database.
- * @param user The user to add to the databaase.
+ * @param user The user to add to the database.
  * @param callback Callback function.
  **/
 database.insertUser = function (user, callback) {
   this.getConnection(function (db) {
     const insertQuery = usersql.insert;
-    // Insert user into databse.
+    // Insert user into database.
     db.run(insertQuery,
       [user.id,
       user.firstname,

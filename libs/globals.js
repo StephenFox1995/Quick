@@ -4,6 +4,6 @@ var globals = exports;
 
 // Global values shared across the application.
 globals.Globals = {
-  configFile: '/etc/quick/config'
+  configFile: "/etc/quick/config"
 };
 
