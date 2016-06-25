@@ -15,7 +15,7 @@ const router = express.Router();
  **/
 router.post('/', function (req, res) {
   var user = new User();
-  user.parsePOST(req, function (err, user) {
+  user.parsePOST(req, function (err) {
     if (err) {
       return res.sendStatus(httpCodes.UNPROCESSABLE_ENTITY);
     }

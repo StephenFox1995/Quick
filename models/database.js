@@ -2,7 +2,8 @@
 
 const sqlite3 = require('sqlite3').verbose();
 const globals = require('../libs/globals');
-const usersql = require('../models/usersql');
+const userSQL = require('./userSQL');
+const businessSQL = require('./businessSQL');
 const database = exports;
 
 /**
@@ -12,13 +13,13 @@ var db;
 
 
 /**
- * Inserts a user into the database.
+ * Inserts a User into the database.
  * @param user The user to add to the database.
  * @param callback Callback function.
  **/
 database.insertUser = function (user, callback) {
   this.getConnection(function (db) {
-    const insertQuery = usersql.insert;
+    const insertQuery = userSQL.insert;
     // Insert user into database.
     db.run(insertQuery,
       [user.id,
@@ -26,6 +27,26 @@ database.insertUser = function (user, callback) {
       user.lastname,
       user.email,
       user.password],
+      callback);
+  });
+};
+
+/**
+ * Inserts a Business into the database.
+ * @param business The business to add to the database.
+ * @param callback Callback function.
+ **/
+database.insertBusiness = function (business, callback) {
+  this.getConnection(function (db) {
+    const insertQuery = businessSQL.insert;
+    // Insert business into database.
+    db.run(insertQuery,
+      [business.id,
+      business.name,
+      business.address,
+      business.contactNumber,
+      business.email,
+      business.hashedPassword],
       callback);
   });
 };

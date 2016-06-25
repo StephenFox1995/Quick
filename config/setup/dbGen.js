@@ -1,7 +1,8 @@
 'use strict';
 const fs = require('fs');
 const util = require('../../libs/util');
-const usersql = require('../../models/usersql');
+const userSQL = require('../../models/userSQL');
+const businessSQL = require('../../models/businessSQL');
 const argv = require('minimist')(process.argv.slice(2));
 
 
@@ -49,7 +50,10 @@ function createSQLiteDatabase(location) {
   var db = new sqlite3.Database(filepath);
   db.serialize(function () {
     // Create User table.
-    db.run(usersql.create);
+    db.run(userSQL.create);
+
+    // Create Business table.
+    db.run(businessSQL.create);
   });
 }
 

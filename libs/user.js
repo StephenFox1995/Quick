@@ -13,25 +13,18 @@ function User() { }
  *  - last name
  *  - password
  * */
-User.prototype.parsePOST = function(request, parsed, failed) {
-  var user = request.body.user;
-  var firstname = user.firstname;
-  var lastname = user.lastname;
-  var password = user.password;
-  var email = user.email;
+User.prototype.parsePOST = function(req, callback) {
+  var user = req.body;
 
   // Check if any fields are missing or incorrect.
-  if (util.isValidString(firstname) &&
-      util.isValidString(lastname) &&
-      util.isValidString(email) &&
-      util.isValidString(password)) {
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.password = password;
-    this.email = email;
-    parsed(this);
+  if (isValidUserObject(user)) {
+    this.firstname = user.firstname;
+    this.lastname = user.lastname;
+    this.password = user.password;
+    this.email = user.email;
+    callback(null);
   } else {
-    failed('Could not parse user.');
+    callback(new Error('Could not parse user.'));
   }
 };
 
@@ -42,6 +35,18 @@ User.prototype.parsePOST = function(request, parsed, failed) {
 User.prototype.insert = function (callback) {
   db.insertUser(this, callback);
 };
+
+
+function isValidUserObject(user) {
+  if (util.isValidString(user.firstname) &&
+      util.isValidString(user.lastname)  &&
+      util.isValidString(user.email)     &&
+      util.isValidString(user.password)) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 
 module.exports = User;
