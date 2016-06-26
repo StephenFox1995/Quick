@@ -18,7 +18,7 @@ router.post('/', function (req, res) {
         .json({responseMessage: "Could not parse Product JSON"});
     }
 
-    // TODO: Look into longer id for products.
+    // TODO: Look into longer id for product.
     product.id = util.generateID();
 
     // Insert into database.
@@ -27,7 +27,7 @@ router.post('/', function (req, res) {
         console.log(err);
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
-          .json({responseMessage: "Product could not be created."});
+          .json({responseMessage: "Product could not be added to the database."});
       }
       res.status(httpCodes.SUCCESS).json({responseMessage: "Product was successfully created."});
     });

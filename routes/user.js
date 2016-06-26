@@ -34,7 +34,7 @@ router.post('/', function (req, res) {
       if (err) {
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
-          .json({responseMessage: "User could not be created."});
+          .json({responseMessage: "User could not be added to the database."});
       }
       res.status(httpCodes.SUCCESS).json({responseMessage: "User was successfully created."});
     });

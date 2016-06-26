@@ -37,7 +37,7 @@ router.post('/', function (req, res) {
       if (err) {
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
-          .json({responseMessage: "Business could not be created."});
+          .json({responseMessage: "Business could not be added to the database."});
       }
       res.status(httpCodes.SUCCESS).json({responseMessage: "Business was successfully created."});
     });
