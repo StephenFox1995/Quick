@@ -24,7 +24,7 @@ User.prototype.parsePOST = function(req, callback) {
     this.email = user.email;
     callback(null);
   } else {
-    callback(new Error('Could not parse user.'));
+    callback(new Error('Could not parse User.'));
   }
 };
 

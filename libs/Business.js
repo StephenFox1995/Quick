@@ -19,7 +19,7 @@ Business.prototype.parsePOST = function (req, callback) {
     this.password = business.password;
     callback(null);
   } else {
-    callback(new Error('Could not parse user.'));
+    callback(new Error('Could not parse Business.'));
   }
 };
 
