@@ -14,4 +14,7 @@ user.create = 'CREATE TABLE User(         \
 user.insert = 'INSERT INTO User(id, firstname, lastname, email, password) ' +
   'VALUES(?, ?, ?, ?, ?);';
 
+user.all = 'SELECT id, firstname, lastname, email FROM User';
+
+user.getUser = 'SELECT id, firstname, lastname, email FROM User WHERE id = ?';
 

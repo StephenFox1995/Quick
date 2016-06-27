@@ -5,8 +5,41 @@ const httpCodes = require('../libs/httpCodes');
 const hash = require('../libs/hash');
 const util = require('../libs/util');
 const User = require('../libs/User');
+const db = require('../models/database');
 
 const router = express.Router();
+
+
+/**
+ * /user/all
+ * Returns all users in the database.
+ **/
+router.get('/all', function (req, res) {
+  var user = new User();
+  db.getAllUsers(function (err, rows) {
+    if (err) {
+      return res
+        .sendStatus(httpCodes.INTERNAL_SERVER_ERROR)
+        .json({responseMessage: "An error occurred."});
+    }
+    res.status(httpCodes.SUCCESS).json(rows);
+  });
+});
+
+
+router.get('/id/:id', function (req, res) {
+  var id = req.params.id;
+  var user = new User();
+  db.getUser(id, function(err, row) {
+    if (err) {
+      return res
+        .sendStatus(httpCodes.INTERNAL_SERVER_ERROR)
+        .json({responseMessage: "An error occurred."});
+    }
+    //TODO: if no row maybe return an error?
+    res.status(httpCodes.SUCCESS).json(row);
+  });
+});
 
 
 /**
@@ -41,6 +74,7 @@ router.post('/', function (req, res) {
 
   })
 });
+
 
 
 module.exports = router;

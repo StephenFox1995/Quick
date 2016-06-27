@@ -33,6 +33,21 @@ database.insertUser = function (user, callback) {
   });
 };
 
+database.getAllUsers = function (callback) {
+  this.getConnection(function (db) {
+    const sqlQuery = userSQL.all;
+    db.all(sqlQuery, callback);
+  });
+};
+
+database.getUser = function (id, callback) {
+  this.getConnection(function (db) {
+    const sqlQuery = userSQL.getUser;
+    db.get(sqlQuery, [id], callback);
+  });
+};
+
+
 /**
  * Inserts a Business into the database.
  * @param business The business to add to the database.
