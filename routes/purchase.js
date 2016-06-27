@@ -20,7 +20,7 @@ router.post('/', function (req, res) {
 
     // Generate ID for pruchase.
     purchase.id = util.generateID();
-gi
+
     purchase.insert(function (err) {
       if (err) {
         console.log(err);

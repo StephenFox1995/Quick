@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1bb08830-0ccf-4f57-ab80-aadcce61b101" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/Purchase.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/purchaseSQL.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes/purchase.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libs/Product.js" afterPath="$PROJECT_DIR$/libs/Product.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/database.js" afterPath="$PROJECT_DIR$/models/database.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/product.js" afterPath="$PROJECT_DIR$/routes/product.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/purchase.js" afterPath="$PROJECT_DIR$/routes/purchase.js" />
     </list>
     <ignored path="Quick.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,7 +59,7 @@
             <entry file="file://$PROJECT_DIR$/routes/purchase.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="418">
-                  <caret line="22" column="2" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
+                  <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -445,12 +438,12 @@
       <workItem from="1466357971219" duration="3816000" />
       <workItem from="1466373628316" duration="22968000" />
       <workItem from="1466717540816" duration="12467000" />
-      <workItem from="1466803163933" duration="23574000" />
+      <workItem from="1466803163933" duration="23633000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66051000" />
+    <option name="totallyTimeSpent" value="66110000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1280" y="-280" width="1920" height="1080" extended-state="0" />
@@ -844,7 +837,7 @@
     <entry file="file://$PROJECT_DIR$/routes/purchase.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
-          <caret line="22" column="2" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
