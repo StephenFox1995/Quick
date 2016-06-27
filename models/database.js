@@ -4,7 +4,8 @@ const sqlite3 = require('sqlite3').verbose();
 const globals = require('../libs/globals');
 const userSQL = require('./userSQL');
 const businessSQL = require('./businessSQL');
-const orderSQL = require('./productSQL');
+const productSQL = require('./productSQL');
+const purchaseSQL = require('./purchaseSQL');
 const database = exports;
 
 /**
@@ -58,19 +59,31 @@ database.insertBusiness = function (business, callback) {
  * @param order The order to add to the database.
  * @param callback Callback function.
  * */
-database.insertOrder = function (order, callback) {
+database.insertProduct = function (product, callback) {
   this.getConnection(function (db) {
-    const insertQuery = orderSQL.insert;
+    const insertQuery = productSQL.insert;
     db.run(insertQuery,
-          [order.id,
-          order.name,
-          order.price,
-          order.description,
-          order.businessID],
+          [product.id,
+          product.name,
+          product.price,
+          product.description,
+          product.businessID],
           callback);
   });
 };
 
+
+database.insertPurchase = function (purchase, callback) {
+  this.getConnection(function (db) {
+    const insertQuery = purchaseSQL.insert;
+    console.log(callback);
+    db.run(insertQuery,
+          [purchase.id,
+          purchase.businessID,
+          purchase.userID],
+          callback);
+  });
+};
 
 
 /*

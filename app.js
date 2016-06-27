@@ -9,6 +9,8 @@ var routes = require('./routes/index');
 var user = require('./routes/user');
 var business = require('./routes/business');
 var product = require('./routes/product');
+var purchase = require('./routes/purchase');
+
 
 var app = express();
 
@@ -31,6 +33,7 @@ app.use('/', routes);
 app.use('/user', user);
 app.use('/business', business);
 app.use('/product', product);
+app.use('/purchase', purchase);
 
 
 

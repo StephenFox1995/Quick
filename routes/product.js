@@ -15,7 +15,7 @@ router.post('/', function (req, res) {
   product.parsePOST(req, function (err) {
     if (err) {
       return res.status(httpCodes.UNPROCESSABLE_ENTITY)
-        .json({responseMessage: "Could not parse Product JSON"});
+        .json({responseMessage: "Could not parse Product JSON."});
     }
 
     // TODO: Look into longer id for product.
