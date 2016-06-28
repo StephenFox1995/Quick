@@ -28,7 +28,9 @@ router.post('/', function (req, res) {
           .status(httpCodes.INTERNAL_SERVER_ERROR)
           .json({responseMessage: "{ Purchase could not be processed at this time."});
       }
-      res.status(httpCodes.SUCCESS).json({responseMessage: "Purchase was successfully created."});
+      res
+        .status(httpCodes.SUCCESS)
+        .json({responseMessage: "Purchase was successfully created."});
     });
   });
 });

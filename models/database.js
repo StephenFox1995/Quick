@@ -48,6 +48,14 @@ database.getUser = function (id, callback) {
 };
 
 
+database.getAllBusinessProducts = function (businessID, callback) {
+  this.getConnection(function (dv) {
+    const sqlQuery = productSQL.getAllBusinessProducts;
+    db.all(sqlQuery, [businessID], callback);
+  });
+};
+
+
 /**
  * Inserts a Business into the database.
  * @param business The business to add to the database.
@@ -71,7 +79,7 @@ database.insertBusiness = function (business, callback) {
 
 /**
  * Insert an Order into the database.
- * @param order The order to add to the database.
+ * @param product The order to add to the database.
  * @param callback Callback function.
  * */
 database.insertProduct = function (product, callback) {

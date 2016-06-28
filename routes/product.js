@@ -14,7 +14,8 @@ router.post('/', function (req, res) {
   // Parse post request.
   product.parsePOST(req, function (err) {
     if (err) {
-      return res.status(httpCodes.UNPROCESSABLE_ENTITY)
+      return res
+        .status(httpCodes.UNPROCESSABLE_ENTITY)
         .json({responseMessage: "Could not parse Product JSON."});
     }
 
@@ -29,7 +30,9 @@ router.post('/', function (req, res) {
           .status(httpCodes.INTERNAL_SERVER_ERROR)
           .json({responseMessage: "Product could not be added to the database."});
       }
-      res.status(httpCodes.SUCCESS).json({responseMessage: "Product was successfully created."});
+      res
+        .status(httpCodes.SUCCESS)
+        .json({responseMessage: "Product was successfully created."});
     });
   });
 });

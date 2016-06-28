@@ -16,4 +16,3 @@ business.create = 'CREATE TABLE Business(                 \
 business.insert = 'INSERT INTO Business(id, name, address, contact_number, email, password) ' +
   'VALUES(?, ?, ?, ?, ?, ?);';
 
-

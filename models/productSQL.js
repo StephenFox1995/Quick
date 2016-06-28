@@ -1,9 +1,9 @@
 'use strict';
 
-var orders = exports;
+var product = exports;
 
 // Create statement for Orders table
-orders.create = 'CREATE TABLE Product(                     \
+product.create = 'CREATE TABLE Product(                     \
                   id                  STRING PRIMARY KEY, \
                   business_id         STRING,             \
                   name                STRING,             \
@@ -12,8 +12,9 @@ orders.create = 'CREATE TABLE Product(                     \
                   FOREIGN KEY(business_id) REFERENCES business(id))';
 
 
-orders.insert = 'INSERT INTO Product(id, name, price, description, business_id)' +
+product.insert = 'INSERT INTO Product(id, name, price, description, business_id)' +
 'VALUES(?, ?, ?, ?, ?)';
 
 
+product.getAllBusinessProducts = 'SELECT * FROM Product WHERE business_id = ?';
 

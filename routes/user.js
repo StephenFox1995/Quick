@@ -19,7 +19,7 @@ router.get('/all', function (req, res) {
   db.getAllUsers(function (err, rows) {
     if (err) {
       return res
-        .sendStatus(httpCodes.INTERNAL_SERVER_ERROR)
+        .status(httpCodes.INTERNAL_SERVER_ERROR)
         .json({responseMessage: "An error occurred."});
     }
     res.status(httpCodes.SUCCESS).json(rows);
@@ -27,13 +27,16 @@ router.get('/all', function (req, res) {
 });
 
 
+/**
+ * URL: /user/id/someID
+ **/
 router.get('/id/:id', function (req, res) {
   var id = req.params.id;
   var user = new User();
   db.getUser(id, function(err, row) {
     if (err) {
       return res
-        .sendStatus(httpCodes.INTERNAL_SERVER_ERROR)
+        .status(httpCodes.INTERNAL_SERVER_ERROR)
         .json({responseMessage: "An error occurred."});
     }
     //TODO: if no row maybe return an error?
@@ -50,7 +53,7 @@ router.post('/', function (req, res) {
   var user = new User();
   user.parsePOST(req, function (err) {
     if (err) {
-      return res.sendStatus(httpCodes.UNPROCESSABLE_ENTITY);
+      return res.status(httpCodes.UNPROCESSABLE_ENTITY);
     }
 
     // Now hash password and store user in db.
