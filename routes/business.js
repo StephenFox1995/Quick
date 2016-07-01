@@ -12,6 +12,22 @@ const express = require('express');
 
 var router = express.Router();
 
+
+/**
+ * /business/all
+ * Returns all users in the database.
+ * */
+router.get('/all', function (req, res) {
+  db.getAllBusiness(function (err, rows) {
+    if (err) {
+      return res
+        .status(httpCodes.INTERNAL_SERVER_ERROR)
+        .json({responseMessage: "An error occurred"});
+    }
+    res.status(httpCodes.SUCCESS).json(rows);
+  });
+});
+
 /**
  * GET all products associated with a business.
  * URL: /business/someRandomID/products

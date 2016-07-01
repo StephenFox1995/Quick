@@ -16,5 +16,7 @@ product.insert = 'INSERT INTO Product(id, name, price, description, business_id)
 'VALUES(?, ?, ?, ?, ?)';
 
 
+product.getProduct = 'SELECT * FROM Product WHERE id = ?';
+
 product.getAllBusinessProducts = 'SELECT * FROM Product WHERE business_id = ?';
 

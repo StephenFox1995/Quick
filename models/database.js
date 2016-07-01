@@ -40,6 +40,13 @@ database.getAllUsers = function (callback) {
   });
 };
 
+database.getAllBusiness = function (callback) {
+  this.getConnection(function (db) {
+    const sqlQuery = businessSQL.all;
+    db.all(sqlQuery, callback);
+  });
+};
+
 database.getUser = function (id, callback) {
   this.getConnection(function (db) {
     const sqlQuery = userSQL.getUser;
@@ -48,8 +55,16 @@ database.getUser = function (id, callback) {
 };
 
 
+database.getProduct = function (id, callback) {
+  this.getConnection(function (db) {
+    const sqlQuery = productSQL.getProduct;
+    db.get(sqlQuery, [id], callback);
+  })
+};
+
+
 database.getAllBusinessProducts = function (businessID, callback) {
-  this.getConnection(function (dv) {
+  this.getConnection(function (db) {
     const sqlQuery = productSQL.getAllBusinessProducts;
     db.all(sqlQuery, [businessID], callback);
   });

@@ -15,7 +15,6 @@ const router = express.Router();
  * Returns all users in the database.
  **/
 router.get('/all', function (req, res) {
-  var user = new User();
   db.getAllUsers(function (err, rows) {
     if (err) {
       return res

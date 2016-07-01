@@ -4,10 +4,23 @@ const Product = require('../libs/Product');
 const httpCodes = require('../libs/httpCodes');
 const util = require('../libs/util');
 const express = require('express');
+const db = require('../models/database');
 
 
 var router = express.Router();
 
+router.get('/:id', function (req, res) {
+  const id = req.params.id;
+  db.getProduct(id, function (err, row) {
+    if (err) {
+      return res
+        .status(httpCodes.INTERNAL_SERVER_ERROR)
+        .json({responseMessage: "Internal server error."});
+    } else {
+      return res.status(httpCodes.SUCCESS).json(row);
+    }
+  });
+});
 
 router.post('/', function (req, res) {
   var product = new Product();
