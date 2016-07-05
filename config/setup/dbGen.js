@@ -3,6 +3,9 @@ const fs = require('fs');
 const util = require('../../libs/util');
 const userSQL = require('../../models/userSQL');
 const businessSQL = require('../../models/businessSQL');
+const productSQL = require('../../models/productSQL');
+const purchaseSQL = require('../../models/purchaseSQL');
+
 const argv = require('minimist')(process.argv.slice(2));
 
 
@@ -54,6 +57,12 @@ function createSQLiteDatabase(location) {
 
     // Create Business table.
     db.run(businessSQL.create);
+
+    // Create Prodcut table
+    db.run(productSQL.create);
+
+    // Create Purchase table
+    db.run(purchaseSQL.create);
   });
 }
 
