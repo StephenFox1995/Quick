@@ -5,7 +5,7 @@ var purchase = exports;
 // Create statement for purchases.
 purchase.create = 'CREATE TABLE Purchase(     \
                     id STRING   PRIMARY KEY,  \
-                    product_id   STRING       \
+                    product_id   STRING,       \
                     business_id  STRING,      \
                     user_id      STRING,      \
                     FOREIGN KEY(product_id)  REFERENCES Product(id), \

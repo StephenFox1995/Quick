@@ -8,6 +8,9 @@ const express = require('express');
 
 var router = express.Router();
 
+/**
+ * /purchase
+ * */
 router.post('/', function (req, res) {
   var purchase = new Purchase();
 
@@ -18,7 +21,7 @@ router.post('/', function (req, res) {
         .json({responseMessage: "Could not parse Purchase JSON."})
     }
 
-    // Generate ID for pruchase.
+    // Generate ID for purchase.
     purchase.id = util.generateID();
 
     purchase.insert(function (err) {

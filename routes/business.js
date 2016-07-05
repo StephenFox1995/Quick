@@ -15,7 +15,7 @@ var router = express.Router();
 
 /**
  * /business/all
- * Returns all users in the database.
+ * Returns all businesses in the database.
  * */
 router.get('/all', function (req, res) {
   db.getAllBusiness(function (err, rows) {
