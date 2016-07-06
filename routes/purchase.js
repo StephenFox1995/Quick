@@ -33,7 +33,10 @@ router.post('/', function (req, res) {
       }
       res
         .status(httpCodes.SUCCESS)
-        .json({responseMessage: "Purchase was successfully created."});
+        .json({
+          responseMessage: "Purchase was successfully created.",
+          purchaseID: purchase.id
+        });
     });
   });
 });

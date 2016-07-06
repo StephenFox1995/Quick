@@ -114,7 +114,6 @@ database.insertProduct = function (product, callback) {
 database.insertPurchase = function (purchase, callback) {
   this.getConnection(function (db) {
     const insertQuery = purchaseSQL.insert;
-    console.log(purchase);
     db.run(insertQuery,
           [purchase.id,
             purchase.productID,
