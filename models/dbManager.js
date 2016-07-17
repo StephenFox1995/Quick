@@ -8,13 +8,6 @@
 
 
 const sqlite3DB = require('./sqlite3DB');
-const globals = require('../libs/globals');
-const userSQL = require('./userSQL');
-const businessSQL = require('./businessSQL');
-const productSQL = require('./productSQL');
-const purchaseSQL = require('./purchaseSQL');
-const database = exports;
-
 const dbManager = exports;
 
 // TODO: Provide better error callbacks to caller.
