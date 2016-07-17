@@ -22,6 +22,9 @@ router.get('/:id', function (req, res) {
   });
 });
 
+
+
+
 router.post('/', function (req, res) {
   var product = new Product();
   // Parse post request.
