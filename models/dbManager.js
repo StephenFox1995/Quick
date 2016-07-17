@@ -7,7 +7,7 @@
  * */
 
 
-const sqlite3DB = require('./sqlite3DB');
+const sqlite3DB = require('./sqlite3/sqlite3DB');
 const dbManager = exports;
 
 // TODO: Provide better error callbacks to caller.

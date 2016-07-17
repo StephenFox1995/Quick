@@ -1,7 +1,7 @@
 'use strict';
 
 const sqlite3 = require('sqlite3').verbose();
-const globals = require('../libs/globals');
+const globals = require('../../libs/globals');
 const userSQL = require('./userSQL');
 const businessSQL = require('./businessSQL');
 const productSQL = require('./productSQL');

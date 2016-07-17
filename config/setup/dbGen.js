@@ -1,10 +1,10 @@
 'use strict';
 const fs = require('fs');
 const util = require('../../libs/util');
-const userSQL = require('../../models/userSQL');
-const businessSQL = require('../../models/businessSQL');
-const productSQL = require('../../models/productSQL');
-const purchaseSQL = require('../../models/purchaseSQL');
+const userSQL = require('../../models/sqlite3/userSQL');
+const businessSQL = require('../../models/sqlite3/businessSQL');
+const productSQL = require('../../models/sqlite3/productSQL');
+const purchaseSQL = require('../../models/sqlite3/purchaseSQL');
 
 const argv = require('minimist')(process.argv.slice(2));
 
