@@ -1,15 +1,14 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-var routes = require('./routes/index');
-var user = require('./routes/user');
-var business = require('./routes/business');
-var product = require('./routes/product');
-var purchase = require('./routes/purchase');
+var express = require('express'),
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    routes = require('./routes/index'),
+    user = require('./routes/user'),
+    business = require('./routes/business'),
+    product = require('./routes/product'),
+    purchase = require('./routes/purchase');
 
 
 var app = express();

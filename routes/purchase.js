@@ -1,8 +1,8 @@
 'use strict';
 
-const Purchase = require('../libs/Purchase');
-const httpCodes = require('../libs/httpCodes');
-const util = require('../libs/util');
+var Purchase = require('../libs/Purchase'),
+    httpCodes = require('../libs/httpCodes'),
+    util = require('../libs/util');
 
 const express = require('express');
 

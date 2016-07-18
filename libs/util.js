@@ -1,7 +1,7 @@
 'use strict';
 
-const shortid = require('shortid');
-const util = exports;
+var shortid = require('shortid'),
+    util = exports;
 
 util.isValidString = function (string) {
   switch (string) {

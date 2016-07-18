@@ -1,11 +1,11 @@
 'use strict';
 
-const Business = require('../libs/Business');
-const httpCodes = require('../libs/httpCodes');
-const hash = require('../libs/hash');
-const util = require('../libs/util');
-const db = require('../models/database');
-const express = require('express');
+var Business = require('../libs/Business'),
+    httpCodes = require('../libs/httpCodes'),
+    hash = require('../libs/hash'),
+    util = require('../libs/util'),
+    db = require('../models/database'),
+    express = require('express');
 
 
 

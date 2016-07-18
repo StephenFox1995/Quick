@@ -1,11 +1,11 @@
 'use strict';
 
-const express = require('express');
-const httpCodes = require('../libs/httpCodes');
-const hash = require('../libs/hash');
-const util = require('../libs/util');
-const User = require('../libs/User');
-const db = require('../models/database');
+var express = require('express'),
+    httpCodes = require('../libs/httpCodes'),
+    hash = require('../libs/hash'),
+    util = require('../libs/util'),
+    User = require('../libs/User'),
+    db = require('../models/database');
 
 const router = express.Router();
 
