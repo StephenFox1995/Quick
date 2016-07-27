@@ -46,6 +46,7 @@ router.get('/id/:id', function (req, res) {
 
 /**
  * Adds a new user to the database.
+ * /user/
  * TODO: Make sure user doesn't already exist in database.
  **/
 router.post('/', function (req, res) {

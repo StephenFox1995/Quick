@@ -5,7 +5,8 @@ var sqlite3 = require('sqlite3').verbose(),
     userSQL = require('./userSQL'),
     businessSQL = require('./businessSQL'),
     productSQL = require('./productSQL'),
-    purchaseSQL = require('./purchaseSQL');
+    purchaseSQL = require('./purchaseSQL'),
+    oauthSQL = require('./oauthSQL');
 
 const database = exports;
 
@@ -47,10 +48,10 @@ database.getAllUsers = function (callback) {
   });
 };
 
-database.getUser = function (id, callback) {
+database.getUser = function (email, password, callback) {
   this.getConnection(function (db) {
-    const sqlQuery = userSQL.getUser;
-    db.get(sqlQuery, [id], callback);
+    const sqlQuery = oauthSQL.getUser;
+    db.get(sqlQuery, [email, password], callback);
   });
 };
 
@@ -137,6 +138,38 @@ database.insertPurchase = function (purchase, callback) {
         purchase.businessID,
         purchase.userID],
       callback);
+  });
+};
+
+
+/***********************
+ *  OAUTH
+ ***********************/
+database.getAccessToken = function (bearerToken, callback) {
+  this.getConnection(function (db) {
+    const query = oauthSQL.getAccessToken;
+    db.run(query, [bearerToken], callback);
+  });
+};
+
+database.saveAccessToken = function(token, client, user, callback) {
+  this.getConnection(function (db) {
+    const insertQuery = oauthSQL.saveAccessToken;
+    db.run(insertQuery,
+      [token.accessToken,
+       token.accessTokenExpiresOn,
+       client.id,
+       token.refreshToken,
+       token.refreshTokenExpiresOn,
+       user.id],
+      callback);
+  });
+};
+
+database.getClient = function (clientID, clientSecret, callback) {
+  this.getConnection(function (db) {
+    const query = oauthSQL.getClient;
+    db.run(query, [clientID, clientSecret], callback);
   });
 };
 

@@ -8,7 +8,8 @@ var express = require('express'),
     user = require('./routes/user'),
     business = require('./routes/business'),
     product = require('./routes/product'),
-    purchase = require('./routes/purchase');
+    purchase = require('./routes/purchase'),
+    oauthserver = require('oauth2-server');
 
 
 var app = express();
@@ -33,6 +34,8 @@ app.use('/user', user);
 app.use('/business', business);
 app.use('/product', product);
 app.use('/purchase', purchase);
+
+
 
 
 

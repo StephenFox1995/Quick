@@ -13,15 +13,17 @@ database.insertUser = function (user, callback) {
   dbManager.insertUser(user, callback);
 };
 
-database.getUser = function (userID, callback) {
-  dbManager.getUser(userID, callback);
+database.getUser = function (email, password, callback) {
+  dbManager.getUser(email, password, callback);
 };
 
 database.getAllUsers = function (callback) {
   dbManager.getAllUsers(callback);
 };
 
-
+database.getClient = function (clientID, clientSecret, callback) {
+  dbManager.getClient(clientID, clientSecret, callback);
+};
 
 /**
  * Insert an Product into the database.
@@ -62,3 +64,11 @@ database.insertPurchase = function (purchase, callback) {
   dbManager.insertPurchase(purchase, callback);
 };
 
+
+database.insertAccessToken = function (token, client, user, callback) {
+  dbManager.saveAccessToken(token, client, user, callback);
+};
+
+database.getAccessToken = function (bearerToken, callback) {
+  dbManager.getAccessToken(bearerToken, callback);
+};

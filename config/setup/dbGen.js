@@ -1,10 +1,11 @@
 'use strict';
-const fs = require('fs');
-const util = require('../../libs/util');
-const userSQL = require('../../models/sqlite3/userSQL');
-const businessSQL = require('../../models/sqlite3/businessSQL');
-const productSQL = require('../../models/sqlite3/productSQL');
-const purchaseSQL = require('../../models/sqlite3/purchaseSQL');
+var fs = require('fs'),
+    util = require('../../libs/util'),
+    userSQL = require('../../models/sqlite3/userSQL'),
+    businessSQL = require('../../models/sqlite3/businessSQL'),
+    productSQL = require('../../models/sqlite3/productSQL'),
+    purchaseSQL = require('../../models/sqlite3/purchaseSQL'),
+    oauthSQL = require('../../models/sqlite3/oauthSQL');
 
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -54,15 +55,12 @@ function createSQLiteDatabase(location) {
   db.serialize(function () {
     // Create User table.
     db.run(userSQL.create);
-
-    // Create Business table.
     db.run(businessSQL.create);
-
-    // Create Prodcut table
     db.run(productSQL.create);
-
-    // Create Purchase table
     db.run(purchaseSQL.create);
+    // Oauth.
+    db.run(oauthSQL.createOauthTokens);
+    db.run(oauthSQL.createOauthClients);
   });
 }
 
