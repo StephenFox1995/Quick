@@ -142,37 +142,6 @@ database.insertPurchase = function (purchase, callback) {
 };
 
 
-/***********************
- *  OAUTH
- ***********************/
-database.getAccessToken = function (bearerToken, callback) {
-  this.getConnection(function (db) {
-    const query = oauthSQL.getAccessToken;
-    db.run(query, [bearerToken], callback);
-  });
-};
-
-database.saveAccessToken = function(token, client, user, callback) {
-  this.getConnection(function (db) {
-    const insertQuery = oauthSQL.saveAccessToken;
-    db.run(insertQuery,
-      [token.accessToken,
-       token.accessTokenExpiresOn,
-       client.id,
-       token.refreshToken,
-       token.refreshTokenExpiresOn,
-       user.id],
-      callback);
-  });
-};
-
-database.getClient = function (clientID, clientSecret, callback) {
-  this.getConnection(function (db) {
-    const query = oauthSQL.getClient;
-    db.run(query, [clientID, clientSecret], callback);
-  });
-};
-
 
 /*
  * Get a connection to the database file stored on disk.

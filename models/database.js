@@ -63,12 +63,3 @@ database.getAllBusiness = function (callback) {
 database.insertPurchase = function (purchase, callback) {
   dbManager.insertPurchase(purchase, callback);
 };
-
-
-database.insertAccessToken = function (token, client, user, callback) {
-  dbManager.saveAccessToken(token, client, user, callback);
-};
-
-database.getAccessToken = function (bearerToken, callback) {
-  dbManager.getAccessToken(bearerToken, callback);
-};

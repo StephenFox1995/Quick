@@ -53,21 +53,7 @@ dbManager.insertPurchase = function (purchase, callback) {
   sqlite3DB.insertPurchase(purchase, callback);
 };
 
-dbManager.getUser = function (email, password, callback) {
-  sqlite3DB.getUser(email, password, callback);
-};
 
-dbManager.getAccessToken = function (bearerToken, callback) {
-  sqlite3DB.getAccessToken(bearerToken, callback);
-};
-
-dbManager.saveAccessToken = function (token, client, user, callback) {
-  sqlite3DB.saveAccessToken(token, client, user, callback);
-};
-
-dbManager.getClient = function (clientID, clientSecret, callback) {
-  sqlite3DB.getClient(clientID, clientSecret, callback);
-};
 
 
 

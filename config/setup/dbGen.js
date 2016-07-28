@@ -4,8 +4,7 @@ var fs = require('fs'),
     userSQL = require('../../models/sqlite3/userSQL'),
     businessSQL = require('../../models/sqlite3/businessSQL'),
     productSQL = require('../../models/sqlite3/productSQL'),
-    purchaseSQL = require('../../models/sqlite3/purchaseSQL'),
-    oauthSQL = require('../../models/sqlite3/oauthSQL');
+    purchaseSQL = require('../../models/sqlite3/purchaseSQL');
 
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -58,9 +57,6 @@ function createSQLiteDatabase(location) {
     db.run(businessSQL.create);
     db.run(productSQL.create);
     db.run(purchaseSQL.create);
-    // Oauth.
-    db.run(oauthSQL.createOauthTokens);
-    db.run(oauthSQL.createOauthClients);
   });
 }
 
