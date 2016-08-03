@@ -46,7 +46,8 @@ router.get('/:businessID/products', function(req, res) {
         .status(httpCodes.INTERNAL_SERVER_ERROR)
         .json({responseMessage:"An error occurred."});
     }
-    res.status(httpCodes.SUCCESS).json(rows);
+    res.status(httpCodes.SUCCESS).json({products: rows});
+
   });
 });
 
