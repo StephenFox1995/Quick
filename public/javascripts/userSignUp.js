@@ -1,10 +1,10 @@
 var app = angular.module('signUp', []);
 
 app.controller('signUpController', function ($scope, $http) {
-  $scope.createAccountData = {};
+  $scope.userData = {};
 
   $scope.createAccount = function () {
-    $http.post('/user', $scope.createAccountData)
+    $http.post('/user', $scope.userData)
       .success(function (data) {
         $scope.message = "Success!";
       })

@@ -1,0 +1,31 @@
+<html ng-app="businessSignUp">
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+    <script src="javascripts/businessSignUp.js"></script>
+    <title>
+        Index Page
+    </title>
+</head>
+
+<body>
+
+<div ng-controller="businessSignUpController">
+    <h1>Register as business!</h1>
+    <p>Name</p>
+    <input type="text" ng-model="businessData.name">
+    <p>Address</p>
+    <input type="text" ng-model="businessData.address">
+    <p>Contact Number</p>
+    <input type="text" ng-model="businessData.contactNumber">
+    <p>Email</p>
+    <input type="text" ng-model="businessData.email">
+    <p>Password</p>
+    <input type="text" ng-model="businessData.password">
+
+    <button type="submit" ng-click="registerBusiness()">Register!</button >
+    {{message}}
+</div>
+
+</body>
+</html>
+
