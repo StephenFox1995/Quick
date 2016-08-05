@@ -8,14 +8,15 @@ var express = require('express'),
     user = require('./routes/user'),
     business = require('./routes/business'),
     product = require('./routes/product'),
-    purchase = require('./routes/purchase');
+    purchase = require('./routes/purchase'),
+    views = require('./routes/views');
 
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -33,6 +34,7 @@ app.use('/user', user);
 app.use('/business', business);
 app.use('/product', product);
 app.use('/purchase', purchase);
+app.use('/views', views);
 
 
 

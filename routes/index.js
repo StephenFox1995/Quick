@@ -4,8 +4,11 @@ var router = express.Router();
 
 
 router.get('/', function (req, res) {
-  return res.sendFile('../public/index.html');
+  return res.render('index');
 });
+
+
+
 
 
 module.exports = router;

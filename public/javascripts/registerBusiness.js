@@ -1,6 +1,6 @@
-var app = angular.module('businessSignUp', []);
+var app = angular.module('registerBusiness', []);
 
-app.controller('businessSignUpController', function ($scope, $http) {
+app.controller('registerBusinessController', function ($scope, $http) {
   $scope.businessData = {};
 
   $scope.registerBusiness = function () {
