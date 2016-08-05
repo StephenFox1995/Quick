@@ -7,9 +7,11 @@ router.get('/registerBusiness', function (req, res) {
   return res.render('registerBusiness');
 });
 
-router.get('/signIn', function (req, res) {
-  return res.render('signIn');
+router.get('/business', function (req, res) {
+  return res.render('business')
 });
+
+
 
 
 

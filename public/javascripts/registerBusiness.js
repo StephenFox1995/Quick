@@ -7,6 +7,7 @@ app.controller('registerBusinessController', function ($scope, $http) {
     $http.post('/business', $scope.businessData)
       .success(function (data) {
         $scope.message = "Success!";
+        window.location.href = 'http://localhost:3000/views/business';
       })
       .error(function (data) {
         $scope.message = "Account creation error.";

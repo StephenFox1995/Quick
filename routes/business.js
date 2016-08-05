@@ -72,6 +72,7 @@ router.post('/', function (req, res) {
 
     bs.insert(function (err) {
       if (err) {
+        return res.render('business');
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
           .json({responseMessage: "Business could not be added to the database."});

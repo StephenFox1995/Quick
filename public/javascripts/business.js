@@ -8,6 +8,5 @@ app.controller('productsController', function ($scope, $http) {
       $scope.products = data.products;
     })
     .error(function (data) {
-
   })
 });
