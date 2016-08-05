@@ -11,6 +11,10 @@ router.get('/business', function (req, res) {
   return res.render('business')
 });
 
+router.get('/addProduct', function (req, res) {
+  return res.render('addProduct')
+});
+
 
 
 
