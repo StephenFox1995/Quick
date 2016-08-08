@@ -1,0 +1,25 @@
+<html ng-app="authenticate">
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+    <script src="../javascripts/authenticate.js"></script>
+    <title>
+        Quick - Login
+    </title>
+</head>
+
+<body>
+
+<div>
+    <div ng-controller="signInController">
+        <h1>Please Sign In!</h1>
+        <p>Email</p>
+        <input type="text" ng-model="signInData.user.email">
+        <p>Password</p>
+        <input type="password" ng-model="signInData.user.password">
+        <button type="submit" ng-click="authenticate()">Sign In</button>
+        {{message}}
+    </div>
+</div>
+
+</body>
+</html>

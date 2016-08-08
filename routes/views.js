@@ -15,6 +15,10 @@ router.get('/addProduct', function (req, res) {
   return res.render('addProduct')
 });
 
+router.get('/auth', function (req, res) {
+  return res.render('auth');
+});
+
 
 
 module.exports = router;
