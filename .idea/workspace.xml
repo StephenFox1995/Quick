@@ -2,18 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1bb08830-0ccf-4f57-ab80-aadcce61b101" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/setup/dbGen.js" afterPath="$PROJECT_DIR$/config/setup/dbGen.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libs/httpCodes.js" afterPath="$PROJECT_DIR$/libs/httpCodes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libs/util.js" afterPath="$PROJECT_DIR$/libs/util.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/database.js" afterPath="$PROJECT_DIR$/models/database.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/dbManager.js" afterPath="$PROJECT_DIR$/models/dbManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/sqlite3/oauthSQL.js" afterPath="$PROJECT_DIR$/models/sqlite3/oauthSQL.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/sqlite3/sqlite3DB.js" afterPath="$PROJECT_DIR$/models/sqlite3/sqlite3DB.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/sqlite3/userSQL.js" afterPath="$PROJECT_DIR$/models/sqlite3/userSQL.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/authenticate.js" afterPath="$PROJECT_DIR$/routes/authenticate.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/user.js" afterPath="$PROJECT_DIR$/routes/user.js" />
     </list>
     <ignored path="Quick.iws" />
@@ -50,8 +38,8 @@
       <file leaf-file-name="user.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/user.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+            <state relative-caret-position="413">
+              <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -474,12 +462,12 @@
       <workItem from="1470257449367" duration="7548000" />
       <workItem from="1470345157039" duration="18870000" />
       <workItem from="1470654962742" duration="6576000" />
-      <workItem from="1470666728418" duration="17232000" />
+      <workItem from="1470666728418" duration="17381000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="146757000" />
+    <option name="totallyTimeSpent" value="146906000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1998" y="-257" width="1188" height="1056" extended-state="0" />
@@ -871,8 +859,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/user.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+        <state relative-caret-position="413">
+          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
           <folding />
         </state>
       </provider>

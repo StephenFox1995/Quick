@@ -35,13 +35,14 @@ router.get('/id/:id', auth.validToken, function (req, res) {
   var id = req.params.id;
 
   db.getUserInfo(id, function(err, row) {
-    if (err) {
+    if (err || !row) {
       return res
         .status(httpCodes.INTERNAL_SERVER_ERROR)
         .json({responseMessage: "An error occurred."});
     }
-    //TODO: if no row maybe return an error?
-    return res.status(httpCodes.SUCCESS).json(row);
+    if (row) {
+      return res.status(httpCodes.SUCCESS).json(row);
+    }
   });
 });
 
