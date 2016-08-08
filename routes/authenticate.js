@@ -39,6 +39,8 @@ router.post('/', function (req, res) {
   user.password = password;
 
   user.verify(function (err, verified) {
+    user.email = null;
+    user.password = null;
     if (err) {
       return res.status(httpCodes.INTERNAL_SERVER_ERROR).json({responseMessage: "A server error occurred"});
     }
