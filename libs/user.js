@@ -1,7 +1,8 @@
 'use strict';
 
 var util = require('./util'),
-    db = require('../models/database');
+    db = require('../models/database'),
+    hash = require('../libs/hash');
 
 
 function User() { }
@@ -34,6 +35,37 @@ User.prototype.parsePOST = function(req, callback) {
  **/
 User.prototype.insert = function (callback) {
   db.insertUser(this, callback);
+};
+
+
+/**
+ * Verifies that the user exists and their password is correct.
+ * */
+User.prototype.verify = function (callback) {
+  var email = this.email;
+  var password = this.password;
+
+  // Check the user actually exists in the database.
+  // TODO: Handle when a user's email address doesn't
+  // exist in the database.
+  db.getUser(email, function (err, userInfo) {
+    if (err) {
+      callback(err);
+    }
+
+    // Compare hashed password with normal password.
+    if (hash.compare(password, userInfo.password, function (err, verified) {
+        if (err) {
+          callback(err);
+        } else {
+          if (verified) {
+            callback(null, true);
+          } else {
+            callback(null, false);
+          }
+        }
+      }));
+  });
 };
 
 

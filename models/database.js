@@ -13,8 +13,8 @@ database.insertUser = function (user, callback) {
   dbManager.insertUser(user, callback);
 };
 
-database.getUser = function (email, password, callback) {
-  dbManager.getUser(email, password, callback);
+database.getUser = function (email, callback) {
+  dbManager.getUser(email, callback);
 };
 
 database.getAllUsers = function (callback) {

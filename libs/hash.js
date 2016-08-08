@@ -13,4 +13,17 @@ hash.hashPassword = function(password) {
 };
 
 
+hash.compare = function (password, hashedPassword, callback) {
+  bcrypt.compare(password, hashedPassword, function (err, res) {
+    if (err) {
+      callback(err);
+    }
+    if (res == true) {
+      callback(null, true);
+    } else {
+      callback(null, false);
+    }
+  });
+};
+
 module.exports = hash;

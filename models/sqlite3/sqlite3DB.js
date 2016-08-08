@@ -48,10 +48,10 @@ database.getAllUsers = function (callback) {
   });
 };
 
-database.getUser = function (email, password, callback) {
+database.getUser = function (email, callback) {
   this.getConnection(function (db) {
     const sqlQuery = oauthSQL.getUser;
-    db.get(sqlQuery, [email, password], callback);
+    db.get(sqlQuery, [email], callback);
   });
 };
 

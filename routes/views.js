@@ -17,7 +17,4 @@ router.get('/addProduct', function (req, res) {
 
 
 
-
-
-
 module.exports = router;
