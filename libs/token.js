@@ -4,11 +4,11 @@ var httpCodes = require('./httpCodes'),
     jwt       = require('jsonwebtoken'),
     ms    = require('ms');
 
-var auth = exports;
+var token = exports;
 
 const secret = 'SOME_SECRET';
 
-auth.parseAuthHeader = function (req) {
+token.parseAuthHeader = function (req) {
   var bearerToken = null;
   var bearerHeader = req.headers['authorization'];
   if (typeof bearerHeader !== 'undefined') {
@@ -25,10 +25,10 @@ auth.parseAuthHeader = function (req) {
 /**
  * Validates a JWT token.
  * If the token is valid next() will ve called;
- * If the token is not valid a reponse will be sent.
+ * If the token is not valid a response will be sent.
  * */
-auth.validToken = function (req, res, next) {
-  if (auth.parseAuthHeader(req)) {
+token.validToken = function (req, res, next) {
+  if (token.parseAuthHeader(req)) {
     jwt.verify(req.token, secret, function (err, decoded) {
       console.log(Math.floor(Date.now() / 1000));
       if (err) {
@@ -54,7 +54,7 @@ auth.validToken = function (req, res, next) {
  * @returns {string} token.value      - The token generated.
  * @returns {string} token.expiresIn  - The expiration time of the token.
  * */
-auth.generateToken = function (object) {
+token.generateToken = function (object) {
   // Generate expiration time for token.
   var expires = ms('1m');
   var token = jwt.sign(object, secret, { expiresIn: expires });
@@ -66,7 +66,7 @@ auth.generateToken = function (object) {
 
 
 
-auth.verifyToken = function (token, callback) {
+token.verifyToken = function (token, callback) {
   jwt.verify(token, secret, function (err, decoded) {
     if (err) {return callback(err);}
 

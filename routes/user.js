@@ -6,35 +6,20 @@ var express   = require('express'),
     util      = require('../libs/util'),
     User      = require('../libs/User'),
     db        = require('../models/database'),
-    auth      = require('../libs/auth');
+    token      = require('../libs/token');
 
 
 const router = express.Router();
 
 
 /**
- * /user/all
- * Returns all users in the database.
+ * EndPoint: /user/info
  **/
-router.get('/all', function (req, res) {
-  db.getAllUsers(function (err, rows) {
-    if (err) {
-      return res
-        .status(httpCodes.INTERNAL_SERVER_ERROR)
-        .json({responseMessage: "An error occurred."});
-    }
-    res.status(httpCodes.SUCCESS).json(rows);
-  });
-});
+router.get('/info', token.validToken, function (req, res) {
+  var token = req.decoded;
 
-
-/**
- * URL: /user/id/someID
- **/
-router.get('/id/:id', auth.validToken, function (req, res) {
-  var id = req.params.id;
-
-  db.getUserInfo(id, function(err, row) {
+  console.log(token);
+  db.getUserInfo(token.id, function(err, row) {
     if (err || !row) {
       return res
         .status(httpCodes.INTERNAL_SERVER_ERROR)
@@ -83,15 +68,15 @@ router.post('/', function (req, res) {
       delete user.password;
 
       // Generate token.
-      var token = auth.generateToken(user);
+      var t = token.generateToken(user);
 
       return res
         .status(httpCodes.SUCCESS)
         .json({
           responseMessage: "User was successfully created.",
           type: true,
-          token: token.value,
-          expires: token.expiresIn
+          token: t.value,
+          expires: t.expiresIn
         });
     });
   })
