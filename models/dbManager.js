@@ -29,6 +29,10 @@ dbManager.getUser = function (email, callback) {
   sqlite3DB.getUser(email, callback);
 };
 
+dbManager.getUserInfo = function (id, callback) {
+  sqlite3DB.getUserInfo(id, callback);
+};
+
 dbManager.insertBusiness = function (business, callback) {
   sqlite3DB.insertBusiness(business, callback);
 };

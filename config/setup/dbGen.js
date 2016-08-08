@@ -8,12 +8,11 @@ var fs = require('fs'),
 
 const argv = require('minimist')(process.argv.slice(2));
 
+// Usage: node config/setup/dbGen.js -f "/Users/stephenfox/Desktop/quick_jwt.db"
 
-// Get the file path for the database pass in via command line.
-var filepath = argv.f;
 
-(function setupdb() {
-  if (util.isValidString(filepath)) {
+(function setupdb(filepath) {
+  if (!util.isValidString(filepath)) {
     console.log('No file path specified.');
     return;
   }
@@ -44,13 +43,13 @@ var filepath = argv.f;
       console.log('Success created database file.');
     });
   }
-})();
+})(argv.f);
 
 
 
 function createSQLiteDatabase(location) {
   var sqlite3 = require('sqlite3').verbose();
-  var db = new sqlite3.Database(filepath);
+  var db = new sqlite3.Database(location);
   db.serialize(function () {
     // Create User table.
     db.run(userSQL.create);

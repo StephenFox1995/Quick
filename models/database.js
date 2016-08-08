@@ -17,6 +17,10 @@ database.getUser = function (email, callback) {
   dbManager.getUser(email, callback);
 };
 
+database.getUserInfo = function (id, callback) {
+  dbManager.getUserInfo(id, callback);
+};
+
 database.getAllUsers = function (callback) {
   dbManager.getAllUsers(callback);
 };

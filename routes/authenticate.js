@@ -12,11 +12,12 @@ var router = express.Router();
 /**
  * To sign in we must execute the code flow.
  * 1. Parse and verify the POST request.
- * 2. Check the user's email exists in the database.
- * 3. If the user's email exists, get the password.
- * 4. Compare the password sent in the POST request
+ * 2. Check that there is a valid JWT token included in the request.
+ * 3. Check the user's email exists in the database.
+ * 4. If the user's email exists, get the password.
+ * 5. Compare the password sent in the POST request
  *    with the hashed password from the database.
- * 5. Send response based on the comparison of these passwords.
+ * 6. Send response based on the comparison of these passwords.
  *
  *  The post request should include the user as follows.
  *

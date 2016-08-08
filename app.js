@@ -9,7 +9,7 @@ var express = require('express'),
     business = require('./routes/business'),
     product = require('./routes/product'),
     purchase = require('./routes/purchase'),
-    signIn = require('./routes/signIn');
+    authenticate = require('./routes/authenticate');
     views = require('./routes/views');
 
 
@@ -36,7 +36,7 @@ app.use('/business', business);
 app.use('/product', product);
 app.use('/purchase', purchase);
 app.use('/views', views);
-app.use('/signIn', signIn);
+app.use('/signIn', authenticate);
 
 
 // catch 404 and forward to error handler
