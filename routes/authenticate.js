@@ -10,7 +10,7 @@ var router = express.Router();
 
 
 /**
- * To sign in we must execute the code flow.
+ * To authenticate we must execute the code flow.
  * 1. Parse and verify the POST request.
  * 2. Check the user's email exists in the database.
  * 3. If the user's email exists, get the password.

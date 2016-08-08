@@ -8,6 +8,7 @@ user.create = 'CREATE TABLE User(         \
           lastname    STRING,             \
           email       STRING,             \
           password    STRING              \
+          token       STRING              \
         )';
 
 // Insert statement for User table.
