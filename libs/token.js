@@ -32,8 +32,7 @@ token.validToken = function (req, res, next) {
     jwt.verify(req.token, secret, function (err, decoded) {
       console.log(Math.floor(Date.now() / 1000));
       if (err) {
-        console.log(err);
-        return res.json({ success:false, responseMessage: "Failed to authenticate token" });
+        return res.json({ success:false, responseMessage: "Failed to authenticate token. Reason: " + err.message });
       }
       req.decoded = decoded;
       next();
@@ -62,19 +61,4 @@ token.generateToken = function (object) {
     value: token,
     expiresIn: expires
   };
-};
-
-
-
-token.verifyToken = function (token, callback) {
-  jwt.verify(token, secret, function (err, decoded) {
-    if (err) {return callback(err);}
-
-    // Verify the token hasn't expired.
-    if (!auth.hasTokenExpired(decoded)) {
-      callback(null, true);
-    } else {
-      callback(null, false);
-    }
-  });
 };
