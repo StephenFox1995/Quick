@@ -55,7 +55,7 @@ token.validToken = function (req, res, next) {
  * */
 token.generateToken = function (object) {
   // Generate expiration time for token.
-  var expires = ms('1m');
+  var expires = ms(ms('10 hours'));
   var token = jwt.sign(object, secret, { expiresIn: expires });
   return {
     value: token,
