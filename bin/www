@@ -1,47 +1,42 @@
 #!/usr/bin/env node
 
-var app = require('../app');
-var debug = require('debug')('Quick:server');
-var http = require('http');
-const fs = require('fs');
-const globals = require('../libs/globals');
+var app     = require('../app'),
+    debug   = require('debug')('Quick:server'),
+    http    = require('http'),
+    config  = require('../config/runConfig');
 
 
 
 /**
- * Get the database location on disk and set
- * as global value upon start up of application.
- */
-(function () {
-  var configFile;
-  try {
-    configFile = fs.readFileSync(globals.Globals.configFile, 'utf8');
-  } catch (e) {
-    if (e.code === 'ENOENT') {
-      return console.log('Could not find configurations file.');
-    }
+ * Initializes the applications.
+ * Initialization includes:
+ *  - Locating the database.
+ *  - Finding the token secret for the application.
+ *
+ *  Both of which values are stored as configurations.
+ *  See runConfig.js for more details.
+ **/
+(function initializeApplication() {
+  // Locate the database, otherwise return.
+  if (!config.locateDatabase()) {
+    return;
   }
-  // Parse the json for the db filepath.
-  var dbLocation = JSON.parse(configFile);
-  if (dbLocation) {
-    // Set location of database at a global level.
-    globals.Globals.dbLocation = dbLocation.sqliteFilepath;
-  } else {
-    return console.log('Configuration file does not contain location of database.');
+
+  // Set the token secret, other wise return.
+  if (!config.tokenSecret()) {
+    return;
   }
 })();
 
 /**
  * Get port from environment and store in Express.
  */
-
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
-
 var server = http.createServer(app);
 
 /**

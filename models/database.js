@@ -1,6 +1,9 @@
 'use strict';
 
-const dbManager = require('./dbManager');
+var dbManager = require('./dbManager'),
+    fs        = require('fs'),
+    globals   = require('../libs/globals');
+
 const database = exports;
 
 
@@ -66,4 +69,29 @@ database.getAllBusiness = function (callback) {
  * */
 database.insertPurchase = function (purchase, callback) {
   dbManager.insertPurchase(purchase, callback);
+};
+
+
+
+
+database.locate = function () {
+  var configFile;
+  try {
+    configFile = fs.readFileSync(globals.Globals.configFile, 'utf8');
+  } catch (e) {
+    if (e.code === 'ENOENT') {
+      return false;
+      return console.log('Could not find configurations file.');
+    }
+  }
+  // Parse the json for the db filepath.
+  var dbLocation = JSON.parse(configFile);
+  if (dbLocation) {
+    // Set location of database at a global level.
+    globals.Globals.dbLocation = dbLocation.sqliteFilepath;
+    return true;
+  } else {
+    console.log('Configuration file does not contain location of database.');
+    return false;
+  }
 };

@@ -2,12 +2,16 @@
 
 var httpCodes = require('./httpCodes'),
     jwt       = require('jsonwebtoken'),
-    ms        = require('ms');
+    ms        = require('ms'),
+    globals   = require('../libs/globals'),
+    fs        = require('fs');
 
 var token = exports;
 
-const secret = 'SOME_SECRET';
+// The secret for the token.
+var secret = null;
 
+// TODO: Look into parsing token elsewhere, not just from HTTP header.
 
 
 /***
@@ -37,18 +41,21 @@ token.parseAuthHeaderToken = function (req, cb) {
  * If the token is not valid a response will be sent.
  * */
 token.validToken = function (req, res, next) {
-  token.parseAuthHeaderToken(req, function (token) {
-    if (token) {
-      jwt.verify(token, secret, function (err, decoded) {
+  token.parseAuthHeaderToken(req, function (tk) {
+    if (tk) {
+      jwt.verify(tk, secret, function (err, decoded) {
         if (err) {
-          return res.json({ success:false, responseMessage: "Failed to authenticate token. Reason: " + err.message });
+          return res.json({
+            success:false,
+            responseMessage: "Failed to authenticate token. Reason: " + err.message
+          });
         }
         req.decoded = decoded;
         next();
       });
     }
     else {
-      return res.json({ success:false, responseMessage: "No token provided." });
+      return res.json({ success: false, responseMessage: "No token provided." });
     }
   });
 };
@@ -71,4 +78,34 @@ token.generateToken = function (object) {
     value: token,
     expiresIn: expires
   };
+};
+
+
+/**
+ * Attempts to set the token secret for the application.
+ *
+ * @returns {boolean} - True if the token was set, otherwise false.
+ */
+token.setApplicationTokenSecret = function () {
+  var tokenSecretFile;
+  try {
+    tokenSecretFile = fs.readFileSync(globals.Globals.tokenSecret, 'utf8');
+  } catch (e) {
+    console.log(e);
+    if (e.code === 'ENOENT') {
+      console.log('Could not find tokenSecret file.');
+      return false;
+    }
+  }
+
+  // Parse the token from the file.
+  var fileContents = JSON.parse(tokenSecretFile);
+  if (fileContents) {
+    // Set the token secret
+    secret = fileContents.tokenSecret;
+    return true;
+  } else {
+    console.log('Could not find token secret in file.');
+    return false;
+  }
 };
