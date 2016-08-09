@@ -12,8 +12,9 @@ user.create = 'CREATE TABLE User(         \
         )';
 
 // Insert statement for User table.
-user.insert = 'INSERT INTO User(id, firstname, lastname, email, password) ' +
-  'VALUES(?, ?, ?, ?, ?);';
+user.insert = 'INSERT INTO User(id, firstname, lastname, email, password, token) ' +
+  'VALUES(?, ?, ?, ?, ?, ?);';
 
 user.all = 'SELECT id, firstname, lastname, email FROM User';
 
+user.getUserInfo = 'SELECT email, firstname, lastname FROM User WHERE id = ?';

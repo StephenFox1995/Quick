@@ -1,52 +1,40 @@
 'use strict';
 
-var express = require('express'),
+var express   = require('express'),
     httpCodes = require('../libs/httpCodes'),
-    hash = require('../libs/hash'),
-    util = require('../libs/util'),
-    User = require('../libs/User'),
-    db = require('../models/database');
+    hash      = require('../libs/hash'),
+    util      = require('../libs/util'),
+    User      = require('../libs/User'),
+    db        = require('../models/database'),
+    token      = require('../libs/token');
+
 
 const router = express.Router();
 
 
 /**
- * /user/all
- * Returns all users in the database.
+ * EndPoint: /user/info
  **/
-router.get('/all', function (req, res) {
-  db.getAllUsers(function (err, rows) {
-    if (err) {
+router.get('/info', token.validToken, function (req, res) {
+  var token = req.decoded;
+
+  console.log(token);
+  db.getUserInfo(token.id, function(err, row) {
+    if (err || !row) {
       return res
         .status(httpCodes.INTERNAL_SERVER_ERROR)
         .json({responseMessage: "An error occurred."});
     }
-    res.status(httpCodes.SUCCESS).json(rows);
-  });
-});
-
-
-/**
- * URL: /user/id/someID
- **/
-router.get('/id/:id', function (req, res) {
-  var id = req.params.id;
-  var user = new User();
-  db.getUser(id, function(err, row) {
-    if (err) {
-      return res
-        .status(httpCodes.INTERNAL_SERVER_ERROR)
-        .json({responseMessage: "An error occurred."});
+    if (row) {
+      return res.status(httpCodes.SUCCESS).json(row);
     }
-    //TODO: if no row maybe return an error?
-    res.status(httpCodes.SUCCESS).json(row);
   });
 });
 
 
 /**
  * Adds a new user to the database.
- * /user/
+ * /user
  * TODO: Make sure user doesn't already exist in database.
  **/
 router.post('/', function (req, res) {
@@ -56,7 +44,7 @@ router.post('/', function (req, res) {
       return res.status(httpCodes.UNPROCESSABLE_ENTITY);
     }
 
-    // Now hash password and store user in db.
+    // Now hash user's password.
     var hashed = hash.hashPassword(user.password);
 
     // Set the hashed user's password.
@@ -70,11 +58,27 @@ router.post('/', function (req, res) {
       if (err) {
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
-          .json({responseMessage: "User could not be added to the database."});
+          .json({
+            responseMessage: "User could not be added to the database.",
+            type: false
+          });
       }
-      res.status(httpCodes.SUCCESS).json({responseMessage: "User was successfully created."});
-    });
 
+      // Removed the password from the user before generating token.
+      delete user.password;
+
+      // Generate token.
+      var t = token.generateToken(user);
+
+      return res
+        .status(httpCodes.SUCCESS)
+        .json({
+          responseMessage: "User was successfully created.",
+          type: true,
+          token: t.value,
+          expires: t.expiresIn
+        });
+    });
   })
 });
 

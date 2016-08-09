@@ -8,7 +8,9 @@ app.controller('authenticateController', function ($scope, $http) {
     console.log($scope);
     $http.post('/authenticate', $scope.signInData)
       .success(function (data) {
-        $scope.message = data.responseMessage;
+        if (data.success) {
+          $scope.message = data.responseMessage;
+        }
       })
       .error(function (data) {
         $scope.message = data.responseMessage;

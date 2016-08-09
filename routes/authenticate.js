@@ -3,7 +3,8 @@
 
 var express = require('express'),
     User = require('../libs/User'),
-    httpCodes = require('../libs/httpCodes');
+    httpCodes = require('../libs/httpCodes'),
+    token = require('../libs/token');
 
 
 var router = express.Router();
@@ -39,13 +40,20 @@ router.post('/', function (req, res) {
   user.password = password;
 
   user.verify(function (err, verified) {
-    user.email = null;
-    user.password = null;
+    delete user.email;
+    delete user.password;
+    
     if (err) {
-      return res.status(httpCodes.INTERNAL_SERVER_ERROR).json({responseMessage: "A server error occurred"});
+      return res.status(httpCodes.INTERNAL_SERVER_ERROR).json({ responseMessage: "A server error occurred" });
     }
     if (verified) {
-      return res.status(httpCodes.SUCCESS).json({responseMessage: "Login Successful."});
+      var t = token.generateToken(user);
+
+      return res.status(httpCodes.SUCCESS).json({
+        responseMessage: "Login Successful.",
+        success: true,
+        token: t
+      });
     } else {
       return res.status(httpCodes.BAD_REQUEST).json({responseMessage: "Login Failed - Invalid Credentials"});
     }

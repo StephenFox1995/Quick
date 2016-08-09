@@ -36,7 +36,8 @@ sqlite3DB.insertUser = function (user, callback) {
         user.firstname,
         user.lastname,
         user.email,
-        user.password],
+        user.password,
+        user.token],
       callback);
   });
 };
@@ -52,6 +53,13 @@ database.getUser = function (email, callback) {
   this.getConnection(function (db) {
     const sqlQuery = oauthSQL.getUser;
     db.get(sqlQuery, [email], callback);
+  });
+};
+
+database.getUserInfo = function (id, callback) {
+  this.getConnection(function (db) {
+    const sqlQuery = userSQL.getUserInfo;
+    db.get(sqlQuery, [id], callback);
   });
 };
 
