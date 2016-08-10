@@ -32,9 +32,9 @@ router.get('/info', token.validToken, function (req, res) {
 
 
 /**
- * Adds a new user to the database.
+ * Adds a new user to the sqlite3DB.
  * /user
- * TODO: Make sure user doesn't already exist in database.
+ * TODO: Make sure user doesn't already exist in sqlite3DB.
  **/
 router.post('/', function (req, res) {
   var user = new User();
@@ -52,13 +52,13 @@ router.post('/', function (req, res) {
     // Generate id for user.
     user.id = util.generateID();
 
-    // Write to database.
+    // Write to sqlite3DB.
     user.insert(function (err) {
       if (err) {
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
           .json({
-            responseMessage: "User could not be added to the database.",
+            responseMessage: "User could not be added to the sqlite3DB.",
             type: false
           });
       }

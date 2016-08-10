@@ -8,8 +8,8 @@ const database = exports;
 
 
 /**
- * Inserts a User into the database.
- * @param user The user to add to the database.
+ * Inserts a User into the sqlite3DB.
+ * @param user The user to add to the sqlite3DB.
  * @param callback Callback function.
  **/
 database.insertUser = function (user, callback) {
@@ -33,8 +33,8 @@ database.getClient = function (clientID, clientSecret, callback) {
 };
 
 /**
- * Insert an Product into the database.
- * @param product The order to add to the database.
+ * Insert an Product into the sqlite3DB.
+ * @param product The order to add to the sqlite3DB.
  * @param callback Callback function.
  * */
 database.insertProduct = function (product, callback) {
@@ -49,8 +49,8 @@ database.getAllBusinessProducts = function (businessID, callback) {
 
 
 /**
- * Inserts a Business into the database.
- * @param business The business to add to the database.
+ * Inserts a Business into the sqlite3DB.
+ * @param business The business to add to the sqlite3DB.
  * @param callback Callback function.
  **/
 database.insertBusiness = function (business, callback) {
@@ -59,12 +59,18 @@ database.insertBusiness = function (business, callback) {
 database.getAllBusiness = function (callback) {
   dbManager.getAllBusiness(callback);
 };
+database.getBusinessInfo = function (id, callback) {
+  dbManager.getBusinessInfo(id, callback);
+};
+
+
+
 
 
 /**
- * Inserts a Purchase into the database.
+ * Inserts a Purchase into the sqlite3DB.
  * @param purchase The purchase details to
- *                 add to the database.
+ *                 add to the sqlite3DB.
  * @param callback The callback function.
  * */
 database.insertPurchase = function (purchase, callback) {
@@ -80,18 +86,18 @@ database.locate = function () {
     configFile = fs.readFileSync(globals.Globals.configFile, 'utf8');
   } catch (e) {
     if (e.code === 'ENOENT') {
+      console.log('Could not find configurations file.');
       return false;
-      return console.log('Could not find configurations file.');
     }
   }
   // Parse the json for the db filepath.
   var dbLocation = JSON.parse(configFile);
   if (dbLocation) {
-    // Set location of database at a global level.
+    // Set location of sqlite3DB at a global level.
     globals.Globals.dbLocation = dbLocation.sqliteFilepath;
     return true;
   } else {
-    console.log('Configuration file does not contain location of database.');
+    console.log('Configuration file does not contain location of sqlite3DB.');
     return false;
   }
 };

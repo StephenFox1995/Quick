@@ -35,12 +35,12 @@ const argv = require('minimist')(process.argv.slice(2));
     var file  = configDirectory + '/' + configFile;
     var contents = JSON.stringify({ "sqliteFilepath" : filepath });
 
-    console.log('Writing database location to configuration file.');
+    console.log('Writing sqlite3DB location to configuration file.');
     writeToConfig(file, contents, function (err) {
       if (err) return console.log('There was an error writing to configurations file. ' + err);
-      // Config file created successfully, create database.
+      // Config file created successfully, create sqlite3DB.
       createSQLiteDatabase(filepath);
-      console.log('Success created database file.');
+      console.log('Success created sqlite3DB file.');
     });
   }
 })(argv.f);

@@ -31,7 +31,7 @@ User.prototype.parsePOST = function(req, callback) {
 
 
 /**
- * A helper function to insert the current user object into the database.
+ * A helper function to insert the current user object into the sqlite3DB.
  **/
 User.prototype.insert = function (callback) {
   db.insertUser(this, callback);
@@ -45,9 +45,9 @@ User.prototype.verify = function (callback) {
   var email = this.email;
   var password = this.password;
 
-  // Check the user actually exists in the database.
+  // Check the user actually exists in the sqlite3DB.
   // TODO: Handle when a user's email address doesn't
-  // exist in the database.
+  // exist in the sqlite3DB.
   db.getUser(email, function (err, userInfo) {
     if (err) {
       callback(err);

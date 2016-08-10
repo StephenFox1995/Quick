@@ -38,13 +38,13 @@ router.post('/', function (req, res) {
     // TODO: Look into longer id for product.
     product.id = util.generateID();
 
-    // Insert into database.
+    // Insert into sqlite3DB.
     product.insert(function (err) {
       if (err) {
         console.log(err);
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
-          .json({responseMessage: "Product could not be added to the database."});
+          .json({responseMessage: "Product could not be added to the sqlite3DB."});
       }
       res
         .status(httpCodes.SUCCESS)

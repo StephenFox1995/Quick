@@ -13,10 +13,10 @@ var router = express.Router();
 /**
  * To authenticate we must execute the code flow.
  * 1. Parse and verify the POST request.
- * 2. Check the user's email exists in the database.
+ * 2. Check the user's email exists in the sqlite3DB.
  * 3. If the user's email exists, get the password.
  * 4. Compare the password sent in the POST request
- *    with the hashed password from the database.
+ *    with the hashed password from the sqlite3DB.
  * 5. Send response based on the comparison of these passwords.
  *
  *  The post request should include the user as follows.

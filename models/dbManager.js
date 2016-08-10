@@ -2,7 +2,7 @@
 
 /**
  * This module sole purpose is to provide a generic
- * interface to the underlying database being used by
+ * interface to the underlying sqlite3DB being used by
  * the application.
  * */
 
@@ -13,7 +13,7 @@ const dbManager = exports;
 // TODO: Provide better error callbacks to caller.
 
 /**
- * Inserts a User object into the database.
+ * Inserts a User object into the sqlite3DB.
  * */
 dbManager.insertUser = function (user, callback) {
   sqlite3DB.insertUser(user, callback);
@@ -40,6 +40,13 @@ dbManager.insertBusiness = function (business, callback) {
 dbManager.getAllBusiness = function (callback) {
   sqlite3DB.getAllBusiness(callback);
 };
+
+dbManager.getBusinessInfo = function (id, callback) {
+  sqlite3DB.getBusinessInfo(id, callback);
+};
+
+
+
 
 
 dbManager.insertProduct = function (product, callback) {

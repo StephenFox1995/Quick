@@ -9,37 +9,11 @@ var Business =  require('../libs/Business'),
     express =   require('express');
 
 
-
-
 var router = express.Router();
 
 
 /**
- * GET all products associated with a business.
- * URL: /business/someRandomID/products
- **/
-router.get('/:businessID/products', function(req, res) {
-  var businessID = req.params.businessID;
-  if (!businessID) {
-    return res
-      .status(httpCodes.UNPROCESSABLE_ENTITY)
-      .json({responseMessage:"Could not process request."});
-  }
-
-  db.getAllBusinessProducts(businessID, function (err, rows) {
-    if (err) {
-      return res
-        .status(httpCodes.INTERNAL_SERVER_ERROR)
-        .json({responseMessage:"An error occurred."});
-    }
-    res.status(httpCodes.SUCCESS).json({products: rows});
-
-  });
-});
-
-
-/**
- * Add a new Business to the database.
+ * Add a new Business to the sqlite3DB.
  * */
 router.post('/', function (req, res) {
   var bs = new Business();
@@ -63,12 +37,13 @@ router.post('/', function (req, res) {
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
           .json({
-            responseMessage: "Business could not be added to the database.",
+            responseMessage: "Business could not be added to the sqlite3DB.",
             type: false
           });
       }
 
       // Remove the password before generating a token.
+      delete bs.hashedPassword;
       delete bs.password;
 
       var t = token.generateToken(bs);
@@ -84,5 +59,44 @@ router.post('/', function (req, res) {
   });
 });
 
+
+router.get('/info', token.validToken, function (req, res) {
+  var token = req.decoded;
+
+  db.getBusinessInfo(token.id, function (err, row) {
+    if (err || !row) {
+      return res
+        .status(httpCodes.INTERNAL_SERVER_ERROR)
+        .json({responseMessage: "An error occurred."});
+    }
+    if (row) {
+      return res.status(httpCodes.SUCCESS).json(row);
+    }
+  });
+  
+});
+
+/**
+ * GET all products associated with a business.
+ * URL: /business/someRandomID/products
+ **/
+router.get('/:businessID/products', function(req, res) {
+  var businessID = req.params.businessID;
+  if (!businessID) {
+    return res
+      .status(httpCodes.UNPROCESSABLE_ENTITY)
+      .json({responseMessage:"Could not process request."});
+  }
+
+  db.getAllBusinessProducts(businessID, function (err, rows) {
+    if (err) {
+      return res
+        .status(httpCodes.INTERNAL_SERVER_ERROR)
+        .json({responseMessage:"An error occurred."});
+    }
+    res.status(httpCodes.SUCCESS).json({products: rows});
+
+  });
+});
 
 module.exports = router;

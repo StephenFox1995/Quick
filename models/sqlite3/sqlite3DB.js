@@ -8,7 +8,6 @@ var sqlite3 = require('sqlite3').verbose(),
     purchaseSQL = require('./purchaseSQL'),
     oauthSQL = require('./oauthSQL');
 
-const database = exports;
 
 const sqlite3DB = exports;
 
@@ -23,14 +22,14 @@ var db;
  ***********************/
 
 /**
- * Inserts a User into the sqlite3 database.
- * @param user The user to add to the database.
+ * Inserts a User into the sqlite3 sqlite3DB.
+ * @param user The user to add to the sqlite3DB.
  * @param callback Callback function.
  **/
 sqlite3DB.insertUser = function (user, callback) {
   this.getConnection(function (db) {
     const insertQuery = userSQL.insert;
-    // Insert user into database.
+    // Insert user into sqlite3DB.
     db.run(insertQuery,
       [user.id,
         user.firstname,
@@ -42,21 +41,21 @@ sqlite3DB.insertUser = function (user, callback) {
   });
 };
 
-database.getAllUsers = function (callback) {
+sqlite3DB.getAllUsers = function (callback) {
   this.getConnection(function (db) {
     const sqlQuery = userSQL.all;
     db.all(sqlQuery, callback);
   });
 };
 
-database.getUser = function (email, callback) {
+sqlite3DB.getUser = function (email, callback) {
   this.getConnection(function (db) {
     const sqlQuery = oauthSQL.getUser;
     db.get(sqlQuery, [email], callback);
   });
 };
 
-database.getUserInfo = function (id, callback) {
+sqlite3DB.getUserInfo = function (id, callback) {
   this.getConnection(function (db) {
     const sqlQuery = userSQL.getUserInfo;
     db.get(sqlQuery, [id], callback);
@@ -69,14 +68,14 @@ database.getUserInfo = function (id, callback) {
  ***********************/
 
 /**
- * Inserts a Business into the database.
- * @param business The business to add to the database.
+ * Inserts a Business into the sqlite3DB.
+ * @param business The business to add to the sqlite3DB.
  * @param callback Callback function.
  **/
-database.insertBusiness = function (business, callback) {
+sqlite3DB.insertBusiness = function (business, callback) {
   this.getConnection(function (db) {
     const insertQuery = businessSQL.insert;
-    // Insert business into database.
+    // Insert business into sqlite3DB.
     db.run(insertQuery,
       [business.id,
         business.name,
@@ -88,7 +87,7 @@ database.insertBusiness = function (business, callback) {
   });
 };
 
-database.getAllBusiness = function (callback) {
+sqlite3DB.getAllBusiness = function (callback) {
   this.getConnection(function (db) {
     const sqlQuery = businessSQL.all;
     db.all(sqlQuery, callback);
@@ -97,16 +96,24 @@ database.getAllBusiness = function (callback) {
 
 
 
+sqlite3DB.getBusinessInfo = function (id, callback) {
+  this.getConnection(function (db) {
+    const sqlQuery = businessSQL.info;
+    db.get(sqlQuery, [id], callback);
+  });
+};
+
+
 /***********************
  *  PRODUCT
  ***********************/
 
 /**
- * Insert an Product into the database.
- * @param product The order to add to the database.
+ * Insert an Product into the sqlite3DB.
+ * @param product The order to add to the sqlite3DB.
  * @param callback Callback function.
  * */
-database.insertProduct = function (product, callback) {
+sqlite3DB.insertProduct = function (product, callback) {
   this.getConnection(function (db) {
     const insertQuery = productSQL.insert;
     db.run(insertQuery,
@@ -119,14 +126,14 @@ database.insertProduct = function (product, callback) {
   });
 };
 
-database.getAllBusinessProducts = function (businessID, callback) {
+sqlite3DB.getAllBusinessProducts = function (businessID, callback) {
   this.getConnection(function (db) {
     const sqlQuery = productSQL.getAllBusinessProducts;
     db.all(sqlQuery, [businessID], callback);
   });
 };
 
-database.getProduct = function (id, callback) {
+sqlite3DB.getProduct = function (id, callback) {
   this.getConnection(function (db) {
     const sqlQuery = productSQL.getProduct;
     db.get(sqlQuery, [id], callback);
@@ -137,7 +144,7 @@ database.getProduct = function (id, callback) {
 /***********************
  *  PURCHASE
  ***********************/
-database.insertPurchase = function (purchase, callback) {
+sqlite3DB.insertPurchase = function (purchase, callback) {
   this.getConnection(function (db) {
     const insertQuery = purchaseSQL.insert;
     db.run(insertQuery,
@@ -152,10 +159,10 @@ database.insertPurchase = function (purchase, callback) {
 
 
 /*
- * Get a connection to the database file stored on disk.
+ * Get a connection to the sqlite3DB file stored on disk.
  **/
-database.getConnection = function (callback) {
-  // Check to see if connection to database already exists.
+sqlite3DB.getConnection = function (callback) {
+  // Check to see if connection to sqlite3DB already exists.
   if (db) {
     callback(db);
   } else {

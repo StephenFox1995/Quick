@@ -17,3 +17,5 @@ business.insert = 'INSERT INTO Business(id, name, address, contact_number, email
   'VALUES(?, ?, ?, ?, ?, ?);';
 
 business.all = 'SELECT id, name, address, contact_number, email FROM Business;';
+
+business.info = 'SELECT id, name, address, contact_number, email  FROM Business WHERE id = ?';
