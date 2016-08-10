@@ -8,7 +8,7 @@ function Business() { }
 
 Business.prototype.parsePOST = function (req, callback) {
   // Get the Business object from request.
-  var business = req.body;
+  var business = req.body.business;
 
   // Check if valid business object.
   if (isValidBusinessObject(business)) {

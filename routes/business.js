@@ -1,11 +1,12 @@
 'use strict';
 
-var Business = require('../libs/Business'),
+var Business =  require('../libs/Business'),
     httpCodes = require('../libs/httpCodes'),
-    hash = require('../libs/hash'),
-    util = require('../libs/util'),
-    db = require('../models/database'),
-    express = require('express');
+    hash =      require('../libs/hash'),
+    util =      require('../libs/util'),
+    db =        require('../models/database'),
+    token =     require('../libs/token'),
+    express =   require('express');
 
 
 
@@ -42,12 +43,14 @@ router.get('/:businessID/products', function(req, res) {
  * */
 router.post('/', function (req, res) {
   var bs = new Business();
+
   bs.parsePOST(req, function (err) {
     if (err) {
       return res
         .status(httpCodes.UNPROCESSABLE_ENTITY)
         .json({responseMessage: "Could not parse JSON"});
     }
+
     // Hash the password.
     var hashed = hash.hashPassword(bs.password);
     bs.hashedPassword = hashed.hash;
@@ -57,14 +60,26 @@ router.post('/', function (req, res) {
 
     bs.insert(function (err) {
       if (err) {
-        console.log(err);
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
-          .json({responseMessage: "Business could not be added to the database."});
+          .json({
+            responseMessage: "Business could not be added to the database.",
+            type: false
+          });
       }
+
+      // Remove the password before generating a token.
+      delete bs.password;
+
+      var t = token.generateToken(bs);
       res
         .status(httpCodes.SUCCESS)
-        .json({responseMessage: "Business was successfully created."});
+        .json({
+          responseMessage: "Business was successfully created.",
+          type: true,
+          token: t.value,
+          expires: t.expiresIn
+        });
     });
   });
 });
