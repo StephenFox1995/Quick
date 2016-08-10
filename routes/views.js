@@ -23,6 +23,10 @@ router.get('/signUp', function (req, res) {
   return res.render('signUp');
 });
 
+router.get('/rest-api', function (req, res) {
+  return res.render('restAPIDocumentation');
+});
+
 
 
 module.exports = router;

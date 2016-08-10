@@ -1,0 +1,235 @@
+<html>
+<head>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>-->
+    <title>
+        Quick - REST API Documentation
+    </title>
+</head>
+
+<body>
+
+<div>
+    <h1>Quick REST API Documentation.</h1>
+    The following endpoints can be used:
+    <ul>
+        <li>
+            /user
+        </li>
+        <li>
+            /business
+        </li>
+        <li>
+            /business
+        </li>
+        <li>
+            /product
+        </li>
+        <li>
+            /purchase
+        </li>
+    </ul>
+</div>
+
+<div>
+    <!--/user guide-->
+    <h2>/user</h2>
+    <p><b>The /user endpoint can be used to for all
+            interactions with user accounts. </b></p>
+    <table border="1px">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>HTTP Method</th>
+                <th>HTTP Headers</th>
+                <th>JSON</th>
+                <th>Response Codes</th>
+                <th>Response Body</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Adding a user.</td>
+                <td>POST</td>
+                <td>Content-Type: application/json</td>
+                <td> <code>{
+                              "user": {
+                                        "firstname": "John",
+                                        "lastname": "Smith",
+                                        "email": "johnsmith@email.com",
+                                        "password": "strong-password"}
+                           }
+                    </code>
+                </td>
+                <td>Success: 200, Failure: 500 or 422</td>
+                <td>Success: {
+                                "responseMessage":"User was successfully created.",
+                                "type":true,
+                                "token":"some.Token.Value",
+                                "expires":"10h"
+                             }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p>cURL Example:
+        <code>curl http://localhost:3000/user
+                -X POST
+                -H "Content-Type: application/json"
+                -d '{
+                      "user": {
+                                "firstname": "John",
+                                "lastname": "Smith",
+                                "email": "johnsmith@email.com",
+                                "password": "strong-password"
+                               }
+                    }'
+        </code>
+
+        <p><b> TODO: Add documentation for /user/info.</b></p>
+    </b>
+</div>
+
+<div>
+    <!--/business guide-->
+    <h2>/business</h2>
+    <p><b></b></p>
+    <table border="1px">
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>HTTP Method</th>
+            <th>HTTP Headers</th>
+            <th>JSON</th>
+            <th>Response Codes</th>
+            <th>Response Body</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Add a business.</td>
+            <td>POST</td>
+            <td>Content-Type: application/json</td>
+            <td> <code>{
+                    "business": {
+                                    "name": "Quick Co.",
+                                    "address": "202 Grafton Street, Dublin 1",
+                                    "contactNumber": "8683145",
+                                    "email": "quickco@email.com",
+                                    "password": "strong-password"
+                                }
+                    }
+                </code>
+            </td>
+            <td>Success: 200, Failure: 500 or 422</td>
+            <td>Success: {
+                "responseMessage":"Business was successfully created.",
+                }
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p>cURL Example:
+        <code>curl http://localhost:3000/business
+                        -H "Content-Type: application/json"
+                        -X POST
+                        -d {
+                              "business": {
+                                            "name": "Quick Co.",
+                                            "address": "202 Grafton Street, Dublin 1",
+                                            "contactNumber": "8683145",
+                                            "email": "quickco@email.com",
+                                            "password": "strong-password"
+                                          }
+                            }
+        </code>
+    </p>
+</div>
+
+<div>
+    <!--/business products guide-->
+    <h2>/businessID/products</h2>
+    <p><b></b></p>
+    <table border="1px">
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>HTTP Method</th>
+            <th>HTTP Headers</th>
+            <th>JSON</th>
+            <th>Response Codes</th>
+            <th>Response Body</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Use this endpoint to retrieve all products for a business.</td>
+            <td>GET</td>
+            <td>TODO: Add headers</td>
+            <td> <code>
+                </code>
+            </td>
+            <td>Success: 200, Failure: 500</td>
+            <td>TODO: Add JSON for all products belogning to business.
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p>cURL Example:
+        <code>curl http://localhost:3000/business/123123412/products -X GET
+        </code>
+    </p>
+</div>
+
+<div>
+    <!--/product guide-->
+    <h2>/product</h2>
+    <p><b>The /product endpoint can be used to for all
+            interactions with products. </b></p>
+    <table border="1px">
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>HTTP Method</th>
+            <th>HTTP Headers</th>
+            <th>JSON</th>
+            <th>Response Codes</th>
+            <th>Response Body</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Adding a product.</td>
+            <td>POST</td>
+            <td>Content-Type: application/json</td>
+            <td> <code>{
+                            "product": {
+                                            "name": "Latte",
+                                            "price": 3.50,
+                                            "description": "This is a latte.",
+                                            "businessID": "21kekqdpq"
+                                        }
+                      }
+                </code>
+            </td>
+            <td>Success: 200, Failure: 500 or 422</td>
+            <td>Success: { "responseMessage" : "Product was successfully created." }
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p>cURL Example:
+        <code>curl http://localhost:3000/product
+            -X POST
+                    '{
+                        "product":
+                                    {
+                                        "name": "Latte",
+                                        "price": 3.50,
+                                        "description": "This is a latte.",
+                                        "businessID": "21kekqdpq"
+                        }
+                    }'
+        </code>
+</div>
+</body>
+</html>

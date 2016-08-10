@@ -1,16 +1,17 @@
-var express = require('express'),
-    path = require('path'),
-    favicon = require('serve-favicon'),
-    logger = require('morgan'),
-    cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser'),
-    routes = require('./routes/index'),
-    user = require('./routes/user'),
-    business = require('./routes/business'),
-    product = require('./routes/product'),
-    purchase = require('./routes/purchase'),
-    auth = require('./routes/authenticate');
-    views = require('./routes/views');
+var express       = require('express'),
+    path          = require('path'),
+    favicon       = require('serve-favicon'),
+    logger        = require('morgan'),
+    cookieParser  = require('cookie-parser'),
+    bodyParser    = require('body-parser'),
+    routes        = require('./routes/index'),
+    user          = require('./routes/user'),
+    business      = require('./routes/business'),
+    product       = require('./routes/product'),
+    purchase      = require('./routes/purchase'),
+    auth          = require('./routes/authenticate'),
+    views         = require('./routes/views'),
+    token         = require('./libs/token');
 
 
 var app = express();
@@ -37,7 +38,6 @@ app.use('/product', product);
 app.use('/purchase', purchase);
 app.use('/views', views);
 app.use('/authenticate', auth);
-
 
 
 // catch 404 and forward to error handler

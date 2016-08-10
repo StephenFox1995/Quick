@@ -18,7 +18,6 @@ const router = express.Router();
 router.get('/info', token.validToken, function (req, res) {
   var token = req.decoded;
 
-  console.log(token);
   db.getUserInfo(token.id, function(err, row) {
     if (err || !row) {
       return res

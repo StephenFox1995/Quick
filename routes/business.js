@@ -14,21 +14,6 @@ var router = express.Router();
 
 
 /**
- * /business/all
- * Returns all businesses in the database.
- * */
-router.get('/all', function (req, res) {
-  db.getAllBusiness(function (err, rows) {
-    if (err) {
-      return res
-        .status(httpCodes.INTERNAL_SERVER_ERROR)
-        .json({responseMessage: "An error occurred"});
-    }
-    res.status(httpCodes.SUCCESS).json(rows);
-  });
-});
-
-/**
  * GET all products associated with a business.
  * URL: /business/someRandomID/products
  **/
@@ -72,7 +57,7 @@ router.post('/', function (req, res) {
 
     bs.insert(function (err) {
       if (err) {
-        return res.render('business');
+        console.log(err);
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
           .json({responseMessage: "Business could not be added to the database."});

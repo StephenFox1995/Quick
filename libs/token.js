@@ -62,6 +62,16 @@ token.validToken = function (req, res, next) {
 
 
 
+token.renew = function (token, cb) {
+  jwt.verify(tk, secret, function (err, decoded) {
+    if (!err) {
+      // No error with the token, therefore it cannot be renewed.
+      return cb(new Error().message = "Token cannot be renewed as it is still valid.");
+    }
+  })
+};
+
+
 /**
  * Generates a JSON Web Token, with the object argument.
  * @param object The object to generate the token for.

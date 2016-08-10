@@ -1,8 +1,9 @@
 'use strict';
 
-var Purchase = require('../libs/Purchase'),
+var Purchase  = require('../libs/Purchase'),
     httpCodes = require('../libs/httpCodes'),
-    util = require('../libs/util');
+    util      = require('../libs/util'),
+    token     = require('../libs/token');
 
 const express = require('express');
 
@@ -11,9 +12,8 @@ var router = express.Router();
 /**
  * /purchase
  * */
-router.post('/', function (req, res) {
+router.post('/', token.validToken, function (req, res) {
   var purchase = new Purchase();
-
   purchase.parsePOST(req, function (err) {
     if (err) {
       return res

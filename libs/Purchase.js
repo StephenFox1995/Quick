@@ -6,15 +6,18 @@ var util = require('./util'),
 function Purchase() { }
 
 Purchase.prototype.parsePOST = function (req, callback) {
-  var purchase = req.body;
+  var purchase = req.body.purchase;
+
+  // Get user details from token.
+  var token = req.decoded;
+  this.userID = token.id;
 
   if (isValidPurchaseObject(purchase)) {
     this.businessID = purchase.businessID;
-    this.userID = purchase.userID;
     this.productID = purchase.productID;
     callback(null);
   } else {
-    callback(new Error('Could not parse Order.'));
+    callback(new Error('Could not parse Purchase.'));
   }
 };
 
@@ -26,8 +29,7 @@ Purchase.prototype.insert = function (callback) {
 
 function isValidPurchaseObject(purchase) {
   if (util.isValidString(purchase.businessID) &&
-      util.isValidString(purchase.productID) &&
-      util.isValidString(purchase.userID)) {
+      util.isValidString(purchase.productID)) {
     return true;
   } else {
     return false;

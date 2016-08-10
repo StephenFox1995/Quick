@@ -7,7 +7,7 @@ product.create = 'CREATE TABLE Product(                     \
                   id                  STRING PRIMARY KEY, \
                   business_id         STRING,             \
                   name                STRING,             \
-                  price               STRING              \
+                  price               STRING,             \
                   description         STRING,             \
                   FOREIGN KEY(business_id) REFERENCES business(id))';
 
