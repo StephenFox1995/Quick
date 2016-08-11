@@ -26,7 +26,6 @@ router.post('/', token.validToken, function (req, res) {
 
     purchase.insert(function (err) {
       if (err) {
-        console.log(err);
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
           .json({responseMessage: "{ Purchase could not be processed at this time."});
@@ -34,7 +33,7 @@ router.post('/', token.validToken, function (req, res) {
       res
         .status(httpCodes.SUCCESS)
         .json({
-          responseMessage: "Purchase was successfully created.",
+          responseMessage: "Purchase was successfully made.",
           purchaseID: purchase.id
         });
     });

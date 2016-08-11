@@ -1,6 +1,5 @@
 <html>
 <head>
-    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>-->
     <title>
         Quick - REST API Documentation
     </title>
@@ -60,7 +59,12 @@
                            }
                     </code>
                 </td>
-                <td>Success: 200, Failure: 500 or 422</td>
+                <td><ul>
+                        <li>Success: 200 </li>
+                        <li>Failure: 500</li>
+                        <li>Unprocessable: 422</li>
+                    </ul>
+                </td>
                 <td>Success: {
                                 "responseMessage":"User was successfully created.",
                                 "type":true,
@@ -120,7 +124,12 @@
                     }
                 </code>
             </td>
-            <td>Success: 200, Failure: 500 or 422</td>
+            <td><ul>
+                    <li>Success: 200 </li>
+                    <li>Failure: 500</li>
+                    <li>Unprocessable: 422</li>
+                </ul>
+            </td>
             <td>Success: {
                             "responseMessage": "Business was successfully created.",
                             "type":true,
@@ -171,8 +180,12 @@
             <td> <code>
                 </code>
             </td>
-            <td>Success: 200, Failure: 500</td>
-            <td>TODO: Add JSON for all products belogning to business.
+            <td><ul>
+                    <li>Success: 200 </li>
+                    <li>Failure: 500</li>
+                </ul>
+            </td>
+            <td>TODO: Add JSON for all products belonging to business.
             </td>
         </tr>
         </tbody>
@@ -214,7 +227,12 @@
                       }
                 </code>
             </td>
-            <td>Success: 200, Failure: 500 or 422</td>
+            <td><ul>
+                    <li>Success: 200 </li>
+                    <li>Failure: 500</li>
+                    <li>Unprocessable: 422</li>
+                </ul>
+            </td>
             <td>Success: { "responseMessage" : "Product was successfully created." }
             </td>
         </tr>
@@ -232,6 +250,62 @@
                             "businessID": "21kekqdpq"
                         }
                     }'
+        </code>
+</div>
+
+<div>
+    <!--/purchase guide-->
+    <h2>/purchase</h2>
+    <p><b>The /purchase endpoint can be used to make purchases.</b></p>
+    <table border="1px">
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>HTTP Method</th>
+            <th>HTTP Headers</th>
+            <th>JSON</th>
+            <th>Response Codes</th>
+            <th>Response Body</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Creating a purchase.</td>
+            <td>POST</td>
+            <td><ul>
+                    <li>Content-Type: application/json</li>
+                    <li>Authorization: Bearer some.token.value</li>
+                </ul>
+            </td>
+            <td> <code>{
+                    "purchase": {
+                        "businessID": "dldpld9i9wi",
+                        "productID": "dlp32pddw",
+                        }
+                    }
+                </code>
+            </td>
+            <td><ul>
+                    <li>Success: 200 </li>
+                    <li>Failure: 500</li>
+                    <li>Unprocessable: 422</li>
+                </ul>
+            </td>
+            <td>Success: {"responseMessage": "Purchase was successfully created.", "purchaseID":"S1rARD9K" }
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p>cURL Example:
+        <code>curl http://localhost:3000/purchase
+            -X POST
+            -H "Content-Type: application/json"
+            -d '{
+                    "purchase": {
+                        "businessID": "dldpld9i9wi",
+                        "productID": "dlp32pddw"
+                    }
+                }'
         </code>
 </div>
 </body>
