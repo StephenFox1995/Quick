@@ -30,6 +30,8 @@ var router = express.Router();
  *
  * A successful login attempt will return HTTP Code 200.
  * A failed login attempt will return a HTTP Code 400.
+ *
+ *
  * */
 router.post('/', function (req, res) {
   var email = req.body.user.email;

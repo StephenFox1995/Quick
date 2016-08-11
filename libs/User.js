@@ -15,7 +15,7 @@ function User() { }
  *  - password
  * */
 User.prototype.parsePOST = function(req, callback) {
-  var user = req.body;
+  var user = req.body.user;
 
   // Check if any fields are missing or incorrect.
   if (isValidUserObject(user)) {

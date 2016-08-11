@@ -13,28 +13,9 @@ const router = express.Router();
 
 
 /**
- * EndPoint: /user/info
- **/
-router.get('/info', token.validToken, function (req, res) {
-  var token = req.decoded;
-
-  db.getUserInfo(token.id, function(err, row) {
-    if (err || !row) {
-      return res
-        .status(httpCodes.INTERNAL_SERVER_ERROR)
-        .json({responseMessage: "An error occurred."});
-    }
-    if (row) {
-      return res.status(httpCodes.SUCCESS).json(row);
-    }
-  });
-});
-
-
-/**
- * Adds a new user to the sqlite3DB.
- * /user
- * TODO: Make sure user doesn't already exist in sqlite3DB.
+ * Adds a new user to the database.
+ * EndPoint: /user
+ * TODO: Make sure user doesn't already exist in database
  **/
 router.post('/', function (req, res) {
   var user = new User();
@@ -52,13 +33,13 @@ router.post('/', function (req, res) {
     // Generate id for user.
     user.id = util.generateID();
 
-    // Write to sqlite3DB.
+    // Write to database.
     user.insert(function (err) {
       if (err) {
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
           .json({
-            responseMessage: "User could not be added to the sqlite3DB.",
+            responseMessage: "User could not be added to the database.",
             type: false
           });
       }
@@ -81,6 +62,24 @@ router.post('/', function (req, res) {
   })
 });
 
+
+/**
+ * EndPoint: /user/info
+ **/
+router.get('/info', token.validToken, function (req, res) {
+  var token = req.decoded;
+
+  db.getUserInfo(token.id, function(err, row) {
+    if (err || !row) {
+      return res
+        .status(httpCodes.INTERNAL_SERVER_ERROR)
+        .json({responseMessage: "An error occurred."});
+    }
+    if (row) {
+      return res.status(httpCodes.SUCCESS).json(row);
+    }
+  });
+});
 
 
 module.exports = router;
