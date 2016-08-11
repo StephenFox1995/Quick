@@ -59,6 +59,9 @@ database.insertBusiness = function (business, callback) {
 database.getAllBusiness = function (callback) {
   dbManager.getAllBusiness(callback);
 };
+database.getBusiness = function (email, callback) {
+  dbManager.getBusiness(email, callback);
+};
 database.getBusinessInfo = function (id, callback) {
   dbManager.getBusinessInfo(id, callback);
 };

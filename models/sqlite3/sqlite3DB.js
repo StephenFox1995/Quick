@@ -94,6 +94,13 @@ sqlite3DB.getAllBusiness = function (callback) {
   });
 };
 
+sqlite3DB.getBusiness = function (email, callback) {
+  this.getConnection(function (db) {
+    const sqlQuery = businessSQL.getBusiness;
+    db.get(sqlQuery, [email], callback);
+  });
+};
+
 
 
 sqlite3DB.getBusinessInfo = function (id, callback) {

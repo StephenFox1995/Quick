@@ -19,3 +19,5 @@ business.insert = 'INSERT INTO Business(id, name, address, contact_number, email
 business.all = 'SELECT id, name, address, contact_number, email FROM Business;';
 
 business.info = 'SELECT id, name, address, contact_number, email  FROM Business WHERE id = ?';
+
+business.getBusiness = 'SELECT id, password FROM Business WHERE email = ?;';

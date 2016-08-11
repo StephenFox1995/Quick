@@ -1,7 +1,8 @@
 'use strict';
 
-var util = require('./util'),
-    db = require('../models/database');
+var util  = require('./util'),
+    db    = require('../models/database'),
+    hash  = require('../libs/hash');
 
 function Business() { }
 
@@ -45,4 +46,32 @@ function isValidBusinessObject(business) {
   }
 }
 
+
+Business.prototype.verify = function (callback) {
+  var email = this.email;
+  var password = this.password;
+
+  // Check the business actually exists in the database.
+  // TODO: Handle when a business email address doesn't
+  // exist in the database.
+  db.getBusiness(email, function (err, businessInfo) {
+    if (err) {
+      callback(err);
+    }
+
+    // Compare hashed password with normal password
+    if (hash.compare(password, businessInfo.password, function (err, verified) {
+        if (err) {
+          callback(err);
+        } else {
+          if (verified) {
+            callback(null, true);
+          } else {
+            callback(null, false);
+          }
+        }
+      }));
+  });
+
+};
 module.exports = Business;

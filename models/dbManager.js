@@ -40,7 +40,9 @@ dbManager.insertBusiness = function (business, callback) {
 dbManager.getAllBusiness = function (callback) {
   sqlite3DB.getAllBusiness(callback);
 };
-
+dbManager.getBusiness = function (email, callback) {
+  sqlite3DB.getBusiness(email, callback);
+};
 dbManager.getBusinessInfo = function (id, callback) {
   sqlite3DB.getBusinessInfo(id, callback);
 };
