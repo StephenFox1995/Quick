@@ -133,8 +133,8 @@
     </table>
     <p>cURL Example:
         <code>curl http://localhost:3000/business
-                        -H "Content-Type: application/json"
                         -X POST
+                        -H "Content-Type: application/json"
                         -d '{
                               "business": {
                                             "name": "Quick Co.",
@@ -222,14 +222,14 @@
     </table>
     <p>cURL Example:
         <code>curl http://localhost:3000/product
-            -X POST
-                    '{
-                        "product":
-                                    {
-                                        "name": "Latte",
-                                        "price": 3.50,
-                                        "description": "This is a latte.",
-                                        "businessID": "21kekqdpq"
+                -X POST
+                -H "Content-Type: application/json"
+                -d '{
+                        "product": {
+                            "name": "Latte",
+                            "price": 3.50,
+                            "description": "This is a latte.",
+                            "businessID": "21kekqdpq"
                         }
                     }'
         </code>

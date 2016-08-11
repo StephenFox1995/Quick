@@ -7,7 +7,7 @@ var util = require('./util'),
 function Product() { }
 
 Product.prototype.parsePOST = function (req, callback) {
-  var product = req.body;
+  var product = req.body.product;
   
   if (isValidOrdersObject(product)) {
     this.name = product.name;
