@@ -1,8 +1,10 @@
 <html>
 <head>
+
     <title>
         Quick - REST API Documentation
     </title>
+
 </head>
 
 <body>
@@ -50,14 +52,16 @@
                 <td>Adding a user.</td>
                 <td>POST</td>
                 <td>Content-Type: application/json</td>
-                <td> <code>{
-                              "user": {
-                                        "firstname": "John",
-                                        "lastname": "Smith",
-                                        "email": "johnsmith@email.com",
-                                        "password": "strong-password"}
-                           }
-                    </code>
+                <td> <pre id="json">
+{
+    "user": {
+              "firstname": "John",
+              "lastname": "Smith",
+              "email": "johnsmith@email.com",
+              "password": "strong-password"
+             }
+ }
+                    </pre>
                 </td>
                 <td><ul>
                         <li>Success: 200 </li>
@@ -65,18 +69,21 @@
                         <li>Unprocessable: 422</li>
                     </ul>
                 </td>
-                <td>Success: {
-                                "responseMessage":"User was successfully created.",
-                                "type":true,
-                                "token":"some.Token.Value",
-                                "expires":"10h"
-                             }
+                <td>Success:
+                    <pre>
+{
+    "responseMessage":"User was successfully created.",
+    "type":true,
+    "token":"some.Token.Value",
+    "expires":"10h"
+}
+                    </pre>
                 </td>
             </tr>
         </tbody>
     </table>
     <p>cURL Example:
-        <code>curl http://localhost:3000/user
+        <code id="json">curl http://localhost:3000/user
                 -X POST
                 -H "Content-Type: application/json"
                 -d '{
@@ -113,16 +120,17 @@
             <td>Add a business.</td>
             <td>POST</td>
             <td>Content-Type: application/json</td>
-            <td> <code>{
-                    "business": {
-                                    "name": "Quick Co.",
-                                    "address": "202 Grafton Street, Dublin 1",
-                                    "contactNumber": "8683145",
-                                    "email": "quickco@email.com",
-                                    "password": "strong-password"
-                                }
-                    }
-                </code>
+            <td> <pre>
+{
+    "business": {
+                    "name": "Quick Co.",
+                    "address": "202 Grafton Street, Dublin 1",
+                    "contactNumber": "8683145",
+                    "email": "quickco@email.com",
+                    "password": "strong-password"
+                }
+}
+                </pre>
             </td>
             <td><ul>
                     <li>Success: 200 </li>
@@ -130,18 +138,21 @@
                     <li>Unprocessable: 422</li>
                 </ul>
             </td>
-            <td>Success: {
-                            "responseMessage": "Business was successfully created.",
-                            "type":true,
-                            "token": "some.token.value",
-                            "expires":"10h"
-                         }
+            <td>Success:
+                <pre>
+{
+    "responseMessage": "Business was successfully created.",
+    "type":true,
+    "token": "some.token.value",
+    "expires":"10h"
+}
+                </pre>
             </td>
         </tr>
         </tbody>
     </table>
     <p>cURL Example:
-        <code>curl http://localhost:3000/business
+        <code id="json">curl http://localhost:3000/business
                         -X POST
                         -H "Content-Type: application/json"
                         -d '{
@@ -177,22 +188,32 @@
             <td>Use this endpoint to retrieve all products for a business.</td>
             <td>GET</td>
             <td>TODO: Add headers</td>
-            <td> <code>
-                </code>
+            <td> N/A
             </td>
             <td><ul>
                     <li>Success: 200 </li>
                     <li>Failure: 500</li>
                 </ul>
             </td>
-            <td>TODO: Add JSON for all products belonging to business.
+            <td><pre>
+{
+    "products":[
+                    {
+                        "id": "HkS8iQYY",
+                        "business_id": 123123412,
+                        "name": "Latte",
+                        "price": 3.5,
+                        "description": "This is alatte"
+                    }
+                ]
+}
+                </pre>
             </td>
         </tr>
         </tbody>
     </table>
     <p>cURL Example:
-        <code>curl http://localhost:3000/business/123123412/products -X GET
-        </code>
+        <code>curl http://localhost:3000/business/123123412/products -X GET</code>
     </p>
 </div>
 
@@ -217,15 +238,16 @@
             <td>Adding a product.</td>
             <td>POST</td>
             <td>Content-Type: application/json</td>
-            <td> <code>{
-                            "product": {
-                                            "name": "Latte",
-                                            "price": 3.50,
-                                            "description": "This is a latte.",
-                                            "businessID": "21kekqdpq"
-                                        }
-                      }
-                </code>
+            <td> <pre id="json">
+{
+    "product": {
+                    "name": "Latte",
+                    "price": 3.50,
+                    "description": "This is a latte.",
+                    "businessID": "21kekqdpq"
+                }
+}
+                </pre>
             </td>
             <td><ul>
                     <li>Success: 200 </li>
@@ -233,13 +255,14 @@
                     <li>Unprocessable: 422</li>
                 </ul>
             </td>
-            <td>Success: { "responseMessage" : "Product was successfully created." }
+            <td>Success:
+                <pre> { "responseMessage" : "Product was successfully created." }</pre>
             </td>
         </tr>
         </tbody>
     </table>
     <p>cURL Example:
-        <code>curl http://localhost:3000/product
+        <code id="json">curl http://localhost:3000/product
                 -X POST
                 -H "Content-Type: application/json"
                 -d '{
@@ -277,13 +300,14 @@
                     <li>Authorization: Bearer some.token.value</li>
                 </ul>
             </td>
-            <td> <code>{
-                    "purchase": {
-                        "businessID": "dldpld9i9wi",
-                        "productID": "dlp32pddw",
-                        }
-                    }
-                </code>
+            <td> <pre id="json">
+{
+    "purchase": {
+                    "businessID": "dldpld9i9wi",
+                    "productID": "dlp32pddw",
+                }
+}
+                </pre>
             </td>
             <td><ul>
                     <li>Success: 200 </li>
@@ -291,13 +315,14 @@
                     <li>Unprocessable: 422</li>
                 </ul>
             </td>
-            <td>Success: {"responseMessage": "Purchase was successfully created.", "purchaseID":"S1rARD9K" }
+            <td>Success:
+                <pre>{"responseMessage": "Purchase was successfully created.", "purchaseID":"S1rARD9K" }</pre>
             </td>
         </tr>
         </tbody>
     </table>
     <p>cURL Example:
-        <code>curl http://localhost:3000/purchase
+        <code id="json">curl http://localhost:3000/purchase
             -X POST
             -H "Content-Type: application/json"
             -d '{
