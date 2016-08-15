@@ -27,6 +27,10 @@ router.get('/rest-api', function (req, res) {
   return res.render('restAPIDocumentation');
 });
 
+router.get('/home', function (req, res) {
+  return res.render('home');
+});
+
 
 
 module.exports = router;

@@ -4,14 +4,16 @@ var app = angular.module('routeController', []);
 app.factory('whereTo', ['LOGIN',
                         'ACCOUNT_CREATION_SUCCESS',
                         'ACCOUNT_CREATION_FAILED',
+                        'ROUTES',
   function (LOGIN,
             ACCOUNT_CREATION_SUCCESS,
-            ACCOUNT_CREATION_FAILED) {
+            ACCOUNT_CREATION_FAILED,
+            ROUTES) {
     return {
       nextRoute : function (action) {
         switch (action) {
           case LOGIN.value:
-            console.log('I got it :)');
+            document.location.href = ROUTES.home;
             // Change current route to user logged in.
             break;
           case ACCOUNT_CREATION_SUCCESS.value:
@@ -25,6 +27,10 @@ app.factory('whereTo', ['LOGIN',
     }
   }
 ]);
+
+app.constant('ROUTES', {
+  home: '/views/home'
+});
 
 app.constant('LOGIN', 'LoginRoute');
 app.constant('ACCOUNT_CREATION_SUCCESS', 'AccountCreationSuccessRoute');
