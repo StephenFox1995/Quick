@@ -19,8 +19,8 @@ router.get('/auth', function (req, res) {
   return res.render('auth');
 });
 
-router.get('/signUp', function (req, res) {
-  return res.render('signUp');
+router.get('/userSignUp', function (req, res) {
+  return res.render('userSignUp');
 });
 
 router.get('/rest-api', function (req, res) {

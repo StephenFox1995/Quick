@@ -1,24 +1,23 @@
 <html ng-app="signUp">
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
-    <script src="javascripts/userSignUp.js"></script>
+    <script src="../javascripts/userSignUp.js"></script>
     <title>
         Index Page
     </title>
 </head>
 
 <body>
-<div ng-controller="signUpController">
+<div ng-controller="userSignUpController">
     <h1>Please create an account!</h1>
     <p>Email</p>
-    <input type="text" ng-model="userData.email">
+    <input type="text" ng-model="httpBody.user.email">
     <p>Firstname</p>
-    <input type="text" ng-model="userData.firstname">
+    <input type="text" ng-model="httpBody.user.firstname">
     <p>Lastname</p>
-    <input type="text" ng-model="userData.lastname">
+    <input type="text" ng-model="httpBody.user.lastname">
     <p>Password</p>
-    <input type="text" ng-model="userData.password">
-
+    <input type="text" ng-model="httpBody.user.password">
     <button type="submit" ng-click="createAccount()">Create Account</button >
     {{message}}
 </div>

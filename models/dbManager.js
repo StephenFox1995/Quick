@@ -13,7 +13,7 @@ const dbManager = exports;
 // TODO: Provide better error callbacks to caller.
 
 /**
- * Inserts a User object into the sqlite3DB.
+ * Inserts a User object into the database.
  * */
 dbManager.insertUser = function (user, callback) {
   sqlite3DB.insertUser(user, callback);

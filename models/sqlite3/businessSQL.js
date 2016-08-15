@@ -20,4 +20,6 @@ business.all = 'SELECT id, name, address, contact_number, email FROM Business;';
 
 business.info = 'SELECT id, name, address, contact_number, email  FROM Business WHERE id = ?';
 
-business.getBusiness = 'SELECT id, password FROM Business WHERE email = ?;';
+business.getBusiness = 'SELECT id, password, name, address, contact_number, email, password FROM Business WHERE email' +
+  ' =' +
+  ' ?;';
