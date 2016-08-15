@@ -18,14 +18,14 @@ app.controller('userSignUpController', ['$scope', '$http', 'accountCreationRespo
           }
         });
       })
-      .error(function (data) {
+      .error(function () {
         $scope.message = "Account creation error.";
       });
   }
 }]);
 
 
-app.service('accountCreationResponse', function () {
+app.factory('accountCreationResponse', function () {
   return {
     verifyResponse: function (response, callback) {
       if (response.type) {
