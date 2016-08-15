@@ -13,7 +13,7 @@ var router = express.Router();
 
 
 /**
- * Add a new Business to the sqlite3DB.
+ * Add a new Business to the database.
  * */
 router.post('/', function (req, res) {
   var bs = new Business();
@@ -37,8 +37,8 @@ router.post('/', function (req, res) {
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
           .json({
-            responseMessage: "Business could not be added to the sqlite3DB.",
-            type: false
+            responseMessage: "Business could not be added to the database.",
+            success: false
           });
       }
 
@@ -47,11 +47,12 @@ router.post('/', function (req, res) {
       delete bs.password;
 
       var t = token.generateToken(bs);
+
       res
         .status(httpCodes.SUCCESS)
         .json({
           responseMessage: "Business was successfully created.",
-          type: true,
+          success: true,
           token: t.value,
           expires: t.expiresIn
         });
@@ -99,4 +100,19 @@ router.get('/:businessID/products', function(req, res) {
   });
 });
 
+
+/**
+ * /business/all
+ * Returns all businesses in the database.
+ * */
+router.get('/all', function (req, res) {
+  db.getAllBusiness(function (err, rows) {
+    if (err) {
+      return res
+        .status(httpCodes.INTERNAL_SERVER_ERROR)
+        .json({responseMessage: "An error occurred"});
+    }
+    res.status(httpCodes.SUCCESS).json(rows);
+  });
+});
 module.exports = router;

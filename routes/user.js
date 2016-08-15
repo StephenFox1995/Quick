@@ -21,7 +21,12 @@ router.post('/', function (req, res) {
   var user = new User();
   user.parsePOST(req, function (err) {
     if (err) {
-      return res.status(httpCodes.UNPROCESSABLE_ENTITY);
+      return res
+        .status(httpCodes.UNPROCESSABLE_ENTITY)
+        .json({
+          responseMessage: "Could not parse user.",
+          success: false
+        });
     }
 
     // Now hash user's password.
@@ -40,7 +45,7 @@ router.post('/', function (req, res) {
           .status(httpCodes.INTERNAL_SERVER_ERROR)
           .json({
             responseMessage: "User could not be added to the database.",
-            type: false
+            success: false
           });
       }
 
@@ -54,7 +59,7 @@ router.post('/', function (req, res) {
         .status(httpCodes.SUCCESS)
         .json({
           responseMessage: "User was successfully created.",
-          type: true,
+          success: true,
           token: t.value,
           expires: t.expiresIn
         });

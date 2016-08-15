@@ -14,3 +14,22 @@ app.controller('registerBusinessController', function ($scope, $http) {
       });
   }
 });
+
+var app = angular.module('businessSignUp', []);
+
+
+app.controller('businessSignUpController', ['$scope', '$http', function ($scope, $http) {
+  $scope.httpBody = {
+    authType: 'business'
+  };
+
+  $scope.createAccount = function () {
+    $http.post('/business', $scope.httpBody)
+      .success(function (data) {
+
+      })
+      .error(function (data) {
+        
+      });
+  }
+}]);

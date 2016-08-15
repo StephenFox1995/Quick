@@ -15,10 +15,9 @@ function User() { }
  *  - password
  * */
 User.prototype.parsePOST = function(req, callback) {
-  var user = req.body.user;
 
-  // Check if any fields are missing or incorrect.
-  if (isValidUserObject(user)) {
+  if (validRequest(req) && isValidUserObject(req.body.user)) {
+    var user = req.body.user;
     this.firstname = user.firstname;
     this.lastname = user.lastname;
     this.password = user.password;
@@ -70,6 +69,7 @@ User.prototype.verify = function (callback) {
 
 
 function isValidUserObject(user) {
+
   if (util.isValidString(user.firstname) &&
       util.isValidString(user.lastname)  &&
       util.isValidString(user.email)     &&
@@ -78,6 +78,11 @@ function isValidUserObject(user) {
   } else {
     return false;
   }
+}
+
+
+function validRequest(req) {
+  return req.body.user? true: false;
 }
 
 

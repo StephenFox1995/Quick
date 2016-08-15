@@ -13,14 +13,14 @@ app.factory('whereTo', ['LOGIN',
       nextRoute : function (action) {
         switch (action) {
           case LOGIN.value:
-            document.location.href = ROUTES.home;
             // Change current route to user logged in.
+            document.location.href = ROUTES.home;
             break;
           case ACCOUNT_CREATION_SUCCESS.value:
             // Change current route to creation success.
             break;
           case ACCOUNT_CREATION_FAILED.value:
-            // Change current router to creation failed.
+            // Change current route to creation failed.
             break;
         }
       }

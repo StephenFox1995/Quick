@@ -65,7 +65,11 @@ function userAuth(req, res) {
   var email = req.body.user.email;
   var password = req.body.user.password;
 
-  if (!email || !password) { return 'error' }
+  if (!email || !password) {
+    return res
+      .status(httpCodes.UNPROCESSABLE_ENTITY)
+      .json({ responseMessage: "Could not parse JSON." });
+  }
 
   var user = new User();
   user.email = email;
@@ -101,7 +105,11 @@ function businessAuth(req, res) {
   var email = req.body.business.email;
   var password = req.body.business.password;
 
-  if (!email || !password) { return 'error'; }
+  if (!email || !password) {
+    return res
+      .status(httpCodes.UNPROCESSABLE_ENTITY)
+      .json({ responseMessage: "Could not parse JSON." });
+  }
 
   var business = new Business();
   business.email = email;

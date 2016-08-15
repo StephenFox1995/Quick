@@ -20,7 +20,7 @@ router.get('/auth', function (req, res) {
 });
 
 router.get('/userSignUp', function (req, res) {
-  return res.render('userSignUp');
+  return res.render('register/userSignUp');
 });
 
 router.get('/rest-api', function (req, res) {
