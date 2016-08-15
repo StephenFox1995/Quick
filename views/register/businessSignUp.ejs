@@ -1,7 +1,7 @@
-<html ng-app="registerBusiness">
+<html ng-app="signUp">
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
-    <script src="../javascripts/registerBusiness.js"></script>
+    <script src="../javascripts/signUp.js"></script>
     <% include /partials/header %>
     <title>
         Index Page
@@ -10,20 +10,23 @@
 
 <body>
 
-<div ng-controller="registerBusinessController">
+<div ng-controller="signUpController">
     <h1>Register as business!</h1>
     <p>Name</p>
-    <input type="text" ng-model="businessData.name">
+    <input type="text" ng-model="httpBody.business.name">
     <p>Address</p>
-    <input type="text" ng-model="businessData.address">
+    <input type="text" ng-model="httpBody.business.address">
     <p>Contact Number</p>
-    <input type="text" ng-model="businessData.contactNumber">
+    <input type="text" ng-model="httpBody.business.contactNumber">
     <p>Email</p>
-    <input type="text" ng-model="businessData.email">
+    <input type="text" ng-model="httpBody.business.email">
     <p>Password</p>
-    <input type="text" ng-model="businessData.password">
+    <input type="text" ng-model="httpBody.business.password">
 
-    <button type="submit" ng-click="registerBusiness()">Register!</button >
+    <button type="submit"
+            ng-click="signUp()"
+            ng-model="signUpModel.endPoint"
+            ng-init="signUpModel.endPoint='/business'">Sign Up</button >
     {{message}}
 </div>
 

@@ -3,8 +3,8 @@ var express = require('express');
 var router = express.Router();
 
 
-router.get('/registerBusiness', function (req, res) {
-  return res.render('registerBusiness');
+router.get('/businessSignUp', function (req, res) {
+  return res.render('register/businessSignUp');
 });
 
 router.get('/business', function (req, res) {

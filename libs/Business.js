@@ -8,11 +8,8 @@ function Business() { }
 
 
 Business.prototype.parsePOST = function (req, callback) {
-  // Get the Business object from request.
-  var business = req.body.business;
-
-  // Check if valid business object.
-  if (isValidBusinessObject(business)) {
+  if (validRequest(req) && isValidBusinessObject(req.body.business)) {
+    var business = req.body.business;
     this.name = business.name;
     this.address = business.address;
     this.contactNumber = business.contactNumber;
@@ -46,6 +43,10 @@ function isValidBusinessObject(business) {
   }
 }
 
+function validRequest(req) {
+  return req.body.business? true: false;
+}
+
 
 Business.prototype.verify = function (callback) {
   var email = this.email;
@@ -74,4 +75,5 @@ Business.prototype.verify = function (callback) {
   });
 
 };
+
 module.exports = Business;

@@ -22,7 +22,10 @@ router.post('/', function (req, res) {
     if (err) {
       return res
         .status(httpCodes.UNPROCESSABLE_ENTITY)
-        .json({responseMessage: "Could not parse JSON"});
+        .json({
+          responseMessage: "Could not parse JSON",
+          success: false
+        });
     }
 
     // Hash the password.
