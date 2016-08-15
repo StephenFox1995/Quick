@@ -48,34 +48,11 @@ router.post('/', function (req, res) {
   else if (authType.toLowerCase() === 'business') {
     return businessAuth(req, res);
   }
-  else { /*Return error*/ }
-
-  var email = req.body.user.email;
-  var password = req.body.user.password;
-
-  var user = new User();
-  user.email = email;
-  user.password = password;
-
-  user.verify(function (err, verified) {
-    delete user.email;
-    delete user.password;
-    
-    if (err) {
-      return res.status(httpCodes.INTERNAL_SERVER_ERROR).json({ responseMessage: "A server error occurred" });
-    }
-    if (verified) {
-      var t = token.generateToken(user);
-
-      return res.status(httpCodes.SUCCESS).json({
-        responseMessage: "Login Successful.",
-        success: true,
-        token: t
-      });
-    } else {
-      return res.status(httpCodes.BAD_REQUEST).json({responseMessage: "Login Failed - Invalid Credentials"});
-    }
-  });
+  else {
+    return res
+      .status(httpCodes.UNPROCESSABLE_ENTITY)
+      .json({ responseMessage: "No authentication type given." });
+  }
 });
 
 
