@@ -76,7 +76,6 @@ function userAuth(req, res) {
   user.password = password;
   
   user.verify(function (err, verified) {
-    delete user.email;
     delete user.password;
 
     if (err) {
@@ -117,8 +116,7 @@ function businessAuth(req, res) {
   business.password = password;
 
   business.verify(function (err, verified) {
-    delete business.password;
-    delete business.email;
+    delete business.password
 
     if (verified) {
       var t = token.generateToken(business);

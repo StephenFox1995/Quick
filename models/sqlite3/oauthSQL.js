@@ -29,5 +29,5 @@ oauthModel.saveAccessToken = 'INSERT INTO OAUTH_TOKENS(accessToken, accessTokenE
 
 oauthModel.getClient = 'SELECT clientID, clientSecrect, redirectURI FROM OAUTH_CLIENTS WHERE clientID = ? AND clientSecret = ?';
 
-oauthModel.getUser = 'SELECT id, password FROM User WHERE email = ?';
-
+oauthModel.getUser = 'SELECT id, firstname, lastname, password FROM User WHERE email = ?';
+ 

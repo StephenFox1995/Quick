@@ -41,6 +41,7 @@ User.prototype.insert = function (callback) {
  * Verifies that the user exists and their password is correct.
  * */
 User.prototype.verify = function (callback) {
+  var me = this;
   var email = this.email;
   var password = this.password;
 
@@ -58,6 +59,11 @@ User.prototype.verify = function (callback) {
           callback(err);
         } else {
           if (verified) {
+            // As verification was successful
+            // add id, firstname etc.
+            me.id = userInfo.id;
+            me.firstname = userInfo.firstname;
+            me.lastname = userInfo.lastname;
             callback(null, true);
           } else {
             callback(null, false);
