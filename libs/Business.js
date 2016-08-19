@@ -44,7 +44,7 @@ function isValidBusinessObject(business) {
 }
 
 function validRequest(req) {
-  return req.body.business? true: false;
+  return req.body.business ? true: false;
 }
 
 

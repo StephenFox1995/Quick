@@ -85,9 +85,10 @@ function userAuth(req, res) {
     if (verified) {
       var t = token.generateToken(user);
       return res.status(httpCodes.SUCCESS).json({
+        expires: t.expiresIn,
         responseMessage: "Login Successful.",
         success: true,
-        token: t
+        token: t.value
       });
     } else {
       return res.status(httpCodes.BAD_REQUEST).json({responseMessage: "Login Failed - Invalid Credentials"});
@@ -122,9 +123,10 @@ function businessAuth(req, res) {
     if (verified) {
       var t = token.generateToken(business);
       return res.status(httpCodes.SUCCESS).json({
+        expires: t.expiresIn,
         responseMessage: "Login Successful.",
         success: true,
-        token: t
+        token: t.value
       });
     } else {
       return res.status(httpCodes.BAD_REQUEST).json({responseMessage: "Login Failed - Invalid Credentials"});
