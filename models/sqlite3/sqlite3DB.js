@@ -22,22 +22,20 @@ var db;
  ***********************/
 
 /**
- * Inserts a User into the sqlite3 sqlite3DB.
- * @param user The user to add to the sqlite3DB.
+ * Inserts a User into the database.
+ * @param user The user to add to the database.
  * @param callback Callback function.
  **/
 sqlite3DB.insertUser = function (user, callback) {
   this.getConnection(function (db) {
     const insertQuery = userSQL.insert;
-    // Insert user into sqlite3DB.
+    // Insert user into database.
     db.run(insertQuery,
       [user.id,
         user.firstname,
         user.lastname,
         user.email,
-        user.password,
-        user.token,
-        user.email],
+        user.password],
       callback);
   });
 };
