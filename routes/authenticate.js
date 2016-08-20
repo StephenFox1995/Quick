@@ -116,9 +116,10 @@ function businessAuth(req, res) {
   business.password = password;
 
   business.verify(function (err, verified) {
-    delete business.password
+    delete business.password;
 
     if (verified) {
+      // TODO: Make sure id, name etc is attatched to business.
       var t = token.generateToken(business);
       return res.status(httpCodes.SUCCESS).json({
         expires: t.expiresIn,

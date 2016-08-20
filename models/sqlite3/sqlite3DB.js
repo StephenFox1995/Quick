@@ -36,7 +36,8 @@ sqlite3DB.insertUser = function (user, callback) {
         user.lastname,
         user.email,
         user.password,
-        user.token],
+        user.token,
+        user.email],
       callback);
   });
 };
