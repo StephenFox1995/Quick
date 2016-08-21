@@ -11,6 +11,7 @@ app.controller('productsController', function ($scope, $http) {
     })
     .error(function (data) {
 
+      
     });
 
   $scope.newProduct.businessID = businessID;

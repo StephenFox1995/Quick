@@ -49,6 +49,7 @@ function validRequest(req) {
 
 
 Business.prototype.verify = function (callback) {
+  var me = this;
   var email = this.email;
   var password = this.password;
 
@@ -66,6 +67,12 @@ Business.prototype.verify = function (callback) {
           callback(err);
         } else {
           if (verified) {
+            // Once verified set the rest
+            // of the info about the business.
+            me.id = businessInfo.id;
+            me.address = businessInfo.address;
+            me.name = businessInfo.name;
+            me.contactNumber = businessInfo.contactNumber;
             callback(null, true);
           } else {
             callback(null, false);
