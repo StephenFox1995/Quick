@@ -28,7 +28,9 @@ dbManager.getAllUsers = function (callback) {
 dbManager.getUser = function (email, callback) {
   sqlite3DB.getUser(email, callback);
 };
-
+dbManager.getUserPurchases = function (userID, callback) {
+  sqlite3DB.getUserPurchases(userID, callback);
+};
 dbManager.getUserInfo = function (id, callback) {
   sqlite3DB.getUserInfo(id, callback);
 };

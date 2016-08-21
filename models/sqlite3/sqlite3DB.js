@@ -62,6 +62,7 @@ sqlite3DB.getUserInfo = function (id, callback) {
 };
 
 
+
 /***********************
  *  BUSINESS
  ***********************/
@@ -161,12 +162,18 @@ sqlite3DB.insertPurchase = function (purchase, callback) {
       callback);
   });
 };
+sqlite3DB.getUserPurchases = function (userID, callback) {
+  this.getConnection(function (db) {
+    const sqlQuery = purchaseSQL.userPurchases;
+    db.all(sqlQuery, [userID],  callback);
+  });
+};
 
 
 
-/*
- * Get a connection to the sqlite3DB file stored on disk.
- **/
+/**
+ * Get a connection to the database file stored on disk.
+ */
 sqlite3DB.getConnection = function (callback) {
   // Check to see if connection to sqlite3DB already exists.
   if (db) {

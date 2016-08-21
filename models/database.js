@@ -27,6 +27,9 @@ database.getUserInfo = function (id, callback) {
 database.getAllUsers = function (callback) {
   dbManager.getAllUsers(callback);
 };
+database.getUserPurchases = function (userID, callback) {
+  dbManager.getUserPurchases(userID, callback);
+};
 
 database.getClient = function (clientID, clientSecret, callback) {
   dbManager.getClient(clientID, clientSecret, callback);

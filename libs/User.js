@@ -37,6 +37,11 @@ User.prototype.insert = function (callback) {
 };
 
 
+User.prototype.getPurchases = function (userID, callback) {
+  db.getUserPurchases(userID, callback);
+};
+
+
 /**
  * Verifies that the user exists and their password is correct.
  * */

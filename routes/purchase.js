@@ -3,7 +3,8 @@
 var Purchase  = require('../libs/Purchase'),
     httpCodes = require('../libs/httpCodes'),
     util      = require('../libs/util'),
-    token     = require('../libs/token');
+    token     = require('../libs/token'),
+    User      = require('../libs/User');
 
 const express = require('express');
 
@@ -28,7 +29,7 @@ router.post('/', token.validToken, function (req, res) {
       if (err) {
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
-          .json({responseMessage: "{ Purchase could not be processed at this time."});
+          .json({responseMessage: " Purchase could not be processed at this time."});
       }
       res
         .status(httpCodes.SUCCESS)
@@ -39,5 +40,25 @@ router.post('/', token.validToken, function (req, res) {
     });
   });
 });
+
+router.get('/', token.validToken, function (req, res) {
+  var userID = req.decoded.id;
+  console.log(userID);
+  var user = new User();
+  user.getPurchases(userID, function (err, purchases) {
+    if (err) {
+      return res
+        .status(httpCodes.INTERNAL_SERVER_ERROR)
+        .json({responseMessage: " Could not retrieve purchases."});
+    }
+    res
+      .status(httpCodes.SUCCESS)
+      .json({
+        success: true,
+        purchases: purchases
+      })
+  });
+});
+
 
 module.exports = router;
