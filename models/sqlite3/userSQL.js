@@ -2,14 +2,15 @@
 var user = exports;
 
 // Create statement for User table
-user.create = 'CREATE TABLE User(' +
-  'id STRING PRIMARY KEY, ' +
-  'firstname STRING, '      +
-  'lastname STRING, '       +
-  'email STRING, '          +
-  'password STRING'         +
-  'UNIQUE(email)'           +
-  ');';
+user.create =
+  'CREATE TABLE User(' +
+    'id         STRING PRIMARY KEY, ' +
+    'firstname  STRING, '             +
+    'lastname   STRING, '             +
+    'email      STRING, '             +
+    'password   STRING'               +
+    'UNIQUE(email)'                   +
+    ');';
 
 // Insert statement for User table.
 user.insert = 'INSERT INTO User(' +

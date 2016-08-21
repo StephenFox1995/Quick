@@ -1,16 +1,7 @@
-var app = angular.module('store', []);
+var app = angular.module('session', []);
 
-app.factory('Session', function($http) {
-  var Session = {
-    data: {},
-    saveSession: function() {
-      // TODO: Save Session to the sqlite3DB.
-    },
-    updateSession: function() {
-      // TODO: Load any necessary session data from the sqlite3DB, server side.
-      $http.get('session.json').then(function(r) { return Session.data = r.data;});
-    }
+app.factory('sessionFactory', function() {
+  return Session = {
+    data: {}
   };
-  Session.updateSession();
-  return Session;
 });

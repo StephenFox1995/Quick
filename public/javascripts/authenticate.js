@@ -1,51 +1,60 @@
-var app = angular.module('authenticate', ['routeController']);
+'use strict';
 
-app.controller('authenticateController',
-  ['$scope',
-    '$http',
-    'whereTo',
-    'signInResponse',
-    function ($scope,
-              $http,
-              whereTo,
-              signInResponse) {
+var app =
+  angular
+    .module('authenticate', [
+      'routeController',
+      'session'
+    ])
+    .controller('AuthenticateController', AuthenticateController)
+    .factory('authService', authService);
 
-      $scope.httpBody = {
-        authType: 'user'
-      };
+AuthenticateController.inject = ['$scope', 'whereTo', 'authService'];
 
-      $scope.authenticate = function () {
-        $http.post('/authenticate', $scope.httpBody)
-          .success(function (data) {
-            signInResponse.verify(data, function (success) {
-              if (success) {
-                // Continue to log user in.
-                // Ask the router what the next page should be.
-                whereTo.nextRoute(app.LOGIN);
-              } else {
-                $scope.message = 'Could not log in.';
-              }
-            });
-          })
-          .error(function (data) {
-            $scope.message = data.responseMessage;
-          });
-      };
-    }
-  ]);
-
-
-// Verify that a successful login has been made.
-app.factory('signInResponse', function () {
-  return {
-    verify: function (data, callback) {
-      if (data.success) {
-        return callback(true);
-      } else {
-        return callback(false);
+function AuthenticateController($scope, whereTo, authService) {
+  $scope.httpBody = {
+    authType: 'user'
+  };
+  $scope.authenticate = function () {
+    // Attempt to authenticate the user.
+    authService.authenticate($scope.httpBody, function (err, data) {
+      if (err) {
+        return $scope.message = data.responseMessage;
       }
+      whereTo.nextRoute(app.LOGIN);
+    });
+  }
+}
+
+
+authService.inject = ['$http'];
+function authService($http) {
+  return {
+    authenticate: authenticate
+  };
+
+  function authenticate(httpBody, callback) {
+    $http.post('/authenticate', httpBody)
+      .success(function (data) {
+        verify(data, function (verified) {
+          return verified ? callback(null, data) : callback(new Error(), data);
+        });
+      })
+      .error(function (data) {
+        return callback(new Error(), data);
+      });
+  }
+
+  function verify(data, callback) {
+    if (data.success) {
+      return callback(true);
+    } else {
+      return callback(false);
     }
   }
-});
+}
+
+
+
 
 
