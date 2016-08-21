@@ -45,8 +45,9 @@
     function verify(data) {
       if (data.success) {
         return true;
-      } else {}
-      return false;
+      } else {
+        return false;
+      }
     }
   }
 }());
