@@ -29,7 +29,7 @@
   }
 
 
-  authService.inject = ['$http'];
+  authService.inject = ['$http', 'tokenService'];
   function authService($http) {
     return {
       authenticate: authenticate
