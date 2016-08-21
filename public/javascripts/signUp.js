@@ -5,6 +5,7 @@
       .module('signUp', [])
       .controller('SignUpController', SignUpController)
       .factory('signUpService', signUpService);
+
   
   SignUpController.inject = ['$scope', 'signUpService'];
   function SignUpController($scope, signUpService) {
