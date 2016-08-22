@@ -17,8 +17,21 @@
 <div>
     <div ng-controller="HomeController">
         Recent Purchases.
-        {{token}}
-
+        <table>
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+            </tr>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="purchase in purchases">
+                <td>{{purchase.id}}</td>
+                <td>{{purchase.businessID}}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
