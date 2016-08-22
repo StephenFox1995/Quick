@@ -14,4 +14,8 @@ purchase.create = 'CREATE TABLE Purchase(' +
 
 purchase.insert = 'INSERT INTO Purchase(id, productID, businessID, userID) VALUES(?, ?, ?, ?)';
 
-purchase.userPurchases = 'SELECT * FROM Purchase WHERE userID = ?';
+purchase.userPurchases =
+  'SELECT * FROM Purchase ' +
+  'JOIN Product ON Product.id = Purchase.productID ' +
+  'JOIN Business ON Business.id = Purchase.businessID ' +
+  'WHERE userID = ?';
