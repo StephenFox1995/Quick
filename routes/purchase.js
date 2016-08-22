@@ -43,7 +43,6 @@ router.post('/', token.validToken, function (req, res) {
 
 router.get('/', token.validToken, function (req, res) {
   var userID = req.decoded.id;
-  console.log(userID);
   var user = new User();
   user.getPurchases(userID, function (err, purchases) {
     if (err) {

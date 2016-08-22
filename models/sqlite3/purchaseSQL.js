@@ -15,7 +15,16 @@ purchase.create = 'CREATE TABLE Purchase(' +
 purchase.insert = 'INSERT INTO Purchase(id, productID, businessID, userID) VALUES(?, ?, ?, ?)';
 
 purchase.userPurchases =
-  'SELECT * FROM Purchase ' +
+  'SELECT ' +
+  'Purchase.id          as purchaseID, ' +
+  'Product.id           as productID, ' +
+  'Product.name         as productName, ' +
+  'Product.price        as productPrice, ' +
+  'Product.description  as productDescription, ' +
+  'Business.name        as businessName, ' +
+  'Business.address     as businessAddress, ' +
+  'Business.email       as businessEmail ' +
+  'FROM Purchase ' +
   'JOIN Product ON Product.id = Purchase.productID ' +
   'JOIN Business ON Business.id = Purchase.businessID ' +
-  'WHERE userID = ?';
+  'WHERE Purchase.userID = ?';

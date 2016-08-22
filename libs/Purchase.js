@@ -21,7 +21,6 @@ Purchase.prototype.parsePOST = function (req, callback) {
   }
 };
 
-
 Purchase.prototype.insert = function (callback) {
   db.insertPurchase(this, callback);
 };
