@@ -29,11 +29,15 @@ router.post('/', token.validToken, function (req, res) {
       if (err) {
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
-          .json({responseMessage: " Purchase could not be processed at this time."});
+          .json({
+            success: true,
+            responseMessage: " Purchase could not be processed at this time."
+          });
       }
       res
         .status(httpCodes.SUCCESS)
         .json({
+          success: true,
           responseMessage: "Purchase was successfully made.",
           purchaseID: purchase.id
         });

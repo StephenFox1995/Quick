@@ -24,7 +24,7 @@ var secret = null;
  */
 token.parseAuthHeaderToken = function (req, cb) {
   var bearerToken = null;
-  var bearerHeader = req.headers['authorization'];
+  var bearerHeader = req.headers['authorization'] || req.headers['Authorization'];
   if (typeof bearerHeader !== 'undefined') {
     var bearer = bearerHeader.split(' ');
     bearerToken = bearer[1];
@@ -45,17 +45,24 @@ token.validToken = function (req, res, next) {
     if (tk) {
       jwt.verify(tk, secret, function (err, decoded) {
         if (err) {
-          return res.json({
-            success:false,
-            responseMessage: "Failed to authenticate token. Reason: " + err.message
-          });
+          return res
+            .status(httpCodes.UNAUTHORIZED)
+            .json({
+              success:false,
+              responseMessage: "Failed to authenticate token. Reason: " + err.message
+            });
         }
         req.decoded = decoded;
         next();
       });
     }
     else {
-      return res.json({ success: false, responseMessage: "No token provided." });
+      return res
+        .status(httpCodes.UNAUTHORIZED)
+        .json({
+          success: false,
+          responseMessage: "No token provided."
+        });
     }
   });
 };
