@@ -2,16 +2,16 @@
 
   angular
     .module('session', [])
-    .config(httpHeaderConfig);
+    .provider('session', session)
+    .config(httpConfig);
 
-  function sessionProvider() {
+  function session() {
     this.getToken = function () {
-      return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC" +
-        "J9.eyJlbWFpbCI6InNzQGdtYWlsLmNvbSIsImlkIjoiSD" +
-        "FFckFoVmMiLCJmaXJzdG5hbWUiOiJTdGVwaGVu" +
-        "IiwibGFzdG5hbWUiOiJGb3giLCJpYXQiOjE0Nz" +
-        "E4MDgzMDgsImV4cCI6MTQ3MTg0NDMwOH0.cy9d" +
-        "wW8hQ9P-gEAy5Ae2auAlnGZ5IsQ_fgEBqFbd99I";
+      return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNzQG" +
+        "dtYWlsLmNvbSIsImlkIjoiSDFFckFoVmMiLCJmaXJzdG5" +
+        "hbWUiOiJTdGVwaGVuIiwibGFzdG5hbWUiOiJGb3giLCJpYXQ" +
+        "iOjE0NzE4OTY5MDgsImV4cCI6MTQ3MTkzMjkwOH0.0nY9lcuwA_-bM" +
+        "i6V2UHa6vBfwyNQBH067jp3VKQ9GEM"
     };
 
     this.$get = function() {
@@ -22,10 +22,11 @@
     };
   }
 
-  httpHeaderConfig.inject = ['$httpProvider'];
-  function httpHeaderConfig($httpProvider) {
+
+  httpConfig.inject = ['$httpProvider', 'sessionProvider'];
+  function httpConfig($httpProvider, sessionProvider) {
     $httpProvider.defaults.headers.common = {
-      'Authorization': 'Bearer ' + sessionProvider.token
+      'Authorization': 'Bearer ' + sessionProvider.getToken()
     };
   }
 }());
