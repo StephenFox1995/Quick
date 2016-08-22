@@ -11,7 +11,7 @@
       decode: decode,
       expired: expired
     };
-
+    
     function decode(token) {
       return jwtHelper.decodeToken(token);
     }

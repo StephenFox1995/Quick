@@ -1,15 +1,19 @@
-var app =
+(function () {
+  'use strict';
+
   angular
     .module('home', [
-      'session'
-    ]);
+      'session',
+      'purchase'
+    ])
+    .controller('HomeController', HomeController);
 
-app.controller('homeController',
-  ['$scope',
-    'sessionFactory',
-    function ($scope,
-              sessionFactory) {
-      $scope.token = 'cock';
-      $scope.token = sessionFactory.data.token;
-      console.log($scope.token);
-}]);
+
+  HomeController.inject = ['$scope', 'purchaseService'];
+  function HomeController($scope, purchaseService) {
+    purchaseService.getUserPurchases(function (data) {
+      console.log(data);
+    });
+
+  }
+}());

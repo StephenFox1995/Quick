@@ -4,15 +4,12 @@
   var app =
     angular
       .module('authenticate', [
-        'routeController',
-        'session'
+        'routeController'
       ])
       .controller('AuthenticateController', AuthenticateController)
       .factory('authService', authService);
 
   AuthenticateController.inject = ['$scope', 'whereTo', 'authService'];
-
-
   function AuthenticateController($scope, whereTo, authService) {
     $scope.httpBody = {
       authType: 'user'
