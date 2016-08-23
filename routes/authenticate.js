@@ -2,10 +2,8 @@
 
 
 var express   = require('express'),
-    User      = require('../libs/User'),
-    httpCodes = require('../libs/httpCodes'),
-    token     = require('../libs/token'),
-    Business  = require('../libs/Business');
+    auth      = require('../libs/authenticate'),
+    httpCodes = require('../libs/httpCodes');
 
 
 var router = express.Router();
@@ -40,97 +38,27 @@ var router = express.Router();
  * */
 router.post('/', function (req, res) {
   // Get the auth type.
-  var authType = req.body.authType;
+  var authType = req.body.authType.toLowerCase();
 
-  if (authType.toLowerCase() === 'user') {
-    return userAuth(req, res);
-  }
-  else if (authType.toLowerCase() === 'business') {
-    return businessAuth(req, res);
-  }
-  else {
-    return res
-      .status(httpCodes.UNPROCESSABLE_ENTITY)
-      .json({ responseMessage: "No authentication type given." });
-  }
-});
-
-
-/***
- * Log in a user account.
- * @param req
- * @param res
- */
-function userAuth(req, res) {
-  var email = req.body.user.email;
-  var password = req.body.user.password;
-
-  if (!email || !password) {
-    return res
-      .status(httpCodes.UNPROCESSABLE_ENTITY)
-      .json({ responseMessage: "Could not parse JSON." });
-  }
-
-  var user = new User();
-  user.email = email;
-  user.password = password;
-  
-  user.verify(function (err, verified) {
-    delete user.password;
-
+  // Begin authentication process.
+  auth.auth(authType, req, function (err, token) {
     if (err) {
-      return res.status(httpCodes.INTERNAL_SERVER_ERROR).json({ responseMessage: "A server error occurred" });
+      return res
+        .status(httpCodes.BAD_REQUEST)
+        .json({ responseMessage: err.message });
     }
-    if (verified) {
-      var t = token.generateToken(user);
-      return res.status(httpCodes.SUCCESS).json({
-        expires: t.expiresIn,
-        responseMessage: "Login Successful.",
+
+    return res
+      .status(httpCodes.SUCCESS)
+      .json({
         success: true,
-        token: t.value
-      });
-    } else {
-      return res.status(httpCodes.BAD_REQUEST).json({responseMessage: "Login Failed - Invalid Credentials"});
-    }
+        responseMessage: 'Successfully authenticated.',
+        expires: token.expiresIn,
+        token: token.value
+      })
   });
 
-}
-
-/**
- * Log in a business account.
- * @param req
- * @param res
- */
-function businessAuth(req, res) {
-  var email = req.body.business.email;
-  var password = req.body.business.password;
-
-  if (!email || !password) {
-    return res
-      .status(httpCodes.UNPROCESSABLE_ENTITY)
-      .json({ responseMessage: "Could not parse JSON." });
-  }
-
-  var business = new Business();
-  business.email = email;
-  business.password = password;
-
-  business.verify(function (err, verified) {
-    delete business.password;
-
-    if (verified) {
-      var t = token.generateToken(business);
-      return res.status(httpCodes.SUCCESS).json({
-        expires: t.expiresIn,
-        responseMessage: "Login Successful.",
-        success: true,
-        token: t.value
-      });
-    } else {
-      return res.status(httpCodes.BAD_REQUEST).json({responseMessage: "Login Failed - Invalid Credentials"});
-    }
-  })
-}
+});
 
 
 module.exports = router;

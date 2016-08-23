@@ -12,7 +12,7 @@
     $httpProvider.interceptors.push('sessionInterceptor');
   }
 
-  
+
   function sessionService() {
     return {
       setToken : setToken,

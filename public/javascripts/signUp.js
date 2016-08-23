@@ -2,14 +2,15 @@
   'use strict';
   angular
     .module('signUp', [
-      'session'
+      'session',
+      'routeController'
     ])
     .controller('SignUpController', SignUpController)
     .factory('signUpService', signUpService);
 
   
-  SignUpController.inject = ['$scope', 'signUpService', 'session'];
-  function SignUpController($scope, signUpService, session) {
+  SignUpController.inject = ['$scope', 'signUpService', 'sessionService', 'whereTo'];
+  function SignUpController($scope, signUpService, sessionService, whereTo) {
     $scope.httpBody = {};
     $scope.message = '';
     $scope.signUpModel = {};
@@ -23,8 +24,8 @@
         if (err) {
           return $scope.message = 'Failed to sign up.';
         }
-        session.setToken(response.token);
-        $scope.message = 'Sign up successful';
+        sessionService.setToken(response.token);
+        whereTo.nextRoute(app.LOGIN);
       })
     }
   }

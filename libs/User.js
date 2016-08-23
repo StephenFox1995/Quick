@@ -30,7 +30,7 @@ User.prototype.parsePOST = function(req, callback) {
 
 
 /**
- * A helper function to insert the current user object into the sqlite3DB.
+ * A helper function to insert the current user object into the database.
  **/
 User.prototype.insert = function (callback) {
   db.insertUser(this, callback);
