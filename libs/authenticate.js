@@ -3,6 +3,12 @@ var token     = require('../libs/token'),
     Business  = require('../libs/Business');
 
 var auth = exports;
+/**
+ * Authenticates a user or business.
+ * @param {String} authType The authentication type.
+ * @param {Object} req The request object.
+ * @param {function(err|cb)} cb Callback function.
+ * */
 auth.auth = function(authType, req, cb) {
   authType = authType.toLowerCase();
   if (authType === 'user') {
@@ -15,6 +21,14 @@ auth.auth = function(authType, req, cb) {
 };
 
 
+/**
+ * Attempts to authenticate a user
+ * by checking the users email and password
+ * against hashed version on the database.
+ *
+ * @param {Object} req The request object.
+ * @param {function(err|token)} cb Callback
+ * */
 function authUser(req, cb) {
   var email = req.body.user.email;
   var password = req.body.user.password;
@@ -47,7 +61,14 @@ function authUser(req, cb) {
   })
 }
 
-
+/**
+ * Attempts to authenticate a business
+ * by checking the users email and password
+ * against hashed version on the database.
+ *
+ * @param {Object} req The request object.
+ * @param {function(err|token)} cb Callback
+ * */
 function authBusiness(req, cb) {
   var email = req.body.business.email;
   var password = req.body.business.password;
