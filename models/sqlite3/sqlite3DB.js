@@ -50,11 +50,7 @@ sqlite3DB.getAllUsers = function (callback) {
 sqlite3DB.getUser = function (email, callback) {
   this.getConnection(function (db) {
     const sqlQuery = oauthSQL.getUser;
-    try {
-      db.get(sqlQuery, [email], callback);
-    } catch (e) {
-      callback(new Error(e));
-    }
+    db.get(sqlQuery, [email], callback);
   });
 };
 

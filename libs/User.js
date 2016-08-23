@@ -56,11 +56,7 @@ User.prototype.verify = function (callback) {
     if (err) {
       return callback(err);
     }
-
-    if (!userInfo || !'password' in userInfo) {
-      return callback(new Error('No Account found.'));
-    }
-
+    
     // Compare hashed password with normal password.
     if (hash.compare(password, userInfo.password, function (err, verified) {
         if (err) {

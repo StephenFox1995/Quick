@@ -26,7 +26,15 @@ dbManager.getAllUsers = function (callback) {
 };
 
 dbManager.getUser = function (email, callback) {
-  sqlite3DB.getUser(email, callback);
+  // Make sure that a user was retrieved from the database,
+  // as a request may come in with an invalid email address
+  // specified.
+  sqlite3DB.getUser(email, function(err, user) {
+    if (!userInfo || !'password' in user) {
+      return callback(new Error('No User found.'));
+    }
+    return callback(null, user);
+  });
 };
 dbManager.getUserPurchases = function (userID, callback) {
   sqlite3DB.getUserPurchases(userID, callback);
