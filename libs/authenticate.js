@@ -56,7 +56,7 @@ function authUser(req, cb) {
       var tk = token.generateToken(user);
       return cb(null, tk);
     } else {
-      return cb(new Error('Invalid Credentials'));
+      return cb(new Error('Invalid username or password.'));
     }
   })
 }
@@ -96,7 +96,7 @@ function authBusiness(req, cb) {
       var tk = token.generateToken(business);
       return cb(null, tk);
     } else {
-      return cb(new Error('Invalid Credentials'));
+      return cb(new Error('Invalid username or password.'));
     }
   })
 }

@@ -31,7 +31,7 @@ dbManager.getUser = function (email, callback) {
   // specified.
   sqlite3DB.getUser(email, function(err, user) {
     if (!user || !'password' in user) {
-      return callback(new Error('No User found.'));
+      return callback(new Error('Invalid username or password.'));
     }
     return callback(null, user);
   });
