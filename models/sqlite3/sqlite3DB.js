@@ -50,7 +50,11 @@ sqlite3DB.getAllUsers = function (callback) {
 sqlite3DB.getUser = function (email, callback) {
   this.getConnection(function (db) {
     const sqlQuery = oauthSQL.getUser;
-    db.get(sqlQuery, [email], callback);
+    try {
+      db.get(sqlQuery, [email], callback);
+    } catch (e) {
+      callback(new Error(e));
+    }
   });
 };
 
@@ -175,7 +179,7 @@ sqlite3DB.getUserPurchases = function (userID, callback) {
  * Get a connection to the database file stored on disk.
  */
 sqlite3DB.getConnection = function (callback) {
-  // Check to see if connection to sqlite3DB already exists.
+  // Check to see if connection to database already exists.
   if (db) {
     callback(db);
   } else {

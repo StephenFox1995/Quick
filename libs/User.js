@@ -50,12 +50,15 @@ User.prototype.verify = function (callback) {
   var email = this.email;
   var password = this.password;
 
-  // Check the user actually exists in the sqlite3DB.
-  // TODO: Handle when a user's email address doesn't
-  // exist in the sqlite3DB.
+  // Check the user actually exists in the database
+  // and if so, returns they're details.
   db.getUser(email, function (err, userInfo) {
     if (err) {
-      callback(err);
+      return callback(err);
+    }
+
+    if (!userInfo || !'password' in userInfo) {
+      return callback(new Error('No Account found.'));
     }
 
     // Compare hashed password with normal password.
