@@ -1,14 +1,15 @@
 (function () {
   'use strict';
-  var app =
-    angular
-      .module('signUp', [])
-      .controller('SignUpController', SignUpController)
-      .factory('signUpService', signUpService);
+  angular
+    .module('signUp', [
+      'session'
+    ])
+    .controller('SignUpController', SignUpController)
+    .factory('signUpService', signUpService);
 
   
-  SignUpController.inject = ['$scope', 'signUpService'];
-  function SignUpController($scope, signUpService) {
+  SignUpController.inject = ['$scope', 'signUpService', 'session'];
+  function SignUpController($scope, signUpService, session) {
     $scope.httpBody = {};
     $scope.message = '';
     $scope.signUpModel = {};
@@ -22,6 +23,7 @@
         if (err) {
           return $scope.message = 'Failed to sign up.';
         }
+        session.setToken(response.token);
         $scope.message = 'Sign up successful';
       })
     }

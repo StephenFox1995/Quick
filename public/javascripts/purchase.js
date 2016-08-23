@@ -1,8 +1,6 @@
 (function () {
   angular
-    .module('purchase', [
-      'session'
-    ])
+    .module('purchase', [])
     .factory('purchaseService', purchaseService);
 
   purchaseService.inject = ['$http'];

@@ -4,13 +4,14 @@
   var app =
     angular
       .module('authenticate', [
-        'routeController'
+        'routeController',
+        'session'
       ])
       .controller('AuthenticateController', AuthenticateController)
       .factory('authService', authService);
 
-  AuthenticateController.inject = ['$scope', 'whereTo', 'authService'];
-  function AuthenticateController($scope, whereTo, authService) {
+  AuthenticateController.inject = ['$scope', 'whereTo', 'authService', 'sessionService'];
+  function AuthenticateController($scope, whereTo, authService, sessionService) {
     $scope.httpBody = {
       authType: 'user'
     };
@@ -20,6 +21,7 @@
         if (err) {
           return $scope.message = data.responseMessage;
         }
+        sessionService.setToken(data.token);
         whereTo.nextRoute(app.LOGIN);
       });
     }
