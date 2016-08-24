@@ -15,8 +15,8 @@ function User() { }
  * @return  {undefined}
  * */
 User.prototype.parsePOST = function(req, cb) {
-  if (validRequest()) {
-    this.setAttributeFromRequest(req);
+  if (validRequest(req)) {
+    this.setAttributesFromRequest(req);
     return cb(null);
   } else {
     return cb(new Error('Could not parse user.'));
@@ -79,7 +79,7 @@ User.prototype.verify = function (cb) {
  * the requests properties.
  * @param   {Object} req - The request.
  */
-User.prototype.setAttributeFromRequest = function(req) {
+User.prototype.setAttributesFromRequest = function(req) {
   var user = req.body.user;
   this.firstname = user.firstname;
   this.lastname = user.lastname;
@@ -98,6 +98,7 @@ function validRequest(req) {
   if (!'user' in req.body){
     return false;    
   }
+  var user = req.body.user;
   if (util.isValidString(user.firstname) &&
       util.isValidString(user.lastname)  &&
       util.isValidString(user.email)     &&

@@ -22,9 +22,11 @@ util.isValidString = function (string) {
 
 /**
  * Generates a unique id.
+ * @return {string} unique id.
  * */
 util.generateID = function () {
   return shortid.generate();
 };
+
 
   

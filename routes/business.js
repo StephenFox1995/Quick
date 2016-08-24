@@ -78,7 +78,6 @@ router.get('/info', token.validToken, function (req, res) {
       return res.status(httpCodes.SUCCESS).json(row);
     }
   });
-  
 });
 
 /**
@@ -100,7 +99,6 @@ router.get('/:businessID/products', function(req, res) {
         .json({responseMessage:"An error occurred."});
     }
     res.status(httpCodes.SUCCESS).json({products: rows});
-
   });
 });
 

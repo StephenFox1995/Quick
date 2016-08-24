@@ -55,7 +55,6 @@ router.post('/', function (req, res) {
 
       // Generate token.
       var t = token.generateToken(user);
-
       return res
         .status(httpCodes.SUCCESS)
         .json({

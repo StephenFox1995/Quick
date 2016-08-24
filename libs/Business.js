@@ -13,9 +13,10 @@ function Business() { }
 
 Business.prototype.parsePOST = function (req, callback) {
   if (validRequest(req)) {
-    callback(null);
+    this.setAttributesFromRequest(req);
+    return callback(null);
   } else {
-    callback(new Error('Could not parse Business'));
+    return callback(new Error('Could not parse Business'));
   }
 };
 
@@ -27,10 +28,16 @@ Business.prototype.insert = function (callback) {
 /**
  * Sets the attributes of the user object based on
  * the requests properties.
- * @param {object} req - The request.
+ * @param   {object} req - The request.
  */
-Business.prototype.setAttributeFromRequest = function(req) {
-
+Business.prototype.setAttributesFromRequest = function(req) {
+  var business = req.body.business;
+  this.id = business.id;
+  this.name = business.name;
+  this.address = business.address;
+  this.email = business.email;
+  this.contactNumber = business.contactNumber;
+  this.password = business.password;
 };
 
 /**
@@ -44,6 +51,7 @@ function validRequest(req) {
   if (!'business' in req.body) {
     return false;
   }
+  var business = req.body.business;
   if (util.isValidString(business.name)           &&
       util.isValidString(business.address)        &&
       util.isValidString(business.contactNumber)  &&
