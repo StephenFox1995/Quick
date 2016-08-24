@@ -4,24 +4,25 @@ var hash = exports;
 
 /**
  * Hashes a password using bcrypt.
- * @param password The password to hash.
+ * @param   {string } password The password to hash.
+ * @return  {object} hash - An object contained the hash and salt.
+ * @return  {string} hash.hash - The hashed password.
+ * @return  {string} hash.salt - The salt. 
  * */
 hash.hashPassword = function(password) {
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(password, salt);
+  var salt = bcrypt.genSaltSync(10);
+  var hash = bcrypt.hashSync(password, salt);
   return {"hash": hash, "salt": salt};
 };
 
 
 hash.compare = function (password, hashedPassword, callback) {
   bcrypt.compare(password, hashedPassword, function (err, res) {
-    if (err) {
-      callback(err);
-    }
-    if (res == true) {
-      callback(null, true);
+    if (err) { return callback(err); }
+    if (res === true) {
+      return callback(null, true);
     } else {
-      callback(null, false);
+      return callback(null, false);
     }
   });
 };

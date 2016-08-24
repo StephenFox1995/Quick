@@ -1,36 +1,41 @@
 'use strict';
 
-var util = require('./util'),
-    db = require('../models/database');
+var 
+  util = require('./util'),
+  db = require('../models/database');
 
 
 function Product() { }
 
-Product.prototype.parsePOST = function (req, callback) {
-  var product = req.body.product;
-  
-  if (isValidOrdersObject(product)) {
-    this.name = product.name;
-    this.price = product.price;
-    this.description = product.description;
-    this.businessID = product.businessID;
-    callback(null);
+Product.prototype.parsePOST = function (req, cb) {
+  if (validRequest(req)) {
+    this.setAttributesFromRequest(req);
+    return cb(null);
   } else {
-    callback(new Error('Could not parse Product.'));
+    return cb(new Error('Could not parse product.'));
   }
 };
-
 
 
 Product.prototype.insert = function (callback) {
   db.insertProduct(this, callback);
 };
 
-/**
- * Determines that the Order object is valid
- * by checking that all fields have a value.
- **/
-function isValidOrdersObject(product) {
+
+Product.prototype.setAttributesFromRequest = function(req) {
+  var product = req.body.product;
+  this.name = product.name;
+  this.price = product.price;
+  this.description = product.description;
+  this.businessID = product.businessID;
+};
+
+
+function validRequest(req) {
+  if (!'product' in req.body) {
+    return false;
+  }
+  var product = req.body.product;
   if (util.isValidString(product.name) &&
       util.isValidString(product.price) &&
       util.isValidString(product.description) &&
@@ -39,6 +44,7 @@ function isValidOrdersObject(product) {
   } else {
     return false;
   }
+  
 }
 
 module.exports = Product;

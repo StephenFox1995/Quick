@@ -11,12 +11,13 @@ var
 function Business() { }
 
 
-Business.prototype.parsePOST = function (req, callback) {
+Business.prototype.parsePOST = function (req, cb) {
+  
   if (validRequest(req)) {
     this.setAttributesFromRequest(req);
-    return callback(null);
+    return cb(null);
   } else {
-    return callback(new Error('Could not parse Business'));
+    return cb(new Error('Could not parse business'));
   }
 };
 
