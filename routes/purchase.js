@@ -1,10 +1,11 @@
 'use strict';
 
-var Purchase  = require('../libs/Purchase'),
-    httpCodes = require('../libs/httpCodes'),
-    util      = require('../libs/util'),
-    token     = require('../libs/token'),
-    User      = require('../libs/User');
+var 
+  Purchase  = require('../libs/Purchase'),
+  httpCodes = require('../libs/httpCodes'),
+  util      = require('../libs/util'),
+  token     = require('../libs/token'),
+  User      = require('../libs/User');
 
 const express = require('express');
 
@@ -19,7 +20,7 @@ router.post('/', token.validToken, function (req, res) {
     if (err) {
       return res
         .status(httpCodes.UNPROCESSABLE_ENTITY)
-        .json({responseMessage: "Could not parse Purchase JSON."})
+        .json({responseMessage: "Could not parse Purchase JSON."});
     }
 
     // Generate ID for purchase.
@@ -59,7 +60,7 @@ router.get('/', token.validToken, function (req, res) {
       .json({
         success: true,
         purchases: purchases
-      })
+      });
   });
 });
 

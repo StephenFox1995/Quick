@@ -1,19 +1,20 @@
 'use strict';
 
-var dbManager = require('./dbManager'),
-    fs        = require('fs'),
-    globals   = require('../libs/globals');
+var 
+  dbManager = require('./dbManager'),
+  fs        = require('fs'),
+  globals   = require('../libs/globals');
 
 const database = exports;
 
 
 /**
- * Inserts a User into the sqlite3DB.
- * @param user The user to add to the sqlite3DB.
- * @param callback Callback function.
+ * Inserts a User into the database.
+ * @param   {User} user - The user to add to the sqlite3DB.
+ * @param   {function(err)} cb - callback Callback function.
  **/
-database.insertUser = function (user, callback) {
-  dbManager.insertUser(user, callback);
+database.insertUser = function (user, cb) {
+  dbManager.insertUser(user, cb);
 };
 
 database.getUser = function (email, callback) {
@@ -37,11 +38,11 @@ database.getClient = function (clientID, clientSecret, callback) {
 
 /**
  * Insert an Product into the sqlite3DB.
- * @param product The order to add to the sqlite3DB.
- * @param callback Callback function.
+ * @param   {Product} product - product The order to add to the sqlite3DB.
+ * @param   {function} cb - Callback function.
  * */
-database.insertProduct = function (product, callback) {
-  dbManager.insertProduct(product, callback);
+database.insertProduct = function (product, cb) {
+  dbManager.insertProduct(product, cb);
 };
 database.getProduct = function(productID, callback) {
   dbManager.getProduct(productID, callback);
@@ -53,8 +54,8 @@ database.getAllBusinessProducts = function (businessID, callback) {
 
 /**
  * Inserts a Business into the sqlite3DB.
- * @param business The business to add to the sqlite3DB.
- * @param callback Callback function.
+ * @param {Business} business - The business to add to the sqlite3DB.
+ * @param {function} callback - Callback function.
  **/
 database.insertBusiness = function (business, callback) {
   dbManager.insertBusiness(business, callback);
@@ -75,15 +76,12 @@ database.getBusinessInfo = function (id, callback) {
 
 /**
  * Inserts a Purchase into the sqlite3DB.
- * @param purchase The purchase details to
- *                 add to the sqlite3DB.
- * @param callback The callback function.
+ * @param   {Purchase} purchase - The purchase details to add to the sqlite3DB.
+ * @param   {function} callback - The callback function.
  * */
 database.insertPurchase = function (purchase, callback) {
   dbManager.insertPurchase(purchase, callback);
 };
-
-
 
 
 database.locate = function () {

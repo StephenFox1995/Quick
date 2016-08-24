@@ -24,7 +24,7 @@
         sessionService.setToken(data.token);
         whereTo.nextRoute(app.LOGIN);
       });
-    }
+    };
   }
 
 

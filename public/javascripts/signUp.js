@@ -26,8 +26,8 @@
         }
         sessionService.setToken(response.token);
         whereTo.nextRoute(app.LOGIN);
-      })
-    }
+      });
+    };
   }
 
   signUpService.inject = ['$http'];

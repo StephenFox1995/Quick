@@ -1,10 +1,11 @@
 'use strict';
 
-var httpCodes = require('./httpCodes'),
-    jwt       = require('jsonwebtoken'),
-    ms        = require('ms'),
-    globals   = require('../libs/globals'),
-    fs        = require('fs');
+var 
+  httpCodes = require('./httpCodes'),
+  jwt       = require('jsonwebtoken'),
+  ms        = require('ms'),
+  globals   = require('../libs/globals'),
+  fs        = require('fs');
 
 var token = exports;
 
@@ -14,17 +15,16 @@ var secret = null;
 // TODO: Look into parsing token elsewhere, not just from HTTP header.
 
 
-/***
+/**
  * Parses HTTP headers for the authorization header value.
- *
- * @param req
- *
- * @param {function(string|null)} cb - If successfully parsed the token will be passed
+ * @param {object} req - The request.
+ * @param {function(string,null)} cb - If successfully parsed the token will be passed
  *                                     via the callback, otherwise null.
  */
 token.parseAuthHeaderToken = function (req, cb) {
   var bearerToken = null;
-  var bearerHeader = req.headers['authorization'] || req.headers['Authorization'];
+  var bearerHeader = 
+    req.headers['authorization'] || req.headers['Authorization'];
   if (typeof bearerHeader !== 'undefined') {
     var bearer = bearerHeader.split(' ');
     bearerToken = bearer[1];
@@ -35,10 +35,14 @@ token.parseAuthHeaderToken = function (req, cb) {
 };
 
 
+
 /**
  * Validates a JWT token.
  * If the token is valid next() will ve called;
  * If the token is not valid a response will be sent.
+ * @param {object} req - The request.
+ * @param {object} res - The reponse.
+ * @param {object} next - Next
  * */
 token.validToken = function (req, res, next) {
   token.parseAuthHeaderToken(req, function (tk) {
@@ -73,19 +77,18 @@ token.renew = function (token, cb) {
   jwt.verify(tk, secret, function (err, decoded) {
     if (!err) {
       // No error with the token, therefore it cannot be renewed.
-      return cb(new Error().message = "Token cannot be renewed as it is still valid.");
+      return cb(new Error().message = 'Token cannot be renewed as it is still valid.');
     }
-  })
+  });
 };
 
 
 /**
  * Generates a JSON Web Token, with the object argument.
- * @param object The object to generate the token for.
- *
- * @returns {Object} token            - A token object.
- * @returns {string} token.value      - The token generated.
- * @returns {string} token.expiresIn  - The expiration time of the token.
+ * @param   {object} object - The object to generate the token for.
+ * @return  {Object} token            - A token object.
+ * @return  {string} token.value      - The token generated.
+ * @return  {string} token.expiresIn  - The expiration time of the token.
  * */
 token.generateToken = function (object) {
   // Generate expiration time for token.
@@ -100,8 +103,7 @@ token.generateToken = function (object) {
 
 /**
  * Attempts to set the token secret for the application.
- *
- * @returns {boolean} - True if the token was set, otherwise false.
+ * @return {boolean} - True if the token was set, otherwise false.
  */
 token.setApplicationTokenSecret = function () {
   var tokenSecretFile;

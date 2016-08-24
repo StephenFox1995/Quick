@@ -8,11 +8,11 @@ router.get('/businessSignUp', function (req, res) {
 });
 
 router.get('/business', function (req, res) {
-  return res.render('business')
+  return res.render('business');
 });
 
 router.get('/addProduct', function (req, res) {
-  return res.render('addProduct')
+  return res.render('addProduct');
 });
 
 router.get('/auth', function (req, res) {

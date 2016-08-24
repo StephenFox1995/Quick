@@ -25,7 +25,7 @@ app.factory('whereTo', ['LOGIN',
             break;
         }
       }
-    }
+    };
   }
 ]);
 

@@ -1,23 +1,21 @@
 'use strict';
 
-var util  = require('./util'),
-    db    = require('../models/database'),
-    hash  = require('../libs/hash');
+var 
+  util  = require('./util'),
+  db    = require('../models/database'),
+  hash  = require('../libs/hash');
 
+/**
+ * Business object
+ */
 function Business() { }
 
 
 Business.prototype.parsePOST = function (req, callback) {
-  if (validRequest(req) && isValidBusinessObject(req.body.business)) {
-    var business = req.body.business;
-    this.name = business.name;
-    this.address = business.address;
-    this.contactNumber = business.contactNumber;
-    this.email = business.email;
-    this.password = business.password;
+  if (validRequest(req)) {
     callback(null);
   } else {
-    callback(new Error('Could not parse Business.'));
+    callback(new Error('Could not parse Business'));
   }
 };
 
@@ -26,12 +24,26 @@ Business.prototype.insert = function (callback) {
   db.insertBusiness(this, callback);
 };
 
+/**
+ * Sets the attributes of the user object based on
+ * the requests properties.
+ * @param {object} req - The request.
+ */
+Business.prototype.setAttributeFromRequest = function(req) {
+
+};
 
 /**
- * Determines that the Business object is valid
- * by checking that all fields have a value.
- **/
-function isValidBusinessObject(business) {
+ * Checks if a req is valid.
+ * The request is deemed valid if the 
+ * body contains a business object with the correct fields.
+ * @param {Object} req The request.
+ * @return {boolean} True if the req is valid.
+ */
+function validRequest(req) {
+  if (!'business' in req.body) {
+    return false;
+  }
   if (util.isValidString(business.name)           &&
       util.isValidString(business.address)        &&
       util.isValidString(business.contactNumber)  &&
@@ -40,11 +52,7 @@ function isValidBusinessObject(business) {
     return true;
   } else {
     return false;
-  }
-}
-
-function validRequest(req) {
-  return req.body.business ? true: false;
+  }  
 }
 
 
@@ -63,24 +71,23 @@ Business.prototype.verify = function (callback) {
 
     // Compare hashed password with normal password
     if (hash.compare(password, businessInfo.password, function (err, verified) {
-        if (err) {
-          callback(err);
+      if (err) {
+        return callback(err);
+      } else {
+        if (verified) {
+          // Once verified set the rest
+          // of the info about the business.
+          me.id = businessInfo.id;
+          me.address = businessInfo.address;
+          me.name = businessInfo.name;
+          me.contactNumber = businessInfo.contactNumber;
+          return callback(null, true);
         } else {
-          if (verified) {
-            // Once verified set the rest
-            // of the info about the business.
-            me.id = businessInfo.id;
-            me.address = businessInfo.address;
-            me.name = businessInfo.name;
-            me.contactNumber = businessInfo.contactNumber;
-            callback(null, true);
-          } else {
-            callback(null, false);
-          }
+          callback(null, false);
         }
-      }));
+      }
+    }));
   });
-
 };
 
 module.exports = Business;

@@ -1,12 +1,13 @@
 'use strict';
 
-var express   = require('express'),
-    httpCodes = require('../libs/httpCodes'),
-    hash      = require('../libs/hash'),
-    util      = require('../libs/util'),
-    User      = require('../libs/User'),
-    db        = require('../models/database'),
-    token      = require('../libs/token');
+var 
+  express   = require('express'),
+  httpCodes = require('../libs/httpCodes'),
+  hash      = require('../libs/hash'),
+  util      = require('../libs/util'),
+  User      = require('../libs/User'),
+  db        = require('../models/database'),
+  token      = require('../libs/token');
 
 
 const router = express.Router();
@@ -64,7 +65,7 @@ router.post('/', function (req, res) {
           expires: t.expiresIn
         });
     });
-  })
+  });
 });
 
 

@@ -1,12 +1,13 @@
 'use strict';
 
-var Business =  require('../libs/Business'),
-    httpCodes = require('../libs/httpCodes'),
-    hash =      require('../libs/hash'),
-    util =      require('../libs/util'),
-    db =        require('../models/database'),
-    token =     require('../libs/token'),
-    express =   require('express');
+var 
+  Business =  require('../libs/Business'),
+  httpCodes = require('../libs/httpCodes'),
+  hash =      require('../libs/hash'),
+  util =      require('../libs/util'),
+  db =        require('../models/database'),
+  token =     require('../libs/token'),
+  express =   require('express');
 
 
 var router = express.Router();

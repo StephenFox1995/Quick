@@ -23,5 +23,5 @@ app.controller('productsController', function ($scope, $http) {
       .error(function (data) {
         $scope.message = 'Error';
       });
-  }
+  };
 });

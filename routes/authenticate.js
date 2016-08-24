@@ -1,9 +1,10 @@
 'use strict';
 
 
-var express   = require('express'),
-    auth      = require('../libs/authenticate'),
-    httpCodes = require('../libs/httpCodes');
+var 
+  express   = require('express'),
+  auth      = require('../libs/authenticate'),
+  httpCodes = require('../libs/httpCodes');
 
 
 var router = express.Router();
@@ -55,7 +56,7 @@ router.post('/', function (req, res) {
         responseMessage: 'Successfully authenticated.',
         expires: token.expiresIn,
         token: token.value
-      })
+      });
   });
 
 });

@@ -1,10 +1,11 @@
 'use strict';
 
-var Product = require('../libs/Product'),
-    httpCodes = require('../libs/httpCodes'),
-    util = require('../libs/util'),
-    express = require('express'),
-    db = require('../models/database');
+var 
+  Product = require('../libs/Product'),
+  httpCodes = require('../libs/httpCodes'),
+  util = require('../libs/util'),
+  express = require('express'),
+  db = require('../models/database');
 
 
 var router = express.Router();
