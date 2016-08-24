@@ -16,7 +16,7 @@ See below for ignored files.
 - node_modules/
 - .DS_Store
 
-### Style Guide
+## Style Guide
 Please adhere to the style guide: 
 https://google.github.io/styleguide/javascriptguide.xml
 
