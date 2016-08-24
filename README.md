@@ -20,4 +20,5 @@ See below for ignored files.
 Please adhere to the style guide: 
 https://google.github.io/styleguide/javascriptguide.xml
 
-
+**Recommended** 
+- Use ESLint for linting http://eslint.org/docs/user-guide/getting-started
