@@ -49,7 +49,7 @@ router.post('/', function (req, res) {
           });
       }
 
-      // Removed the password from the user before generating token.
+      // Remove the password from the user before generating token.
       delete user.password;
 
       // Generate token.
