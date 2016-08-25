@@ -7,7 +7,7 @@ var
   util      = require('../libs/util'),
   User      = require('../libs/User'),
   db        = require('../models/database'),
-  token      = require('../libs/token');
+  vr      = require('../libs/validRequest');
 
 
 const router = express.Router();
@@ -71,7 +71,7 @@ router.post('/', function (req, res) {
 /**
  * EndPoint: /user/info
  **/
-router.get('/info', token.validToken, function (req, res) {
+router.get('/info', vr.validPOSTRequest, function (req, res) {
   var token = req.decoded;
 
   db.getUserInfo(token.id, function(err, row) {

@@ -30,7 +30,30 @@ describe('POST /user.', function() {
     .end(function(err, res){
       done(err);
     });  
-  }); 
+  });
+
+  it('Should sign up with invalid details and return http code 422', function(done) {
+    // Mock user.
+    var body = {
+      user : {
+        firstname: 'MockMan',
+        lastname: 'Bill',
+        email: '', // Omit email.
+        password: password
+      }
+    };
+    // Make POST request.
+    request
+    .post('/user')
+    .send(body)
+    .expect(422)
+    .expect(function(res) {
+      expect(res.body.success).to.equal(false);
+    })
+    .end(function(err, res){
+      done(err);
+    }); 
+  });
 });
 	
 

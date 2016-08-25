@@ -5,7 +5,8 @@ var
   jwt       = require('jsonwebtoken'),
   ms        = require('ms'),
   globals   = require('../libs/globals'),
-  fs        = require('fs');
+  fs        = require('fs'),
+  qRes      = require('./qRes');
 
 var token = exports;
 
@@ -38,39 +39,31 @@ token.parseAuthHeaderToken = function (req, cb) {
 
 /**
  * Validates a JWT token.
- * If the token is valid next() will ve called;
- * If the token is not valid a response will be sent.
+ * If the token is valid a property `decoded`
+ * will be set on the req object.
+ * If the token is not valid a HTTP response will be sent.
+ * 
  * @param {object} req - The request.
- * @param {object} res - The reponse.
- * @param {object} next - Next
+ * @param {object} res - The reponse. 
  * */
-token.validToken = function (req, res, next) {
+token.validToken = function (req, cb) {
   token.parseAuthHeaderToken(req, function (tk) {
     if (tk) {
       jwt.verify(tk, secret, function (err, decoded) {
         if (err) {
-          return res
-            .status(httpCodes.UNAUTHORIZED)
-            .json({
-              success:false,
-              responseMessage: "Failed to authenticate token. Reason: " + err.message
-            });
+          return cb(unautRes("Failed to authenticate token. Reason: " + err.message));
         }
         req.decoded = decoded;
-        next();
+        var res = qRes.res;
+        res.valid = true;
+        return cb(res); 
       });
     }
     else {
-      return res
-        .status(httpCodes.UNAUTHORIZED)
-        .json({
-          success: false,
-          responseMessage: "No token provided."
-        });
+      return cb(unautRes("No token provided."));
     }
   });
 };
-
 
 
 token.renew = function (token, cb) {
@@ -128,3 +121,13 @@ token.setApplicationTokenSecret = function () {
     return false;
   }
 };
+
+
+function unautRes(message) {
+  var res = qRes.res;
+  res.valid = false;
+  res.code = httpCodes.UNAUTHORIZED;
+  res.httpRes.success = false;
+  res.httpRes.responseMessage = message;
+  return res;
+}

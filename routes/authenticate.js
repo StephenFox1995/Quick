@@ -58,7 +58,6 @@ router.post('/', function (req, res) {
         token: token.value
       });
   });
-
 });
 
 

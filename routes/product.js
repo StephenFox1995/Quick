@@ -5,7 +5,8 @@ var
   httpCodes = require('../libs/httpCodes'),
   util = require('../libs/util'),
   express = require('express'),
-  db = require('../models/database');
+  db = require('../models/database'),
+  vr = require('../libs/validRequest');
 
 
 var router = express.Router();
@@ -26,7 +27,7 @@ router.get('/:id', function (req, res) {
 
 
 
-router.post('/', function (req, res) {
+router.post('/', vr.validPOSTRequest, function (req, res) {
   var product = new Product();
   // Parse post request.
   product.parsePOST(req, function (err) {
