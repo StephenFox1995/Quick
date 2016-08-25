@@ -1,10 +1,11 @@
 'use strict';
-var fs = require('fs'),
-    util = require('../../libs/util'),
-    userSQL = require('../../models/sqlite3/userSQL'),
-    businessSQL = require('../../models/sqlite3/businessSQL'),
-    productSQL = require('../../models/sqlite3/productSQL'),
-    purchaseSQL = require('../../models/sqlite3/purchaseSQL');
+var 
+  fs = require('fs'),
+  util = require('../../libs/util'),
+  userSQL = require('../../models/sqlite3/userSQL'),
+  businessSQL = require('../../models/sqlite3/businessSQL'),
+  productSQL = require('../../models/sqlite3/productSQL'),
+  purchaseSQL = require('../../models/sqlite3/purchaseSQL');
 
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -13,8 +14,7 @@ const argv = require('minimist')(process.argv.slice(2));
 
 (function setupdb(filepath) {
   if (!util.isValidString(filepath)) {
-    console.log('No file path specified.');
-    return;
+    return console.log('No file path specified.');
   }
 
   // Check if db exists.
@@ -28,7 +28,7 @@ const argv = require('minimist')(process.argv.slice(2));
       mkdirSync(configDirectory);
     } catch (e) {
       console.log('/etc/quick already exists.');
-      console.log(e);
+      return console.log(e);
     }
 
     // Create the config file and write where the SQLite db is stored.
@@ -40,7 +40,7 @@ const argv = require('minimist')(process.argv.slice(2));
       if (err) return console.log('There was an error writing to configurations file. ' + err);
       // Config file created successfully, create sqlite3DB.
       createSQLiteDatabase(filepath);
-      console.log('Success created sqlite3DB file.');
+      return console.log('Success created sqlite3DB file.');
     });
   }
 })(argv.f);
@@ -60,8 +60,11 @@ function createSQLiteDatabase(location) {
 }
 
 /**
- * Writes contents to a config file.
- * */
+ * Writes contents to a configuration file specified by the filepath.
+ * @param   {string} filepath - The filepath of the cofiguration file.
+ * @param   {object} contents - The contents to write to the file.
+ * @param   {function(err)} callback - Callback
+ **/
 function writeToConfig(filepath, contents, callback) {
   fs.writeFile(filepath, contents, function (err) {
     callback(err);
@@ -70,7 +73,8 @@ function writeToConfig(filepath, contents, callback) {
 
 /**
  * Makes a directory synchronously.
- * */
+ * @param {string} path - The path to created the directory.
+ **/
 function mkdirSync(path) {
   try {
     fs.mkdirSync(path);

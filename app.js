@@ -1,18 +1,16 @@
-var express       = require('express'),
-    path          = require('path'),
-    favicon       = require('serve-favicon'),
-    logger        = require('morgan'),
-    cookieParser  = require('cookie-parser'),
-    bodyParser    = require('body-parser'),
-    routes        = require('./routes/index'),
-    user          = require('./routes/user'),
-    business      = require('./routes/business'),
-    product       = require('./routes/product'),
-    purchase      = require('./routes/purchase'),
-    auth          = require('./routes/authenticate'),
-    views         = require('./routes/views'),
-    token         = require('./libs/token');
-
+var 
+  express       = require('express'),
+  path          = require('path'),
+  logger        = require('morgan'),
+  cookieParser  = require('cookie-parser'),
+  bodyParser    = require('body-parser'),
+  routes        = require('./routes/index'),
+  user          = require('./routes/user'),
+  business      = require('./routes/business'),
+  product       = require('./routes/product'),
+  purchase      = require('./routes/purchase'),
+  auth          = require('./routes/authenticate'),
+  views         = require('./routes/views');
 
 var app = express();
 
