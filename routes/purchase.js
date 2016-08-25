@@ -5,7 +5,8 @@ var
   httpCodes = require('../libs/httpCodes'),
   util      = require('../libs/util'),
   token     = require('../libs/token'),
-  User      = require('../libs/User');
+  User      = require('../libs/User'),
+  vr        = require('../libs/validRequest');
 
 const express = require('express');
 
@@ -14,7 +15,7 @@ var router = express.Router();
 /**
  * /purchase
  * */
-router.post('/', token.validToken, function (req, res) {
+router.post('/', vr.validPOSTRequest, function (req, res) {
   var purchase = new Purchase();
   purchase.parsePOST(req, function (err) {
     if (err) {
@@ -46,7 +47,7 @@ router.post('/', token.validToken, function (req, res) {
   });
 });
 
-router.get('/', token.validToken, function (req, res) {
+router.get('/', vr.validPOSTRequest, function (req, res) {
   var userID = req.decoded.id;
   var user = new User();
   user.getPurchases(userID, function (err, purchases) {

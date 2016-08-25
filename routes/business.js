@@ -1,13 +1,14 @@
 'use strict';
 
 var 
-  Business =  require('../libs/Business'),
+  Business  = require('../libs/Business'),
   httpCodes = require('../libs/httpCodes'),
-  hash =      require('../libs/hash'),
-  util =      require('../libs/util'),
-  db =        require('../models/database'),
-  token =     require('../libs/token'),
-  express =   require('express');
+  hash      = require('../libs/hash'),
+  util      = require('../libs/util'),
+  db        = require('../models/database'),
+  token     = require('../libs/token'),
+  express   = require('express'),
+  vr        = require('../validRequest');  
 
 
 var router = express.Router();
@@ -65,7 +66,7 @@ router.post('/', function (req, res) {
 });
 
 
-router.get('/info', token.validToken, function (req, res) {
+router.get('/info', vr.validPOSTRequest, function (req, res) {
   var token = req.decoded;
 
   db.getBusinessInfo(token.id, function (err, row) {
