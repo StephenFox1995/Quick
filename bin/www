@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-var app     = require('../app'),
-    debug   = require('debug')('Quick:server'),
-    http    = require('http'),
-    config  = require('../config/runConfig');
+var 
+  app     = require('../app'),
+  debug   = require('debug')('Quick:server'),
+  http    = require('http'),
+  config  = require('../config/runConfig');
 
 
 

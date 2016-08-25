@@ -101,7 +101,7 @@ database.locate = function () {
     globals.Globals.dbLocation = dbLocation.sqliteFilepath;
     return true;
   } else {
-    console.log('Configuration file does not contain location of sqlite3DB.');
+    console.log('Configuration file does not contain location of SQLite database.');
     return false;
   }
 };

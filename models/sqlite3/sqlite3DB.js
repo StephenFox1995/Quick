@@ -1,20 +1,18 @@
 'use strict';
 
-var sqlite3 = require('sqlite3').verbose(),
-    globals = require('../../libs/globals'),
-    userSQL = require('./userSQL'),
-    businessSQL = require('./businessSQL'),
-    productSQL = require('./productSQL'),
-    purchaseSQL = require('./purchaseSQL'),
-    oauthSQL = require('./oauthSQL');
+var 
+  sqlite3 = require('sqlite3').verbose(),
+  globals = require('../../libs/globals'),
+  userSQL = require('./userSQL'),
+  businessSQL = require('./businessSQL'),
+  productSQL = require('./productSQL'),
+  purchaseSQL = require('./purchaseSQL'),
+  oauthSQL = require('./oauthSQL');
 
 
 const sqlite3DB = exports;
 
-/**
- * Database object shared by module.
- **/
-var db;
+
 
 
 /***********************
@@ -23,8 +21,8 @@ var db;
 
 /**
  * Inserts a User into the database.
- * @param user The user to add to the database.
- * @param callback Callback function.
+ * @param   {User} user - The user to add to the database.
+ * @param   {function()} callback - Callback function.
  **/
 sqlite3DB.insertUser = function (user, callback) {
   this.getConnection(function (db) {
@@ -144,7 +142,7 @@ sqlite3DB.getProduct = function (id, callback) {
   this.getConnection(function (db) {
     const sqlQuery = productSQL.getProduct;
     db.get(sqlQuery, [id], callback);
-  })
+  });
 };
 
 
@@ -162,6 +160,8 @@ sqlite3DB.insertPurchase = function (purchase, callback) {
       callback);
   });
 };
+
+
 sqlite3DB.getUserPurchases = function (userID, callback) {
   this.getConnection(function (db) {
     const sqlQuery = purchaseSQL.userPurchases;
@@ -170,6 +170,10 @@ sqlite3DB.getUserPurchases = function (userID, callback) {
 };
 
 
+/**
+ * Database object shared by module.
+ **/
+var db;
 
 /**
  * Get a connection to the database file stored on disk.
@@ -182,4 +186,20 @@ sqlite3DB.getConnection = function (callback) {
     db = new sqlite3.Database(globals.Globals.dbLocation);
     callback(db);
   }
+};
+
+/**
+ * Creates an SQLite database on the host system.
+ * @param   {string} location - The location to create the database. 
+ */
+sqlite3DB.create = function(location) {
+  var sqlite3 = require('sqlite3').verbose();
+  var db = new sqlite3.Database(location);
+  db.serialize(function () {
+    // Create User table.
+    db.run(userSQL.create);
+    db.run(businessSQL.create);
+    db.run(productSQL.create);
+    db.run(purchaseSQL.create);
+  });
 };

@@ -2,14 +2,11 @@
 var 
   fs = require('fs'),
   util = require('../../libs/util'),
-  userSQL = require('../../models/sqlite3/userSQL'),
-  businessSQL = require('../../models/sqlite3/businessSQL'),
-  productSQL = require('../../models/sqlite3/productSQL'),
-  purchaseSQL = require('../../models/sqlite3/purchaseSQL');
+  sqlite3DB = require('../../models/sqlite3/sqlite3DB');
 
 const argv = require('minimist')(process.argv.slice(2));
 
-// Usage: node config/setup/dbGen.js -f "/Users/stephenfox/Desktop/quick_jwt.db"
+// Usage: node config/setup/appSetup.js -f "/Users/stephenfox/Desktop/quick_jwt.db"
 
 
 (function setupdb(filepath) {
@@ -39,7 +36,7 @@ const argv = require('minimist')(process.argv.slice(2));
     writeToConfig(file, contents, function (err) {
       if (err) return console.log('There was an error writing to configurations file. ' + err);
       // Config file created successfully, create sqlite3DB.
-      createSQLiteDatabase(filepath);
+      sqlite3DB.create(filepath);
       return console.log('Success created sqlite3DB file.');
     });
   }
@@ -47,17 +44,6 @@ const argv = require('minimist')(process.argv.slice(2));
 
 
 
-function createSQLiteDatabase(location) {
-  var sqlite3 = require('sqlite3').verbose();
-  var db = new sqlite3.Database(location);
-  db.serialize(function () {
-    // Create User table.
-    db.run(userSQL.create);
-    db.run(businessSQL.create);
-    db.run(productSQL.create);
-    db.run(purchaseSQL.create);
-  });
-}
 
 /**
  * Writes contents to a configuration file specified by the filepath.
