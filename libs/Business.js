@@ -77,6 +77,11 @@ Business.prototype.verify = function (callback) {
     if (err) {
       callback(err);
     }
+    // TODO: this is the point we know use doesn't exists.
+    // Update error appropriately.
+    if (!businessInfo || !'password' in businessInfo) {
+      return callback(null, false);
+    }
 
     // Compare hashed password with normal password
     if (hash.compare(password, businessInfo.password, function (err, verified) {

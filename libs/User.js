@@ -56,7 +56,7 @@ User.prototype.verify = function (cb) {
     // TODO: this is the point we know use doesn't exists.
     // Update error appropriately.
     if (!userInfo || !'password' in userInfo) {
-      return cb(null, false);
+      return cb(null);
     }
     
     // Compare hashed password with normal password.
