@@ -49,7 +49,7 @@ Business.prototype.setAttributesFromRequest = function(req) {
  * @return {boolean} True if the req is valid.
  */
 function validRequest(req) {
-  if (!'business' in req.body) {
+  if (!('business' in req.body)) {
     return false;
   }
   var business = req.body.business;
@@ -79,7 +79,7 @@ Business.prototype.verify = function (callback) {
     }
     // TODO: this is the point we know use doesn't exists.
     // Update error appropriately.
-    if (!businessInfo || !'password' in businessInfo) {
+    if (!businessInfo || !('password' in businessInfo)) {
       return callback(null, false);
     }
 

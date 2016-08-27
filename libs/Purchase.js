@@ -30,7 +30,7 @@ Purchase.prototype.setAttributesFromRequest = function(req) {
 };
 
 function validRequest(req) {
-  if (!'purchase' in req.body) {
+  if (!('purchase' in req.body)) {
     return false;
   }
   var purchase = req.body.purchase;

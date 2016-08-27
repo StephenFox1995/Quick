@@ -55,7 +55,7 @@ User.prototype.verify = function (cb) {
     }
     // TODO: this is the point we know use doesn't exists.
     // Update error appropriately.
-    if (!userInfo || !'password' in userInfo) {
+    if (!userInfo || !('password' in userInfo)) {
       return cb(null);
     }
     
@@ -100,7 +100,7 @@ User.prototype.setAttributesFromRequest = function(req) {
  * @return {boolean} True if the req is valid.
  */
 function validRequest(req) {
-  if (!'user' in req.body){
+  if (!('user' in req.body)) {
     return false;    
   }
   var user = req.body.user;

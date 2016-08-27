@@ -19,7 +19,7 @@ describe('Business Test', function() {
   };
   
   var business = new Business();
-  it("Parse request successfully and set business attributes from request.", function(done) {
+  it('Parse request successfully and set business attributes from request.', function(done) {
     business.parsePOST(mockRequestValid, function(err) {
       expect(err).to.equal(null);
       expect(business.name).to.equal(mockRequestValid.body.business.name);
@@ -32,7 +32,7 @@ describe('Business Test', function() {
   });
 
   //Note: this test will only pass if a user actually exists in the database.
-  it("Verify a valid business exists and check password, with an actual valid business.", function(done) {
+  it('Verify a valid business exists and check password, with an actual valid business.', function(done) {
     business.verify(function(err, verified) {
       expect(err).to.equal(null);
       expect(verified).to.equal(true);
@@ -40,7 +40,7 @@ describe('Business Test', function() {
     });
   });
 
-  it("Verify a business with the wrong password.", function(done) {
+  it('Verify a business with the wrong password.', function(done) {
     business.password = 'wrongpassword';
     business.verify(function(err, verified) {
       expect(err).to.equal(null);
@@ -61,7 +61,7 @@ describe('Business Test', function() {
     }
   };
 
-  it("Parse invalid request and expect error object.", function(done) {
+  it('Parse invalid request and expect error object.', function(done) {
     business.parsePOST(mockRequestInvalid, function(err) {
       expect(err).to.be.an('error');
       done();

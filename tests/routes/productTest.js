@@ -30,7 +30,7 @@ describe('POST /product.', function() {
     });
   });
 
-  it ('Should add a product with invalid body and return http code 200', function(done) {
+  it ('Should add a product with missing value and return http code 422', function(done) {
     var body = {
       product: {
         businessID: 'rkxd5WL5',

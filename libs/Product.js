@@ -32,7 +32,7 @@ Product.prototype.setAttributesFromRequest = function(req) {
 
 
 function validRequest(req) {
-  if (!'product' in req.body) {
+  if (!('product' in req.body)) {
     return false;
   }
   var product = req.body.product;
@@ -44,7 +44,6 @@ function validRequest(req) {
   } else {
     return false;
   }
-  
 }
 
 module.exports = Product;

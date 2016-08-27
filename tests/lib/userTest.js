@@ -19,7 +19,7 @@ describe('User Test', function() {
   };
   
   var user = new User();
-  it("Parse request successfully and set user attributes from request.", function(done) {
+  it('Parse request successfully and set user attributes from request.', function(done) {
     user.parsePOST(mockRequestValid, function(err) {
       expect(err).to.equal(null);
       expect(user.firstname).to.equal(mockRequestValid.body.user.firstname);
@@ -31,7 +31,7 @@ describe('User Test', function() {
   });
 
   //Note: this test will only pass if a user actually exists in the database.
-  it("Verify a valid user exists and check password, with an actual valid user.", function(done) {
+  it('Verify a valid user exists and check password, with an actual valid user.', function(done) {
     user.verify(function(err, verified) {
       expect(err).to.equal(null);
       expect(verified).to.equal(true);
@@ -39,7 +39,7 @@ describe('User Test', function() {
     });
   });
 
-  it("Verify a user with the wrong password.", function(done) {
+  it('Verify a user with the wrong password.', function(done) {
     user.password = 'wrongpassword';
     user.verify(function(err, verified) {
       expect(err).to.equal(null);
@@ -59,7 +59,7 @@ describe('User Test', function() {
     }
   };
 
-  it("Parse invalid request and expect error object.", function(done) {
+  it('Parse invalid request and expect error object.', function(done) {
     user.parsePOST(mockRequestInvalid, function(err) {
       expect(err).to.be.an('error');
       done();
