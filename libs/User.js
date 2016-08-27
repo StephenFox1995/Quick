@@ -56,13 +56,13 @@ User.prototype.verify = function (cb) {
     // TODO: this is the point we know use doesn't exists.
     // Update error appropriately.
     if (!userInfo || !'password' in userInfo) {
-      return cb(err);
+      return cb(null, false);
     }
     
     // Compare hashed password with normal password.
     if (hash.compare(password, userInfo.password, function (err, verified) {
       if (err) {
-        return cb(err);
+        return cb(err, false);
       } else {
         if (verified) {
           // As verification was successful

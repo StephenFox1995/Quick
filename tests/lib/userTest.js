@@ -1,7 +1,6 @@
 var 
   User = require('../../libs/User'),
-  chai = require('chai'),
-  config = require('../../config/runConfig'),
+  chai = require('chai'), 
   expect = chai.expect;
 
 
@@ -14,35 +13,38 @@ describe('User Test', function() {
         firstname: 'Stephen',
         lastname: 'Fox',
         password: 'test',
-        email: 'ss@email.com'
+        email: 'ss@gmail.com'
       }
     }
   };
   
   var user = new User();
-  it("Parse request successfully and set user attributes from request.", function() {
+  it("Parse request successfully and set user attributes from request.", function(done) {
     user.parsePOST(mockRequestValid, function(err) {
       expect(err).to.equal(null);
       expect(user.firstname).to.equal(mockRequestValid.body.user.firstname);
       expect(user.lastname).to.equal(mockRequestValid.body.user.lastname);
       expect(user.password).to.equal(mockRequestValid.body.user.password);
       expect(user.email).to.equal(mockRequestValid.body.user.email);
+      done();
     });
   });
 
   //Note: this test will only pass if a user actually exists in the database.
-  it("Verify a valid user exists and check password, with an actual valid user.", function() {
+  it("Verify a valid user exists and check password, with an actual valid user.", function(done) {
     user.verify(function(err, verified) {
       expect(err).to.equal(null);
       expect(verified).to.equal(true);
+      done();
     });
   });
 
-  it("Verify a user with the wrong password.", function() {
+  it("Verify a user with the wrong password.", function(done) {
     user.password = 'wrongpassword';
     user.verify(function(err, verified) {
       expect(err).to.equal(null);
       expect(verified).to.equal(false);
+      done();
     });
   });
 
@@ -57,9 +59,10 @@ describe('User Test', function() {
     }
   };
 
-  it("Parse invalid request and expect error object.", function() {
+  it("Parse invalid request and expect error object.", function(done) {
     user.parsePOST(mockRequestInvalid, function(err) {
       expect(err).to.be.an('error');
+      done();
     });
   });
 }); 
