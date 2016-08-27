@@ -29,9 +29,12 @@ token.parseAuthHeaderToken = function (req, cb) {
   if (typeof bearerHeader !== 'undefined') {
     var bearer = bearerHeader.split(' ');
     bearerToken = bearer[1];
-    cb(bearerToken);
+    if (bearerToken === 'undefined') {
+      return cb(null);
+    }
+    return cb(bearerToken);
   } else {
-    cb(null);
+    return cb(null);
   }
 };
 

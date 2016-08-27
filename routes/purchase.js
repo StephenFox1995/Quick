@@ -4,7 +4,6 @@ var
   Purchase  = require('../libs/Purchase'),
   httpCodes = require('../libs/httpCodes'),
   util      = require('../libs/util'),
-  token     = require('../libs/token'),
   User      = require('../libs/User'),
   vr        = require('../libs/validRequest');
 
@@ -21,7 +20,9 @@ router.post('/', vr.validPOSTRequest, function (req, res) {
     if (err) {
       return res
         .status(httpCodes.UNPROCESSABLE_ENTITY)
-        .json({responseMessage: "Could not parse Purchase JSON."});
+        .json({
+          success: false,
+          responseMessage: "Could not parse Purchase JSON."});
     }
 
     // Generate ID for purchase.
@@ -32,7 +33,7 @@ router.post('/', vr.validPOSTRequest, function (req, res) {
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
           .json({
-            success: true,
+            success: false,
             responseMessage: " Purchase could not be processed at this time."
           });
       }
@@ -54,7 +55,9 @@ router.get('/', vr.validPOSTRequest, function (req, res) {
     if (err) {
       return res
         .status(httpCodes.INTERNAL_SERVER_ERROR)
-        .json({responseMessage: " Could not retrieve purchases."});
+        .json({
+          responseMessage: " Could not retrieve purchases.",
+          success: false});
     }
     res
       .status(httpCodes.SUCCESS)
