@@ -53,11 +53,16 @@ User.prototype.verify = function (cb) {
     if (err) {
       return cb(err);
     }
+    // TODO: this is the point we know use doesn't exists.
+    // Update error appropriately.
+    if (!userInfo || !'password' in userInfo) {
+      return cb(err);
+    }
     
     // Compare hashed password with normal password.
     if (hash.compare(password, userInfo.password, function (err, verified) {
       if (err) {
-        cb(err);
+        return cb(err);
       } else {
         if (verified) {
           // As verification was successful
@@ -67,7 +72,7 @@ User.prototype.verify = function (cb) {
           me.lastname = userInfo.lastname;
           return cb(null, true);
         } else {
-          cb(null, false);
+          return cb(null, false);
         }
       }
     }));
