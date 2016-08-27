@@ -14,7 +14,7 @@ user.create =
 
 // Insert statement for User table.
 user.insert = 'INSERT INTO User(' +
-  'id, firstname, lastname, email, password, token) VALUES(?, ?, ?, ?, ?, ?)';
+  'id, firstname, lastname, email, password) VALUES(?, ?, ?, ?, ?)';
 
 user.all = 'SELECT id, firstname, lastname, email FROM User';
 

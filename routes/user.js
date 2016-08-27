@@ -7,7 +7,8 @@ var
   util      = require('../libs/util'),
   User      = require('../libs/User'),
   db        = require('../models/database'),
-  vr      = require('../libs/validRequest');
+  token     = require('../libs/token'),
+  vr        = require('../libs/validRequest');
 
 
 const router = express.Router();

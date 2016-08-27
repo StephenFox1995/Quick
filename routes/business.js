@@ -8,7 +8,7 @@ var
   db        = require('../models/database'),
   token     = require('../libs/token'),
   express   = require('express'),
-  vr        = require('../validRequest');  
+  vr        = require('../libs/validRequest');  
 
 
 var router = express.Router();
