@@ -1,5 +1,6 @@
 var 
-  request = require('supertest')('http://localhost:3000'),
+  app = require('../../app.js'),
+  request = require('supertest')(app),
   chai = require('chai'),
   expect = chai.expect;
 

@@ -26,7 +26,6 @@ router.get('/:id', function (req, res) {
 
 
 
-
 router.post('/', vr.validPOSTRequest, function (req, res) {
   var product = new Product();
   // Parse post request.
@@ -34,7 +33,10 @@ router.post('/', vr.validPOSTRequest, function (req, res) {
     if (err) {
       return res
         .status(httpCodes.UNPROCESSABLE_ENTITY)
-        .json({responseMessage: "Could not parse Product JSON."});
+        .json({
+          success: false,
+          responseMessage: "Could not parse Product JSON."
+        });
     }
 
     // TODO: Look into longer id for product.
@@ -43,14 +45,19 @@ router.post('/', vr.validPOSTRequest, function (req, res) {
     // Insert into sqlite3DB.
     product.insert(function (err) {
       if (err) {
-        console.log(err);
         return res
           .status(httpCodes.INTERNAL_SERVER_ERROR)
-          .json({responseMessage: "Product could not be added to the sqlite3DB."});
+          .json({
+            success: false,
+            responseMessage: "Product could not be added to the sqlite3DB."
+          });
       }
       res
         .status(httpCodes.SUCCESS)
-        .json({responseMessage: "Product was successfully created."});
+        .json({
+          success: true,
+          responseMessage: "Product was successfully added."
+        });
     });
   });
 });

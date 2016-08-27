@@ -10,9 +10,33 @@ var
   product       = require('./routes/product'),
   purchase      = require('./routes/purchase'),
   auth          = require('./routes/authenticate'),
-  views         = require('./routes/views');
+  views         = require('./routes/views'),
+  config  = require('./config/runConfig');
 
 var app = express();
+
+/**
+ * Initializes the applications.
+ * Initialization includes:
+ *  - Locating the sqlite3DB.
+ *  - Finding the token secret for the application.
+ *
+ *  Both of which values are stored as configurations.
+ *  See runConfig.js for more details.
+ **/
+(function initializeApplication() {
+  // Locate the sqlite3DB, otherwise return.
+  if (!config.locateDatabase()) {
+    return;
+  }
+
+  // Set the token secret, other wise return.
+  if (!config.tokenSecret()) {
+    return;
+  }
+})();
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
