@@ -1,13 +1,13 @@
 var 
-  Product = require('../../libs/Product'),
-  chai = require('chai'), 
-  expect = chai.expect;
+  Product     = require('../../libs/Product'),
+  chai        = require('chai'),  
+  expect      = chai.expect;
 
 
 describe('Product Test', function() {
   var product = new Product();
   var validRequest = {
-    body: {
+    body: {      
       product: {
         businessID: 'rkxd5WL5',
         name: 'Test Product',

@@ -2,9 +2,10 @@ var
   app = require('../../app.js'),
   request = require('supertest')(app),
   chai = require('chai'),
+  testConfig  = require('../testConfig'),
   expect = chai.expect;
 
-var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE0NzIyMjg0NTksImV4cCI6MTUwMzc2NDQ1OSwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoic3NAZ21haWwuY29tIiwiR2l2ZW5OYW1lIjoiU3RlcGhlbiAiLCJTdXJuYW1lIjoiRm94IiwiRW1haWwiOiJzc0BnbWFpbC5jb20ifQ.hOIoXt4KITxb5o4o7fbK8l5-lJEuf9Qs4N5seMe9Oiw';
+var token = testConfig.token;
 
 describe('POST /product.', function() {
   it ('Should add a product to the database and return http code 200', function(done) {

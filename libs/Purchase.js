@@ -7,9 +7,6 @@ var
 function Purchase() { }
 
 Purchase.prototype.parsePOST = function (req, callback) {
-  // Get user details from token.
-  var token = req.decoded;
-  this.userID = token.id;
   if (validRequest(req)) {
     this.setAttributesFromRequest(req);
     return callback(null);
@@ -27,10 +24,17 @@ Purchase.prototype.setAttributesFromRequest = function(req) {
   var purchase = req.body.purchase;
   this.businessID = purchase.businessID;
   this.productID = purchase.productID;
+  // Get token details
+  var token = req.decoded;
+  this.userID = token.id;
 };
 
 function validRequest(req) {
   if (!('purchase' in req.body)) {
+    return false;
+  }
+  // Check for valid token.
+  if (!('decoded' in req)) {
     return false;
   }
   var purchase = req.body.purchase;
