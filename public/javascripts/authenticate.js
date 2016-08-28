@@ -1,28 +1,31 @@
 (function () {
   'use strict';
+  angular
+    .module('authenticate', [
+      'routes',
+      'session'
+    ])
+    .controller('AuthenticateController', AuthenticateController)
+    .factory('authService', authService);
 
-  var app =
-    angular
-      .module('authenticate', [
-        'routeController',
-        'session'
-      ])
-      .controller('AuthenticateController', AuthenticateController)
-      .factory('authService', authService);
-
-  AuthenticateController.inject = ['$scope', 'whereTo', 'authService', 'sessionService'];
-  function AuthenticateController($scope, whereTo, authService, sessionService) {
-    $scope.httpBody = {
-      authType: 'user'
-    };
-    $scope.authenticate = function () {
+  AuthenticateController.inject = ['$scope', 'whereTo', 'authService', 'sessionService', 'ROUTES'];
+  function AuthenticateController($scope, whereTo, authService, sessionService, ROUTES) {
+    $scope.httpBody = {};
+    $scope.authenticate = function () {  
       // Attempt to authenticate the user.
       authService.authenticate($scope.httpBody, function (err, data) {
         if (err) {
           return $scope.message = data.responseMessage;
         }
         sessionService.setToken(data.token);
-        whereTo.nextRoute(app.LOGIN);
+        switch($scope.httpBody.authType.toLowerCase()) {
+          case 'user':
+            whereTo.nextRoute(ROUTES.home);
+            break;
+          case 'business':
+            whereTo.nextRoute(ROUTES.businessHome);
+            break;
+        }
       });
     };
   }

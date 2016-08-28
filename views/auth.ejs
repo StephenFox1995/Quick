@@ -3,7 +3,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
 
     <script src="../javascripts/authenticate.js"></script>
-    <script src="../javascripts/routeController.js"></script>
+    <script src="../javascripts/routes.js"></script>
     <script src="../javascripts/session.js"></script>
     <% include /partials/header %>
     <title>
@@ -14,13 +14,24 @@
 <body>
 
 <div>
-    <div ng-controller="AuthenticateController">
-        <h1>Please Sign In!</h1>
+    <h4>User login<h4>
+    <div ng-controller="AuthenticateController" ng-init="httpBody.authType='user'">
+        <b>Please Sign In!</b>
         <p>Email</p>
         <input type="text" ng-model="httpBody.user.email">
         <p>Password</p>
         <input type="password" ng-model="httpBody.user.password">
-        <button type="submit" ng-click="authenticate()">Sign In</button>
+        <button type="submit" ng-click="authenticate()" >Sign In</button>
+        {{message}}
+    </div>
+    <h4>Business login<h4>
+    <div ng-controller="AuthenticateController" ng-init="httpBody.authType='business'">
+        <b>Please Sign In!</b>
+        <p>Email</p>
+        <input type="text" ng-model="httpBody.business.email">
+        <p>Password</p>
+        <input type="password" ng-model="httpBody.business.password">
+        <button type="submit" ng-click="authenticate()" >Sign In</button>
         {{message}}
     </div>
 </div>

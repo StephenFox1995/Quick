@@ -31,6 +31,9 @@ router.get('/home', function (req, res) {
   return res.render('home');
 });
 
+router.get('/businessHome', function (req, res) {
+  return res.render('businessHome');
+});
 
 
 module.exports = router;

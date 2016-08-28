@@ -3,7 +3,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
     <script src="../javascripts/signUp.js"></script>
     <script src="../javascripts/session.js"></script>
-    <script src="../javascripts/routeController.js"></script>
+    <script src="../javascripts/routes.js"></script>
     <% include /partials/header %>
     <title>
         Index Page
@@ -12,7 +12,7 @@
 
 <body>
 
-<div ng-controller="SignUpController">
+<div ng-controller="SignUpController" ng-init="endPoint='/business'">
     <h1>Register as business!</h1>
     <p>Name</p>
     <input type="text" ng-model="httpBody.business.name">
@@ -26,9 +26,7 @@
     <input type="text" ng-model="httpBody.business.password">
 
     <button type="submit"
-            ng-click="signUp()"
-            ng-model="signUpModel.endPoint"
-            ng-init="signUpModel.endPoint='/business'">Sign Up</button >
+            ng-click="signUp()">Sign Up</button>
     {{message}}
 </div>
 

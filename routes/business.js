@@ -13,6 +13,8 @@ var
 
 var router = express.Router();
 
+// Todo: If business tries to sign up with
+// already used email, then give appropriate error.
 
 /**
  * Add a new Business to the database.

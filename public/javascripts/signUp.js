@@ -3,29 +3,38 @@
   angular
     .module('signUp', [
       'session',
-      'routeController'
+      'routes'
     ])
     .controller('SignUpController', SignUpController)
     .factory('signUpService', signUpService);
 
   
-  SignUpController.inject = ['$scope', 'signUpService', 'sessionService', 'whereTo'];
-  function SignUpController($scope, signUpService, sessionService, whereTo) {
+  SignUpController.inject = ['$scope', 'signUpService', 'sessionService', 'whereTo', 'ROUTES'];
+  function SignUpController($scope, signUpService, sessionService, whereTo, ROUTES) {
     $scope.httpBody = {};
     $scope.message = '';
-    $scope.signUpModel = {};
+    $scope.endPoint = null;
 
 
     $scope.signUp = function () {
-      if (!$scope.signUpModel.endPoint) { return; }
-      var endPoint = $scope.signUpModel.endPoint;
+      if (!$scope.endPoint) { return; }
+      var endPoint = $scope.endPoint;
 
       signUpService.signUp(endPoint, $scope.httpBody, function (err, response) {
         if (err) {
           return $scope.message = 'Failed to sign up.';
         }
-        sessionService.setToken(response.token);
-        whereTo.nextRoute(app.LOGIN);
+        // Determine where to go next.
+        switch (endPoint) {
+          case '/user':
+            sessionService.setToken(response.token);
+            whereTo.nextRoute(ROUTES.home);
+            break;
+          case '/business':
+            sessionService.setToken(response.token);
+            whereTo.nextRoute(ROUTES.businessHome);
+            break;
+        }
       });
     };
   }

@@ -3,7 +3,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
     <script src="../javascripts/signUp.js"></script>
     <script src="../javascripts/session.js"></script>
-    <script src="../javascripts/routeController.js"></script>
+    <script src="../javascripts/routes.js"></script>
     <% include /partials/header %>
     <title>
         Index Page
@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<div ng-controller="SignUpController">
+<div ng-controller="SignUpController" ng-init="endPoint='/user'">
     <h1>Create an account!</h1>
     <p>Email</p>
     <input type="text" ng-model="httpBody.user.email">
@@ -21,10 +21,8 @@
     <input type="text" ng-model="httpBody.user.lastname">
     <p>Password</p>
     <input type="text" ng-model="httpBody.user.password">
-    <button type="submit"
-            ng-click="signUp()"
-            ng-model="signUpModel.endPoint"
-            ng-init="signUpModel.endPoint='/user'">Create Account</button >
+    <button type="submit" ng-click="signUp()"
+    Create Account</button >
     {{message}}
 </div>
 

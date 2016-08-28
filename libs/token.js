@@ -108,7 +108,7 @@ token.setApplicationTokenSecret = function () {
   } catch (e) {
     console.log(e);
     if (e.code === 'ENOENT') {
-      console.log('Could not find tokenSecret file.');
+      console.log('Could not find token secret file.');
       return false;
     }
   }
