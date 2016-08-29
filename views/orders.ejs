@@ -20,12 +20,18 @@
         <thead>
             <tr>
                 <td>Purchase ID</td>
+                <td>Product ID</td>
+                <td>Name</td>
+                <td>Price</td>
             </tr>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="purchase in purchases">
-                <td>{{purchase.id}}</td>
+                <td>{{purchase.purchaseID}}</td>
+                <td>{{purchase.productID}}</td>
+                <td>{{purchase.productName}}</td>
+                <td>{{purchase.productPrice}}</td>
             </tr>
             </tbody>
         </table>
