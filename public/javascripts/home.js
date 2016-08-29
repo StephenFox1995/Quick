@@ -24,7 +24,6 @@
 
 
 
-
   setupHomeViews.inject = ['purchaseService'];
   function setupHomeViews(purchaseService) {
     return {

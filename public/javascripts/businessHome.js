@@ -10,4 +10,5 @@
   function BusinessHomeController($scope) {
     $scope.welcomeMessage = 'Welcome';
   };
+
 })();

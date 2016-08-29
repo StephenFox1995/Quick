@@ -1,9 +1,11 @@
-<html ng-app="">
+<html ng-app="businessOrders">
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
     <script src="../javascripts/session.js"></script>
     <script src="../javascripts/token.js"></script>
+    <script src="../javascripts/businessOrders.js"></script>
+    <script src="../javascripts/orders.js"></script>
     <% include /partials/businessHeader %>
     <title>
         Quick - Orders
@@ -12,7 +14,33 @@
 
 <body>
 
-<div>
+<div ng-controller="BusinessOrdersController">
+    Orders.
+    <table>
+        <thead>
+            <tr>
+                <td>Purchase ID</td>
+                <td>Product Name</td>
+                <td>Product Price</td>
+                <td>Product Description</td>
+                <td>Business Name</td>
+                <td>Business Address</td>
+                <td>Business Email</td>
+            </tr>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="purchase in purchases">
+                <td>{{purchase.purchaseID}}</td>
+                <td>{{purchase.productName}}</td>
+                <td>{{purchase.productPrice}}</td>
+                <td>{{purchase.productDescription}}</td>
+                <td>{{purchase.businessName}}</td>
+                <td>{{purchase.businessAddress}}</td>
+                <td>{{purchase.businessEmail}}</td>
+            </tr>
+            </tbody>
+        </table>
 </div>
 
 </body>
