@@ -20,24 +20,12 @@
         <thead>
             <tr>
                 <td>Purchase ID</td>
-                <td>Product Name</td>
-                <td>Product Price</td>
-                <td>Product Description</td>
-                <td>Business Name</td>
-                <td>Business Address</td>
-                <td>Business Email</td>
             </tr>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="purchase in purchases">
-                <td>{{purchase.purchaseID}}</td>
-                <td>{{purchase.productName}}</td>
-                <td>{{purchase.productPrice}}</td>
-                <td>{{purchase.productDescription}}</td>
-                <td>{{purchase.businessName}}</td>
-                <td>{{purchase.businessAddress}}</td>
-                <td>{{purchase.businessEmail}}</td>
+                <td>{{purchase.id}}</td>
             </tr>
             </tbody>
         </table>

@@ -16,7 +16,7 @@
       if (err) {
         // Display error.
       }
-      $scope.purchase = data;
+      $scope.purchases = data.purchases;
     });
   }
 
