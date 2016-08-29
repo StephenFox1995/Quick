@@ -52,6 +52,9 @@ dbManager.getBusiness = function (email, callback) {
 dbManager.getBusinessInfo = function (id, callback) {
   sqlite3DB.getBusinessInfo(id, callback);
 };
+dbManager.getBusinessPurchases = function (id, callback) {
+  sqlite3DB.getBusinessPurchases(id, callback);
+};
 
 
 

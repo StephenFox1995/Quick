@@ -69,8 +69,9 @@ database.getBusiness = function (email, callback) {
 database.getBusinessInfo = function (id, callback) {
   dbManager.getBusinessInfo(id, callback);
 };
-
-
+database.getBusinessPurchases = function(id, callback) {
+  dbManager.getBusinessPurchases(id, callback);
+};
 
 
 

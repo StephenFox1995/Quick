@@ -98,6 +98,12 @@ sqlite3DB.getBusiness = function (email, callback) {
     db.get(sqlQuery, [email], callback);
   });
 };
+sqlite3DB.getBusinessPurchases = function (id, callback) {
+  this.getConnection(function (db) {
+    const sqlQuery = businessSQL.getPurchases;
+    db.all(sqlQuery, [id], callback);
+  });
+};
 
 
 

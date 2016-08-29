@@ -24,3 +24,5 @@ business.info = 'SELECT id, name, address, contactNumber, email  FROM Business W
 
 business.getBusiness = 'SELECT id, password, name, address, contactNumber, email, password FROM Business WHERE email' +
   ' = ?;';
+
+business.getPurchases = 'SELECT * FROM Purchase WHERE businessID = ?';
