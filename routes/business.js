@@ -8,7 +8,8 @@ var
   db        = require('../models/database'),
   token     = require('../libs/token'),
   express   = require('express'),
-  vr        = require('../libs/validRequest');  
+  vr        = require('../libs/validRequest'), 
+  Purchase  = require('../libs/Purchase');  
 
 
 var router = express.Router();
@@ -106,6 +107,30 @@ router.get('/:businessID/products', function(req, res) {
 });
 
 
+/// business/purchases
+router.get('/purchases', vr.validPOSTRequest, function (req, res) {
+  var purchase = new Purchase();
+  var token = req.decoded; // Get businessID.
+  var bs = new Business();
+  bs.id = token.id;
+  purchase.getPurchases(bs, function(err, purchases) {
+    if (err) {
+      return res
+        .status(httpCodes.INTERNAL_SERVER_ERROR)
+        .json({
+          responseMessage: " Could not retrieve purchases.",
+          success: false
+        });
+    }
+    return res
+      .status(httpCodes.SUCCESS)
+      .json({
+        success: true,
+        purchases: purchases
+      });
+  });
+}); 
+
 /**
  * /business/all
  * Returns all businesses in the database.
@@ -121,3 +146,4 @@ router.get('/all', function (req, res) {
   });
 });
 module.exports = router;
+

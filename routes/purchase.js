@@ -57,16 +57,19 @@ router.get('/', vr.validPOSTRequest, function (req, res) {
         .status(httpCodes.INTERNAL_SERVER_ERROR)
         .json({
           responseMessage: " Could not retrieve purchases.",
-          success: false});
+          success: false
+        });
     }
-    res
-      .status(httpCodes.SUCCESS)
-      .json({
-        success: true,
-        purchases: purchases
-      });
+    return res
+            .status(httpCodes.SUCCESS)
+            .json({
+              success: true,
+              purchases: purchases
+            });
   });
 });
+
+
 
 
 module.exports = router;
