@@ -1,8 +1,23 @@
 <html ng-app="index">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+            integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" 
+            crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" 
+            integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" 
+            crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" 
+            crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css" 
+            rel="stylesheet"/>
+    <link rel="stylesheet" 
+            type="text/css" 
+            href="stylesheets/index.css">
     <script src="javascripts/index.js"></script>
-    <% include partials/header %>
     <title>
         Quick
     </title>
@@ -10,19 +25,34 @@
 
 <body>
 
-
 <div ng-controller="indexController">
-    <h1>{{welcomeMessage}}</h1>
-
-    <a href="views/userSignUp">
-        <button>User Sign Up</button>
-    </a>
-    <a href="views/businessSignUp">
-        <button>Register as a business</button>
-    </a>
-    <a href="views/auth">
-        <button>Sign in</button>
-    </a>
+    <h1 style="text-align:center;color:white;">{{welcomeMessage}}</h1>
+        <div id="cardContainer">
+            <div class="card" style="background-color: #4A90E2;width:318px; display: inline-block">
+                <img class="card-img-top" src="images/Q.svg" width="150px" alt="QuickLogo" style="padding-top:20px;padding-bottom:20px;">    
+                <div style="background-color: white">
+                    <div class="card-block">
+                        <h5 class="card-title">Welcome</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <a href="views/auth">
+                            <li class="list-group-item">Login</li>
+                        </a>
+                        <a href="views/userSignUp">
+                            <li class="list-group-item">Sign Up</li>
+                        </a>
+                        <a href="views/businessSignUp">
+                            <li class="list-group-item">Business</li>
+                        </a>
+                    </ul>
+                    <div class="card-block" style="color:red">
+                        <a href="#" class="card-link">Privacy Policy</a>
+                        <a href="#" class="card-link">Terms of Serivce</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

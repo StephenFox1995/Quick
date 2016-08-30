@@ -12,12 +12,15 @@
   BusinessOrdersController.inject = ['$scope', 'ordersView'];
   function BusinessOrdersController($scope, ordersView) {
     $scope.purchases;
-    ordersView.getOrders(function (err, data) {
-      if (err) {
+    (function getOrders() {
+      ordersView.getOrders(function (err, data) {
+        if (err) {
         // Display error.
-      }
-      $scope.purchases = data.purchases;
-    });
+        }
+        $scope.purchases = data.purchases;
+      });
+      setTimeout(getOrders, 5000);
+    })();
   }
 
 

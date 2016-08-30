@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="242px" height="234px" viewBox="0 0 242 234" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3 (11970) - http://www.bohemiancoding.com/sketch -->
+    <title>Logo Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Artboard-1" sketch:type="MSArtboardGroup" transform="translate(-1466.000000, -202.000000)" fill="#FFFFFF">
+            <g id="Logo-Copy" sketch:type="MSLayerGroup" transform="translate(1465.000000, 202.000000)">
+                <g id="Q" sketch:type="MSShapeGroup">
+                    <path d="M70.552548,230.07457 C17.5728553,221.530623 -10.8894836,173.583278 6.02836799,115.714286 C24.7114845,51.8070504 91.6641932,1.82710989e-14 155.571429,1.82710989e-14 C219.478664,1.82710989e-14 256.140056,51.8070504 237.456939,115.714286 C225.941133,155.105108 196.086834,189.89885 159.910594,210.797275 C177.857867,222.465991 229.645348,221.087609 207.020044,225.485523 C185.361752,229.695468 102.221894,237.894927 70.5525682,230.074573 Z M68.935538,179.854236 C51.0474278,167.707521 43.3102716,144.686138 51.028368,118.285714 C62.445828,79.2312927 103.361372,47.5714286 142.415794,47.5714286 C181.470215,47.5714286 203.874399,79.2312927 192.456939,118.285714 C185.214714,143.058382 166.103903,164.855842 143.127875,177.485202 C133.190498,161.561561 117.874465,147.204752 101.094924,150.466364 C88.1812499,152.976528 76.7848967,165.458597 68.935538,179.854236 Z" id="Oval-1"></path>
+                    <g id="Swoosh-Copy-2" transform="translate(79.714286, 82.285714)">
+                        <rect id="Rectangle-13" x="32.6132404" y="18.2472527" width="50.9581882" height="8.10989011" rx="20"></rect>
+                        <rect id="Rectangle-13-Copy" x="12.2299652" y="44.6043956" width="39.7473868" height="8.10989011" rx="20"></rect>
+                        <rect id="Rectangle-13-Copy-2" x="58.0923345" y="36.4945055" width="24.4599303" height="8.10989011" rx="20"></rect>
+                        <rect id="Rectangle-13-Copy-3" x="0" y="26.3571429" width="24.4599303" height="8.10989011" rx="20"></rect>
+                        <rect id="Rectangle-13-Copy-4" x="24.4599303" y="0" width="33.6324042" height="8.10989011" rx="20"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
