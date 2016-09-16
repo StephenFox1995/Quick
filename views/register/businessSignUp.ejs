@@ -1,10 +1,30 @@
 <html ng-app="signUp">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+            integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" 
+            crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" 
+            integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" 
+            crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" 
+            crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css" 
+            rel="stylesheet"/>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
-    <script src="../javascripts/signUp.js"></script>
-    <script src="../javascripts/session.js"></script>
-    <script src="../javascripts/routes.js"></script>
-    <% include /partials/header %>
+        <link rel="stylesheet" 
+            type="text/css" 
+            href="/stylesheets/signUp.css">
+        <!-- Website Font style -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+        <script src="../javascripts/signUp.js"></script>
+        <script src="../javascripts/session.js"></script>
+        <script src="../javascripts/routes.js"></script>
     <title>
         Sign Up
     </title>
@@ -12,22 +32,86 @@
 
 <body>
 
-<div ng-controller="SignUpController" ng-init="endPoint='/business'">
-    <h1>Register as business!</h1>
-    <p>Name</p>
-    <input type="text" ng-model="httpBody.business.name">
-    <p>Address</p>
-    <input type="text" ng-model="httpBody.business.address">
-    <p>Contact Number</p>
-    <input type="text" ng-model="httpBody.business.contactNumber">
-    <p>Email</p>
-    <input type="text" ng-model="httpBody.business.email">
-    <p>Password</p>
-    <input type="text" ng-model="httpBody.business.password">
+<nav class="navbar navbar-default" style="background-color:#4A90E2; border-color:#4A90E2;background-image: none;
+  background-repeat: no-repeat;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">
+        <img alt="Brand" src="/images/Q.svg" width="40px">
+      </a>
+    </div>
+  </div>
+</nav>
 
-    <button type="submit"
-            ng-click="signUp()">Sign Up</button>
-    {{message}}
+<div ng-controller="SignUpController" ng-init="endPoint='/business'">
+    <div class="container">
+	    <div class="row main">
+			<div class="panel-heading">
+               <div class="panel-title text-center">
+	               	<h1 class="title">Business Sign Up</h1>
+                       {{message}}
+	           		<hr />
+	           	</div>
+	        </div> 
+			<div class="main-login main-center">
+                <form class="form-horizontal" method="post" action="#">
+					<div class="form-group">
+						<label for="name" class="cols-sm-2 control-label">Business Name</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="name" id="name"  placeholder="Business Name" ng-model="httpBody.business.name"/>
+							</div>
+						</div>
+					</div>
+
+                      <div class="form-group">
+						<label for="name" class="cols-sm-2 control-label">Address</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Last Name" ng-model="httpBody.business.address"/>
+							</div>
+						</div>
+					</div>
+
+                    <div class="form-group">
+						<label for="contactNumber" class="cols-sm-2 control-label">Contact Number</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="contactNumber" id="contactNumber"  placeholder="Enter your business number" ng-model="httpBody.business.contactNumber"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="email" class="cols-sm-2 control-label">Your Email</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email" ng-model="httpBody.business.email"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="password" class="cols-sm-2 control-label">Password</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+								<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" ng-model="httpBody.business.password"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group ">
+						<button type="button" class="btn btn-primary btn-lg btn-block login-button" ng-click="signUp()">Sign Up</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 
 </body>

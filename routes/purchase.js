@@ -34,10 +34,10 @@ router.post('/', vr.validPOSTRequest, function (req, res) {
           .status(httpCodes.INTERNAL_SERVER_ERROR)
           .json({
             success: false,
-            responseMessage: " Purchase could not be processed at this time."
+            responseMessage: "Purchase could not be processed at this time."
           });
       }
-      res
+      return res
         .status(httpCodes.SUCCESS)
         .json({
           success: true,
@@ -56,7 +56,7 @@ router.get('/', vr.validPOSTRequest, function (req, res) {
       return res
         .status(httpCodes.INTERNAL_SERVER_ERROR)
         .json({
-          responseMessage: " Could not retrieve purchases.",
+          responseMessage: "Could not retrieve purchases.",
           success: false
         });
     }

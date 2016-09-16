@@ -1,0 +1,24 @@
+
+.purchaseWrapper {
+  width: 80%;
+  height: 20%;
+  margin-left: 2%;
+}
+
+.purchaseContainer {
+  width: 100%;
+  height: 20%;
+  border-color: rgba(0, 0, 0, 0);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2px;
+  margin-top: 2%;
+  -webkit-box-shadow: 10px 10px 5px 0px #bababa;
+  -moz-box-shadow: 10px 10px 5px 0px #bababa;
+  box-shadow: 10px 10px 5px 0px #bababa;
+}
+
+.purchaseItem {
+  display: inline-block;
+  font-family: "Roboto-Light";
+}
