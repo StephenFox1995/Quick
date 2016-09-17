@@ -18,25 +18,23 @@
 </head>
   
 <body>
-    <div ng-controller="HomeController">
-        <div ng-repeat="purchase in purchases">
-        <div class="purchaseWrapper">
-            <div class="purchaseContainer">
-                <div class="purchaseItem title">
-                    <h3>{{purchase.productName}}</h3>
-                </div>
-                <div class="purchaseItem time">
-                    <h3>02/02/2018 15:13</h3>
-                </div>
-                <div class="purchaseItem ">
-                    <h3>{{purchase.businessName}}</h3>
-                </div>
-                <div class="purchaseItem ">
-                    <h3>€{{purchase.productPrice}}</h3>
+    <h3>Recent Purchases</h3>
+        <div class="container" ng-controller="HomeController">
+            <div ng-repeat="purchase in purchases">
+            <div class="purchaseWrapper">
+                <div class="purchaseContainer">
+                    <div class="row purchaseItem">
+                        <div class="col-md-8 title">{{purchase.productName}}</div>
+                        <div class="col-md-3 time">02/02/2018 15:13</div>
+                    </div>
+                <hr>
+                <div class="row purchaseItem">
+                    <div class="col-md-8 businessName">{{purchase.businessName}}</div>
+                    <div class="col-md-3 price">€{{purchase.productPrice}}</div>
                 </div>
             </div>
+            </div>
         </div>
-    </div>
     </div>
 </body>
 </html>
