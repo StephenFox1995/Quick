@@ -18,23 +18,26 @@
 </head>
   
 <body>
+
+    <div class="page">
     <h3>Recent Purchases</h3>
         <div class="container" ng-controller="HomeController">
             <div ng-repeat="purchase in purchases">
             <div class="purchaseWrapper">
                 <div class="purchaseContainer">
                     <div class="row purchaseItem">
-                        <div class="col-md-8 title">{{purchase.productName}}</div>
-                        <div class="col-md-3 time">02/02/2018 15:13</div>
+                        <div class="col-md-8 col-xs-6 title">{{purchase.productName}}</div>
+                        <div class="col-md-3 col-xs-5 time">10 Jan, 15:13</div>
                     </div>
                 <hr>
                 <div class="row purchaseItem">
-                    <div class="col-md-8 businessName">{{purchase.businessName}}</div>
-                    <div class="col-md-3 price">€{{purchase.productPrice}}</div>
+                    <div class="col-md-8 col-xs-6 businessName">{{purchase.businessName}}</div>
+                    <div class="col-md-3 col-xs-5 price">€{{purchase.productPrice}}</div>
                 </div>
             </div>
             </div>
         </div>
+    </div>
     </div>
 </body>
 </html>
