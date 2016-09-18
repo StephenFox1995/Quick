@@ -22,31 +22,31 @@
 
 <body>
     <h3>Orders</h3>
-        <div class="container" ng-controller="BusinessOrdersController">
-            <div ng-repeat="purchase in purchases">
-                <div class="qWrapper">
-                    <div class="qContainer">
-                        <div class="row purchaseItem">
-                            <div class="col-md-8 col-xs-6 title">{{purchase.productName}}</div>
-                            <div class="col-md-3 col-xs-5 time">10 Jan, 15:13</div>
-                        </div>
-                    <hr>
-                    <div class="row purchaseItem">
-                        <div class="col-md-8 col-xs-6 id">Product ID: {{purchase.productID}}</div>
-                        <div class="col-md-3 col-xs-5 price">€{{purchase.productPrice}}</div>
-                    </div>
-                    <hr>
-                    <div class="row buttonWrapper">
-                        <div class="col-md-2 col-xs-4 id">
-                            <button type="button" class="btn btn-success qButton">Accept</button>
-                            
-                        </div>
-                        <div class="col-md-2 col-xs-4 price">
-                            <button type="button" class="btn btn-danger qButton">Decline</button>
-                        </div>
-                    </div>
-                </div>
+    <div class="container" ng-controller="BusinessOrdersController">
+        <div ng-repeat="purchase in purchases">
+        <div class="qContainer">
+            <div class="row purchaseHeadingWrap">
+            <div class="col-md-10 col-xs-10 purchaseHeading">ORDER</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="items">
+                <div class="col-md-10 col-xs-10 purchaseItem">- {{purchase.productName}}</div>
             </div>
         </div>
+        <hr>
+        <div class="row purchasePriceWrap">
+            <div class="col-md-12 col-xs-12 purchasePrice">€13.95</div>
+        </div>
+        <div class="row pruchaseTimeWrap">
+            <div class="col-md-12 col-xs-12 purchaseTime">12th Jan, 13:45</div>
+        </div>
+        <hr>
+        <div class="row buttonWrap">
+            <button type="button" class="btn btn-success">Accept</button>
+            <button type="button" class="btn btn-danger">Decline</button>
+        </div>
     </div>
+    </div>
+  </div>
 </html>

@@ -8,6 +8,14 @@ body {
   height: 100%;
 }
 
+hr {
+  border: 0;
+  clear:both;
+  display:block;
+  width: 96%;                
+  background-color:#E5E5E5;
+  height: 1px;
+}
 
 .purchaseHeadingWrap {
     margin-top: 1%;
@@ -60,17 +68,11 @@ body {
   color: #808080;
 }
 
-
-
-.qButton {
+.buttonWrap {
+  text-align:right;
   margin-top: 2%;
-}
-
-.buttonWrapper {
-  width: 100%;
-  padding-right: 2%;
-  margin-bottom: 1%;
-  margin-top: 1%;
+  margin-right: 5%;
+  margin-bottom: 2%;
 }
 
 
