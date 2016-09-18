@@ -10,23 +10,33 @@
   
 <body>
     <h3>Recent Purchases</h3>
-        <div class="container" ng-controller="HomeController">
-            <div ng-repeat="purchase in purchases">
-                <div class="qWrapper">
-                    <div class="qContainer">
-                        <div class="row purchaseItem">
-                            <div class="col-md-8 col-xs-6 title">{{purchase.productName}}</div>
-                            <div class="col-md-3 col-xs-5 time">10 Jan, 15:13</div>
-                        </div>
-                    <hr>
-                    <div class="row purchaseItem">
-                        <div class="col-md-8 col-xs-6 name">{{purchase.businessName}}</div>
-                        <div class="col-md-3 col-xs-5 price">€{{purchase.productPrice}}</div>
-                    </div>
-                </div>
-            </div>
+    <div class="container" ng-controller="HomeController">
+    
+    <div ng-repeat="purchase in purchases">
+      <div class="qContainer">
+        <div class="row purchaseHeadingWrap">
+          <div class="col-md-10 col-xs-10 purchaseHeading">HISTORY</div>
         </div>
-
+        <div class="row">
+          <div class="items">
+            <div class="col-md-10 col-xs-10 purchaseItem">- {{purchase.productName}}</div>
+            <div class="col-md-10 col-xs-10 purchaseItem">- XL fries</div>
+            <div class="col-md-10 col-xs-10 purchaseItem">- XL CocaCola</div>
+            <div class="col-md-10 col-xs-10 purchaseItem">- S  Cheese Dips</div>
+          </div>
+        </div>
+        <hr>
+        <div class="row purchaseLocationWrap">
+          <div class="col-md-10 col-xs-10 purchaseLocation">{{purchase.businessName}}, Grafton Street, Dublin 2</div>
+        </div>
+        <div class="row purchasePriceWrap">
+            <div class="col-md-12 col-xs-12 purchasePrice">€{{purchase.productPrice}}</div>
+        </div>
+          <div class="row pruchaseTimeWrap">
+            <div class="col-md-12 col-xs-12 purchaseTime">12th Jan, 13:45</div>
+        </div>
     </div>
+  </div>
+  </div>
 </body>
 </html>

@@ -1,58 +1,76 @@
 
-hr {
-  width: 90%;
-  margin-top: 0%;
-  margin-bottom: 0%;
-}
-
 html {
   height: 100%;
 }
 
 body {
-  background-color: #F8F8F8;
+  background-color: #F0F0F0;
   height: 100%;
 }
 
+
+.purchaseHeadingWrap {
+    margin-top: 1%;
+    margin-left: 5%;
+}
+.purchaseHeading {
+  font-family: "AvenirNext-Bold";
+  letter-spacing: 2px;
+  text-align:center;
+  color: #808080;
+}
+
+.items {
+  margin-top: 2%;
+  margin-left: 5%;
+}
 .purchaseItem {
-  font-family: "Avenir";
+  font-family: "AvenirNext-DemiBold";
   color: #808080;
 }
 
-.title {
+.purchaseLocationWrap {
   margin-left: 5%;
-  font-family: "Avenir-Heavy";
-  font-size: 150%;
 }
-
-
-.time {
-  font-family: "Avenir-Light";
-  text-align: right;
+.purchaseLocation {
+  font-family: "AvenirNext-Medium";
   color: #808080;
 }
 
-.name {
-  margin-left: 5%;
+.purchasePriceWrap { 
+  padding-right:5%;
+}
+.purchasePrice {
+  
+  text-align:  right;
+  font-family: "AvenirNext-DemiBold";
+  font-size: 30px;
+  color: #808080;
 }
 
-.id {
-  margin-left: 5%;
+.pruchaseTimeWrap {
+  padding-right:5%;
+  padding-bottom: 1%;
+}
+.purchaseTime {
+  text-align:  right;
+  font-family: "AvenirNext-DemiBold";
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #808080;
 }
 
-.price {
-  text-align: right;
-  font-family: "Avenir-Heavy";
-  font-size: 200%;
-  margin-right: 2%
-}
+
 
 .qButton {
   margin-top: 2%;
 }
 
 .buttonWrapper {
+  width: 100%;
   padding-right: 2%;
+  margin-bottom: 1%;
+  margin-top: 1%;
 }
 
 

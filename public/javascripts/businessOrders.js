@@ -19,7 +19,6 @@
         }
         $scope.purchases = data.purchases;
       });
-      setTimeout(getOrders, 5000);
     })();
   }
 
