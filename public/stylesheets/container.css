@@ -1,0 +1,18 @@
+.qContainer {
+  width: 70%;
+  height: 20%;
+  border-color: #E2DEDE;
+  border-width: 0.5px;
+  border-radius: 2px;
+  border-style: solid;
+  margin-top: 2%;
+  -webkit-box-shadow: 10px 10px 5px 0px #C9C9C9;
+  -moz-box-shadow: 10px 10px 5px 0px #C9C9C9;
+  box-shadow: 2px 2px 3px 0px #C9C9C9;
+}
+
+.qContainerWrapper {
+  width: 100%;
+  height: 20%;
+  margin-left: 2%;
+}
