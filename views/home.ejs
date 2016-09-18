@@ -9,7 +9,6 @@
 </head>
   
 <body>
-    <div class="page">
     <h3>Recent Purchases</h3>
         <div class="container" ng-controller="HomeController">
             <div ng-repeat="purchase in purchases">
@@ -21,13 +20,13 @@
                         </div>
                     <hr>
                     <div class="row purchaseItem">
-                        <div class="col-md-8 col-xs-6 businessName">{{purchase.businessName}}</div>
+                        <div class="col-md-8 col-xs-6 name">{{purchase.businessName}}</div>
                         <div class="col-md-3 col-xs-5 price">€{{purchase.productPrice}}</div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
     </div>
 </body>
 </html>

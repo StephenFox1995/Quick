@@ -32,7 +32,11 @@ body {
   color: #808080;
 }
 
-.businessName {
+.name {
+  margin-left: 5%;
+}
+
+.id {
   margin-left: 5%;
 }
 

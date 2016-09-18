@@ -1,11 +1,19 @@
 <html ng-app="businessOrders">
 <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="https://rawgit.com/angular/bower-angular/master/angular.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"   rel="stylesheet" type="text/css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
     <script src="../javascripts/session.js"></script>
     <script src="../javascripts/token.js"></script>
     <script src="../javascripts/businessOrders.js"></script>
     <script src="../javascripts/orders.js"></script>
+    <link href="../stylesheets/container.css" rel="stylesheet" type="text/css" />
+    <link href="../stylesheets/purchase.css" rel="stylesheet" type="text/css" />
+
     <% include /partials/businessHeader %>
     <title>
         Quick - Orders
@@ -13,29 +21,32 @@
 </head>
 
 <body>
-
-<div ng-controller="BusinessOrdersController">
-    Orders.
-    <table>
-        <thead>
-            <tr>
-                <td>Purchase ID</td>
-                <td>Product ID</td>
-                <td>Name</td>
-                <td>Price</td>
-            </tr>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="purchase in purchases">
-                <td>{{purchase.purchaseID}}</td>
-                <td>{{purchase.productID}}</td>
-                <td>{{purchase.productName}}</td>
-                <td>{{purchase.productPrice}}</td>
-            </tr>
-            </tbody>
-        </table>
-</div>
-
-</body>
+    <h3>Orders</h3>
+        <div class="container" ng-controller="BusinessOrdersController">
+            <div ng-repeat="purchase in purchases">
+                <div class="qWrapper">
+                    <div class="qContainer">
+                        <div class="row purchaseItem">
+                            <div class="col-md-8 col-xs-6 title">{{purchase.productName}}</div>
+                            <div class="col-md-3 col-xs-5 time">10 Jan, 15:13</div>
+                        </div>
+                    <hr>
+                    <div class="row purchaseItem">
+                        <div class="col-md-8 col-xs-6 id">Product ID: {{purchase.productID}}</div>
+                        <div class="col-md-3 col-xs-5 price">€{{purchase.productPrice}}</div>
+                    </div>
+                    <hr>
+                    <div class="row purchaseItem">
+                        <div class="col-md-8 col-xs-6 id">
+                            <button type="button" class="btn btn-success">Accept</button>
+                            
+                        </div>
+                        <div class="col-md-3 col-xs-5 price">
+                            <button type="button" class="btn btn-danger">Decline</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </html>
