@@ -32,9 +32,12 @@ auth.auth = function(authType, req, cb) {
  * @return  {undefined} 
  * */
 function authUser(req, cb) {
+  if (!('user' in req.body)) {
+    return cb(new Error('No user found in request.'));
+  }
   var email = req.body.user.email;
   var password = req.body.user.password;
-
+  
   if (!email) {
     return cb(new Error('No email specified in the request.'));
   }
