@@ -1,51 +1,54 @@
 <html ng-app="businessOrders">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <script src="https://code.jquery.com/jquery.min.js"></script>
-    <script src="https://rawgit.com/angular/bower-angular/master/angular.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"   rel="stylesheet" type="text/css" />
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
-    <script src="../javascripts/session.js"></script>
-    <script src="../javascripts/token.js"></script>
-    <script src="../javascripts/businessOrders.js"></script>
-    <script src="../javascripts/orders.js"></script>
-    <link href="../stylesheets/container.css" rel="stylesheet" type="text/css" />
-    <link href="../stylesheets/purchase.css" rel="stylesheet" type="text/css" />
-    <% include /partials/navBar %>
-    <title>
-        Quick - Orders
-    </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="https://code.jquery.com/jquery.min.js"></script>
+  <script src="https://rawgit.com/angular/bower-angular/master/angular.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
+  <script src="../javascripts/session.js"></script>
+  <script src="../javascripts/token.js"></script>
+  <script src="../javascripts/businessOrders.js"></script>
+  <script src="../javascripts/orders.js"></script>
+  <link href="../stylesheets/container.css" rel="stylesheet" type="text/css" />
+  <link href="../stylesheets/purchase.css" rel="stylesheet" type="text/css" />
+  <% include /partials/navBar %>
+    <title>Quick - Orders</title>
 </head>
 
 <body>
-    <h3>Orders</h3>
-    <div class="container" ng-controller="BusinessOrdersController">
-        <div ng-repeat="purchase in purchases">
-        <div class="qContainer">
-            <div class="row purchaseHeadingWrap">
-            <div class="col-md-10 col-xs-10 purchaseHeading">ORDER</div>
+  <h3>Orders</h3>
+  <div ng-controller="BusinessOrdersController">
+  <div class="container" ng-repeat="purchase in purchases">
+      <div class="row purchaseHeadingWrap">
+        <div class="col-lg-12 col-md-12 col-xs-12 purchaseHeading">ORDER</div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="items">
+          <div class="purchaseItem">- Chicken Meal</div>
+          <div class="purchaseItem">- XL fries</div>
+          <div class="purchaseItem">- XL CocaCola</div>
+          <div class="purchaseItem">- S Cheese Dips</div>
         </div>
-        <hr>
-        <div class="row">
-            <div class="items">
-                <div class="col-md-10 col-xs-10 purchaseItem">- {{purchase.productName}}</div>
-            </div>
-        </div>
-        <hr>
-        <div class="row purchasePriceWrap">
-            <div class="col-md-12 col-xs-12 purchasePrice">€13.95</div>
-        </div>
-        <div class="row pruchaseTimeWrap">
-            <div class="col-md-12 col-xs-12 purchaseTime">12th Jan, 13:45</div>
-        </div>
-        <hr>
-        <div class="row buttonWrap">
-            <button type="button" class="btn btn-success">Accept</button>
-            <button type="button" class="btn btn-danger">Decline</button>
-        </div>
-    </div>
+      </div>
+      <hr>
+      <div class="row purchasePriceWrap">
+        <div class="col-md-12 col-xs-12 purchasePrice">€13.95</div>
+      </div>
+      <div class="row purchaseTimeWrap">
+        <div class="col-md-12 col-xs-12 purchaseTime">12th Jan, 13:45</div>
+      </div>
+      <hr>
+      <div class="row buttonWrap">
+        <button type="button" class="btn btn-success">Accept</button>
+        <button type="button" class="btn btn-danger">Decline</button>
+      </div>
     </div>
   </div>
+  </div>
+</body>
+
 </html>
