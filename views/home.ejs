@@ -1,42 +1,41 @@
 <!DOCTYPE html>
 <html ng-app="home">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <% include /imports/homeImport %>
   <% include /partials/navBar %>
-  <title>Quick - Home</title>
+      <title>Quick - Home</title>
 </head>
-  
-<body>
-    <h3>Recent Purchases</h3>
-    <div class="container" ng-controller="HomeController">
-    
-    <div ng-repeat="purchase in purchases">
-      <div class="qContainer">
-        <div class="row purchaseHeadingWrap">
-          <div class="col-md-10 col-xs-10 purchaseHeading">HISTORY</div>
+
+<body ng-controller="HomeController">
+  <h3>Recent Purchases</h3>
+  <div ng-repeat="purchase in purchases">
+    <div class="container">
+      <div class="row purchaseHeadingWrap">
+        <div class="col-lg-12 col-md-12 col-xs-12 purchaseHeading">HISTORY</div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="items">
+          <div class="purchaseItem">- Chicken Royale Meal</div>
+          <div class="purchaseItem">- XL fries</div>
+          <div class="purchaseItem">- XL CocaCola</div>
+          <div class="purchaseItem">- S Cheese Dips</div>
         </div>
-        <div class="row">
-          <div class="items">
-            <div class="col-md-10 col-xs-10 purchaseItem">- {{purchase.productName}}</div>
-            <div class="col-md-10 col-xs-10 purchaseItem">- XL fries</div>
-            <div class="col-md-10 col-xs-10 purchaseItem">- XL CocaCola</div>
-            <div class="col-md-10 col-xs-10 purchaseItem">- S  Cheese Dips</div>
-          </div>
-        </div>
-        <hr>
-        <div class="row purchaseLocationWrap">
-          <div class="col-md-10 col-xs-10 purchaseLocation">{{purchase.businessName}}, Grafton Street, Dublin 2</div>
-        </div>
-        <div class="row purchasePriceWrap">
-            <div class="col-md-12 col-xs-12 purchasePrice">€{{purchase.productPrice}}</div>
-        </div>
-          <div class="row pruchaseTimeWrap">
-            <div class="col-md-12 col-xs-12 purchaseTime">12th Jan, 13:45</div>
-        </div>
+      </div>
+      <hr>
+      <div class="row purchaseLocationWrap">
+        <div class="col-lg-12 col-md-12 col-xs-12 purchaseLocation">{{purchase.businessName}}, Grafton Street, Dublin 2</div>
+      </div>
+      <div class="row purchasePriceWrap">
+        <div class="col-lg-12 col-md-12 col-xs-12 purchasePrice">€{{purchase.productPrice}}</div>
+      </div>
+      <div class="row purchaseTimeWrap">
+        <div class="col-lg-12 col-md-12 col-xs-12 purchaseTime">12th Jan, 13:45</div>
+      </div>
     </div>
   </div>
   </div>
 </body>
-</html>

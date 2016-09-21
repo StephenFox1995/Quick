@@ -20,8 +20,8 @@ const argv = require('minimist')(process.argv.slice(2));
     var configFile = 'config';
 
     // Make the config directory.
+    console.log('Creating /etc/quick');
     try {
-      console.log('Creating /etc/quick');
       mkdirSync(configDirectory);
     } catch (e) {
       console.log('/etc/quick already exists.');
