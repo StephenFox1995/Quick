@@ -1,35 +1,49 @@
 var express = require('express');
-
 var router = express.Router();
 
 
+// ******************Register******************
 router.get('/businessSignUp', function (req, res) {
   return res.render('register/businessSignUp');
-});
-router.get('/business', function (req, res) {
-  return res.render('business');
-});
-router.get('/addProduct', function (req, res) {
-  return res.render('addProduct');
-});
-router.get('/auth', function (req, res) {
-  return res.render('auth');
 });
 router.get('/userSignUp', function (req, res) {
   return res.render('register/userSignUp');
 });
-router.get('/rest-api', function (req, res) {
-  return res.render('restAPIDocumentation');
+
+
+// ******************Authentication******************
+router.get('/auth', function (req, res) {
+  return res.render('authentication/auth');
 });
-router.get('/home', function (req, res) {
-  return res.render('home');
-});
+
+
+// ******************Business******************
 router.get('/businessHome', function (req, res) {
-  return res.render('businessHome');
+  return res.render('business/businessHome');
+});
+router.get('/addProduct', function (req, res) {
+  return res.render('business/addProduct');
 });
 router.get('/orders', function (req, res) {
-  return res.render('orders');
+  return res.render('business/orders');
 });
+router.get('/products', function (req, res) {
+  return res.render('business/products');
+});
+
+
+
+// ******************Developer******************
+router.get('/rest-api', function (req, res) {
+  return res.render('developer/restAPIDocumentation');
+});
+
+
+// ******************User******************
+router.get('/home', function (req, res) {
+  return res.render('user/home');
+});
+
 
 
 module.exports = router;

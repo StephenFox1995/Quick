@@ -1,14 +1,13 @@
 (function () {
   angular
-  .module('orders', [])
-  .factory('ordersService', ordersService);
+    .module('orders', [])
+    .factory('ordersService', ordersService);
 
   ordersService.inject = ['$http'];
   function ordersService($http) {
     return {
       getOrders: getOrders
     };
-
     function getOrders(callback) {
       // Get all the purchases for the business.
       $http.get('/business/purchases')

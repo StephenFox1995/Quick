@@ -28,6 +28,7 @@ body {
 .purchaseHeading {
   font-family: "AvenirNext-Bold";
   letter-spacing: 2px;
+  font-size: 20px;
   text-align:center;
   color: #808080;
 }
@@ -38,6 +39,7 @@ body {
 }
 .purchaseItem {
   font-family: "AvenirNext-DemiBold";
+  font-size: 20px;
   color: #808080;
 }
 
