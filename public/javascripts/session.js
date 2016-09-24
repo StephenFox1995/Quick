@@ -1,7 +1,9 @@
 (function () {
 
   angular
-    .module('session', ['angular-jwt'])
+    .module('session', [
+      'angular-jwt'
+    ])
     .factory('sessionService', sessionService)
     .factory('sessionInterceptor', sessionInterceptor)
     .config(httpAuthHeaderConfig);

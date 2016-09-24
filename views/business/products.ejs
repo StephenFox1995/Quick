@@ -14,6 +14,7 @@
   <script src="../javascripts/session.js"></script>
   <script src="../javascripts/products.js"></script>
   <script src="../javascripts/businessProducts.js"></script>
+  <script src="../javascripts/dropper.js"></script>
   <!--css-->
   <link href="../stylesheets/products.css" rel="stylesheet" type="text/css" />
   <title>Quick - Products</title>
@@ -23,7 +24,9 @@
   <h4>Products</h4>
   <div class="container">
     <div class="new-product-row">
-      <button class="btn btn-default " type="submit">Add new product</button>
+      <a href = "/views/addProduct">
+        <button class="btn btn-default" type="submit">Add new product</button>
+      </a>
     </div>
 
     <div class="table-responsive" ng-controller="BusinessProductsController">

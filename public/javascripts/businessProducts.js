@@ -2,8 +2,13 @@
   'use strict';
 
   angular
-    .module('businessProducts', ['products', 'session'])
-    .controller('BusinessProductsController', BusinessProductsController);
+    .module('businessProducts', [
+      'products', 
+      'session', 
+      'dropper'
+    ])
+    .controller('BusinessProductsController', BusinessProductsController)
+    .controller('BusinessProductsCreationController', BusinessProductsCreationController);
   
   BusinessProductsController.inject = ['$scope', 'productsService', 'sessionService'];
   function BusinessProductsController($scope, productsService, sessionService) {
@@ -17,5 +22,21 @@
         $scope.products = products;
       });
     })();
+  }
+
+  BusinessProductsCreationController.inject = ['$scope', 'productsService', 'sessionService'];
+  function BusinessProductsCreationController($scope, productsService, sessionService) {
+    $scope.product;
+    $scope.httpBody = {};
+    $scope.addProduct = function() {
+      // Get the business id.
+      var businessID = sessionService.getClientID();
+      $scope.product.businessID = businessID;
+      $scope.httpBody.product = $scope.product;
+      //TODO:  Perform checks on scope.
+      productsService.addProduct($scope.httpBody, function(err, callback) {
+        if (err) {/*Alert user that product could not be added*/}
+      });
+    };
   }
 })();

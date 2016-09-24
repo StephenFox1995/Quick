@@ -49,7 +49,7 @@ router.post('/', vr.validPOSTRequest, function (req, res) {
           .status(httpCodes.INTERNAL_SERVER_ERROR)
           .json({
             success: false,
-            responseMessage: "Product could not be added to the sqlite3DB."
+            responseMessage: "Product could not be added to the database."
           });
       }
       res

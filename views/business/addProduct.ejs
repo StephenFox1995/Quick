@@ -1,24 +1,90 @@
 <!DOCTYPE html>
-<html ng-app="business">
+<html ng-app="businessProducts">
+
 <head>
-    <% include /imports/angularJS %>
-    <script src="../javascripts/business.js"></script>
-    <title> Add Product</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <% include /imports/angularJS %>
+  <% include /imports/auth0-jwt %>
+  <% include /imports/jQuery %>
+  <% include /imports/bootstrap %>
+  <% include /partials/navBar %>
+
+  <!--javascripts-->
+  <script src="../javascripts/businessProducts.js"></script>
+  <script src="../javascripts/products.js"></script>
+  <script src="../javascripts/dropper.js"></script>
+  <script src="../javascripts/session.js"></script>
+  <!--css-->
+  <link href="../stylesheets/container.css" rel="stylesheet" type="text/css" />
+  <link href="../stylesheets/products.css" rel="stylesheet" type="text/css" />
+  <title>Add Product</title>
 </head>
 
 <body>
-<div ng-controller="productsController">
-    <h1>{{message}}</h1>
-    <h1>Add A product</h1>
-    <p>Name</p>
-    <input type="text" ng-model="newProduct.name">
-    <p>Price</p>
-    <input type="text" ng-model="newProduct.price">
-    <p>Description</p>
-    <input type="text" ng-model="newProduct.description">
+  <div class="container" , ng-controller="BusinessProductsCreationController">
+    <div class="heading">Add New Product</div>
 
-    <button type="submit" ng-click="addProduct()">Add Product!</button >
+    <form ng-submit='addProduct()'>
+      <fieldset>
+        <div class="form-group">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <hr>
+          </div>
+        </div>
+        <!--input fields-->
+        <div class="form-group">
+          <!--id-->
+          <label for="inputID" class="col-sm-2 control-label">ID</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control bottom-space" id="inputID" placeholder="ID" ng-model="product.id">
+          </div>
+          <!--name-->
+          <label for="inputName" class="col-sm-2 control-label">Name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control bottom-space" id="inputName" placeholder="Name" ng-model="product.name">
+          </div>
+          <!--description-->
+          <label for="description" class="col-sm-2 control-label">Description</label>
+          <div class="col-sm-10">
+            <textarea class="form-control bottom-space" id="description" placeholder="Description" style="resize: vertical;" rows="3" ng-model="product.description">
+          </textarea>
+          </div>
+          <!--price -->
+          <label for="description" class="col-sm-2 control-label">Price</label>
+          <div class="col-sm-10">
+            <!--currency-->
+            <div class="input-group" ng-model="Euro" input-dropper>
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{value}} <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li drop-item id="Euro €"><a href="">Euro € </a></li>
+                  <li drop-item id="US Dollar $"><a href="">US Dollar $ </a></li>
+                  <li drop-item id="British Sterling £"><a href="">British Sterling £ </a></li>
+                </ul>
+              </div>
+              <input type="text" class="form-control bottom-space" aria-label="..." ng-model="product.price">
+            </div>
+            <fieldset>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <hr>
+            </div>
+          </div>
 
-</div>
+          <!-- buttons-->
+          <div class="form-group">
+            <div class="col-lg-12 col-md-12 col-xs-12">
+              <div class="button-wrap">
+                <button class="btn btn-default" type="button">Configure Options</button>
+                <button class="btn btn-primary" type="submit">Add Product</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  <form>
 </body>
+
 </html>

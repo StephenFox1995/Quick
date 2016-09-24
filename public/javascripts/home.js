@@ -35,7 +35,6 @@
         validateResponse(data) ? callback(null, data): callback(new Error, data);
       });
     }
-    
     function validateResponse(data) {
       return data.success;
     }

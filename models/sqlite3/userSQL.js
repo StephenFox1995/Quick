@@ -8,7 +8,7 @@ user.create =
     'firstname  STRING, '             +
     'lastname   STRING, '             +
     'email      STRING, '             +
-    'password   STRING'               +
+    'password   STRING,'              +
     'UNIQUE(email)'                   +
     ');';
 

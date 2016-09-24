@@ -129,10 +129,12 @@ sqlite3DB.insertProduct = function (product, callback) {
     const insertQuery = productSQL.insert;
     db.run(insertQuery,
       [product.id,
+        product.specifiedID,
         product.name,
         product.price,
         product.description,
-        product.businessID],
+        product.businessID,
+        product.options],
       callback);
   });
 };
