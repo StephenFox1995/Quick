@@ -1,15 +1,15 @@
 'use strict';
 
-var 
-  Business  = require('../libs/Business'),
+var
+  Business = require('../libs/Business'),
   httpCodes = require('../libs/httpCodes'),
-  hash      = require('../libs/hash'),
-  util      = require('../libs/util'),
-  db        = require('../models/database'),
-  token     = require('../libs/token'),
-  express   = require('express'),
-  vr        = require('../libs/validRequest'), 
-  Purchase  = require('../libs/Purchase');  
+  hash = require('../libs/hash'),
+  util = require('../libs/util'),
+  db = require('../models/database'),
+  token = require('../libs/token'),
+  express = require('express'),
+  vr = require('../libs/validRequest'),
+  Purchase = require('../libs/Purchase');
 
 
 var router = express.Router();
@@ -53,7 +53,7 @@ router.post('/', function (req, res) {
 
       var t = token.generateToken(bs);
 
-      res
+      return res
         .status(httpCodes.SUCCESS)
         .json({
           responseMessage: "Business was successfully created.",
@@ -73,7 +73,7 @@ router.get('/info', vr.validPOSTRequest, function (req, res) {
     if (err || !row) {
       return res
         .status(httpCodes.INTERNAL_SERVER_ERROR)
-        .json({responseMessage: "An error occurred."});
+        .json({ responseMessage: "An error occurred." });
     }
     if (row) {
       return res.status(httpCodes.SUCCESS).json(row);
@@ -81,25 +81,35 @@ router.get('/info', vr.validPOSTRequest, function (req, res) {
   });
 });
 
+
 /**
  * GET all products associated with a business.
  * URL: /business/someRandomID/products
  **/
-router.get('/:businessID/products', function(req, res) {
+router.get('/:businessID/products', function (req, res) {
   var businessID = req.params.businessID;
   if (!businessID) {
     return res
       .status(httpCodes.UNPROCESSABLE_ENTITY)
-      .json({responseMessage:"Could not process request."});
+      .json({ 
+        responseMessage: "Could not process request.",
+        success: false 
+      });
   }
 
   db.getAllBusinessProducts(businessID, function (err, rows) {
     if (err) {
       return res
         .status(httpCodes.INTERNAL_SERVER_ERROR)
-        .json({responseMessage:"An error occurred."});
+        .json({ 
+          responseMessage: "An error occurred.",
+          success: true 
+        });
     }
-    res.status(httpCodes.SUCCESS).json({products: rows});
+    return res.status(httpCodes.SUCCESS).json({ 
+      products: rows,
+      success: true
+    });
   });
 });
 
@@ -110,12 +120,12 @@ router.get('/purchases', vr.validPOSTRequest, function (req, res) {
   var token = req.decoded; // Get businessID.
   var bs = new Business();
   bs.id = token.id;
-  purchase.getPurchases(bs, function(err, purchases) {
+  purchase.getPurchases(bs, function (err, purchases) {
     if (err) {
       return res
         .status(httpCodes.INTERNAL_SERVER_ERROR)
         .json({
-          responseMessage: " Could not retrieve purchases.",
+          responseMessage: "Could not retrieve purchases.",
           success: false
         });
     }
@@ -126,7 +136,7 @@ router.get('/purchases', vr.validPOSTRequest, function (req, res) {
         purchases: purchases
       });
   });
-}); 
+});
 
 /**
  * /business/all
@@ -137,10 +147,11 @@ router.get('/all', function (req, res) {
     if (err) {
       return res
         .status(httpCodes.INTERNAL_SERVER_ERROR)
-        .json({responseMessage: "An error occurred"});
+        .json({ responseMessage: "An error occurred" });
     }
     res.status(httpCodes.SUCCESS).json(rows);
   });
 });
+
 module.exports = router;
 

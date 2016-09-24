@@ -6,10 +6,12 @@ var
 
 var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE0NzI0NzEzODAsImV4cCI6MTUwNDAwNzM4MCwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsImlkIjoicmt4ZDVXTDUifQ.QJNy6o-GfXTP686zgIrEiI37strpFm7n9-ImPFMQprg';
 
+
 describe('POST /business.', function() {
   // Email used to sign up business.
-  var email = Math.random().toString(36).substr(2, 5);
+  var email = Math.random().toString(36).substr(2, 5) + '@stephenfox.com';
   var password = 'badpassword';
+
   it('Should add the business to the applications database and return http code 200', function(done) {
     // Mock business.
     var body = {
@@ -63,7 +65,7 @@ describe('POST /business.', function() {
 
 describe('GET /business/purchases', function() {
   it ('Should retrieve all purchases for a business', function(done) {
-     // Make POST request.
+     // Make GET request.
     request
     .get('/business/purchases')
     .set('Authorization', token)
@@ -75,7 +77,22 @@ describe('GET /business/purchases', function() {
       done(err);
     }); 
   });
+
+  it ('Should retrieve all products for a business', function(done) {
+    var businessID = 'BJjgTuli';
+    // Make GET request.
+    request.get('/business/' + businessID + '/products')
+    .expect(200)
+    .expect(function(res) {
+      expect(res.body.success).to.equal(true);
+    })
+    .end(function(err, res) {
+      done(err);
+    });
+  });
 });
+
+
 	
 
 
