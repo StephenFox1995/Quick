@@ -1,23 +1,45 @@
-<html ng-app="businessOrders">
-
+<html ng-app="businessProducts">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-
   <% include /imports/angularJS %>
   <% include /imports/auth0-jwt %>
   <% include /imports/jQuery %>
   <% include /imports/bootstrap %>
-  <% include /partials/navBar %> 
-
+  <% include /partials/navBar %>
+  <!--javascripts-->
   <script src="../javascripts/session.js"></script>
   <script src="../javascripts/token.js"></script>
+  <script src="../javascripts/session.js"></script>
+  <script src="../javascripts/products.js"></script>
+  <script src="../javascripts/businessProducts.js"></script>
+  <!--css-->
   <link href="../stylesheets/container.css" rel="stylesheet" type="text/css" />
-  <title>Quick - Orders</title>
+  <title>Quick - Products</title>
 </head>
 
 <body>
-  <table class="table table-bordered">
-
-  </table>
+  <h4>Products</h4>
+  <div class="table-responsive" ng-controller="BusinessProductsController">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Product ID</th>
+          <th>Name</th>
+          <th>Price </th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="product in products track by $index">
+        <tr>
+          <td>{{product.id}}
+          <td>{{product.name}}</td>
+          <td>{{product.price}}</td>
+          <td>{{product.description}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </body>
+
+</html>
