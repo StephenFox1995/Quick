@@ -15,7 +15,6 @@
       productsService.getProducts(businessID, function(err, products) {
         if (err) { /* todo: display to user that products could not be loaded.*/ }
         $scope.products = products;
-        console.log(products);
       });
     })();
   }
