@@ -39,6 +39,21 @@ router.post('/', vr.validPOSTRequest, function (req, res) {
         });
     }
 
+    // Now check to see if the businessID of the product being
+    // added matches the id from the decoded token.
+    // This is to make sure the product is actually being added by the business
+    // and not somebody else, who happens to have the business id.
+    if (product.businessID !== req.decoded.id) {
+      console.log(product.bussinessID);
+      console.log(req.decoded.id);
+      return res
+          .status(httpCodes.UNAUTHORIZED)
+          .json({
+            success: false,
+            responseMessage: "Not authorized to add product."
+          }); 
+    }
+
     // TODO: Look into longer id for product.
     product.id = util.generateID();
 
