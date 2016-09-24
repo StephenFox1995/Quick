@@ -3,19 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <script src="https://code.jquery.com/jquery.min.js"></script>
-  <script src="https://rawgit.com/angular/bower-angular/master/angular.min.js"></script>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
+
+  <% include /imports/jQuery %>
+  <% include /imports/angularJS %>
+  <% include /imports/auth0-jwt %>
+  <% include /imports/bootstrap %>
+  <% include /partials/navBar %>
+    
   <script src="../javascripts/session.js"></script>
   <script src="../javascripts/token.js"></script>
   <script src="../javascripts/businessOrders.js"></script>
   <script src="../javascripts/orders.js"></script>
   <link href="../stylesheets/container.css" rel="stylesheet" type="text/css" />
   <link href="../stylesheets/purchase.css" rel="stylesheet" type="text/css" />
-  <% include /partials/navBar %>
-    <title>Quick - Orders</title>
+  
+  
+  <title>Quick - Orders</title>
 </head>
 
 <body>

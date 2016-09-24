@@ -1,14 +1,15 @@
 <html ng-app="businessHome">
 <head>
-    <!--external-->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
-    <!--local-->
+    <% include /imports/angularJS %>
+    <% include /imports/auth0-jwt %>
+    <% include /imports/jQuery %>
+    <% include /imports/bootstrap %>
+    <% include /partials/navBar %>
+    <% include /partials/businessHeader %>
+    
     <script src="../javascripts/businessHome.js"></script>
     <script src="../javascripts/session.js"></script>
     <script src="../javascripts/token.js"></script>
-    <!--ejs-->
-    <% include /partials/businessHeader %>
     <title>Quick - Business</title>
 </head>
 

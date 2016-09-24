@@ -4,7 +4,11 @@ var
   chai = require('chai'),
   expect = chai.expect;
 
-var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE0NzI0NzEzODAsImV4cCI6MTUwNDAwNzM4MCwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsImlkIjoicmt4ZDVXTDUifQ.QJNy6o-GfXTP686zgIrEiI37strpFm7n9-ImPFMQprg';
+var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.' +
+            'eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE0NzI' + 
+            '0NzEzODAsImV4cCI6MTUwNDAwNzM4MCwiYXVkIjoid3d3LmV4YW' +
+            '1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIm' +
+            'lkIjoicmt4ZDVXTDUifQ.QJNy6o-GfXTP686zgIrEiI37strpFm7n9-ImPFMQprg';
 
 
 describe('POST /business.', function() {
@@ -78,8 +82,22 @@ describe('GET /business/purchases', function() {
     }); 
   });
 
-  it ('Should retrieve all products for a business', function(done) {
+  it ('Should retrieve all products for a business that has products in the database and return HTTP code 200', function(done) {
     var businessID = 'BJjgTuli';
+    // Make GET request.
+    request.get('/business/' + businessID + '/products')
+    .expect(200)
+    .expect(function(res) {
+      expect(res.body.success).to.equal(true);
+    })
+    .end(function(err, res) {
+      done(err);
+    });
+  });
+  
+  // TODO: verify this is the actual behaviour wanted.
+  it ('Attempt to retrieve products for a business that doesn\'t actually exist and HTTP code 200', function(done) {
+    var businessID = 'BJjgTueli';
     // Make GET request.
     request.get('/business/' + businessID + '/products')
     .expect(200)

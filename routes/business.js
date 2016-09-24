@@ -100,12 +100,13 @@ router.get('/:businessID/products', function (req, res) {
   db.getAllBusinessProducts(businessID, function (err, rows) {
     if (err) {
       return res
-        .status(httpCodes.INTERNAL_SERVER_ERROR)
+        .status(httpCodes.UNPROCESSABLE_ENTITY)
         .json({ 
           responseMessage: "An error occurred.",
           success: true 
         });
     }
+    
     return res.status(httpCodes.SUCCESS).json({ 
       products: rows,
       success: true
