@@ -1,7 +1,7 @@
 (function () {
 
   angular
-    .module('session', [])
+    .module('session', ['angular-jwt'])
     .factory('sessionService', sessionService)
     .factory('sessionInterceptor', sessionInterceptor)
     .config(httpAuthHeaderConfig);
@@ -12,17 +12,35 @@
     $httpProvider.interceptors.push('sessionInterceptor');
   }
 
-
-  function sessionService() {
+  sessionService.inject = ['jwtHelper'];
+  function sessionService(jwtHelper) {
     return {
       setToken : setToken,
-      getToken: getToken
+      getToken: getToken,
+      getClientID: getClientID
     };
+    /**
+     * Retrieves the token from localStorage.
+     * @return {String} The token.
+     */
     function getToken() {
       return localStorage.getItem('token');
     }
+    /**
+     * Sets the token for this session in localStorage.
+     * @param {String} token - The token to set.
+     */
     function setToken(token) {
       localStorage.setItem('token', token);
+    }
+    /**
+     * Retrieves the id of the client who owns the current session.
+     * @return {String} id - The id of the client.
+     */
+    function getClientID() {
+      var token = localStorage.getItem('token');
+      var tokenPayload = jwtHelper.decodeToken(token);
+      return tokenPayload.id;
     }
   }
 
@@ -39,5 +57,4 @@
       return config;
     }
   }
-
 }());

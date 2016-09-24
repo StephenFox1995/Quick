@@ -1,11 +1,12 @@
 <html ng-app="authenticate">
 <head>
-    <script src="https://rawgit.com/angular/bower-angular/master/angular.min.js"></script>
-
+    <% include /imports/angularJS %>
+    <% include /imports/auth0-jwt %>
+    <% include /imports/jQuery %>
+    <% include /partials/navBar %>
     <script src="../javascripts/authenticate.js"></script>
     <script src="../javascripts/routes.js"></script>
     <script src="../javascripts/session.js"></script>
-    <% include /partials/navBar %>
     <title>
         Quick - Login
     </title>
