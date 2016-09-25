@@ -26,7 +26,7 @@ router.get('/:id', function (req, res) {
 
 
 
-router.post('/', vr.validPOSTRequest, function (req, res) {
+router.post('/', vr.validRequest, function (req, res) {
   var product = new Product();
   // Parse post request.
   product.parsePOST(req, function (err) {
@@ -76,6 +76,35 @@ router.post('/', vr.validPOSTRequest, function (req, res) {
     });
   });
 });
+
+
+/**
+ * Update a product.
+ */
+router.patch('/', vr.validRequest, function(req, res) {
+  var product = new Product();
+  // Get the fields for updating.
+  var updateFields = product.parsePATCH(req);
+  
+  product.update(updateFields, function(err) {
+    if (err) {
+      return res
+        .status(httpCodes.INTERNAL_SERVER_ERROR)
+        .json({
+          success: false,
+          responseMessage: "Product could not be updated."
+        });
+    }
+    
+    return res
+      .status(httpCodes.SUCCESS)
+      .json({
+        success: true,
+        responseMessage: "Product was successfully updated."
+      });
+  });
+});
+
 
 
 module.exports = router;

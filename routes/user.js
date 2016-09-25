@@ -72,7 +72,7 @@ router.post('/', function (req, res) {
 /**
  * EndPoint: /user/info
  **/
-router.get('/info', vr.validPOSTRequest, function (req, res) {
+router.get('/info', vr.validRequest, function (req, res) {
   var token = req.decoded;
 
   db.getUserInfo(token.id, function(err, row) {

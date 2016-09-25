@@ -153,6 +153,24 @@ sqlite3DB.getProduct = function (id, callback) {
     db.get(sqlQuery, [id], callback);
   });
 };
+sqlite3DB.updateProduct = function(productID, updateFields, callback) {
+  this.getConnection(function (db) {
+    // Generate a dynamic query for the update.
+    const sqlQuery = productSQL.generateUpdateQueryString(productID, updateFields);
+
+    var queryArguments = [];
+    // Parse all the values for update.
+    updateFields.forEach(function(field, index) {
+      queryArguments.push(field.newValue);
+    });
+
+    // Add productID so database knows what row to update. 
+    queryArguments.push(productID);
+    
+    // Now run the query.
+    return db.run(sqlQuery, queryArguments, callback); 
+  });
+};
 
 
 /***********************

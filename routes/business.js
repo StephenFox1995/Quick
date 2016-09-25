@@ -66,7 +66,7 @@ router.post('/', function (req, res) {
 });
 
 
-router.get('/info', vr.validPOSTRequest, function (req, res) {
+router.get('/info', vr.validRequest, function (req, res) {
   var token = req.decoded;
 
   db.getBusinessInfo(token.id, function (err, row) {
@@ -116,7 +116,7 @@ router.get('/:businessID/products', function (req, res) {
 
 
 /// business/purchases
-router.get('/purchases', vr.validPOSTRequest, function (req, res) {
+router.get('/purchases', vr.validRequest, function (req, res) {
   var purchase = new Purchase();
   var token = req.decoded; // Get businessID.
   var bs = new Business();

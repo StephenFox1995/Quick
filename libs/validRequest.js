@@ -2,7 +2,7 @@
 var 
   token = require('./token');
 
-exports.validPOSTRequest = function(req, res, next) {
+exports.validRequest = function(req, res, next) {
   // Check if token is valid.
   token.validToken(req, function(qRes) {
     if (!qRes.valid) {

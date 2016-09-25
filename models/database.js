@@ -50,6 +50,9 @@ database.getProduct = function(productID, callback) {
 database.getAllBusinessProducts = function (businessID, callback) {
   dbManager.getAllBusinessProducts(businessID, callback);
 };
+database.updateProduct = function(productID, updateFields, callback) {
+  dbManager.updateProduct(productID, updateFields, callback);
+};
 
 
 /**

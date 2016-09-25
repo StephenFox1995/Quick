@@ -14,7 +14,7 @@ var router = express.Router();
 /**
  * /purchase
  * */
-router.post('/', vr.validPOSTRequest, function (req, res) {
+router.post('/', vr.validRequest, function (req, res) {
   var purchase = new Purchase();
   purchase.parsePOST(req, function (err) {
     if (err) {
@@ -48,7 +48,7 @@ router.post('/', vr.validPOSTRequest, function (req, res) {
   });
 });
 
-router.get('/', vr.validPOSTRequest, function (req, res) {
+router.get('/', vr.validRequest, function (req, res) {
   var userID = req.decoded.id;
   var user = new User();
   user.getPurchases(userID, function (err, purchases) {

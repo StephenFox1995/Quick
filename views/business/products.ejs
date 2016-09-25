@@ -23,7 +23,7 @@
 </head>
 
 <body>
-  <h4>Products</h4>
+  <h4 class="page-title">Products</h4>
   <div class="container">
     <div class="new-product-row">
       <a href = "/views/addProduct">
@@ -44,7 +44,7 @@
         </thead>
         <tbody ng-repeat="product in products track by $index">
           <tr>
-            <td>{{product.timestamp}}</td>
+            <td class="col-lg-1 col-md-1 col-xs-1">{{product.timestamp}}</td>
             <td>{{product.id}}</td>
             <td class="col-lg-4 col-md-4 col-xs-4">{{product.name}}</td>
             <td>{{product.price}}</td>
