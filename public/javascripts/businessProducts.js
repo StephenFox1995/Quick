@@ -5,7 +5,8 @@
     .module('businessProducts', [
       'products', 
       'session', 
-      'dropper'
+      'dropper',
+      'alert'
     ])
     .controller('BusinessProductsController', BusinessProductsController)
     .controller('BusinessProductsCreationController', BusinessProductsCreationController);
@@ -28,6 +29,8 @@
   function BusinessProductsCreationController($scope, productsService, sessionService) {
     $scope.product;
     $scope.httpBody = {};
+    $scope.showAlert = false;
+    
     $scope.addProduct = function() {
       // Get the business id.
       var businessID = sessionService.getClientID();
@@ -35,7 +38,8 @@
       $scope.httpBody.product = $scope.product;
       //TODO:  Perform checks on scope.
       productsService.addProduct($scope.httpBody, function(err, callback) {
-        if (err) {/*Alert user that product could not be added*/}
+        if (err) { return; /*Alert user that product could not be added*/}
+        $scope.showAlert = true;
       });
     };
   }

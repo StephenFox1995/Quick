@@ -5,26 +5,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <% include /imports/angularJS %>
-  <% include /imports/auth0-jwt %>
-  <% include /imports/jQuery %>
-  <% include /imports/bootstrap %>
-  <% include /partials/navBar %>
+    <% include /imports/auth0-jwt %>
+      <% include /imports/jQuery %>
+        <% include /imports/bootstrap %>
+          <% include /partials/navBar %>
 
-  <!--javascripts-->
-  <script src="../javascripts/businessProducts.js"></script>
-  <script src="../javascripts/products.js"></script>
-  <script src="../javascripts/dropper.js"></script>
-  <script src="../javascripts/session.js"></script>
-  <!--css-->
-  <link href="../stylesheets/container.css" rel="stylesheet" type="text/css" />
-  <link href="../stylesheets/products.css" rel="stylesheet" type="text/css" />
-  <title>Add Product</title>
+            <!--javascripts-->
+            <script src="../javascripts/businessProducts.js"></script>
+            <script src="../javascripts/products.js"></script>
+            <script src="../javascripts/dropper.js"></script>
+            <script src="../javascripts/session.js"></script>
+            <script src="../javascripts/alert.js"></script>
+            <!--css-->
+            <link href="../stylesheets/container.css" rel="stylesheet" type="text/css" />
+            <link href="../stylesheets/products.css" rel="stylesheet" type="text/css" />
+            <title>Add Product</title>
 </head>
 
 <body>
   <div class="container" , ng-controller="BusinessProductsCreationController">
     <div class="heading">Add New Product</div>
-
     <form ng-submit='addProduct()'>
       <fieldset>
         <div class="form-group">
@@ -47,8 +47,9 @@
           <!--description-->
           <label for="description" class="col-sm-2 control-label">Description</label>
           <div class="col-sm-10">
-            <textarea class="form-control bottom-space" id="description" placeholder="Description" style="resize: vertical;" rows="3" ng-model="product.description">
-          </textarea>
+            <textarea class="form-control bottom-space" id="description" placeholder="Description" style="resize: vertical;" rows="3"
+              ng-model="product.description">
+            </textarea>
           </div>
           <!--price -->
           <label for="description" class="col-sm-2 control-label">Price</label>
@@ -65,26 +66,33 @@
               </div>
               <input type="text" class="form-control bottom-space" aria-label="..." ng-model="product.price">
             </div>
-            <fieldset>
           </div>
-          <div class="form-group">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-              <hr>
-            </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <hr>
           </div>
+        </div>
 
-          <!-- buttons-->
-          <div class="form-group">
-            <div class="col-lg-12 col-md-12 col-xs-12">
-              <div class="button-wrap">
-                <button class="btn btn-default" type="button">Configure Options</button>
-                <button class="btn btn-primary" type="submit">Add Product</button>
-              </div>
+        <!-- buttons-->
+        <div class="form-group">
+          <div class="col-lg-12 col-md-12 col-xs-12">
+            <div class="button-wrap">
+              <button class="btn btn-default" type="button">Configure Options</button>
+              <button class="btn btn-primary" type="submit">Add Product</button>
             </div>
           </div>
         </div>
+      </fieldset>
+    </form>
+    <!--success message-->
+    <div>
+      <success-alert ng-show="showAlert"></success-alert>
     </div>
-  <form>
+  </div>
+  </div>
+
+
 </body>
 
 </html>
