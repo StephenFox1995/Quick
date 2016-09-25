@@ -37,6 +37,7 @@ Product.prototype.parsePOST = function (req, cb) {
  * The id will be set with the instance of the product who invoked the method.
  * 
  * @param {req} req - The request object with the updated product details.
+ * @return {array} - The parsed fields to update.
  */
 Product.prototype.parsePATCH = function (req) {
   // Check for updatedProduct object in body.

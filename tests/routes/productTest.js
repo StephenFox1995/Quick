@@ -5,14 +5,14 @@ var
   testConfig  = require('../testConfig'),
   expect = chai.expect;
 
-var token = testConfig.token;
-
+var token = testConfig.businessToken;
+var businessID = 'S14CpSNa';
 
 describe('POST /product.', function() {
   it ('Should add a product to the database and return http code 200', function(done) {
     var body = {
       product: {
-        businessID: 'rkxd5WL5',
+        businessID: businessID,
         name: 'A test product',
         price: '3400',
         description: 'A test product that has succeeded.'
@@ -36,7 +36,7 @@ describe('POST /product.', function() {
   it ('Should add a product with missing value and return http code 422', function(done) {
     var body = {
       product: {
-        businessID: 'rkxd5WL5',
+        businessID: businessID,
         name: 'A test product',
         price: '3400',
         description: ''
@@ -78,7 +78,7 @@ describe('PATCH /product.', function() {
         id: "H18cacBa", // Make sure this id exists.
         updateFields: [
           {column: "description",  newValue: "This is a new description" },
-          {column: "price",  newValue: 13.00},
+          {column: "price",  newValue: 15.00 },
         ]
       }
     };
@@ -89,7 +89,7 @@ describe('PATCH /product.', function() {
     .send(body)
     .expect(200)
     .expect(function (res) {
-      expect(res.body.success).to.equal(false);
+      expect(res.body.success).to.equal(true);
     })
     .end(function(err, res) {
       done(err);

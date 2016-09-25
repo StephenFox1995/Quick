@@ -153,6 +153,7 @@ sqlite3DB.getProduct = function (id, callback) {
     db.get(sqlQuery, [id], callback);
   });
 };
+
 sqlite3DB.updateProduct = function(productID, updateFields, callback) {
   this.getConnection(function (db) {
     // Generate a dynamic query for the update.
