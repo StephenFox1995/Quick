@@ -25,7 +25,7 @@
 <body>
   <div class="container" , ng-controller="BusinessProductsCreationController">
     <div class="heading">Add New Product</div>
-    <form ng-submit='addProduct()'>
+    <form name="addProductForm" ng-submit='addProduct()'>
       <fieldset>
         <div class="form-group">
           <div class="col-lg-12 col-md-12 col-sm-12">
@@ -42,13 +42,13 @@
           <!--name-->
           <label for="inputName" class="col-sm-2 control-label">Name</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control bottom-space" id="inputName" placeholder="Name" ng-model="product.name">
+            <input type="text" class="form-control bottom-space" id="inputName" placeholder="Name" ng-model="product.name" required>
           </div>
           <!--description-->
           <label for="description" class="col-sm-2 control-label">Description</label>
           <div class="col-sm-10">
             <textarea class="form-control bottom-space" id="description" placeholder="Description" style="resize: vertical;" rows="3"
-              ng-model="product.description">
+              ng-model="product.description" required>
             </textarea>
           </div>
           <!--price -->
@@ -64,7 +64,7 @@
                   <li drop-item id="British Sterling £"><a href="">British Sterling £ </a></li>
                 </ul>
               </div>
-              <input type="text" class="form-control bottom-space" aria-label="..." ng-model="product.price">
+              <input type="text" class="form-control bottom-space" aria-label="..." ng-model="product.price" required />
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@
           <div class="col-lg-12 col-md-12 col-xs-12">
             <div class="button-wrap">
               <button class="btn btn-default" type="button">Configure Options</button>
-              <button class="btn btn-primary" type="submit">Add Product</button>
+              <button class="btn btn-primary" type="submit" ng-disabled="addProductForm.$invalid">Add Product</button>
             </div>
           </div>
         </div>
