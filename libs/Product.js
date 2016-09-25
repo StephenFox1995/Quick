@@ -2,10 +2,17 @@
 
 var 
   util = require('./util'),
-  db = require('../models/database');
+  db = require('../models/database'),
+  BusinessObject = require('../libs/BusinessObject');
 
 
-function Product() { }
+Product.prototype = new BusinessObject();
+Product.prototype.constructor = Product;
+
+
+function Product() {
+}
+
 
 Product.prototype.parsePOST = function (req, cb) {
   if (validRequest(req)) {
@@ -18,6 +25,8 @@ Product.prototype.parsePOST = function (req, cb) {
 
 
 Product.prototype.insert = function (callback) {
+  // Set the creation time before inserting into the database.
+  this.setCreationTime();
   db.insertProduct(this, callback);
 };
 

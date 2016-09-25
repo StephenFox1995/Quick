@@ -10,13 +10,14 @@ product.create = 'CREATE TABLE Product(' +
   'name                STRING, ' +
   'price               FLOAT, ' +
   'description         STRING, ' +
-  'options             STRING,' +            
+  'options             STRING,' + 
+  'timestamp           TEXT,' +            
   'FOREIGN KEY(businessID) REFERENCES business(id))';
 
 
 
-product.insert = 'INSERT INTO Product(id, specifiedID, name, price, description, businessID, options)' +
-'VALUES(?, ?, ?, ?, ?, ?, ?)';
+product.insert = 'INSERT INTO Product(id, specifiedID, name, price, description, businessID, options, timestamp)' +
+'VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
 
 
 product.getProduct = 'SELECT * FROM Product WHERE id = ?';

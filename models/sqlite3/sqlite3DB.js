@@ -134,7 +134,8 @@ sqlite3DB.insertProduct = function (product, callback) {
         product.price,
         product.description,
         product.businessID,
-        product.options],
+        product.options,
+        product.timestamp],
       callback);
   });
 };
