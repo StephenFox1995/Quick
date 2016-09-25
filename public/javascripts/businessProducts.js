@@ -32,14 +32,24 @@
     $scope.showAlert = false;
     
     $scope.addProduct = function() {
+          
       // Get the business id.
       var businessID = sessionService.getClientID();
       $scope.product.businessID = businessID;
       $scope.httpBody.product = $scope.product;
       //TODO:  Perform checks on scope.
       productsService.addProduct($scope.httpBody, function(err, callback) {
-        if (err) { return; /*Alert user that product could not be added*/}
+        if (err) {
+          $scope.showAlert = true;
+          $scope.alertStyle = 'danger'; 
+          $scope.alertTitle = 'Error';
+          $scope.alertMessage = 'There was a problem trying to add the product, please try again.';
+          return; 
+        }
         $scope.showAlert = true;
+        $scope.alertStyle = 'success'; 
+        $scope.alertTitle = 'Success';
+        $scope.alertMessage = 'Product was added!.';
       });
     };
   }

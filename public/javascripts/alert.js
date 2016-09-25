@@ -1,13 +1,24 @@
 (function() {
   angular.module('alert', [])
-  .directive('successAlert', successAlert);
+  .directive('alert', alert);
 
 
-  function successAlert() {
+  /**
+   * A directive for displaying alerts to users.
+   * The alert uses Bootstrap alert styling
+   * and has the following {{alertStyle}} options
+   *  -  succcess
+   *  -  info
+   *  -  warning
+   *  -  danger
+   * 
+   * @return {object} - Directive object.
+   */
+  function alert() {
     var html = 
     '<div class="row">' +
-      '<div class="alert alert-success">' +
-        '<strong>Success!</strong> Product has been added.' +
+      '<div class="alert alert-{{alertStyle}}">' +
+        '<strong>{{alertTitle}}!</strong> {{alertMessage}}' +
       '</div>' + 
     '</div>';  
     return {
