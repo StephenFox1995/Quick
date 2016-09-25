@@ -6,7 +6,8 @@
       'products', 
       'session', 
       'dropper',
-      'alert'
+      'alert',
+      'validNumber'
     ])
     .controller('BusinessProductsController', BusinessProductsController)
     .controller('BusinessProductsCreationController', BusinessProductsCreationController);
