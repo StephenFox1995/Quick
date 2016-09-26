@@ -80,7 +80,7 @@
         newValue: ""
       };
       
-      // Check the following fields for change
+      // Check the following fields for updates
       // - name
       // - specifiedID
       // - description

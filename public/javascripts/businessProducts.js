@@ -24,6 +24,7 @@
       afterEdit: {}
     };
 
+    // Load the products.
     (function getProducts() {
       // Get the id of the business.
       var businessID = sessionService.getClientID();
@@ -35,6 +36,9 @@
 
     // Presents a modal view to edit product.
     $scope.modalPresented = function(index) {
+      // Hide any previous alerts.
+      $scope.showAlert = false;
+
       // Reset the selectedProduct, incase there was a previous product selected.
       $scope.selectedProduct = {};
 
@@ -52,7 +56,14 @@
     };
 
     $scope.updateProduct = function() {
-      $scope.editingProduct.afterEdit = $scope.selectedProduct;
+      // Hide any previous alerts.
+      $scope.showAlert = false;
+      
+      // Get a copy of the selectedProduct, and not reference as the
+      // user can still edit the selectedProduct after clicking 'save'
+      // so make sure this was the snapshot of the object when the user clicked 'save'.
+      angular.copy($scope.selectedProduct, $scope.editingProduct.afterEdit);
+      
       var beforeEdit = $scope.editingProduct.beforeEdit;
       var afterEdit = $scope.editingProduct.afterEdit;
       productsService.getUpdates(beforeEdit, afterEdit, function(err, detectedUpdates, updates) {
@@ -74,7 +85,9 @@
             $scope.alertTitle = 'Success';
             $scope.alertMessage = 'Product was saved!';
             
-            return $scope.dataReflectsUpdate($scope.products, $scope.editingProduct.index,$scope.editingProduct.afterEdit);
+            return $scope.dataReflectsUpdate($scope.products, 
+                                             $scope.editingProduct.index, 
+                                             $scope.editingProduct.afterEdit);
           });
         } else {
           return; // No need to update no updates occurred.
