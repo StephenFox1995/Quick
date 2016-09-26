@@ -23,7 +23,7 @@
 </head>
 
 <body ng-controller="BusinessProductsController">
-  <h4 class="page-title">Products</h4>
+  <h4 class="page-title">{{businessName}}'s Products</h4>
   
   <!--modal for changing product details -->
   <div class="modal fade" id="changeProductDetailsModal" tabindex="-1" role="dialog">
@@ -36,7 +36,7 @@
         </div>
         <!--modal body-->
         <div class="modal-body">
-          <form>
+          <form ng-submit="updateProduct()">
             <!--specifiedID-->
             <div class="form-group">
               <label for="message-text" class="control-label">SpecifiedID</label>
@@ -57,17 +57,17 @@
               <label for="message-text" class="control-label">Description</label>
               <textarea class="form-control sized-textarea" id="productDescription" style="resize: vertical;" ng-model="selectedProduct.description">{{selectedProduct.description}}</textarea>
             </div>
-          </form>
             <!--alert-->
             <div>
               <alert ng-show="showAlert"></alert>
             </div>
         </div>
         <!--modal buttons-->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" ng-click="cancelProductUpate()" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" ng-click="updateProduct()">Save Changes</button>
-        </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <input type="submit" class="btn btn-primary" value="Save Changes"></button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

@@ -19,6 +19,7 @@
     $scope.showAlert = false;
     $scope.editingProduct = null;
     $scope.EditingProduct = {};
+    $scope.businessName = sessionService.getClientName();
 
     // Load the products.
     (function getProducts() {
@@ -124,7 +125,8 @@
     // from the newtwork on page load, reflects the updates made after
     // the product was edited.
     // However for performance, there's no need to send a network
-    // request again, just simply update the record, using this method.
+    // request again to update the datasource, just simply update 
+    // the record, using this method.
     $scope.dataReflectsUpdate = function(originalDataSource, index, updatedRecord) {
       originalDataSource[index] = updatedRecord;
     };

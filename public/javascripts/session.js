@@ -19,7 +19,8 @@
     return {
       setToken : setToken,
       getToken: getToken,
-      getClientID: getClientID
+      getClientID: getClientID,
+      getClientName: getClientName
     };
     /**
      * Retrieves the token from localStorage.
@@ -43,6 +44,15 @@
       var token = localStorage.getItem('token');
       var tokenPayload = jwtHelper.decodeToken(token);
       return tokenPayload.id;
+    }
+    /**
+     * Retrieves the name of the client who owns the current session.
+     * @return {String} id - The name of the client.
+     */
+    function getClientName() {
+      var token = localStorage.getItem('token');
+      var tokenPayload = jwtHelper.decodeToken(token);
+      return tokenPayload.name;
     }
   }
 
