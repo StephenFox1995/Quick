@@ -17,8 +17,9 @@
     $scope.products = [];
     $scope.selectedProduct = {}; // The object that was selected for editing.
     $scope.showAlert = false;
+    $scope.editingProduct = null;
 
-    $scope.editingProduct = {
+    $scope.EditingProduct = {
       index: 0, // Index of the editing object.
       beforeEdit: {},
       afterEdit: {}
@@ -36,6 +37,9 @@
 
     // Presents a modal view to edit product.
     $scope.modalPresented = function(index) {
+      // Create instance for produt being edited.
+      $scope.editingProduct = Object.create($scope.EditingProduct);
+
       // Hide any previous alerts.
       $scope.showAlert = false;
 
@@ -63,7 +67,7 @@
       // user can still edit the selectedProduct after clicking 'save'
       // so make sure this was the snapshot of the object when the user clicked 'save'.
       angular.copy($scope.selectedProduct, $scope.editingProduct.afterEdit);
-      
+
       var beforeEdit = $scope.editingProduct.beforeEdit;
       var afterEdit = $scope.editingProduct.afterEdit;
       productsService.getUpdates(beforeEdit, afterEdit, function(err, detectedUpdates, updates) {
@@ -85,14 +89,34 @@
             $scope.alertTitle = 'Success';
             $scope.alertMessage = 'Product was saved!';
             
-            return $scope.dataReflectsUpdate($scope.products, 
-                                             $scope.editingProduct.index, 
-                                             $scope.editingProduct.afterEdit);
+            $scope.dataReflectsUpdate($scope.products, 
+                                      $scope.editingProduct.index, 
+                                      $scope.editingProduct.afterEdit);
+            $scope.resetEditsAfterUpdate($scope.editingProduct);
           });
         } else {
+          $scope.showAlert = true;
+          $scope.alertStyle = 'info'; 
+          $scope.alertTitle = 'Info';
+          $scope.alertMessage = 'No changes made';
           return; // No need to update no updates occurred.
         }
       });
+    };
+
+    $scope.resetEditsAfterUpdate = function(editingProduct) {
+      if (!$scope.EditingProduct.isPrototypeOf($scope.editingProduct)) {
+        return;
+      }
+      // As the user can make multiple changes with one modal,
+      // it is important that the correct edits of the product are updated.
+      // Once a successful update has been made, the afterEdit is no longer the
+      // afterEdit, it becomes the beforeEdit as the user may update the product again,
+      // therefore set the beforeEdit to reference the afterEdit, which is currently
+      // the newest version of the product.
+      editingProduct.beforeEdit = editingProduct.afterEdit;
+      // There is no longer a afterEdit as we have reset the edits after a successful update.
+      editingProduct.afterEdit = {};
     };
 
     // Ensures our datasource of products which was fetched
@@ -104,6 +128,7 @@
       originalDataSource[index] = updatedRecord;
     };
   }
+
 
   BusinessProductsCreationController.inject = ['$scope', 'productsService', 'sessionService'];
   function BusinessProductsCreationController($scope, productsService, sessionService) {
