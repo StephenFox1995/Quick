@@ -15,10 +15,11 @@
   BusinessProductsController.inject = ['$scope', 'productsService', 'sessionService'];
   function BusinessProductsController($scope, productsService, sessionService) {
     $scope.products = [];
-    $scope.selectedProduct = null;
+    $scope.selectedProduct = {}; // The object that was selected for editing.
     $scope.showAlert = false;
 
     $scope.editingProduct = {
+      index: 0, // Index of the editing object.
       beforeEdit: {},
       afterEdit: {}
     };
@@ -32,9 +33,21 @@
       });
     })();
 
-    $scope.showModal = function(index) {
-      $scope.selectedProduct = $scope.products[index];
-      // Set the before edit product before the user edits it.
+    // Presents a modal view to edit product.
+    $scope.modalPresented = function(index) {
+      // Reset the selectedProduct, incase there was a previous product selected.
+      $scope.selectedProduct = {};
+
+      $scope.editingProduct.index = index; // Set the index of the selected product.
+
+      // We want copy and not reference incase user decides that they don't
+      // actually want to update the product and press cancel.
+      // This keeps the array consistent to what was loaded from the server.
+      angular.copy($scope.products[index], $scope.selectedProduct);
+
+      // Set the beforeEdit object so we can monitor any updates,
+      // again we want copy and not reference so we can grab
+      // a snapshot of the object before editing.
       angular.copy($scope.selectedProduct, $scope.editingProduct.beforeEdit);
     };
 
@@ -42,11 +55,11 @@
       $scope.editingProduct.afterEdit = $scope.selectedProduct;
       var beforeEdit = $scope.editingProduct.beforeEdit;
       var afterEdit = $scope.editingProduct.afterEdit;
-      productsService.getChanges(beforeEdit, afterEdit, function(err, detectedChanges, changes) {
+      productsService.getUpdates(beforeEdit, afterEdit, function(err, detectedUpdates, updates) {
         if (err) { return; /*Silently return */};
-        if (detectedChanges) {
+        if (detectedUpdates) {
           var httpBody = {};
-          httpBody.updatedProduct = changes;
+          httpBody.updatedProduct = updates;
 
           productsService.updateProduct(httpBody, function(err, data) {
             if (err) {
@@ -60,11 +73,22 @@
             $scope.alertStyle = 'success'; 
             $scope.alertTitle = 'Success';
             $scope.alertMessage = 'Product was saved!';
+            
+            return $scope.dataReflectsUpdate($scope.products, $scope.editingProduct.index,$scope.editingProduct.afterEdit);
           });
         } else {
-          return; // No need to update no changes occurred.
+          return; // No need to update no updates occurred.
         }
       });
+    };
+
+    // Ensures our datasource of products which was fetched
+    // from the newtwork on page load, reflects the updates made after
+    // the product was edited.
+    // However for performance, there's no need to send a network
+    // request again, just simply update the record, using this method.
+    $scope.dataReflectsUpdate = function(originalDataSource, index, updatedRecord) {
+      originalDataSource[index] = updatedRecord;
     };
   }
 

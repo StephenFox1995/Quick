@@ -10,7 +10,7 @@
       getProducts: getProducts,
       addProduct: addProduct,
       updateProduct: updateProduct,
-      getChanges: getChanges
+      getUpdates: getUpdates
     };
 
     /**
@@ -58,20 +58,20 @@
     }
 
     /**
-     * Finds changes in a product before and after it was edited.
+     * Finds updates(edits) in a product before and after it was edited.
      * 
      * @param {object} productBeforeEdit - The product before edit.
      * @param {object} productAfterEdit - The product after edit.
-     * @param {function(err, detectedChanges, changes)} callback - Callback function.
+     * @param {function(err, detectedUpdates, updates)} callback - Callback function.
      */
-    function getChanges(productBeforeEdit, productAfterEdit, callback) {
+    function getUpdates(productBeforeEdit, productAfterEdit, callback) {
       if (productBeforeEdit == null || productAfterEdit == null) {
         return callback(new Error('Product was null'));
       }
       // Bool to determine if the product details were actually edited.
       var productWasEdited = false;
 
-      var changes = {
+      var updates = {
         id: productBeforeEdit.id,
         updateFields: []
       };
@@ -89,33 +89,33 @@
         var editedName = Object.create(EditedField);
         editedName.column = "name";
         editedName.newValue = productAfterEdit.name;
-        changes.updateFields.push(editedName);
+        updates.updateFields.push(editedName);
         productWasEdited = true;
       }
       if (productAfterEdit.specifiedID !== productBeforeEdit.specifiedID) {
         var editedSpecifiedID = Object.create(EditedField);
         editedSpecifiedID.column = 'specifiedID';
         editedSpecifiedID.newValue = productAfterEdit.specifiedID;
-        changes.updateFields.push(editedSpecifiedID);
+        updates.updateFields.push(editedSpecifiedID);
         productWasEdited = true;
       }
       if (productAfterEdit.description !== productBeforeEdit.description) {
         var editedDescription = Object.create(EditedField);
         editedDescription.column = 'description';
         editedDescription.newValue = productAfterEdit.description;
-        changes.updateFields.push(editedDescription);
+        updates.updateFields.push(editedDescription);
         productWasEdited = true;
       }
       if (productAfterEdit.price !== productBeforeEdit.price) {
         var editedPrice = Object.create(EditedField);
         editedPrice.column = 'price';
         editedPrice.newValue = productAfterEdit.price;
-        changes.updateFields.push(editedPrice);
+        updates.updateFields.push(editedPrice);
         productWasEdited = true;
       }
 
       if (productWasEdited) {
-        return callback(null, true, changes);
+        return callback(null, true, updates);
       } else {
         return callback(null, false, productBeforeEdit);
       }
