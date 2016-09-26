@@ -16,7 +16,7 @@
   function BusinessProductsController($scope, productsService, sessionService) {
     $scope.products = [];
     $scope.selectedProduct = null;
-    $scope.p = {};
+    $scope.showAlert = false;
 
     $scope.editingProduct = {
       beforeEdit: {},
@@ -50,8 +50,16 @@
 
           productsService.updateProduct(httpBody, function(err, data) {
             if (err) {
-              // TODO: Tell the user there was an error with the update.
+              $scope.showAlert = true;
+              $scope.alertStyle = 'danger'; 
+              $scope.alertTitle = 'Error';
+              $scope.alertMessage = 'There was a problem saving the product, please try again.';
+              return;
             }
+            $scope.showAlert = true;
+            $scope.alertStyle = 'success'; 
+            $scope.alertTitle = 'Success';
+            $scope.alertMessage = 'Product was saved!';
           });
         } else {
           return; // No need to update no changes occurred.
@@ -83,7 +91,7 @@
         $scope.showAlert = true;
         $scope.alertStyle = 'success'; 
         $scope.alertTitle = 'Success';
-        $scope.alertMessage = 'Product was added!.';
+        $scope.alertMessage = 'Product was added!';
       });
     };
   }
