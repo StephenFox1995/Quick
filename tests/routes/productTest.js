@@ -78,7 +78,7 @@ describe('PATCH /product.', function() {
         id: "H18cacBa", // Make sure this id exists.
         updateFields: [
           {column: "description",  newValue: "This is a new description" },
-          {column: "price",  newValue: 15.00 },
+          {column: "price",  newValue: 16.00 },
         ]
       }
     };

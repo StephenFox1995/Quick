@@ -10,7 +10,7 @@
       getProducts: getProducts,
       addProduct: addProduct,
       updateProduct: updateProduct,
-      generateHTTPBodyForProductUpdate: generateHTTPBodyForProductUpdate
+      getChanges: getChanges
     };
 
     /**
@@ -49,7 +49,7 @@
      * @param {function(err, data)} callback - Callback function.
      */
     function updateProduct(data, callback) {
-      $http.patch('/product', product)
+      $http.patch('/product', data)
       .success(function (data) {
         callback(null, data);
       }).error(function (data) {
@@ -58,19 +58,20 @@
     }
 
     /**
-     * Generates the HTTP body needed for updating
-     * a product in the database.
+     * Finds changes in a product before and after it was edited.
      * 
      * @param {object} productBeforeEdit - The product before edit.
      * @param {object} productAfterEdit - The product after edit.
-     * @return {object} The HTTP body containing the changed fields.
+     * @param {function(err, detectedChanges, changes)} callback - Callback function.
      */
-    function generateHTTPBodyForProductUpdate(productBeforeEdit, productAfterEdit) {
+    function getChanges(productBeforeEdit, productAfterEdit, callback) {
       if (productBeforeEdit == null || productAfterEdit == null) {
-        return {};
+        return callback(new Error('Product was null'));
       }
+      // Bool to determine if the product details were actually edited.
+      var productWasEdited = false;
 
-      var editedProduct = {
+      var changes = {
         id: productBeforeEdit.id,
         updateFields: []
       };
@@ -85,28 +86,38 @@
       // - description
       // - price
       if (productAfterEdit.name !== productBeforeEdit.name) {
-        var editedName = new EditedField();
+        var editedName = Object.create(EditedField);
         editedName.column = "name";
         editedName.newValue = productAfterEdit.name;
-        editedProduct.updateFields.push(editedName);
+        changes.updateFields.push(editedName);
+        productWasEdited = true;
       }
       if (productAfterEdit.specifiedID !== productBeforeEdit.specifiedID) {
-        var editedSpecifiedID = new EditedField();
+        var editedSpecifiedID = Object.create(EditedField);
         editedSpecifiedID.column = 'specifiedID';
         editedSpecifiedID.newValue = productAfterEdit.specifiedID;
-        editedProduct.updateFields.push(editedSpecifiedID);
+        changes.updateFields.push(editedSpecifiedID);
+        productWasEdited = true;
       }
       if (productAfterEdit.description !== productBeforeEdit.description) {
-        var editedDescription = new EditedField();
+        var editedDescription = Object.create(EditedField);
         editedDescription.column = 'description';
         editedDescription.newValue = productAfterEdit.description;
-        editedProduct.updateFields.push(editedDescription);
+        changes.updateFields.push(editedDescription);
+        productWasEdited = true;
       }
       if (productAfterEdit.price !== productBeforeEdit.price) {
-        var editedPrice = new EditedField();
+        var editedPrice = Object.create(EditedField);
         editedPrice.column = 'price';
         editedPrice.newValue = productAfterEdit.price;
-        editedProduct.updateFields.push(editedPrice);
+        changes.updateFields.push(editedPrice);
+        productWasEdited = true;
+      }
+
+      if (productWasEdited) {
+        return callback(null, true, changes);
+      } else {
+        return callback(null, false, productBeforeEdit);
       }
     }
   }

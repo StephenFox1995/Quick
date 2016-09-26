@@ -15,6 +15,13 @@
   BusinessProductsController.inject = ['$scope', 'productsService', 'sessionService'];
   function BusinessProductsController($scope, productsService, sessionService) {
     $scope.products = [];
+    $scope.selectedProduct = null;
+    $scope.p = {};
+
+    $scope.editingProduct = {
+      beforeEdit: {},
+      afterEdit: {}
+    };
 
     (function getProducts() {
       // Get the id of the business.
@@ -24,6 +31,33 @@
         $scope.products = products;
       });
     })();
+
+    $scope.showModal = function(index) {
+      $scope.selectedProduct = $scope.products[index];
+      // Set the before edit product before the user edits it.
+      angular.copy($scope.selectedProduct, $scope.editingProduct.beforeEdit);
+    };
+
+    $scope.updateProduct = function() {
+      $scope.editingProduct.afterEdit = $scope.selectedProduct;
+      var beforeEdit = $scope.editingProduct.beforeEdit;
+      var afterEdit = $scope.editingProduct.afterEdit;
+      productsService.getChanges(beforeEdit, afterEdit, function(err, detectedChanges, changes) {
+        if (err) { return; /*Silently return */};
+        if (detectedChanges) {
+          var httpBody = {};
+          httpBody.updatedProduct = changes;
+
+          productsService.updateProduct(httpBody, function(err, data) {
+            if (err) {
+              // TODO: Tell the user there was an error with the update.
+            }
+          });
+        } else {
+          return; // No need to update no changes occurred.
+        }
+      });
+    };
   }
 
   BusinessProductsCreationController.inject = ['$scope', 'productsService', 'sessionService'];
@@ -33,7 +67,6 @@
     $scope.showAlert = false;
     
     $scope.addProduct = function() {
-          
       // Get the business id.
       var businessID = sessionService.getClientID();
       $scope.product.businessID = businessID;

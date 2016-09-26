@@ -22,8 +22,56 @@
   <title>Quick - Products</title>
 </head>
 
-<body>
+<body ng-controller="BusinessProductsController">
   <h4 class="page-title">Products</h4>
+  
+  <!--button for modal -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeProductDetailsModal">Open modal</button>
+
+  <!--modal for changing product details -->
+  <div class="modal fade" id="changeProductDetailsModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <!--modal header -->
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="exampleModalLabel">Change Product</h4>
+        </div>
+        <!--modal body-->
+        <div class="modal-body">
+          <form>
+            <!--specifiedID-->
+            <div class="form-group">
+              <label for="message-text" class="control-label">SpecifiedID</label>
+              <input type="tel" class="form-control" id="productSpecifiedID" value={{selectedProduct.specifiedID}} ng-model="selectedProduct.specifiedID">
+            </div>
+            <!--name-->
+            <div class="form-group">
+              <label for="recipient-name" class="control-label">Name:</label>
+              <input type="text" class="form-control" id="productName" value={{selectedProduct.name}} ng-model="selectedProduct.name">
+            </div>
+            <!--price-->
+            <div class="form-group">
+              <label for="message-text" class="control-label">Price:</label>
+              <input type="price" class="form-control" id="productPrice" value={{selectedProduct.price}} ng-model="selectedProduct.price">
+            </div>
+            <!--description-->
+            <div class="form-group">
+              <label for="message-text" class="control-label">Description</label>
+              <textarea class="form-control" id="productDescription" style="resize: vertical;" ng-model="selectedProduct.description">{{selectedProduct.description}}</textarea>
+            </div>
+          </form>
+        </div>
+        <!--modal buttons-->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" ng-click="updateProduct()">Save Changed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--product table-->
   <div class="container">
     <div class="new-product-row">
       <a href = "/views/addProduct">
@@ -31,7 +79,7 @@
       </a>
     </div>
 
-    <div class="table-responsive" ng-controller="BusinessProductsController">
+    <div class="table-responsive">
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
@@ -43,7 +91,7 @@
           </tr>
         </thead>
         <tbody ng-repeat="product in products track by $index">
-          <tr>
+          <tr ng-click="showModal($index)">
             <td class="col-lg-1 col-md-1 col-xs-1">{{product.timestamp}}</td>
             <td>{{product.id}}</td>
             <td class="col-lg-4 col-md-4 col-xs-4">{{product.name}}</td>
