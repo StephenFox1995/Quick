@@ -91,24 +91,24 @@
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
+            <th>Edit</th>
             <th>Added</th>
             <th>Product ID</th>
             <th>Sepcified ID</th>
             <th>Name</th>
             <th>Price </th>
             <th>Description</th>
-            <th>Edit</th>
           </tr>
         </thead>
         <tbody ng-repeat="product in products track by $index">
           <tr>
+            <td><button class="btn btn-default" data-toggle="modal" data-target="#changeProductDetailsModal" type="submit" ng-click="modalPresented($index)">Edit</button></td>
             <td class="col-lg-1 col-md-1 col-xs-1">{{product.timestamp}}</td>
             <td>{{product.id}}</td>
             <td class="col-lg-1 col-md-1 col-xs-1">{{product.specifiedID}}</td>
             <td class="col-lg-4 col-md-4 col-xs-4">{{product.name}}</td>
             <td>{{product.price}}</td>
             <td>{{product.description}}</td>
-            <td><button class="btn btn-default" data-toggle="modal" data-target="#changeProductDetailsModal" type="submit" ng-click="modalPresented($index)">Edit</button></td>
           </tr>
         </tbody>
       </table>

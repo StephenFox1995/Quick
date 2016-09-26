@@ -18,12 +18,7 @@
     $scope.selectedProduct = {}; // The object that was selected for editing.
     $scope.showAlert = false;
     $scope.editingProduct = null;
-
-    $scope.EditingProduct = {
-      index: 0, // Index of the editing object.
-      beforeEdit: {},
-      afterEdit: {}
-    };
+    $scope.EditingProduct = {};
 
     // Load the products.
     (function getProducts() {
@@ -37,6 +32,12 @@
 
     // Presents a modal view to edit product.
     $scope.modalPresented = function(index) {
+      // Define prototpye of Editing product.
+      $scope.EditingProduct = {
+        index: 0, // Index of the editing object.
+        beforeEdit: {},
+        afterEdit: {}
+      };
       // Create instance for produt being edited.
       $scope.editingProduct = Object.create($scope.EditingProduct);
 
