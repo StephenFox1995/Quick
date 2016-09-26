@@ -25,9 +25,6 @@
 <body ng-controller="BusinessProductsController">
   <h4 class="page-title">Products</h4>
   
-  <!--button for modal -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeProductDetailsModal">Open modal</button>
-
   <!--modal for changing product details -->
   <div class="modal fade" id="changeProductDetailsModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -69,7 +66,7 @@
         <!--modal buttons-->
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" ng-click="updateProduct()">Save Changed</button>
+          <button type="button" class="btn btn-primary" ng-click="updateProduct()">Save Changes</button>
         </div>
       </div>
     </div>
@@ -77,10 +74,17 @@
 
   <!--product table-->
   <div class="container">
-    <div class="new-product-row">
-      <a href = "/views/addProduct">
-        <button class="btn btn-default" type="submit">Add new product</button>
-      </a>
+    <div class="row product-table-utilities">
+      <!--search box-->
+      <div class="col-lg-3 col-md-3 col-xs-5">
+        <input type="text" class="form-control" placeholder="Filter">
+      </div>
+      <!--add new product button-->
+      <div class="pull-right">
+        <a href = "/views/addProduct">
+          <button class="btn btn-default" type="submit">Add new product</button>
+        </a>
+      </div>
     </div>
 
     <div class="table-responsive">
@@ -89,18 +93,22 @@
           <tr>
             <th>Added</th>
             <th>Product ID</th>
+            <th>Sepcified ID</th>
             <th>Name</th>
             <th>Price </th>
             <th>Description</th>
+            <th>Edit</th>
           </tr>
         </thead>
         <tbody ng-repeat="product in products track by $index">
-          <tr ng-click="showModal($index)">
+          <tr >
             <td class="col-lg-1 col-md-1 col-xs-1">{{product.timestamp}}</td>
             <td>{{product.id}}</td>
+            <td class="col-lg-1 col-md-1 col-xs-1">{{product.specifiedID}}</td>
             <td class="col-lg-4 col-md-4 col-xs-4">{{product.name}}</td>
             <td>{{product.price}}</td>
             <td>{{product.description}}</td>
+            <td><button class="btn btn-default" data-toggle="modal" data-target="#changeProductDetailsModal" type="submit" ng-click="showModal($index)">Edit</button></td>
           </tr>
         </tbody>
       </table>

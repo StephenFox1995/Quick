@@ -1,7 +1,9 @@
-.new-product-row {
-  text-align:right;
-  margin-bottom: 2%;
+.product-table-utilities {
+  margin-bottom: 1%;
+  padding-right: 15px;
 }
+
+
 
 .bottom-space {
   margin-bottom: 2%;
