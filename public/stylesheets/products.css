@@ -16,3 +16,7 @@
 .page-title {
   text-align: center;
 }
+
+.sized-textarea {
+  min-height: 200px;
+}

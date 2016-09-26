@@ -55,7 +55,7 @@
             <!--description-->
             <div class="form-group">
               <label for="message-text" class="control-label">Description</label>
-              <textarea class="form-control" id="productDescription" style="resize: vertical;" ng-model="selectedProduct.description">{{selectedProduct.description}}</textarea>
+              <textarea class="form-control sized-textarea" id="productDescription" style="resize: vertical;" ng-model="selectedProduct.description">{{selectedProduct.description}}</textarea>
             </div>
           </form>
             <!--alert-->
@@ -77,7 +77,7 @@
     <div class="row product-table-utilities">
       <!--search box-->
       <div class="col-lg-3 col-md-3 col-xs-5">
-        <input type="text" class="form-control" placeholder="Filter">
+        <input type="text" class="form-control" placeholder="Filter" ng-model="filterText">
       </div>
       <!--add new product button-->
       <div class="pull-right">
