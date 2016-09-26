@@ -36,26 +36,26 @@
         </div>
         <!--modal body-->
         <div class="modal-body">
-          <form ng-submit="updateProduct()">
+          <form name="updateProductsForm" ng-submit="updateProduct()">
             <!--specifiedID-->
             <div class="form-group">
               <label for="message-text" class="control-label">SpecifiedID</label>
-              <input type="tel" class="form-control" id="productSpecifiedID" value={{selectedProduct.specifiedID}} ng-model="selectedProduct.specifiedID">
+              <input type="text" class="form-control" id="productSpecifiedID" value={{selectedProduct.specifiedID}} ng-model="selectedProduct.specifiedID">
             </div>
             <!--name-->
             <div class="form-group">
               <label for="recipient-name" class="control-label">Name:</label>
-              <input type="text" class="form-control" id="productName" value={{selectedProduct.name}} ng-model="selectedProduct.name">
+              <input type="text" class="form-control" id="productName" value={{selectedProduct.name}} ng-model="selectedProduct.name" required>
             </div>
             <!--price-->
             <div class="form-group">
               <label for="message-text" class="control-label">Price:</label>
-              <input type="price" class="form-control" id="productPrice" value={{selectedProduct.price}} ng-model="selectedProduct.price">
+              <input type="price" class="form-control" id="productPrice" value={{selectedProduct.price}} ng-model="selectedProduct.price" required>
             </div>
             <!--description-->
             <div class="form-group">
               <label for="message-text" class="control-label">Description</label>
-              <textarea class="form-control sized-textarea" id="productDescription" style="resize: vertical;" ng-model="selectedProduct.description">{{selectedProduct.description}}</textarea>
+              <textarea class="form-control sized-textarea" id="productDescription" style="resize: vertical;" ng-model="selectedProduct.description" required>{{selectedProduct.description}}</textarea>
             </div>
             <!--alert-->
             <div>
@@ -65,7 +65,7 @@
         <!--modal buttons-->
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <input type="submit" class="btn btn-primary" value="Save Changes"></button>
+            <input type="submit" class="btn btn-primary" value="Save Changes" ng-disabled="updateProductsForm.$invalid"></button>
           </div>
         </form>
       </div>
