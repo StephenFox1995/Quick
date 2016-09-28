@@ -95,11 +95,17 @@
           <div class="form-group">
             <div class="values-container">
               <div ng-repeat="option in optionValues track by $index">
-                <div class="input-group value-input">
-                  <input type="text" class="form-control" placeholder="New value">
-                  <span class="input-group-btn">
-                  <button class="btn btn-default" type="button" ng-click="removeProductOptionValue($index)">Remove</button>
-                </span>
+                <div row>
+                  <div class="col-lg-8 col-md-8 col-xs-8">
+                    <input type="text" class="form-control" placeholder="e.g. Blue">
+                  </div>
+                  
+                  <div class="input-group value-input col-lg-3 col-md-3 col-xs-3"> 
+                    <input type="number" class="form-control" placeholder="e.g. +5.00">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button" ng-click="removeProductOptionValue($index)">Remove</button>
+                    </span>
+                  </div>
                 </div>
               </div>
               <!--add value button-->

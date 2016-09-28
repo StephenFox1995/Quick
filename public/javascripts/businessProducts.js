@@ -138,7 +138,7 @@
     $scope.product;
     $scope.httpBody = {};
     $scope.showAlert = false;
-    $scope.optionValues = [];
+    $scope.optionValues = [0];
     $scope.showConfigureOptions = false;
     $scope.showButtonsDefault = true;
     
@@ -175,7 +175,6 @@
     };
     
     
-
     // Scrolls to the bottom of the page.
     function scrollToBottom() {
       $location.hash('bottom');
