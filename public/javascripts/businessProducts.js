@@ -139,7 +139,11 @@
     $scope.httpBody = {};
     $scope.showAlert = false;
     $scope.optionValues = [];
+    $scope.showConfigureOptions = false;
+    $scope.showButtonsDefault = true;
     
+    
+
     $scope.addProduct = function() {
       // Get the business id.
       var businessID = sessionService.getClientID();
@@ -166,9 +170,11 @@
       $scope.optionValues.push(0);
     };
 
-    $scope.removeProductOptionValue = function($index) {
-      $scope.optionValues.splice($index, 1);
+    $scope.removeProductOptionValue = function(index) {
+      $scope.optionValues.splice(index, 1);
     };
+    
+    
 
     // Scrolls to the bottom of the page.
     function scrollToBottom() {

@@ -26,7 +26,8 @@
 <body ng-controller="BusinessProductsCreationController">
   <div class="container">
     <div class="heading">Add New Product</div>
-    <form name="addProductForm" ng-submit='addProduct()'>
+    <!--default add product inputs-->
+    <form name="addProductForm" ng-submit="addProduct()">
       <fieldset>
         <div class="form-group">
           <div class="col-lg-12 col-md-12 col-sm-12">
@@ -65,24 +66,14 @@
                   <li drop-item id="British Sterling £"><a href="">British Sterling £ </a></li>
                 </ul>
               </div>
-              <input type="number" step="0.01" class="form-control bottom-space" aria-label="..." ng-model="product.price" valid-number
-                required />
+              <input type="number" step="0.01" class="form-control bottom-space" aria-label="..." ng-model="product.price" valid-number required />
             </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-lg-12 col-md-12 col-sm-12">
-            <hr>
           </div>
         </div>
 
-        <!-- buttons-->
         <div class="form-group">
-          <div class="col-lg-12 col-md-12 col-xs-12">
-            <div class="button-wrap">
-              <button class="btn btn-default" type="button">Configure Options</button>
-              <button class="btn btn-primary" type="submit" ng-disabled="addProductForm.$invalid">Add Product</button>
-            </div>
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <hr>
           </div>
         </div>
       </fieldset>
@@ -90,46 +81,55 @@
 
       <!--configure options fieldset-->
       <fieldset>
-        <div class="form-group">
-          <hr>
-        </div>
-        <h5>Configure Product Options</h5>
+          
+          <h5>Configure Product Options</h5>
 
-        <!--product option-->
-        <div class="form-group row options-wrap">
-          <div class="input-group">
-            <span class="input-group-addon" id="sizing-addon2">Options</span>
-            <input type="text" class="form-control" placeholder="e.g. Size, Color" aria-describedby="sizing-addon2">
+          <!--product option-->
+          <div class="form-group row options-wrap">
+            <div class="input-group">
+              <span class="input-group-addon" id="sizing-addon2">Options</span>
+              <input type="text" class="form-control" placeholder="e.g. Size, Color" aria-describedby="sizing-addon2">
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <hr>
-        </div>
-
-        <div class="form-group">
-          <div class="values-container">
-            <div ng-repeat="option in optionValues track by $index">
-              <div class="input-group value-input">
-                <input type="text" class="form-control" placeholder="New value">
-                <span class="input-group-btn">
+          <div class="form-group">
+            <div class="values-container">
+              <div ng-repeat="option in optionValues track by $index">
+                <div class="input-group value-input">
+                  <input type="text" class="form-control" placeholder="New value">
+                  <span class="input-group-btn">
                   <button class="btn btn-default" type="button" ng-click="removeProductOptionValue($index)">Remove</button>
                 </span>
+                </div>
+              </div>
+              <!--add value button-->
+              <div class="row button-wrap top-space">
+                <button class="btn btn-default addButton" type="button" ng-click="addProductOptionValue()">Add Value</button>
               </div>
             </div>
-            <!--add value button-->
-            <div class="row button-wrap top-space">
-              <button class="btn btn-default addButton" type="button" ng-click="addProductOptionValue()">Add Value</button>
+          </div>
+
+          <div class="form-group">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <hr>
             </div>
           </div>
-        </div>
+          <!-- add product button-->
+          <div class="form-group">
+            <div class="col-lg-12 col-md-12 col-xs-12">
+              <div class="button-wrap">
+                <button class="btn btn-primary" type="submit" ng-disabled="addProductForm.$invalid">Add Product</button>
+              </div>
+            </div>
+          </div>
       </fieldset>
     </form>
     <!--alert-->
     <div>
       <alert ng-show="showAlert"></alert>
     </div>
-    <a id="bottom"></a>
+    <div id="bottom"></div>
   </div>
 </body>
+
 </html>
