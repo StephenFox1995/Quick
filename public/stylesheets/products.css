@@ -3,7 +3,9 @@
   padding-right: 15px;
 }
 
-
+.top-space {
+  margin-top: 2%;
+}
 
 .bottom-space {
   margin-bottom: 2%;
@@ -19,4 +21,19 @@
 
 .sized-textarea {
   min-height: 200px;
+}
+
+.options-wrap {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.values-container {
+  margin-left: 2%;
+  margin-right: 5%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.value-input {
+  margin-top: 2%; 
 }

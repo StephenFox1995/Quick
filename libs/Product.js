@@ -17,6 +17,7 @@ function Product() {
 Product.prototype.parsePOST = function (req, cb) {
   if (validRequest(req)) {
     this.setAttributesFromRequest(req);
+
     return cb(null);
   } else {
     return cb(new Error('Could not parse product.'));
@@ -82,13 +83,20 @@ function validRequest(req) {
     return false;
   }
   var product = req.body.product;
-  if (util.isValidString(product.name) &&
-      util.isValidString(product.price) &&
-      util.isValidString(product.description) &&
-      util.isValidString(product.businessID)) {
-    return true;
-  } else {
+  if (!util.isValidString(product.name)) {
     return false;
+  }
+  if (!util.isValidString(product.price)) {
+    return false;
+  }
+  if (!util.isValidString(product.description)) {
+    return false;
+  }
+  if (!util.isValidString(product.businessID)) {
+    return false;
+  }
+  else {
+    return true;
   }
 }
 

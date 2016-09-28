@@ -44,8 +44,6 @@ router.post('/', vr.validRequest, function (req, res) {
     // This is to make sure the product is actually being added by the business
     // and not somebody else, who happens to have the business id.
     if (product.businessID !== req.decoded.id) {
-      console.log(product.bussinessID);
-      console.log(req.decoded.id);
       return res
           .status(httpCodes.UNAUTHORIZED)
           .json({

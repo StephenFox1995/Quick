@@ -41,6 +41,7 @@ Business.prototype.setAttributesFromRequest = function(req) {
   this.password = business.password;
 };
 
+
 /**
  * Checks if a req is valid.
  * The request is deemed valid if the 

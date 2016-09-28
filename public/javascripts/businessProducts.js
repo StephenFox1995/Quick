@@ -133,11 +133,12 @@
   }
 
 
-  BusinessProductsCreationController.inject = ['$scope', 'productsService', 'sessionService'];
-  function BusinessProductsCreationController($scope, productsService, sessionService) {
+  BusinessProductsCreationController.inject = ['$scope', 'productsService', 'sessionService', '$location', '$anchorScroll'];
+  function BusinessProductsCreationController($scope, productsService, sessionService, $location, $anchorScroll) {
     $scope.product;
     $scope.httpBody = {};
     $scope.showAlert = false;
+    $scope.optionValues = [];
     
     $scope.addProduct = function() {
       // Get the business id.
@@ -159,5 +160,21 @@
         $scope.alertMessage = 'Product was added!';
       });
     };
+    
+    $scope.addProductOptionValue = function() {
+      scrollToBottom();
+      $scope.optionValues.push(0);
+    };
+
+    $scope.removeProductOptionValue = function($index) {
+      $scope.optionValues.splice($index, 1);
+    };
+
+    // Scrolls to the bottom of the page.
+    function scrollToBottom() {
+      $location.hash('bottom');
+      $anchorScroll();
+    }
   }
+
 })();
