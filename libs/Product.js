@@ -75,6 +75,9 @@ Product.prototype.setAttributesFromRequest = function(req) {
   this.price = product.price;
   this.description = product.description;
   this.businessID = product.businessID;
+  if ('options' in product) {
+    this.options = product.options;
+  }
 };
 
 
