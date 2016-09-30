@@ -32,7 +32,9 @@
     ProductOption.prototype.values = [];
 
     /**
-     * Adds a product option valaue to the values array.
+     * Adds a product option value to the values array.
+     * If a value already exists with the same
+     * name then it will not be added.
      * @param {string} name - The name of the value.
      * @param {float} priceDelta - The price delta.
      */
@@ -44,7 +46,19 @@
       var newProductOptionValue = value;
       newProductOptionValue.name = name;
       newProductOptionValue.priceDelta = priceDelta;
-      this.values.push(newProductOptionValue);
+
+      // Check it hasn't been added before.
+      var valueAlreadyExists = false;
+      angular.forEach(this.values, function(value, index) {
+        if (value.name === name) {
+          valueAlreadyExists = true;
+        }
+      }, this);
+      
+      // Add new value.
+      if (!valueAlreadyExists) {
+        this.values.push(newProductOptionValue);
+      } 
     };
 
 
