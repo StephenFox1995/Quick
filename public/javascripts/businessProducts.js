@@ -188,6 +188,16 @@
         $scope.newProductOptionName = null;
       }
     };
+
+    $scope.removeProductOption = function(productOption) {
+      if (!productOption) { return; }
+
+      angular.forEach($scope.productOptions, function(option, index) {
+        if (option === productOption) {
+          $scope.productOptions.splice(index, 1);
+        }
+      });
+    };
  
     /** Adds a new ProductOption value.
      * @param {ProductOption} productOption - The ProductOption to add the value to.

@@ -109,7 +109,7 @@
             </div>
             
             <div class="form-group row">
-              <div class="col-lg-7 col-md-5 col-xs-5">
+              <div class="col-lg-6 col-md-5 col-xs-5">
                 <div class="input-group ">
                   <span class="input-group-addon" id="sizing-addon3">Value</span>
                   <input type="text" class="form-control" placeholder="e.g. Blue" ng-model="valueName">
@@ -123,6 +123,7 @@
               </div>
               <!--add product option value button-->
               <button class="btn btn-default" type="button" ng-click="addProductOptionValue(productOption, valueName, priceDelta)">Add {{productOption.name}} Value</button>
+              <button class="btn btn-danger" type="button" ng-click="removeProductOption(productOption)">Remove</button>
             </div>
           </div>
 
