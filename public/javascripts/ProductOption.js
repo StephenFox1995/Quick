@@ -31,6 +31,11 @@
      */
     ProductOption.prototype.values = [];
 
+    /**
+     * Adds a product option valaue to the values array.
+     * @param {string} name - The name of the value.
+     * @param {float} priceDelta - The price delta.
+     */
     ProductOption.prototype.addValue = function (name, priceDelta) {
       var value = {
         name: "",
@@ -40,6 +45,15 @@
       newProductOptionValue.name = name;
       newProductOptionValue.priceDelta = priceDelta;
       this.values.push(newProductOptionValue);
+    };
+
+
+    ProductOption.prototype.removeValue = function(name) {
+      angular.forEach(this.values, function(value, index) {
+        if (value.name === name) {
+          this.values.splice(index, 1);
+        }
+      }, this);
     };
 
     return ProductOption;

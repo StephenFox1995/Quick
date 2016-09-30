@@ -104,6 +104,7 @@
               <h6>{{productOption.name}} options</h6>
               <ol ng-repeat="value in productOption.values track by $index">
               - {{value.name}}, {{value.priceDelta}}
+              <button class="btn btn-default option-value-btn" ng-click="removeProductOptionValue(productOption, value.name)">x</button>
               </ol>  
             </div>
             

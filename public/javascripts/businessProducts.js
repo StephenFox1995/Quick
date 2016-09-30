@@ -183,10 +183,12 @@
      * @param {float} priceDelta - The price delta.
      */
     $scope.addProductOptionValue = function(productOption, valueName, priceDelta) {
-      var p = $scope.productOptions[$scope.productOptions.indexOf(productOption)];
-      p.addValue(valueName, priceDelta);
+      productOption.addValue(valueName, priceDelta);
     };
     
+    $scope.removeProductOptionValue = function(productOption, valueName) {
+      productOption.removeValue(valueName);
+    };
     
     /** Scrolls to the bottom of the page.*/
     function scrollToBottom() {

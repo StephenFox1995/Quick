@@ -40,3 +40,8 @@
 .option-title {
   margin-left: 2%;
 }
+.option-value-btn {
+  padding: 0px 5px;
+  vertical-align: baseline;
+  color: rgba(125, 125, 125, 1);
+}
