@@ -45,3 +45,6 @@
   vertical-align: baseline;
   color: rgba(125, 125, 125, 1);
 }
+.option-btn-remove {
+  margin-left: 1%;
+}
