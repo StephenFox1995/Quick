@@ -171,10 +171,22 @@
      * @param {int} index - The index of the product option in the list.
      */
     $scope.newProductOption = function(name) {
-      if (name === undefined) { return; };
-      var productOption = new ProductOption(name);
-      $scope.productOptions.push(productOption);
-      $scope.newProductOptionName = null; 
+      if (name === undefined || name === null || name === "") {
+        return;
+      }
+      // Check that product option doesnt already exsist.
+      var optionAlreadyExists = false;
+      angular.forEach($scope.productOptions, function(productOption, index) {
+        if (productOption.name === name) {
+          optionAlreadyExists = true;
+        }
+      });
+
+      if (!optionAlreadyExists) {
+        var productOption = new ProductOption(name);
+        $scope.productOptions.push(productOption);
+        $scope.newProductOptionName = null;
+      }
     };
  
     /** Adds a new ProductOption value.
