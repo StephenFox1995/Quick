@@ -39,6 +39,12 @@
      * @param {float} priceDelta - The price delta.
      */
     ProductOption.prototype.addValue = function (name, priceDelta) {
+      if (name === undefined || name === null || name === "") {
+        return;
+      }
+      if (priceDelta === undefined || priceDelta === null || priceDelta === "") {
+        return;
+      }
       var value = {
         name: "",
         priceDelta: 0

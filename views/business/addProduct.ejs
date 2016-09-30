@@ -109,21 +109,21 @@
               </ol>  
             </div>
 
-            <div class="col-lg-12">
+            <div class="row col-lg-12">
               <!--add product option value button-->
               <button class="btn btn-danger pull-right option-btn-remove" type="button" ng-click="removeProductOption(productOption)">Remove</button>
-              <button class="btn btn-default pull-right" type="button" ng-click="addProductOptionValue(productOption, valueName, priceDelta)">Add {{productOption.name}} Value</button>
+              <button class="btn btn-default pull-right option-btn-add" type="button" ng-click="addProductOptionValue(productOption, valueName, priceDelta)">Add {{productOption.name}} Value</button>
               
             </div> 
             <div class="row">
-              <div class="form-group">
-                <div class="col-lg-6 col-md-5 col-xs-5">
+              <div class="form-group values-container">
+                <div class="col-lg-7 col-md-5 col-xs-5">
                   <div class="input-group ">
                     <span class="input-group-addon" id="sizing-addon3">Value</span>
                     <input type="text" class="form-control" placeholder="e.g. Blue" ng-model="valueName">
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-xs-6">
+                <div class="col-lg-4 col-md-6 col-xs-6">
                   <div class="input-group ">
                     <span class="input-group-addon" id="sizing-addon4" >Price Delta</span>
                     <input type="number" class="form-control" placeholder="e.g. + €5.00" ng-model="priceDelta">
