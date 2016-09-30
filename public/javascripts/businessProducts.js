@@ -170,12 +170,18 @@
      * @param {string} name - The name of the ProductOption
      * @param {int} index - The index of the product option in the list.
      */
-    $scope.newProductOption = function(name) { 
+    $scope.newProductOption = function(name) {
+      if (name === undefined) { return; };
       var productOption = new ProductOption(name);
       $scope.productOptions.push(productOption);
+      $scope.newProductOptionName = null; 
     };
  
-
+    /** Adds a new ProductOption value.
+     * @param {ProductOption} productOption - The ProductOption to add the value to.
+     * @param {string} valueName - The name of the value.
+     * @param {float} priceDelta - The price delta.
+     */
     $scope.addProductOptionValue = function(productOption, valueName, priceDelta) {
       var p = $scope.productOptions[$scope.productOptions.indexOf(productOption)];
       p.addValue(valueName, priceDelta);

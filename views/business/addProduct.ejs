@@ -84,7 +84,6 @@
       <!--configure options fieldset-->
       <fieldset>
           <h5>Configure Product Options</h5>
-          
           <div class="form-group row options-wrap">
           <!--add product options row-->
             <div class="row">
@@ -101,14 +100,14 @@
           <!--all product options-->
           <div ng-repeat="productOption in productOptions track by $index">
             <!--individual product options-->
-            <div class="row">
-              <h6>{{productOption.name}}</h6>
+            <div class="row option-title">
+              <h6>{{productOption.name}} options</h6>
               <ol ng-repeat="value in productOption.values track by $index">
               - {{value.name}}, {{value.priceDelta}}
               </ol>  
             </div>
             
-            <div class="form-group">
+            <div class="form-group row">
               <div class="col-lg-7 col-md-5 col-xs-5">
                 <div class="input-group ">
                   <span class="input-group-addon" id="sizing-addon3">Value</span>
@@ -122,7 +121,7 @@
                 </div>
               </div>
               <!--add product option value button-->
-              <button class="btn btn-default pull-right" type="button" ng-click="addProductOptionValue(productOption, valueName, priceDelta)">Add {{productOption.name}} Value</button>
+              <button class="btn btn-default" type="button" ng-click="addProductOptionValue(productOption, valueName, priceDelta)">Add {{productOption.name}} Value</button>
             </div>
           </div>
 
