@@ -1,25 +1,24 @@
 (function () {
   'use strict';
 
-  angular.module('products', [])
-    .factory('ProductOption', ProductOptionClass);
+  angular.module('businessProducts')
+    .factory('ProductOption', ProductOptionsObject);
 
-  // Wraps ProductOption class. 
-  function ProductOptionClass() {
-    return ProductOption;
 
+  function ProductOptionsObject() {
     /** Constructor for ProductOption.
    * @param {string} name - The name of the ProductOption.
    */
     function ProductOption(name) {
       this.name = name;
+      this.values = [];
     };
 
     // The name of the option e.g. color.
     ProductOption.prototype.name = "";
 
     /**
-     * ProductOption values are the many values an
+     * ProductOption.prototype.values are the many values an
      * option can have e.g. one product option may be
      * color for a pair of shoes. A pair of shoes can have
      * many colors, therefore the color option can have many
@@ -32,16 +31,17 @@
      */
     ProductOption.prototype.values = [];
 
-    // See ProductOption.prototype.values documentation for more info.
-    ProductOption.prototype.value = {};
-    ProductOption.prototype.value.name = "";
-    ProductOption.prototype.value.priceDelta = 0;
-
-    ProductOption.prototype.addValue = function (name, priceDelta = 0) {
-      var newProductOptionValue = Object.create(ProductOption.prototype.value);
+    ProductOption.prototype.addValue = function (name, priceDelta) {
+      var value = {
+        name: "",
+        priceDelta: 0
+      };
+      var newProductOptionValue = value;
       newProductOptionValue.name = name;
       newProductOptionValue.priceDelta = priceDelta;
       this.values.push(newProductOptionValue);
     };
-  }
+
+    return ProductOption;
+  };
 })();

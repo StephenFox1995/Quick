@@ -133,17 +133,17 @@
   }
 
 
-  BusinessProductsCreationController.inject = ['$scope', 'productsService', 'sessionService', '$location', '$anchorScroll'];
-  function BusinessProductsCreationController($scope, productsService, sessionService, $location, $anchorScroll) {
+  BusinessProductsCreationController.inject = ['$scope', 'productsService', 'sessionService', '$location', '$anchorScroll', 'ProductOption'];
+  function BusinessProductsCreationController($scope, productsService, sessionService, $location, $anchorScroll, ProductOption) {
     $scope.product;
     $scope.httpBody = {};
     $scope.showAlert = false;
-    $scope.optionValues = [0];
+    $scope.productOptions = [];
     $scope.showConfigureOptions = false;
     $scope.showButtonsDefault = true;
+    $scope.optionName = "";
     
     
-
     $scope.addProduct = function() {
       // Get the business id.
       var businessID = sessionService.getClientID();
@@ -165,17 +165,24 @@
       });
     };
     
-    $scope.addProductOptionValue = function() {
-      scrollToBottom();
-      $scope.optionValues.push(0);
+    
+    /**
+     * @param {string} name - The name of the ProductOption
+     * @param {int} index - The index of the product option in the list.
+     */
+    $scope.newProductOption = function(name) { 
+      var productOption = new ProductOption(name);
+      $scope.productOptions.push(productOption);
     };
+ 
 
-    $scope.removeProductOptionValue = function(index) {
-      $scope.optionValues.splice(index, 1);
+    $scope.addProductOptionValue = function(productOption, valueName, priceDelta) {
+      var p = $scope.productOptions[$scope.productOptions.indexOf(productOption)];
+      p.addValue(valueName, priceDelta);
     };
     
     
-    // Scrolls to the bottom of the page.
+    /** Scrolls to the bottom of the page.*/
     function scrollToBottom() {
       $location.hash('bottom');
       $anchorScroll();

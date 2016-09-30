@@ -12,11 +12,13 @@
 
   <!--javascripts-->
   <script src="../javascripts/businessProducts.js"></script>
+  <script src="../javascripts/ProductOption.js"></script>
   <script src="../javascripts/products.js"></script>
   <script src="../javascripts/dropper.js"></script>
   <script src="../javascripts/session.js"></script>
   <script src="../javascripts/alert.js"></script>
   <script src="../javascripts/validNumber.js"></script>
+
   <!--css-->
   <link href="../stylesheets/container.css" rel="stylesheet" type="text/css" />
   <link href="../stylesheets/products.css" rel="stylesheet" type="text/css" />
@@ -63,7 +65,7 @@
                 <ul class="dropdown-menu">
                   <li drop-item id="Euro €"><a href="">Euro € </a></li>
                   <li drop-item id="US Dollar $"><a href="">US Dollar $ </a></li>
-                  <li drop-item id="British Sterling £"><a href="">British Sterling £ </a></li>
+                  <li drop-item id="British Sterling £"><a href="">British Sterling £</a></li>
                 </ul>
               </div>
               <input type="number" step="0.01" class="form-control bottom-space" aria-label="..." ng-model="product.price" valid-number required />
@@ -81,45 +83,50 @@
 
       <!--configure options fieldset-->
       <fieldset>
-          
           <h5>Configure Product Options</h5>
-
-          <!--product option-->
+          
           <div class="form-group row options-wrap">
-            <div class="input-group">
-              <span class="input-group-addon" id="sizing-addon2">Options</span>
-              <input type="text" class="form-control" placeholder="e.g. Size, Color" aria-describedby="sizing-addon2">
+          <!--add product options row-->
+            <div class="row">
+              <!--add product options input-->
+              <div class="input-group col-lg-10 col-md-9 col-xs-8 pull-left">
+                <span class="input-group-addon" id="sizing-addon2">Options</span>
+                <input type="text" class="form-control" placeholder="e.g. Size, Color" aria-describedby="sizing-addon2" ng-model="newProductOptionName">
+              </div>
+              <!--add product options button -->
+              <button class="btn btn-default pull-right"  type="button" ng-click="newProductOption(newProductOptionName)">Add Option</button>
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="values-container">
-              <div ng-repeat="option in optionValues track by $index">
-                <div row>
-                  <div class="col-lg-8 col-md-8 col-xs-8">
-                    <input type="text" class="form-control" placeholder="e.g. Blue">
-                  </div>
-                  
-                  <div class="input-group value-input col-lg-3 col-md-3 col-xs-3"> 
-                    <input type="number" class="form-control" placeholder="e.g. +5.00">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button" ng-click="removeProductOptionValue($index)">Remove</button>
-                    </span>
-                  </div>
+          <!--all product options-->
+          <div ng-repeat="productOption in productOptions track by $index">
+            <!--individual product options-->
+            <div class="row">
+              <h6>{{productOption.name}}</h6>
+              <ol ng-repeat="value in productOption.values track by $index">
+              - {{value.name}}, {{value.priceDelta}}
+              </ol>  
+            </div>
+            
+            <div class="form-group">
+              <div class="col-lg-7 col-md-5 col-xs-5">
+                <div class="input-group ">
+                  <span class="input-group-addon" id="sizing-addon3">Value</span>
+                  <input type="text" class="form-control" placeholder="e.g. Blue" ng-model="valueName">
                 </div>
               </div>
-              <!--add value button-->
-              <div class="row button-wrap top-space">
-                <button class="btn btn-default addButton" type="button" ng-click="addProductOptionValue()">Add Value</button>
+              <div class="col-lg-3 col-md-4 col-xs-4">
+                <div class="input-group ">
+                  <span class="input-group-addon" id="sizing-addon4" >Price Delta</span>
+                  <input type="number" class="form-control" placeholder="e.g. + €5.00" ng-model="priceDelta">
+                </div>
               </div>
+              <!--add product option value button-->
+              <button class="btn btn-default pull-right" type="button" ng-click="addProductOptionValue(productOption, valueName, priceDelta)">Add {{productOption.name}} Value</button>
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-              <hr>
-            </div>
-          </div>
+
           <!-- add product button-->
           <div class="form-group">
             <div class="col-lg-12 col-md-12 col-xs-12">
@@ -130,6 +137,7 @@
           </div>
       </fieldset>
     </form>
+    
     <!--alert-->
     <div>
       <alert ng-show="showAlert"></alert>
