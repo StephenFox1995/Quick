@@ -4,7 +4,7 @@
   angular.module('productOptions', [
     'productOptions'
   ])
-    .directive('productOptions', productOptions);
+  .directive('productOptions', productOptions);
 
   productOptions.inject = ['ProductOption'];
   function productOptions(ProductOption) {
