@@ -15,12 +15,17 @@
   <!--product-->
   <script src="/product/productsController.js"></script>
   <script src="/product/productsCreationController.js"></script>
+  <script src="/product/productOptionsDirective.js"></script>
+  <script src="/product/ProductOption.js"></script>
   <script src="/product/products.js"></script>
-  <script src="/product/productOptions.js"></script>
+  <!--extra-->
   <script src="/javascripts/dropper.js"></script>
   <script src="/javascripts/alert.js"></script>
   <script src="/javascripts/validNumber.js"></script>
   
+  <!--html-->
+  <link href="/product/productOptionsDirective.html" rel="import"/>
+
   <!--css-->
   <link href="/stylesheets/products.css" rel="stylesheet" type="text/css" />
   <title>Quick - Products</title>
@@ -41,7 +46,6 @@
         </div>
         <!--modal body-->
         <div class="modal-body">
-          
             <!--specifiedID-->
             <div class="form-group">
               <label for="message-text" class="control-label">SpecifiedID</label>
@@ -66,15 +70,14 @@
             <div>
               <alert ng-show="showAlert"></alert>
             </div>
-          
+            <product-options></product-options>
         </div>
         <!--modal buttons-->
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             <input type="submit" class="btn btn-primary" value="Save Changes" ng-disabled="updateProductsForm.$invalid">
           </div>
-        
-      </div>
+        </div>
       </form>
     </div>
   </div>
@@ -122,5 +125,4 @@
     </div>
   </div>
 </body>
-
 </html>

@@ -9,7 +9,7 @@
     return {
       restrict: 'E',
       require: '^',
-      templateUrl: '/product/productOptions.html',
+      templateUrl: '/product/productOptionsDirective.html',
       controller: Controller
     };
 
