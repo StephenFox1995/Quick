@@ -1,9 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('productOptions', [
-    'productOptions'
-  ])
+  angular.module('products')
   .directive('productOptions', productOptions);
 
   productOptions.inject = ['ProductOption'];

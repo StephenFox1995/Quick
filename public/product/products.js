@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('products', [])
+  angular.module('products')
     .factory('productsService', productsService);
 
   productsService.inject = ['$http'];

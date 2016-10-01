@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="businessProducts">
+<html ng-app="products">
 
 <head>
   <meta charset="utf-8">
@@ -11,8 +11,8 @@
   <% include /partials/businessNavBar %>
 
   <!--javascripts-->
-  <script src="/product/businessProducts.js"></script>
-  <script src="/product/businessProductsCreationController.js"></script>
+  <script src="/product/productsController.js"></script>
+  <script src="/product/productsCreationController.js"></script>
   <script src="/product/productOptions.js"></script>
   <script src="/product/ProductOption.js"></script>
   <script src="/product/products.js"></script>
@@ -30,7 +30,7 @@
   <title>Add Product</title>
 </head>
 
-<body ng-controller="BusinessProductsCreationController">
+<body ng-controller="ProductsCreationController">
   <div class="container">
     <div class="heading">Add New Product</div>
     <!--default add product inputs-->

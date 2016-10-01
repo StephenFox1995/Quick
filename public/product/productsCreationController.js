@@ -1,15 +1,15 @@
 (function () {
   'use strict';
-  angular.module('businessProducts')
-  .controller('BusinessProductsCreationController', BusinessProductsCreationController);
+  angular.module('products')
+  .controller('ProductsCreationController', ProductsCreationController);
 
   
   /**
-   * BusinessProductsCreationController is the default controller
+   * ProductsCreationController is the default controller
    * for creating Products.
    */
-  BusinessProductsCreationController.inject = ['$scope', 'productsService', 'sessionService'];
-  function BusinessProductsCreationController($scope, productsService, sessionService) {
+  ProductsCreationController.inject = ['$scope', 'productsService', 'sessionService'];
+  function ProductsCreationController($scope, productsService, sessionService) {
     $scope.product;
     $scope.httpBody = {};
     $scope.showAlert = false;

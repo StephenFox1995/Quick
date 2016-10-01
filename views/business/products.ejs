@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="businessProducts">
+<html ng-app="products">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
@@ -9,27 +9,30 @@
   <% include /imports/bootstrap %>
   <% include /partials/businessNavBar %>
   <!--javascripts-->
-  <script src="../javascripts/session.js"></script>
-  <script src="../javascripts/token.js"></script>
-  <script src="../javascripts/session.js"></script>
-  <script src="../product/products.js"></script>
-  <script src="../product/businessProducts.js"></script>
-  <script src="../product/productOptions.js"></script>
-  <script src="../javascripts/dropper.js"></script>
-  <script src="../javascripts/alert.js"></script>
-  <script src="../javascripts/validNumber.js"></script>
+  <script src="/javascripts/session.js"></script>
+  <script src="/javascripts/token.js"></script>
+  <script src="/javascripts/session.js"></script>
+  <!--product-->
+  <script src="/product/productsController.js"></script>
+  <script src="/product/productsCreationController.js"></script>
+  <script src="/product/products.js"></script>
+  <script src="/product/productOptions.js"></script>
+  <script src="/javascripts/dropper.js"></script>
+  <script src="/javascripts/alert.js"></script>
+  <script src="/javascripts/validNumber.js"></script>
   
   <!--css-->
-  <link href="../stylesheets/products.css" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/products.css" rel="stylesheet" type="text/css" />
   <title>Quick - Products</title>
 </head>
 
-<body ng-controller="BusinessProductsController">
+<body ng-controller="ProductsController">
   <h4 class="page-title">{{businessName}}'s Products</h4>
   
   <!--modal for changing product details -->
   <div class="modal fade" id="changeProductDetailsModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
+      <form name="updateProductsForm" ng-submit="updateProduct()">
       <div class="modal-content">
         <!--modal header -->
         <div class="modal-header">
@@ -38,21 +41,21 @@
         </div>
         <!--modal body-->
         <div class="modal-body">
-          <form name="updateProductsForm" ng-submit="updateProduct()">
+          
             <!--specifiedID-->
             <div class="form-group">
               <label for="message-text" class="control-label">SpecifiedID</label>
-              <input type="text" class="form-control" id="productSpecifiedID" value={{selectedProduct.specifiedID}} ng-model="selectedProduct.specifiedID">
+              <input type="text" class="form-control" id="productSpecifiedID" value="{{selectedProduct.specifiedID}}" ng-model="selectedProduct.specifiedID">
             </div>
             <!--name-->
             <div class="form-group">
               <label for="recipient-name" class="control-label">Name:</label>
-              <input type="text" class="form-control" id="productName" value={{selectedProduct.name}} ng-model="selectedProduct.name" required>
+              <input type="text" class="form-control" id="productName" value="{{selectedProduct.name}}" ng-model="selectedProduct.name" required > 
             </div>
             <!--price-->
             <div class="form-group">
               <label for="message-text" class="control-label">Price:</label>
-              <input type="price" class="form-control" id="productPrice" value={{selectedProduct.price}} ng-model="selectedProduct.price" required>
+              <input type="price" class="form-control" id="productPrice" value="{{selectedProduct.price}}" ng-model="selectedProduct.price" required>
             </div>
             <!--description-->
             <div class="form-group">
@@ -63,14 +66,16 @@
             <div>
               <alert ng-show="showAlert"></alert>
             </div>
+          
         </div>
         <!--modal buttons-->
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <input type="submit" class="btn btn-primary" value="Save Changes" ng-disabled="updateProductsForm.$invalid"></button>
+            <input type="submit" class="btn btn-primary" value="Save Changes" ng-disabled="updateProductsForm.$invalid">
           </div>
-        </form>
+        
       </div>
+      </form>
     </div>
   </div>
 

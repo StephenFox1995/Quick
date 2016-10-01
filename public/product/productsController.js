@@ -2,18 +2,16 @@
   'use strict';
 
   angular
-    .module('businessProducts', [
-      'products',
+    .module('products', [
       'session', 
       'dropper',
       'alert',
       'validNumber',
-      'productOptions'
     ])
-    .controller('BusinessProductsController', BusinessProductsController);
+    .controller('ProductsController', ProductsController);
   
-  BusinessProductsController.inject = ['$scope', 'productsService', 'sessionService'];
-  function BusinessProductsController($scope, productsService, sessionService) {
+  ProductsController.inject = ['$scope', 'productsService', 'sessionService'];
+  function ProductsController($scope, productsService, sessionService) {
     $scope.products = [];
     $scope.selectedProduct = {}; // The object that was selected for editing.
     $scope.showAlert = false;

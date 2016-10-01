@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('businessProducts')
+  angular.module('products')
     .factory('ProductOption', ProductOptionsObject);
 
 
