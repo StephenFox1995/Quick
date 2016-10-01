@@ -11,7 +11,7 @@
     return {
       restrict: 'E',
       require: '^',
-      templateUrl: '/templates/directives/productOptions.html',
+      templateUrl: '/product/productOptions.html',
       controller: Controller
     };
 
