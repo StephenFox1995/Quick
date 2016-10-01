@@ -4,7 +4,6 @@
   .controller('BusinessProductsCreationController', BusinessProductsCreationController);
 
   
-
   /**
    * BusinessProductsCreationController is the default controller
    * for creating Products.
