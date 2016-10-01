@@ -8,15 +8,20 @@
   function productOptions(ProductOption) {
     return {
       restrict: 'E',
-      require: '^',
+      scope: {
+        product: "="
+      },
       templateUrl: '/product/productOptionsDirective.html',
-      controller: Controller
+      controller: Controller,
+      link: link
     };
 
-    function Controller($scope) {
-      // All Product Options.
+    function link($scope, elem, attrs) {
+      // Add options property to product.
       $scope.product.options = [];
-      
+    }
+
+    function Controller($scope) {
 
       $scope.newProductOption = function (name) {
         if (name === undefined || name === null || name === "") {
