@@ -10,7 +10,7 @@
    */
   ProductsCreationController.inject = ['$scope', 'productsService', 'sessionService'];
   function ProductsCreationController($scope, productsService, sessionService) {
-    $scope.product;
+    $scope.product = {};
     $scope.httpBody = {};
     $scope.showAlert = false;
 
@@ -18,7 +18,6 @@
       // Get the business id.
       var businessID = sessionService.getClientID();
       $scope.product.businessID = businessID;
-      $scope.product.options = $scope.productOptions;
       $scope.httpBody.product = $scope.product;
       //TODO:  Perform checks on scope.
       productsService.addProduct($scope.httpBody, function (err, callback) {

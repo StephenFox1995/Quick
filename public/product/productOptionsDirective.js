@@ -15,7 +15,8 @@
 
     function Controller($scope) {
       // All Product Options.
-      $scope.productOptions = [];
+      $scope.product.options = [];
+      
 
       $scope.newProductOption = function (name) {
         if (name === undefined || name === null || name === "") {
@@ -23,7 +24,7 @@
         }
         // Check that product option doesnt already exsist.
         var optionAlreadyExists = false;
-        angular.forEach($scope.productOptions, function (productOption, index) {
+        angular.forEach($scope.product.options, function (productOption, index) {
           if (productOption.name === name) {
             optionAlreadyExists = true;
           }
@@ -31,7 +32,7 @@
 
         if (!optionAlreadyExists) {
           var productOption = new ProductOption(name);
-          $scope.productOptions.push(productOption);
+          $scope.product.options.push(productOption);
           $scope.newProductOptionName = null;
         }
       };
@@ -39,9 +40,9 @@
       $scope.removeProductOption = function (productOption) {
         if (!productOption) { return; }
 
-        angular.forEach($scope.productOptions, function (option, index) {
+        angular.forEach($scope.product.options, function (option, index) {
           if (option === productOption) {
-            $scope.productOptions.splice(index, 1);
+            $scope.product.options.splice(index, 1);
           }
         });
       };
