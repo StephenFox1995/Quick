@@ -76,7 +76,11 @@ Product.prototype.setAttributesFromRequest = function(req) {
   this.description = product.description;
   this.businessID = product.businessID;
   if ('options' in product) {
-    this.options = product.options;
+    // Only if the options array has an element
+    // will we set it on this.
+    if (product.options.length > 0) {
+      this.options = product.options;
+    }
   }
 };
 

@@ -30,6 +30,7 @@
     
     /**
      * Attempts to add a product to the database.
+     * 
      * @param {Object} product - The product object.
      * @param {function(err, data)} callback - Callback function.
      */

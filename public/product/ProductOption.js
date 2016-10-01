@@ -29,7 +29,7 @@
      * delta of + 20.00 euros. This means the price of the shoes in
      * the red color are €85.00. (default model + red color). 
      */
-    ProductOption.prototype.values = [];
+    ProductOption.prototype.values =  [];
 
     /**
      * Adds a product option value to the values array.

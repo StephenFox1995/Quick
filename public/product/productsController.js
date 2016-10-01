@@ -34,8 +34,8 @@
       // Define prototpye of Editing product.
       $scope.EditingProduct = {
         index: 0, // Index of the editing object.
-        beforeEdit: {},
-        afterEdit: {}
+        beforeEdit: {}, // Object representation before edit
+        afterEdit: {} //// Object representation after edit
       };
       // Create instance for produt being edited.
       $scope.editingProduct = Object.create($scope.EditingProduct);
