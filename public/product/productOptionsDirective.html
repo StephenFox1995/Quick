@@ -14,21 +14,21 @@
 </div>
 
 <!--all product options-->
-<div ng-repeat="productOption in product.options track by $index">
+<div ng-repeat="option in options track by $index">
   <!--individual product options-->
   <div class="row option-title">
     <hr>
-    <h6>{{productOption.name}} options</h6>
-    <ol ng-repeat="value in productOption.values track by $index">
+    <h6>{{option.name}} options</h6>
+    <ol ng-repeat="value in option.values track by $index">
       - {{value.name}}, {{value.priceDelta}}
-      <button class="btn btn-default option-value-btn" ng-click="removeProductOptionValue(productOption, value.name)">x</button>
+      <button class="btn btn-default option-value-btn" ng-click="removeProductOptionValue(option, value.name)">x</button>
     </ol>
   </div>
 
   <div class="row col-lg-12">
     <!--add product option value button-->
-    <button class="btn btn-danger pull-right option-btn-remove" type="button" ng-click="removeProductOption(productOption)">Remove</button>
-    <button class="btn btn-default pull-right option-btn-add" type="button" ng-click="addProductOptionValue(productOption, valueName, priceDelta)">Add {{productOption.name}} Value</button>
+    <button class="btn btn-danger pull-right option-btn-remove" type="button" ng-click="removeProductOption(option)">Remove</button>
+    <button class="btn btn-default pull-right option-btn-add" type="button" ng-click="addProductOptionValue(option, valueName, priceDelta)">Add {{productOption.name}} Value</button>
 
   </div>
   <div class="row">
