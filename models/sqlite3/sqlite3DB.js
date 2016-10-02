@@ -144,16 +144,7 @@ sqlite3DB.insertProduct = function (product, callback) {
 sqlite3DB.getAllBusinessProducts = function (businessID, callback) {
   this.getConnection(function (db) {
     const sqlQuery = productSQL.getAllBusinessProducts;
-    db.all(sqlQuery, [businessID], function(err, rows) {
-      rows.forEach(function(row) {
-        // Check to see if there are product options.
-        // Convert them back from string to json object.
-        if (row.options !== null || row.options !== undefined) {
-          row.options = JSON.parse(row.options);
-        }
-      });
-      callback(err, rows);
-    });
+    db.all(sqlQuery, [businessID], callback);
   });
 };
 

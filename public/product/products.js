@@ -68,10 +68,18 @@
      */
     function parseProductsFromNetworkData(data, callback) {
       if (Array.isArray(data.products)) {
+        // Parse the ProductOptions back to object.
+                
         var products = [];
         // Retrieve each product.
         angular.forEach(data.products, function(product, index) {
           var options = []; // All options for this product.
+          
+          // Check to see if there are ProductOptions.
+          // Convert them back from string to object.
+          if (product.options) {
+            product.options = JSON.parse(product.options);
+          }
           angular.forEach(product.options, function(option) {
             var option = new ProductOption(option.name, option.values);
             options.push(option);
