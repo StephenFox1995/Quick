@@ -100,7 +100,7 @@
      * @param {function(err, detectedUpdates, updates)} callback - Callback function.
      */
     function getUpdates(productBeforeEdit, productAfterEdit, callback) {
-      if (productBeforeEdit == null || productAfterEdit == null) {
+      if (!productBeforeEdit || !productAfterEdit) {
         return callback(new Error('Product was null'));
       }
       // Bool to determine if the product details were actually edited.
@@ -146,6 +146,14 @@
         editedPrice.column = 'price';
         editedPrice.newValue = productAfterEdit.price;
         updates.updateFields.push(editedPrice);
+        productWasEdited = true;
+      }
+      if (productAfterEdit.options !== productBeforeEdit.options) {
+        var editedOptions = Object.create(EditedField);
+        editedOptions.column = 'options';
+        // Make sure to stringify the product options.
+        editedOptions.newValue = JSON.stringify(productAfterEdit.options);
+        updates.updateFields.push(editedOptions);
         productWasEdited = true;
       }
 
