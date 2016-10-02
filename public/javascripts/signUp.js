@@ -12,8 +12,8 @@
   SignUpController.inject = ['$scope', 'signUpService', 'sessionService', 'whereTo', 'ROUTES'];
   function SignUpController($scope, signUpService, sessionService, whereTo, ROUTES) {
     $scope.httpBody = {};
-    $scope.message = '';
-    $scope.endPoint = null;
+    $scope.message;
+    $scope.endPoint;
 
 
     $scope.signUp = function () {

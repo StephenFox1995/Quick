@@ -40,14 +40,21 @@
 .option-title {
   margin-left: 2%;
 }
-.option-value-btn {
+.option-value-btn-delete {
   padding: 0px 5px;
   vertical-align: baseline;
+  border-width: 0px;
   color: rgba(125, 125, 125, 1);
 }
-.option-btn-remove {
-  margin-left: 1%;
+.option-btn {
+  margin-top: 1%;
+  
 }
-.option-btn-add {
+.add {
+  margin-right: 2%;
+}
+
+
+.option-btn-container {
   margin-bottom: 1%;
 }

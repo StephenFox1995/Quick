@@ -18,7 +18,7 @@
 
     function Controller($scope) {
       $scope.newProductOption = function (name) {
-        if (name === undefined || name === null || name === "") {
+        if (!name || name === "") {
           return;
         }
         // Check that product option doesn't already exsist.

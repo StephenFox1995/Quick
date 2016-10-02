@@ -6,7 +6,6 @@
       'session', 
       'dropper',
       'alert',
-      'validNumber',
     ])
     .controller('ProductsController', ProductsController);
   

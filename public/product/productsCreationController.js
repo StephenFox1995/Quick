@@ -8,9 +8,9 @@
    * ProductsCreationController is the default controller
    * for creating Products.
    */
-  ProductsCreationController.inject = ['$scope', 'productsService', 'sessionService'];
-  function ProductsCreationController($scope, productsService, sessionService) {
-    $scope.product = { 
+  ProductsCreationController.inject = ['$scope', 'productsService', 'sessionService', 'Product'];
+  function ProductsCreationController($scope, productsService, sessionService, Product) {
+    $scope.product = {
       options: []
     };
     $scope.httpBody = {};

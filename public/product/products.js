@@ -148,7 +148,7 @@
         updates.updateFields.push(editedPrice);
         productWasEdited = true;
       }
-      if (productAfterEdit.options !== productBeforeEdit.options) {
+      if (JSON.stringify(productAfterEdit.options) !== JSON.stringify(productBeforeEdit.options)) {
         var editedOptions = Object.create(EditedField);
         editedOptions.column = 'options';
         // Make sure to stringify the product options.

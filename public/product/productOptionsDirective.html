@@ -21,16 +21,11 @@
     <h6>{{option.name}} options</h6>
     <ol ng-repeat="value in option.values track by $index">
       - {{value.name}}, {{value.priceDelta}}
-      <button class="btn btn-default option-value-btn" ng-click="removeProductOptionValue(option, value.name)">x</button>
+      <button class="btn btn-default option-value-btn-delete" ng-click="removeProductOptionValue(option, value.name)">x</button>
     </ol>
   </div>
 
-  <div class="row col-lg-12">
-    <!--add product option value button-->
-    <button class="btn btn-danger pull-right option-btn-remove" type="button" ng-click="removeProductOption(option)">Remove</button>
-    <button class="btn btn-default pull-right option-btn-add" type="button" ng-click="addProductOptionValue(option, valueName, priceDelta)">Add {{productOption.name}} Value</button>
 
-  </div>
   <div class="row">
     <div class="form-group values-container">
       <div class="col-lg-7 col-md-5 col-xs-6">
@@ -39,12 +34,18 @@
           <input type="text" class="form-control" placeholder="e.g. Blue" ng-model="valueName">
         </div>
       </div>
-      <div class="col-lg-4 col-md-6 col-xs-6">
+      <div class="col-lg-5 col-md-6 col-xs-6">
         <div class="input-group ">
           <span class="input-group-addon" id="sizing-addon4">Price Delta</span>
-          <input type="number" class="form-control" placeholder="e.g. + €5.00" ng-model="priceDelta">
+          <input type="number" step="0.01" class="form-control" placeholder="e.g. + €5.00" ng-model="priceDelta">
         </div>
       </div>
     </div>
+    <div class="row col-lg-12 option-btn-container">
+    <!--add product option value button-->
+    <button class="btn btn-danger pull-right option-btn" type="button" ng-click="removeProductOption(option)">Remove</button>
+    <button class="btn btn-default pull-right option-btn add" type="button" ng-click="addProductOptionValue(option, valueName, priceDelta)">Add {{option.name}} Value</button>
   </div>
+  </div>
+  
 </div>
