@@ -1,21 +1,22 @@
 'use strict';
 
 var 
-  util = require('./util'),
   db = require('../models/database'),
   BusinessObject = require('../libs/BusinessObject');
 
+
+
+
+
+
+function Product() { }
 
 Product.prototype = new BusinessObject();
 Product.prototype.constructor = Product;
 
 
-function Product() {
-}
-
-
 Product.prototype.parsePOST = function (req, cb) {
-  if (validRequest(req)) {
+  if (this.validRequest(req)) {
     this.setAttributesFromRequest(req);
 
     return cb(null);
@@ -85,26 +86,22 @@ Product.prototype.setAttributesFromRequest = function(req) {
 };
 
 
-function validRequest(req) {
-  if (!('product' in req.body)) {
+/**
+ * Check that the request is valid.
+ * @param {object} req - The request.
+ * @return {boolean} True - Valid, else: false.
+ */
+Product.prototype.validRequest = function (req) {
+  if (!this.requestContainsObjects(['product'], req)) {
     return false;
   }
   var product = req.body.product;
-  if (!util.isValidString(product.name)) {
-    return false;
-  }
-  if (!util.isValidString(product.price)) {
-    return false;
-  }
-  if (!util.isValidString(product.description)) {
-    return false;
-  }
-  if (!util.isValidString(product.businessID)) {
-    return false;
-  }
-  else {
-    return true;
-  }
-}
+
+  return this.validStrings([    
+    product.name,
+    product.price,
+    product.description,
+    product.businessID]);
+};
 
 module.exports = Product;
