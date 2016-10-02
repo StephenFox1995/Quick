@@ -4,8 +4,8 @@
   angular.module('products')
     .factory('productsService', productsService);
 
-  productsService.inject = ['$http'];
-  function productsService($http) {
+  productsService.inject = ['$http', 'Product', 'ProductOption'];
+  function productsService($http, Product, ProductOption) {
     return {
       getProducts: getProducts,
       addProduct: addProduct,
@@ -16,12 +16,14 @@
     /**
      * Get products for a business.
      * @param {string} businessID - The id of the business.
-     * @param {function(err, data)} callback - Callback function.
+     * @param {function(err, products)} callback - Callback function.
      */
     function getProducts(businessID, callback) {
       $http.get('/business/' + businessID + '/products')
         .success(function (data) {
-          callback(null, data.products);
+          parseProductsFromNetworkData(data, function(products) {
+            callback(null, products);
+          });
         })
         .error(function (data) {
           callback(new Error('Could not retrieve products for business: ' + businessID));
@@ -57,6 +59,38 @@
         callback(new Error('There was an error updating the product.'));
       });
     }
+
+
+    /**
+     * Parses all products from network request.
+     * @param {object} data - The data from the network request.
+     * @param {function(products)} callback - Callback function.
+     */
+    function parseProductsFromNetworkData(data, callback) {
+      if (Array.isArray(data.products)) {
+        var products = [];
+        // Retrieve each product.
+        angular.forEach(data.products, function(product, index) {
+          var options = []; // All options for this product.
+          angular.forEach(product.options, function(option) {
+            var option = new ProductOption(option.name, option.values);
+            options.push(option);
+          });
+          var newProduct = new Product(product.id, 
+                                       product.name, 
+                                       product.price, 
+                                       product.businessID, 
+                                       product.specifiedID, 
+                                       options, 
+                                       product.description, 
+                                       product.timestamp);
+          products.push(newProduct);  
+          if (index === data.products.length - 1) {
+            callback(products);
+          }                                     
+        });
+      }
+    };
 
     /**
      * Finds updates(edits) in a product before and after it was edited.

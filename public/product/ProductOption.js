@@ -6,13 +6,25 @@
 
 
   function ProductOptionsObject() {
-    /** Constructor for ProductOption.
-   * @param {string} name - The name of the ProductOption.
-   */
+    /** 
+     * Constructor for ProductOption.
+     * @param {string} name - The name of the ProductOption.
+     **/
     function ProductOption(name) {
       this.name = name;
       this.values = [];
     };
+
+    /**
+     * Constructor for ProductOption.
+     * Construct a new ProductOption object with an array of values.
+     * @param {string} name - Name of the ProductOption.
+     * @param {array} values - Array of values.
+     */
+    function ProductOption(name, values) {
+      this.name = name;
+      this.values = values;
+    }
 
     // The name of the option e.g. color.
     ProductOption.prototype.name = "";

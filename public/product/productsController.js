@@ -52,7 +52,7 @@
       // actually want to update the product and press cancel.
       // This keeps the array consistent to what was loaded from the server.
       angular.copy($scope.products[index], $scope.selectedProduct);
-
+      
       // Set the beforeEdit object so we can monitor any updates,
       // again we want copy and not reference so we can grab
       // a snapshot of the object before editing.

@@ -10,7 +10,9 @@
    */
   ProductsCreationController.inject = ['$scope', 'productsService', 'sessionService'];
   function ProductsCreationController($scope, productsService, sessionService) {
-    $scope.product = {};
+    $scope.product = { 
+      options: []
+    };
     $scope.httpBody = {};
     $scope.showAlert = false;
 

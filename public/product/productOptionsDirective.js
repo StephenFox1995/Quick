@@ -9,27 +9,21 @@
     return {
       restrict: 'E',
       scope: {
-        product: "="
+        options: "="
       },
       templateUrl: '/product/productOptionsDirective.html',
-      controller: Controller,
-      link: link
+      controller: Controller
     };
 
-    function link($scope, elem, attrs) {
-      // Add options property to product.
-      $scope.product.options = [];
-    }
 
     function Controller($scope) {
-
       $scope.newProductOption = function (name) {
         if (name === undefined || name === null || name === "") {
           return;
         }
-        // Check that product option doesnt already exsist.
+        // Check that product option doesn't already exsist.
         var optionAlreadyExists = false;
-        angular.forEach($scope.product.options, function (productOption, index) {
+        angular.forEach($scope.options, function (productOption, index) {
           if (productOption.name === name) {
             optionAlreadyExists = true;
           }
@@ -37,7 +31,7 @@
 
         if (!optionAlreadyExists) {
           var productOption = new ProductOption(name);
-          $scope.product.options.push(productOption);
+          $scope.options.push(productOption);
           $scope.newProductOptionName = null;
         }
       };
@@ -45,9 +39,9 @@
       $scope.removeProductOption = function (productOption) {
         if (!productOption) { return; }
 
-        angular.forEach($scope.product.options, function (option, index) {
+        angular.forEach($scope.options, function (option, index) {
           if (option === productOption) {
-            $scope.product.options.splice(index, 1);
+            $scope.options.splice(index, 1);
           }
         });
       };

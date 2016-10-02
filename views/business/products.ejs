@@ -18,6 +18,7 @@
   <script src="/product/productOptionsDirective.js"></script>
   <script src="/product/ProductOption.js"></script>
   <script src="/product/products.js"></script>
+  <script src="/product/Product.js"></script>
   <!--extra-->
   <script src="/javascripts/dropper.js"></script>
   <script src="/javascripts/alert.js"></script>
@@ -70,7 +71,7 @@
             <div>
               <alert ng-show="showAlert"></alert>
             </div>
-            <product-options></product-options>
+            <product-options options="selectedProduct.options"></product-options>
         </div>
         <!--modal buttons-->
           <div class="modal-footer">

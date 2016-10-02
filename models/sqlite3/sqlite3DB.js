@@ -120,15 +120,14 @@ sqlite3DB.getBusinessInfo = function (id, callback) {
  ***********************/
 
 /**
- * Insert an Product into the sqlite3DB.
- * @param product The order to add to the sqlite3DB.
+ * Insert an Product into the database.
+ * @param product The order to add to the database.
  * @param callback Callback function.
  * */
 sqlite3DB.insertProduct = function (product, callback) {
   this.getConnection(function (db) {
     const insertQuery = productSQL.insert;
     var optionsString = JSON.stringify(product.options);
-    
     db.run(insertQuery,
       [product.id,
         product.specifiedID,
@@ -145,7 +144,16 @@ sqlite3DB.insertProduct = function (product, callback) {
 sqlite3DB.getAllBusinessProducts = function (businessID, callback) {
   this.getConnection(function (db) {
     const sqlQuery = productSQL.getAllBusinessProducts;
-    db.all(sqlQuery, [businessID], callback);
+    db.all(sqlQuery, [businessID], function(err, rows) {
+      rows.forEach(function(row) {
+        // Check to see if there are product options.
+        // Convert them back from string to json object.
+        if (row.options !== null || row.options !== undefined) {
+          row.options = JSON.parse(row.options);
+        }
+      });
+      callback(err, rows);
+    });
   });
 };
 
