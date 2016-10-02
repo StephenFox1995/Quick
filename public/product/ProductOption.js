@@ -21,15 +21,6 @@
      */
 
 
-    /** 
-     * Constructor for ProductOption.
-     * @param {string} name - The name of the ProductOption.
-     **/
-    function ProductOption(name) {
-      this.name = name;
-      this.values = [];
-    };
-
     /**
      * Constructor for ProductOption.
      * Construct a new ProductOption object with an array of values.
@@ -38,11 +29,10 @@
      */
     function ProductOption(name, values) {
       this.name = name;
-      this.values = values;
+      this.values = values || [];
     }
 
   
-
     /**
      * Adds a product option value to the values array.
      * If a value already exists with the same
@@ -87,7 +77,6 @@
         }
       }, this);
     };
-
     return ProductOption;
   };
 })();
