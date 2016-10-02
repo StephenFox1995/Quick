@@ -127,7 +127,6 @@ sqlite3DB.getBusinessInfo = function (id, callback) {
 sqlite3DB.insertProduct = function (product, callback) {
   this.getConnection(function (db) {
     const insertQuery = productSQL.insert;
-    var optionsString = JSON.stringify(product.options);
     db.run(insertQuery,
       [product.id,
         product.specifiedID,
@@ -135,7 +134,7 @@ sqlite3DB.insertProduct = function (product, callback) {
         product.price,
         product.description,
         product.businessID,
-        optionsString,
+        product.options,
         product.timestamp],
       callback);
   });

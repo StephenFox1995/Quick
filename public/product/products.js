@@ -36,7 +36,7 @@
      * @param {Object} product - The product object.
      * @param {function(err, data)} callback - Callback function.
      */
-    function addProduct(product, callback) {
+    function addProduct(product, callback) {      
       $http.post('/product', product)
       .success(function (data) {
         callback(null, data);

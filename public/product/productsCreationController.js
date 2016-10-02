@@ -13,14 +13,20 @@
     $scope.product = {
       options: []
     };
-    $scope.httpBody = {};
+    $scope.httpBody = {
+      product: {}
+    };
     $scope.showAlert = false;
 
     $scope.addProduct = function () {
       // Get the business id.
       var businessID = sessionService.getClientID();
       $scope.product.businessID = businessID;
-      $scope.httpBody.product = $scope.product;
+      // Get copy of product.
+      angular.copy($scope.product, $scope.httpBody.product);
+      // Convert product options to string. 
+      $scope.httpBody.product.options = JSON.stringify($scope.httpBody.product.options);
+      
       //TODO:  Perform checks on scope.
       productsService.addProduct($scope.httpBody, function (err, callback) {
         if (err) {
