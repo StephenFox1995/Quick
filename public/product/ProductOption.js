@@ -6,6 +6,21 @@
 
 
   function ProductOptionsObject() {
+    /**
+     * Information on values.
+     * Values are the many values an
+     * option can have e.g. one product option may be
+     * color for a pair of shoes. A pair of shoes can have
+     * many colors, therefore the color option can have many
+     * values e.g. red, blue, green etc.
+     * Each value can also have an associated price delta.
+     * So for example let's say the default model cost €65.00. 
+     * The red shoes are special rare edition and have a price
+     * delta of + 20.00 euros. This means the price of the shoes in
+     * the red color are €85.00. (default model + red color). 
+     */
+
+
     /** 
      * Constructor for ProductOption.
      * @param {string} name - The name of the ProductOption.
@@ -26,22 +41,7 @@
       this.values = values;
     }
 
-    // The name of the option e.g. color.
-    ProductOption.prototype.name = "";
-
-    /**
-     * ProductOption.prototype.values are the many values an
-     * option can have e.g. one product option may be
-     * color for a pair of shoes. A pair of shoes can have
-     * many colors, therefore the color option can have many
-     * values e.g. red, blue, green etc.
-     * Each value can also have an associated price delta.
-     * So for example let's say the default model cost €65.00. 
-     * The red shoes are special rare edition and have a price
-     * delta of + 20.00 euros. This means the price of the shoes in
-     * the red color are €85.00. (default model + red color). 
-     */
-    ProductOption.prototype.values =  [];
+  
 
     /**
      * Adds a product option value to the values array.
