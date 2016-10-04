@@ -17,10 +17,9 @@ runConfig.tokenSecret = function () {
 
 
 /**
- * Attempts to locate the database file and set in configurations.
- * @return {boolean} - True if the sqlite3DB was located and value
- *                      set in configurations; otherwise false.
+ * Attempts to connect to the database reading from configurations file.
+ * @return {boolean} - True if connected successfully.
  */
-runConfig.locateDatabase = function () {
-  return db.locate();
+runConfig.setupDatabase = function () {
+  return db.setupMongo();
 };

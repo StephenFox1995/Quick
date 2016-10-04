@@ -3,7 +3,7 @@
 
 /**
  * This module sole purpose is to provide a generic
- * interface to the underlying sqlite3DB being used by
+ * interface to the underlying database being used by
  * the application.
  * */
 const dbManager = exports;
@@ -17,6 +17,7 @@ var sqlite3DB = require('./sqlite3/sqlite3DB');
  * Inserts a User object into the database.
  * @param {User} user - The user to insert.
  * @param {function} callback - Callback.
+ * 
  * */
 dbManager.insertUser = function (user, callback) {
   sqlite3DB.insertUser(user, callback);

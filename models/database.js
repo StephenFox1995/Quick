@@ -3,14 +3,14 @@
 var 
   dbManager = require('./dbManager'),
   fs        = require('fs'),
-  globals   = require('../libs/globals');
-
+  globals   = require('../libs/globals'),
+  MongoClient = require('mongodb').MongoClient;
 const database = exports;
 
 
 /**
  * Inserts a User into the database.
- * @param   {User} user - The user to add to the sqlite3DB.
+ * @param   {User} user - The user to add to the database.
  * @param   {function(err)} cb - callback Callback function.
  **/
 database.insertUser = function (user, cb) {
@@ -37,8 +37,8 @@ database.getClient = function (clientID, clientSecret, callback) {
 };
 
 /**
- * Insert an Product into the sqlite3DB.
- * @param   {Product} product - product The order to add to the sqlite3DB.
+ * Insert an Product into the datase.
+ * @param   {Product} product - product The order to add to the database..
  * @param   {function} cb - Callback function.
  * */
 database.insertProduct = function (product, cb) {
@@ -56,8 +56,8 @@ database.updateProduct = function(productID, updateFields, callback) {
 
 
 /**
- * Inserts a Business into the sqlite3DB.
- * @param {Business} business - The business to add to the sqlite3DB.
+ * Inserts a Business into the database.
+ * @param {Business} business - The business to add to the database.
  * @param {function} callback - Callback function.
  **/
 database.insertBusiness = function (business, callback) {
@@ -79,8 +79,8 @@ database.getBusinessPurchases = function(id, callback) {
 
 
 /**
- * Inserts a Purchase into the sqlite3DB.
- * @param   {Purchase} purchase - The purchase details to add to the sqlite3DB.
+ * Inserts a Purchase into the database.
+ * @param   {Purchase} purchase - The purchase details to add to the database.
  * @param   {function} callback - The callback function.
  * */
 database.insertPurchase = function (purchase, callback) {
@@ -89,9 +89,9 @@ database.insertPurchase = function (purchase, callback) {
 
 
 database.locate = function () {
-  var configFile;
+  var configFileContents;
   try {
-    configFile = fs.readFileSync(globals.Globals.configFile, 'utf8');
+    configFileContents = fs.readFileSync(globals.Globals.configFileContents, 'utf8');
   } catch (e) {
     if (e.code === 'ENOENT') {
       console.log('Could not find configurations file.');
@@ -99,13 +99,44 @@ database.locate = function () {
     }
   }
   // Parse the json for the db filepath.
-  var dbLocation = JSON.parse(configFile);
+  var dbLocation = JSON.parse(configFileContents);
   if (dbLocation) {
-    // Set location of sqlite3DB at a global level.
+    // Set location of databse at a global level.
     globals.Globals.dbLocation = dbLocation.sqliteFilepath;
     return true;
   } else {
     console.log('Configuration file does not contain location of SQLite database.');
+    return false;
+  }
+};
+
+
+database.setupMongo = function() {
+  var configFileContents;
+  try {
+    configFileContents = fs.readFileSync(globals.Globals.configFile, 'utf8');
+  } catch (e) {
+    if (e.code === 'ENOENT') {
+      console.log('Could not find configurations file.');
+      return false;
+    }
+  }
+
+  // Get the Mongo details.
+  var mongoDetails = JSON.parse(configFileContents).mongodb;
+  if (mongoDetails) {
+    globals.Globals.mongoDetails = {};
+    globals.Globals.mongoDetails.port = mongoDetails.port;
+    globals.Globals.mongoDetails.uri = mongoDetails.uri;
+    globals.Globals.mongoDetails.database = mongoDetails.database;
+
+    var url = 'mongodb://' + mongoDetails.uri + ':' + mongoDetails.port + '/' + mongoDetails.database;
+    MongoClient.connect(url, function(err, db) {
+      console.log("Successfully connected to MongoDB server.");
+    });
+    return true;
+  } else {
+    console.log('Configuration file does not contain MongoDB details.');
     return false;
   }
 };
