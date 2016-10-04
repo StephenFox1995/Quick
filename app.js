@@ -11,7 +11,8 @@ var
   purchase      = require('./routes/purchase'),
   auth          = require('./routes/authenticate'),
   views         = require('./routes/views'),
-  config  = require('./config/runConfig');
+  config        = require('./config/runConfig'),
+  assert        = require('assert');
 
 var app = express();
 
@@ -26,9 +27,9 @@ var app = express();
  **/
 (function initializeApplication() {
   // Locate the database, otherwise return.
-  if (!config.locateDatabase()) {
-    return;
-  }
+  config.setupDatabase(function(err) {
+    assert.equal(null, err);
+  });
 
   // Set the token secret, other wise return.
   if (!config.tokenSecret()) {

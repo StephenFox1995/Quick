@@ -18,8 +18,8 @@ runConfig.tokenSecret = function () {
 
 /**
  * Attempts to connect to the database reading from configurations file.
- * @return {boolean} - True if connected successfully.
+ * @param {function(err)} callback - Callback function.
  */
-runConfig.setupDatabase = function () {
-  return db.setupMongo();
+runConfig.setupDatabase = function (callback) {
+  return db.setupMongo(callback);
 };
