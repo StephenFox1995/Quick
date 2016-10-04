@@ -53,8 +53,11 @@ User.prototype.insert = function (cb) {
   });
   var userContext = this; // Keep context.
   user.save(function(err, user) {
+    // Set the id of the user.
     if (user) {
-      userContext.id = user._doc._id.id;
+      // Set the id for the user, by converting
+      // the id to a hex string.
+      userContext.id = user._id.toHexString();
     }
     cb(err);
   });
