@@ -7,10 +7,7 @@ var
   mongoose  = require('mongoose');
 
 var database = exports;
-/**
- * Set mongoose properties for database.
- */
-database.mongoose = mongoose;
+
 
 /**
  * Inserts a User into the database.
