@@ -6,8 +6,7 @@ var
 
 
 
-function BusinessObject() {
-}
+function BusinessObject() {}
 
 BusinessObject.prototype.setCreationTime = function() {
   var now = new Date();

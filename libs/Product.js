@@ -7,9 +7,7 @@ var
 
 
 
-
-
-function Product() { }
+function Product() {}
 
 Product.prototype = new BusinessObject();
 Product.prototype.constructor = Product;
