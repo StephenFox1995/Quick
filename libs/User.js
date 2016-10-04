@@ -5,7 +5,7 @@ var
   db        = require('../models/database'),
   hash      = require('../libs/hash'),
   mongoose  = require('mongoose'),
-  models  = require('../models/mongoose/models')(mongoose);
+  models    = require('../models/mongoose/models')(mongoose);
 
 
 /**
@@ -17,10 +17,11 @@ var
  */
 function User() { }
 
+
 /**
  * A User has a schema which is used internally for operations with the database.
  */
-User.prototype.schema = new models.User();
+User.prototype.schema = models.User;
 
 
 /**
@@ -44,7 +45,18 @@ User.prototype.parsePOST = function(req, cb) {
  * @param   {function(err)} cb - Callback
  **/
 User.prototype.insert = function (cb) {
-  db.insertUser(this, cb);
+  var user = new this.schema({
+    firstname: this.firstname,
+    lastname: this.lastname,
+    password: this.password
+  });
+  var userContext = this; // Keep context.
+  user.save(function(err, user) {
+    if (user) {
+      userContext.id = user._doc._id.id;
+    }
+    cb(err);
+  });
 };
 
 

@@ -8,7 +8,6 @@ var
 
 var database = exports;
 
-
 /**
  * Inserts a User into the database.
  * @param   {User} user - The user to add to the database.

@@ -1,7 +1,6 @@
 'use strict';
 
 var mongoose = require('mongoose');
-
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
@@ -49,6 +48,7 @@ module.exports = function (mongoose) {
     Business: mongoose.model('Business', Business),
     Product: mongoose.model('Product', Product)
   };
+
   return mongooseModels;
 };
 

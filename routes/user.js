@@ -6,9 +6,7 @@ var
   hash      = require('../libs/hash'),
   util      = require('../libs/util'),
   User      = require('../libs/User'),
-  db        = require('../models/database'),
-  token     = require('../libs/token'),
-  vr        = require('../libs/validRequest');
+  token     = require('../libs/token');
 
 
 const router = express.Router();
@@ -40,7 +38,7 @@ router.post('/', function (req, res) {
     // Generate id for user.
     user.id = util.generateID();
 
-    // Write to database.
+    // Save to database.
     user.insert(function (err) {
       if (err) {
         return res
@@ -68,24 +66,6 @@ router.post('/', function (req, res) {
   });
 });
 
-
-/**
- * EndPoint: /user/info
- **/
-router.get('/info', vr.validRequest, function (req, res) {
-  var token = req.decoded;
-
-  db.getUserInfo(token.id, function(err, row) {
-    if (err || !row) {
-      return res
-        .status(httpCodes.INTERNAL_SERVER_ERROR)
-        .json({responseMessage: "An error occurred."});
-    }
-    if (row) {
-      return res.status(httpCodes.SUCCESS).json(row);
-    }
-  });
-});
 
 
 module.exports = router;
