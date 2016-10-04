@@ -2,11 +2,13 @@
 
 var mongoose = require('mongoose');
 
+var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
 
 module.exports = function (mongoose) {
   // User Model
   var User = new Schema({
-    id: ObjectID,
+    id: ObjectId,
     firstname: String,
     lastname: String,
     email: String,
@@ -15,7 +17,7 @@ module.exports = function (mongoose) {
   });
 
   var Business = new Schema({
-    id: ObjectID,
+    id: ObjectId,
     name: String,
     address: String,
     contactNumber: String,
@@ -25,7 +27,7 @@ module.exports = function (mongoose) {
   });
 
   var Product = new Schema({
-    id: ObjectID,
+    id: ObjectId,
     specifiedID: String,
     businessID: {
       type: mongoose.Schema.Types.ObjectId,

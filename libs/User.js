@@ -1,12 +1,27 @@
 'use strict';
 
 var 
-  util = require('./util'),
-  db = require('../models/database'),
-  hash = require('../libs/hash');
+  util      = require('./util'),
+  db        = require('../models/database'),
+  hash      = require('../libs/hash'),
+  mongoose  = require('mongoose'),
+  models  = require('../models/mongoose/models')(mongoose);
 
 
+/**
+ * The User object is the goto object
+ * for all user interactions with the system.
+ * e.g. 
+ *  - parsing user network requests,
+ *  - for CRUD operations with the database etc.
+ */
 function User() { }
+
+/**
+ * A User has a schema which is used internally for operations with the database.
+ */
+User.prototype.schema = new models.User();
+
 
 /**
  * Parses a JSON object from a POST request.
