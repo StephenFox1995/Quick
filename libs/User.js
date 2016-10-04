@@ -46,6 +46,7 @@ User.prototype.parsePOST = function(req, cb) {
  **/
 User.prototype.insert = function (cb) {
   var user = new this.schema({
+    email: this.email,
     firstname: this.firstname,
     lastname: this.lastname,
     password: this.password
