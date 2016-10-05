@@ -30,13 +30,6 @@ router.post('/', function (req, res) {
         });
     }
 
-    // Hash the password.
-    var hashed = hash.hashPassword(bs.password);
-    bs.hashedPassword = hashed.hash;
-
-    // Generate id for business.
-    bs.id = util.generateID();
-
     bs.insert(function (err) {
       if (err) {
         return res
@@ -47,12 +40,7 @@ router.post('/', function (req, res) {
           });
       }
 
-      // Remove the password before generating a token.
-      delete bs.hashedPassword;
-      delete bs.password;
-
       var t = token.generateToken(bs);
-
       return res
         .status(httpCodes.SUCCESS)
         .json({
