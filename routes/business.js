@@ -7,7 +7,8 @@ var
   token = require('../libs/token'),
   express = require('express'),
   vr = require('../libs/validRequest'),
-  Purchase = require('../libs/Purchase');
+  Purchase = require('../libs/Purchase'),
+  Product = require('../libs/Product');
 
 
 var router = express.Router();
@@ -83,7 +84,8 @@ router.get('/:businessID/products', function (req, res) {
       });
   }
 
-  db.getAllBusinessProducts(businessID, function (err, rows) {
+  var product = new Product();
+  product.getAllProductsForBusiness(businessID, function(err, products) {
     if (err) {
       return res
         .status(httpCodes.UNPROCESSABLE_ENTITY)
@@ -92,9 +94,8 @@ router.get('/:businessID/products', function (req, res) {
           success: true 
         });
     }
-    
     return res.status(httpCodes.SUCCESS).json({ 
-      products: rows,
+      products: products,
       success: true
     });
   });

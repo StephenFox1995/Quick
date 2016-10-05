@@ -78,7 +78,22 @@ Product.prototype.insert = function (cb) {
     }
     return cb(err);
   });
+};
 
+
+Product.prototype.getAllProductsForBusiness = function(businessID, cb) {
+  this.schema.aggregate([{ 
+    $project: {
+      id: "$_id",
+      _id: 0,
+      businessID: 1,
+      specifiedID: 1,
+      name: 1,
+      price: 1,
+      description: 1,
+      options: 1,
+      createdAt: 1,  
+    }}], cb); 
 };
 
 Product.prototype.update = function (updateFields, callback) {

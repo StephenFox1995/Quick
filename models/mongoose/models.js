@@ -31,6 +31,7 @@ module.exports = function (mongoose) {
 
     var Product = new Schema({
       id: ObjectId,
+      name: String,
       specifiedID: String,
       businessID: {
         type: ObjectId,

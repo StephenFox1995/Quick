@@ -4,25 +4,10 @@ var
   Product = require('../libs/Product'),
   httpCodes = require('../libs/httpCodes'),
   express = require('express'),
-  db = require('../models/database'),
   vr = require('../libs/validRequest');
 
 
 var router = express.Router();
-
-router.get('/:id', function (req, res) {
-  const id = req.params.id;
-  db.getProduct(id, function (err, row) {
-    if (err) {
-      return res
-        .status(httpCodes.INTERNAL_SERVER_ERROR)
-        .json({responseMessage: "Internal server error."});
-    } else {
-      return res.status(httpCodes.SUCCESS).json(row);
-    }
-  });
-});
-
 
 
 router.post('/', vr.validRequest, function (req, res) {
@@ -37,7 +22,6 @@ router.post('/', vr.validRequest, function (req, res) {
           responseMessage: "Could not parse Product JSON."
         });
     }
-
     // Now check to see if the businessID of the product being
     // added matches the id from the decoded token.
     // This is to make sure the product is actually being added by the business
@@ -50,7 +34,6 @@ router.post('/', vr.validRequest, function (req, res) {
             responseMessage: "Not authorized to add product."
           }); 
     }
-
     // Insert into database.
     product.insert(function (err) {
       if (err) {

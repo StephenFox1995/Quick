@@ -75,11 +75,6 @@
         angular.forEach(data.products, function(product, index) {
           var options = []; // All options for this product.
           
-          // Check to see if there are ProductOptions.
-          // Convert them back from string to object.
-          if (product.options) {
-            product.options = JSON.parse(product.options);
-          }
           angular.forEach(product.options, function(option) {
             var option = new ProductOption(option.name, option.values);
             options.push(option);
@@ -91,7 +86,7 @@
                                        product.specifiedID, 
                                        options, 
                                        product.description, 
-                                       product.timestamp);
+                                       product.createdAt);
           products.push(newProduct);  
           if (index === data.products.length - 1) {
             callback(products);
