@@ -3,7 +3,10 @@
 var 
   util  = require('./util'),
   db    = require('../models/database'),
-  hash  = require('../libs/hash');
+  hash  = require('../libs/hash'),
+  mongoose  = require('mongoose'),
+  models    = require('../models/mongoose/models')(mongoose),
+  hash      = require('../libs/hash');  
 
 /**
  * Business object
@@ -11,8 +14,10 @@ var
 function Business() { }
 
 
+Business.prototype.schema = models.Business;
+
+
 Business.prototype.parsePOST = function (req, cb) {
-  
   if (validRequest(req)) {
     this.setAttributesFromRequest(req);
     return cb(null);
@@ -22,8 +27,28 @@ Business.prototype.parsePOST = function (req, cb) {
 };
 
 
-Business.prototype.insert = function (callback) {
-  db.insertBusiness(this, callback);
+Business.prototype.insert = function (cb) {
+  // Hash password
+  var hashed = hash.hashPassword(this.password);
+  // Set the business hashed password.
+  this.password = hashed.hash;
+
+  var business = new this.schema({
+    email: this.email.toLowerCase(),
+    password: this.password,
+    name: this.name,
+    address: this.address,
+    contactNumber: this.contactNumber
+  });
+
+  var me = this; // Keep context.
+  business.save(function(err, business) {
+    if (business) {
+      me.id = business._id.toHexString();
+      delete me.password;
+    }
+    return cb(err);
+  });
 };
 
 /**

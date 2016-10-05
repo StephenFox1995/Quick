@@ -27,7 +27,7 @@ router.post('/', function (req, res) {
           success: false
         });
     }
-
+    
     // Save to database.
     user.insert(function (err) {
       if (err) {

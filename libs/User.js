@@ -2,7 +2,6 @@
 
 var 
   util      = require('./util'),
-  db        = require('../models/database'),
   hash      = require('../libs/hash'),
   mongoose  = require('mongoose'),
   models    = require('../models/mongoose/models')(mongoose),
@@ -58,17 +57,16 @@ User.prototype.insert = function (cb) {
     password: this.password
   });
 
-  var userContext = this; // Keep context.
+  var me = this; // Keep context.
   user.save(function(err, user) {
     if (user) {
       // Set the id for the user, by converting
       // the id to a hex string.
-      userContext.id = user._id.toHexString();
-      
+      me.id = user._id.toHexString();
       // Remove the password, from the user object.
-      delete userContext.password;
+      delete me.password;
     }
-    cb(err);
+    return cb(err);
   });
 };
 
