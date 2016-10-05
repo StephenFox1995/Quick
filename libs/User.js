@@ -79,7 +79,7 @@ User.prototype.insert = function (cb) {
  * */
 User.prototype.verify = function (cb) {
   var me = this;
-  var email = this.email;
+  var email = this.email.toLowerCase();
   var password = this.password;
 
   this.schema.findOne({email: email}, function(err, user) {

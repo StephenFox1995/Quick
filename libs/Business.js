@@ -53,7 +53,7 @@ Business.prototype.insert = function (cb) {
 
 Business.prototype.verify = function (cb) {
   var me = this;
-  var email = this.email;
+  var email = this.email.toLowerCase();
   var password = this.password;
 
   this.schema.findOne({email: email}, function(err, business) {
