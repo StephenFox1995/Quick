@@ -73,9 +73,6 @@ Product.prototype.insert = function (cb) {
   });
   // Save the product.
   product.save(function(err, product) {
-    if (product) {
-      product.id = product._id.toHexString();
-    }
     return cb(err);
   });
 };
