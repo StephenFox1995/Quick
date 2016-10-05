@@ -73,13 +73,10 @@ User.prototype.insert = function (cb) {
 };
 
 
-User.prototype.getPurchases = function (userID, callback) {
-  db.getUserPurchases(userID, callback);
-};
-
 
 /**
  * Verifies that the user exists and their password is correct.
+ * If the user exists, the properties for the user will be set.
  * @param   {function(err)} cb - Callback.
  * */
 User.prototype.verify = function (cb) {
@@ -87,37 +84,31 @@ User.prototype.verify = function (cb) {
   var email = this.email;
   var password = this.password;
 
-  // Check the user actually exists in the database
-  // and if so, returns they're details.
-  db.getUser(email, function (err, userInfo) {
-    if (err) {
-      return cb(err);
-    }
-    // TODO: this is the point we know use doesn't exists.
-    // Update error appropriately.
-    if (!userInfo || !('password' in userInfo)) {
-      return cb(null);
-    }
+  this.schema.findOne({email: email}, function(err, user) {
+    if (err) { return cb(err); }
     
-    // Compare hashed password with normal password.
-    if (hash.compare(password, userInfo.password, function (err, verified) {
-      if (err) {
-        return cb(err, false);
+    if (!user || !('password' in user)) {
+      return cb(new Error('No user for email: ' + email + ' exists'));
+    }
+
+    if (hash.compare(password, user.password, function (err, verified) {
+      // Remove password from user object.
+      delete me.password;
+
+      if (err) { return cb(err, false); }
+      
+      if (verified) {
+        me.id = user.id;
+        me.firstname = user.firstname;
+        me.lastname = user.lastname;
+        return cb(null, true);
       } else {
-        if (verified) {
-          // As verification was successful
-          // add id, firstname etc.
-          me.id = userInfo.id;
-          me.firstname = userInfo.firstname;
-          me.lastname = userInfo.lastname;
-          return cb(null, true);
-        } else {
-          return cb(null, false);
-        }
+        return cb(null, false);
       }
     }));
   });
 };
+  
 
 /**
  * Sets the attributes of the user object based on
