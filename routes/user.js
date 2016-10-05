@@ -3,8 +3,7 @@
 var 
   express   = require('express'),
   httpCodes = require('../libs/httpCodes'),
-  hash      = require('../libs/hash'),
-  util      = require('../libs/util'),
+  
   User      = require('../libs/User'),
   token     = require('../libs/token');
 
@@ -29,15 +28,6 @@ router.post('/', function (req, res) {
         });
     }
 
-    // Now hash user's password.
-    var hashed = hash.hashPassword(user.password);
-
-    // Set the hashed user's password.
-    user.password = hashed.hash;
-
-    // Generate id for user.
-    user.id = util.generateID();
-
     // Save to database.
     user.insert(function (err) {
       if (err) {
@@ -48,9 +38,6 @@ router.post('/', function (req, res) {
             success: false
           });
       }
-
-      // Remove the password from the user before generating token.
-      delete user.password;
 
       // Generate token.
       var t = token.generateToken(user);

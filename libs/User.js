@@ -5,7 +5,8 @@ var
   db        = require('../models/database'),
   hash      = require('../libs/hash'),
   mongoose  = require('mongoose'),
-  models    = require('../models/mongoose/models')(mongoose);
+  models    = require('../models/mongoose/models')(mongoose),
+  hash      = require('../libs/hash');
 
 
 /**
@@ -45,19 +46,27 @@ User.prototype.parsePOST = function(req, cb) {
  * @param   {function(err)} cb - Callback
  **/
 User.prototype.insert = function (cb) {
+  // Before saving the user; hash password.
+  var hashed = hash.hashPassword(this.password);
+  // Set the hashed user's password.
+  this.password = hashed.hash;
+
   var user = new this.schema({
-    email: this.email,
+    email: this.email.toLowerCase(),
     firstname: this.firstname,
     lastname: this.lastname,
     password: this.password
   });
+
   var userContext = this; // Keep context.
   user.save(function(err, user) {
-    // Set the id of the user.
     if (user) {
       // Set the id for the user, by converting
       // the id to a hex string.
       userContext.id = user._id.toHexString();
+      
+      // Remove the password, from the user object.
+      delete userContext.password;
     }
     cb(err);
   });

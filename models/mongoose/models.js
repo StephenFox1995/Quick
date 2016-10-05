@@ -29,7 +29,7 @@ module.exports = function (mongoose) {
     id: ObjectId,
     specifiedID: String,
     businessID: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: ObjectId,
       ref: 'Business'
     },
     price: Number,
