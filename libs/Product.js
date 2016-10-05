@@ -62,7 +62,6 @@ Product.prototype.parsePATCH = function (req) {
 
 
 Product.prototype.insert = function (cb) {
-  this.options = JSON.parse(this.options);
   var product = new this.schema({
     specifiedID: this.specifiedID,
     businessID: this.businessID,
