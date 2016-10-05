@@ -2,7 +2,6 @@
 
 var 
   util  = require('./util'),
-  db    = require('../models/database'),
   hash  = require('../libs/hash'),
   mongoose  = require('mongoose'),
   models    = require('../models/mongoose/models')(mongoose),
