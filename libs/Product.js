@@ -99,7 +99,13 @@ Product.prototype.getAllProductsForBusiness = function(businessID, cb) {
 };
 
 Product.prototype.update = function (updateFields, callback) {
-  db.updateProduct(this.id, updateFields, callback);
+  this.schema.findById(this.id, function(err, product) {
+    // Assign all the new update fields to product and save.
+    for (var i = 0; i < updateFields.length; i++) {
+      product[updateFields[i].column] = updateFields[i].newValue;
+    }
+    product.save(callback);
+  });
 };
 
 
