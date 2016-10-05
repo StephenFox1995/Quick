@@ -1,8 +1,10 @@
 'use strict';
 
 var 
-  db = require('../models/database'),
-  BusinessObject = require('../libs/BusinessObject');
+  db              = require('../models/database'),
+  BusinessObject  = require('../libs/BusinessObject'),
+  mongoose        = require('mongoose'),
+  models          = require('../models/mongoose/models')(mongoose);
 
 
 
@@ -11,6 +13,8 @@ function Product() {}
 
 Product.prototype = new BusinessObject();
 Product.prototype.constructor = Product;
+
+Product.prototype.schema = models.Product;
 
 
 Product.prototype.parsePOST = function (req, cb) {
@@ -57,10 +61,24 @@ Product.prototype.parsePATCH = function (req) {
 };
 
 
-Product.prototype.insert = function (callback) {
-  // Set the creation time before inserting into the database.
-  this.setCreationTime();
-  db.insertProduct(this, callback);
+Product.prototype.insert = function (cb) {
+  this.options = JSON.parse(this.options);
+  var product = new this.schema({
+    specifiedID: this.specifiedID,
+    businessID: this.businessID,
+    name: this.name,
+    price: this.price,
+    description: this.description,
+    options: this.options,
+  });
+  // Save the product.
+  product.save(function(err, product) {
+    if (product) {
+      product.id = product._id.toHexString();
+    }
+    return cb(err);
+  });
+
 };
 
 Product.prototype.update = function (updateFields, callback) {

@@ -40,8 +40,7 @@ module.exports = function (mongoose) {
       description: String,
       options: [{
         name: String,
-        values: [{ type: String }],
-        priceDelta: Number
+        values: [{name: String, priceDelta: Number}]
       }],
       createdAt: { type: Date, default: Date.now }
     });

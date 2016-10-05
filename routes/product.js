@@ -3,7 +3,6 @@
 var 
   Product = require('../libs/Product'),
   httpCodes = require('../libs/httpCodes'),
-  util = require('../libs/util'),
   express = require('express'),
   db = require('../models/database'),
   vr = require('../libs/validRequest');
@@ -51,9 +50,6 @@ router.post('/', vr.validRequest, function (req, res) {
             responseMessage: "Not authorized to add product."
           }); 
     }
-
-    // TODO: Look into longer id for product.
-    product.id = util.generateID();
 
     // Insert into database.
     product.insert(function (err) {
