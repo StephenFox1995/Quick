@@ -51,6 +51,40 @@ Business.prototype.insert = function (cb) {
   });
 };
 
+
+Business.prototype.verify = function (cb) {
+  var me = this;
+  var email = this.email;
+  var password = this.password;
+
+  this.schema.findOne({email: email}, function(err, business) {
+    if (err) { return cb(err); }
+
+    if (!business || !('password' in business)) {
+      return cb(new Error('No business for email: ' + email + ' exists.'));
+    }
+    
+    // Compare hashed and plaintext password.
+    hash.compare(password, business.password, function(err, verified) {
+      // Remove password from the business object.
+      delete me.password;
+
+      if (err) { return cb(err, false); }
+
+      if (verified) {
+        me.id = business._id;
+        me.email = business.email;
+        me.name = business.name;
+        me.address = business.address;
+        me.contactNumber = business.contactNumber;
+        return cb(null, true);
+      } else {
+        return cb(null, false);
+      }
+    });
+  });
+};
+
 /**
  * Sets the attributes of the user object based on
  * the requests properties.
@@ -91,43 +125,6 @@ function validRequest(req) {
 }
 
 
-Business.prototype.verify = function (callback) {
-  var me = this;
-  var email = this.email;
-  var password = this.password;
 
-  // Check the business actually exists in the database.
-  // TODO: Handle when a business email address doesn't
-  // exist in the database.
-  db.getBusiness(email, function (err, businessInfo) {
-    if (err) {
-      callback(err);
-    }
-    // TODO: this is the point we know use doesn't exists.
-    // Update error appropriately.
-    if (!businessInfo || !('password' in businessInfo)) {
-      return callback(null, false);
-    }
-
-    // Compare hashed password with normal password
-    if (hash.compare(password, businessInfo.password, function (err, verified) {
-      if (err) {
-        return callback(err);
-      } else {
-        if (verified) {
-          // Once verified set the rest
-          // of the info about the business.
-          me.id = businessInfo.id;
-          me.address = businessInfo.address;
-          me.name = businessInfo.name;
-          me.contactNumber = businessInfo.contactNumber;
-          return callback(null, true);
-        } else {
-          callback(null, false);
-        }
-      }
-    }));
-  });
-};
 
 module.exports = Business;

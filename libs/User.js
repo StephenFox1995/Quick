@@ -86,24 +86,25 @@ User.prototype.verify = function (cb) {
     if (err) { return cb(err); }
     
     if (!user || !('password' in user)) {
-      return cb(new Error('No user for email: ' + email + ' exists'));
+      return cb(new Error('No user for email: ' + email + ' exists.'));
     }
 
-    if (hash.compare(password, user.password, function (err, verified) {
+    // Compare hashed and plaintext password.
+    hash.compare(password, user.password, function (err, verified) {
       // Remove password from user object.
       delete me.password;
 
       if (err) { return cb(err, false); }
       
       if (verified) {
-        me.id = user.id;
+        me.id = user._id;
         me.firstname = user.firstname;
         me.lastname = user.lastname;
         return cb(null, true);
       } else {
         return cb(null, false);
       }
-    }));
+    });
   });
 };
   

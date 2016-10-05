@@ -4,13 +4,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
-var models = exports;
-
 module.exports.initialized = false;
 module.exports = function (mongoose) {
   if (!module.exports.initialized) {
     module.exports.initialized = true;
-    
+
     // User Model
     var User = new Schema({
       id: ObjectId,
