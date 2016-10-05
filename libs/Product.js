@@ -78,7 +78,12 @@ Product.prototype.insert = function (cb) {
 
 
 Product.prototype.getAllProductsForBusiness = function(businessID, cb) {
-  this.schema.aggregate([{ 
+  this.schema.aggregate([{
+    $match: {
+      businessID: new mongoose.Types.ObjectId(businessID)
+    }
+  },
+  { 
     $project: {
       id: "$_id",
       _id: 0,
@@ -89,7 +94,8 @@ Product.prototype.getAllProductsForBusiness = function(businessID, cb) {
       description: 1,
       options: 1,
       createdAt: 1,  
-    }}], cb); 
+    }
+  }], cb); 
 };
 
 Product.prototype.update = function (updateFields, callback) {
