@@ -2,14 +2,13 @@
 
 var
   Business = require('../libs/Business'),
+  Purchase = require('../libs/Purchase'),
+  Product = require('../libs/Product'),
   httpCodes = require('../libs/httpCodes'),
   db = require('../models/database'),
-  token = require('../libs/token'),
-  express = require('express'),
   vr = require('../libs/validRequest'),
-  Purchase = require('../libs/Purchase'),
-  Product = require('../libs/Product');
-
+  token = require('../libs/token'),
+  express = require('express');
 
 var router = express.Router();
 
@@ -131,13 +130,14 @@ router.get('/purchases', vr.validRequest, function (req, res) {
  * Returns all businesses in the database.
  * */
 router.get('/all', function (req, res) {
-  db.getAllBusiness(function (err, rows) {
+  var business = new Business();
+  business.all(function(err, businesses) {
     if (err) {
       return res
         .status(httpCodes.INTERNAL_SERVER_ERROR)
         .json({ responseMessage: "An error occurred" });
     }
-    res.status(httpCodes.SUCCESS).json(rows);
+    return res.status(httpCodes.SUCCESS).json(businesses);
   });
 });
 

@@ -84,6 +84,11 @@ Business.prototype.verify = function (cb) {
   });
 };
 
+
+Business.prototype.all = function(cb) {
+  this.schema.find({}, cb);
+};
+
 /**
  * Sets the attributes of the user object based on
  * the requests properties.

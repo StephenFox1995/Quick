@@ -35,8 +35,7 @@ Product.prototype.parsePOST = function (req, cb) {
  * Otherwise an array containing objects with the fields to be updated will be returned
  * in the following format of:
  *   [{fieldToUpdate: newValue},
- *    {fieldToUpdate: newValue}
- *   ] 
+ *    {fieldToUpdate: newValue}] 
  * Along with the update fields, the id of the product to be updated must be included.
  * The id will be set with the instance of the product who invoked the method.
  * 
