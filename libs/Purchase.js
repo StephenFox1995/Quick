@@ -4,9 +4,7 @@ var
   util      = require('./util'),
   db        = require('../models/database'),
   User      = require('./User'),
-  Business  = require('./Business'),
-  mongoose  = require('mongoose'),
-  models    = require('../models/mongoose/models')(mongoose);
+  Business  = require('./Business');
 
 
   
