@@ -2,10 +2,9 @@
 
 var
   Business = require('../libs/Business'),
-  Purchase = require('../libs/Purchase'),
+
   Product = require('../libs/Product'),
   httpCodes = require('../libs/httpCodes'),
-  db = require('../models/database'),
   vr = require('../libs/validRequest'),
   token = require('../libs/token'),
   express = require('express');
@@ -52,21 +51,6 @@ router.post('/', function (req, res) {
 });
 
 
-router.get('/info', vr.validRequest, function (req, res) {
-  var token = req.decoded;
-
-  db.getBusinessInfo(token.id, function (err, row) {
-    if (err || !row) {
-      return res
-        .status(httpCodes.INTERNAL_SERVER_ERROR)
-        .json({ responseMessage: "An error occurred." });
-    }
-    if (row) {
-      return res.status(httpCodes.SUCCESS).json(row);
-    }
-  });
-});
-
 
 /**
  * GET all products associated with a business.
@@ -100,30 +84,6 @@ router.get('/:businessID/products', function (req, res) {
   });
 });
 
-
-/// business/purchases
-router.get('/purchases', vr.validRequest, function (req, res) {
-  var purchase = new Purchase();
-  var token = req.decoded; // Get businessID.
-  var bs = new Business();
-  bs.id = token.id;
-  purchase.getPurchases(bs, function (err, purchases) {
-    if (err) {
-      return res
-        .status(httpCodes.INTERNAL_SERVER_ERROR)
-        .json({
-          responseMessage: "Could not retrieve purchases.",
-          success: false
-        });
-    }
-    return res
-      .status(httpCodes.SUCCESS)
-      .json({
-        success: true,
-        purchases: purchases
-      });
-  });
-});
 
 /**
  * /business/all

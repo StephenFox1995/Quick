@@ -8,6 +8,7 @@ var
   user          = require('./routes/user'),
   business      = require('./routes/business'),
   product       = require('./routes/product'),
+  order         = require('./routes/order'),
   purchase      = require('./routes/purchase'),
   auth          = require('./routes/authenticate'),
   views         = require('./routes/views'),
@@ -59,6 +60,7 @@ app.use('/user', user);
 app.use('/business', business);
 app.use('/product', product);
 app.use('/purchase', purchase);
+app.use('/order', order);
 app.use('/views', views);
 app.use('/authenticate', auth);
 

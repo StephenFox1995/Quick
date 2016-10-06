@@ -56,10 +56,6 @@ function validRequest(req) {
   if (!('purchase' in req.body)) {
     return false;
   }
-  // Check for valid token.
-  if (!('decoded' in req)) {
-    return false;
-  }
   var purchase = req.body.purchase;
   if (util.isValidString(purchase.businessID) &&
       util.isValidString(purchase.productID)) {
