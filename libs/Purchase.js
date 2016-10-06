@@ -4,9 +4,17 @@ var
   util      = require('./util'),
   db        = require('../models/database'),
   User      = require('./User'),
-  Business  = require('./Business');
+  Business  = require('./Business'),
+  mongoose  = require('mongoose'),
+  models    = require('../models/mongoose/models')(mongoose);
+
+
+  
 
 function Purchase() { }
+
+
+Purchase.prototype.schema = models.Purchase;
 
 Purchase.prototype.parsePOST = function (req, callback) {
   if (validRequest(req)) {

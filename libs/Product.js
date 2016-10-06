@@ -1,7 +1,6 @@
 'use strict';
 
 var 
-  db              = require('../models/database'),
   BusinessObject  = require('../libs/BusinessObject'),
   mongoose        = require('mongoose'),
   models          = require('../models/mongoose/models')(mongoose);

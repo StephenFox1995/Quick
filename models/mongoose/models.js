@@ -46,6 +46,8 @@ module.exports = function (mongoose) {
       createdAt: { type: Date, default: Date.now }
     });
   }
+
+
   return {
     User: mongoose.model('User', User),
     Business: mongoose.model('Business', Business),
