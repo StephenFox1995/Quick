@@ -12,8 +12,6 @@ var
 function Purchase() { }
 
 
-Purchase.prototype.schema = models.Purchase;
-
 Purchase.prototype.parsePOST = function (req, callback) {
   if (validRequest(req)) {
     this.setAttributesFromRequest(req);
