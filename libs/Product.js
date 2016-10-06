@@ -85,7 +85,7 @@ Product.prototype.getAllProductsForBusiness = function(businessID, cb) {
   { 
     $project: {
       id: "$_id",
-      _id: 0,
+      _id: 1,
       businessID: 1,
       specifiedID: 1,
       name: 1,

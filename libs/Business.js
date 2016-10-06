@@ -1,8 +1,8 @@
 'use strict';
 
 var 
-  util  = require('./util'),
-  hash  = require('../libs/hash'),
+  util      = require('./util'),
+  hash      = require('../libs/hash'),
   mongoose  = require('mongoose'),
   models    = require('../models/mongoose/models')(mongoose),
   hash      = require('../libs/hash');  
@@ -84,9 +84,18 @@ Business.prototype.verify = function (cb) {
   });
 };
 
-
 Business.prototype.all = function(cb) {
-  this.schema.find({}, cb);
+  this.schema.aggregate([{
+    $project: {
+      id: "$_id",
+      _id: 0,
+      email: 1,
+      name: 1,
+      address: 1,
+      contactNumber: 1,
+      createdAt: 1, 
+    }}
+  ], cb);
 };
 
 /**
