@@ -57,4 +57,5 @@ BusinessObject.prototype.validStrings = function(array) {
   return true;
 };
 
+
 module.exports = BusinessObject;

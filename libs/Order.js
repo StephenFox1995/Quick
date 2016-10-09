@@ -1,13 +1,15 @@
 'use strict';
 
 var 
-  util      = require('./util'),
-  mongoose  = require('mongoose'),
-  models    = require('../models/mongoose/models')(mongoose);
-
+  util            = require('./util'),
+  mongoose        = require('mongoose'),
+  BusinessObject  = require('../libs/BusinessObject'),
+  models          = require('../models/mongoose/models')(mongoose);
+  
 
 function Order() {}
-
+Order.prototype = new BusinessObject();
+Order.prototype.constructor = Order;
 Order.prototype.schema = models.Order;
 
 
@@ -30,7 +32,7 @@ Order.prototype.insert = function(cb) {
 
 
 Order.prototype.parsePOST = function(req, cb) {
-  if (validRequest(req)) {
+  if (this.validRequest(req)) {
     this.setAttributesFromRequest(req);
     return cb(null);
   } else {
@@ -49,7 +51,7 @@ Order.prototype.setAttributesFromRequest = function(req) {
 };
 
 
-function validRequest(req) {
+Order.prototype.validRequest = function(req) {
   if (!('order') in req.body) {
     return false;
   }
@@ -61,6 +63,6 @@ function validRequest(req) {
   } else {
     return false;
   }
-}
+};
 
 module.exports = Order;

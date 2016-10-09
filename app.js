@@ -1,41 +1,22 @@
 var 
-  express       = require('express'),
-  path          = require('path'),
-  logger        = require('morgan'),
-  cookieParser  = require('cookie-parser'),
-  bodyParser    = require('body-parser'),
-  routes        = require('./routes/index'),
-  user          = require('./routes/user'),
-  business      = require('./routes/business'),
-  product       = require('./routes/product'),
-  order         = require('./routes/order'),
-  auth          = require('./routes/authenticate'),
-  views         = require('./routes/views'),
-  config        = require('./config/runConfig'),
-  assert        = require('assert');
+  express           = require('express'),
+  path              = require('path'),
+  logger            = require('morgan'),
+  cookieParser      = require('cookie-parser'),
+  bodyParser        = require('body-parser'),
+  routes            = require('./routes/index'),
+  user              = require('./routes/user'),
+  business          = require('./routes/business'),
+  product           = require('./routes/product'),
+  order             = require('./routes/order'),
+  auth              = require('./routes/authenticate'),
+  views             = require('./routes/views'),
+  config            = require('./config/runConfig'),
+  assert            = require('assert');
 
 var app = express();
 
-/**
- * Initializes the applications.
- * Initialization includes:
- *  - Locating the database.
- *  - Finding the token secret for the application.
- *
- *  Both of which values are stored as configurations.
- *  See runConfig.js for more details.
- **/
-(function initializeApplication() {
-  // Locate the database, otherwise return.
-  config.setupDatabase(function(err) {
-    assert.equal(null, err);
-  });
 
-  // Set the token secret, other wise return.
-  if (!config.tokenSecret()) {
-    return;
-  }
-})();
 
 
 
@@ -62,6 +43,27 @@ app.use('/order', order);
 app.use('/views', views);
 app.use('/authenticate', auth);
 
+
+/**
+ * Initializes the applications.
+ * Initialization includes:
+ *  - Locating the database.
+ *  - Finding the token secret for the application.
+ *
+ *  Both of which values are stored as configurations.
+ *  See runConfig.js for more details.
+ **/
+(function initializeApplication() {
+  // Locate the database, otherwise return.
+  config.setupDatabase(function(err) {
+    assert.equal(null, err);
+  });
+
+  // Set the token secret, other wise return.
+  if (!config.tokenSecret()) {
+    return;
+  }
+})();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

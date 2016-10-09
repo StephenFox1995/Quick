@@ -1,6 +1,6 @@
 'use strict';
 
-var 
+var
   Product = require('../libs/Product'),
   httpCodes = require('../libs/httpCodes'),
   express = require('express'),
@@ -28,11 +28,11 @@ router.post('/', vr.validRequest, function (req, res) {
     // and not somebody else, who happens to have the business id.
     if (product.businessID !== req.decoded.id) {
       return res
-          .status(httpCodes.UNAUTHORIZED)
-          .json({
-            success: false,
-            responseMessage: "Not authorized to add product."
-          }); 
+        .status(httpCodes.UNAUTHORIZED)
+        .json({
+          success: false,
+          responseMessage: "Not authorized to add product."
+        });
     }
     // Insert into database.
     product.insert(function (err) {
@@ -58,12 +58,12 @@ router.post('/', vr.validRequest, function (req, res) {
 /**
  * Update a product.
  */
-router.patch('/', vr.validRequest, function(req, res) {
+router.patch('/', vr.validRequest, function (req, res) {
   var product = new Product();
   // Get the fields for updating.
   var updateFields = product.parsePATCH(req);
-  
-  product.update(updateFields, function(err) {
+
+  product.update(updateFields, function (err) {
     if (err) {
       return res
         .status(httpCodes.INTERNAL_SERVER_ERROR)
@@ -72,7 +72,7 @@ router.patch('/', vr.validRequest, function(req, res) {
           responseMessage: "Product could not be updated."
         });
     }
-    
+
     return res
       .status(httpCodes.SUCCESS)
       .json({
@@ -82,6 +82,39 @@ router.patch('/', vr.validRequest, function(req, res) {
   });
 });
 
+
+// Remove a product
+router.delete('/', vr.validRequest, function (req, res) {
+  var product = new Product();
+  product.parseDelete(req, function (err) {
+    if (err) {
+      return res
+        .status(httpCodes.UNPROCESSABLE_ENTITY)
+        .json({
+          success: false,
+          responseMessage: "Could not parse Product JSON."
+        });
+    }
+    // Delete the product.
+    product.remove(function (err) {
+      if (err) {
+        return res
+          .status(httpCodes.INTERNAL_SERVER_ERROR)
+          .json({
+            success: false,
+            responseMessage: "Product could not be removed."
+          });
+      }
+
+      return res
+      .status(httpCodes.SUCCESS)
+      .json({
+        success: true,
+        responseMessage: "Product was successfully removed."
+      });
+    });
+  });
+});
 
 
 module.exports = router;

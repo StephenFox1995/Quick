@@ -35,6 +35,11 @@ Product.prototype.insert = function (cb) {
 };
 
 
+Product.prototype.remove = function(cb) {
+  this.schema.remove({_id: this.id}, cb);
+};
+
+
 Product.prototype.getAllProductsForBusiness = function(businessID, cb) {
   this.schema.aggregate([{
     $match: {
@@ -67,11 +72,9 @@ Product.prototype.update = function (updateFields, callback) {
 };
 
 
-
 Product.prototype.parsePOST = function (req, cb) {
   if (this.validRequest(req)) {
     this.setAttributesFromRequest(req);
-
     return cb(null);
   } else {
     return cb(new Error('Could not parse product.'));
@@ -141,6 +144,24 @@ Product.prototype.parsePATCH = function (req) {
   this.id = product.id;
   // Get the properties to update.
   return product.updateFields;
+};
+
+
+/**
+ * Parses delete request for product.
+ * @param {function(err)} cb - Callback function.
+ */
+Product.prototype.parseDelete = function(req, cb) {
+  if (!('product') in req.body) {
+    return callback(new Error('No product found in request body.'));
+  }
+  var product = req.body.product;
+  if (!('id' in product)) {
+    return cb(new Error('No id found for product.'));
+  }
+
+  this.id = product.id;
+  return cb(null);
 };
 
 module.exports = Product;
