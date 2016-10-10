@@ -58,6 +58,20 @@
       angular.copy($scope.selectedProduct, $scope.editingProduct.beforeEdit);
     };
 
+    $scope.removeProduct = function(product) {
+      // Send http request to remove the product.
+      // And remove from local data source, as no need to
+      // fetch again from server.
+      productsService.removeProduct(product, function(err) {
+        if (err) { return; /*Silently fail*/}
+
+        var index = $scope.products.indexOf(product);
+        if (index > -1) {
+          $scope.products.slice(index, 1);
+        }
+      });
+    };
+
     $scope.updateProduct = function() {
       // Hide any previous alerts.
       $scope.showAlert = false;

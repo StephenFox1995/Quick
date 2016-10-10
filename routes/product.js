@@ -1,10 +1,10 @@
 'use strict';
 
 var
-  Product = require('../libs/Product'),
+  Product   = require('../libs/Product'),
   httpCodes = require('../libs/httpCodes'),
-  express = require('express'),
-  vr = require('../libs/validRequest');
+  express   = require('express'),
+  vr        = require('../libs/validRequest');
 
 
 var router = express.Router();
@@ -82,9 +82,9 @@ router.patch('/', vr.validRequest, function (req, res) {
   });
 });
 
-
+//Todo: Validate that the product desired to be deleted belongs to the company trying to delete it.
 // Remove a product
-router.delete('/', vr.validRequest, function (req, res) {
+router.delete('/:productID', vr.validRequest, function (req, res) {
   var product = new Product();
   product.parseDelete(req, function (err) {
     if (err) {

@@ -10,7 +10,8 @@
       getProducts: getProducts,
       addProduct: addProduct,
       updateProduct: updateProduct,
-      getUpdates: getUpdates
+      getUpdates: getUpdates,
+      removeProduct: removeProduct
     };
 
     /**
@@ -29,6 +30,22 @@
           callback(new Error('Could not retrieve products for business: ' + businessID));
         });
     }
+
+    /**
+     * Remove product from backend.
+     * @param {object} product - The product with id attribute attached.
+     * @param {function(err)} callback - Callback function.
+     */
+    function removeProduct(product, callback) {
+      var productID = product.id;
+      $http.delete('/product/' + productID)
+        .success(function(data) {
+          callback(null);
+        })
+        .error(function(data) {
+          callback(new Error('Could not delete product.'));
+        });
+    };
     
     /**
      * Attempts to add a product to the database.

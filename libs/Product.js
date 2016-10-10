@@ -3,8 +3,8 @@
 var 
   BusinessObject  = require('../libs/BusinessObject'),
   mongoose        = require('mongoose'),
-  models          = require('../models/mongoose/models')(mongoose);
-
+  models          = require('../models/mongoose/models')(mongoose),
+  util            = require('../libs/util');
 
 
 
@@ -152,16 +152,19 @@ Product.prototype.parsePATCH = function (req) {
  * @param {function(err)} cb - Callback function.
  */
 Product.prototype.parseDelete = function(req, cb) {
-  if (!('product') in req.body) {
-    return callback(new Error('No product found in request body.'));
+  if (!('productID' in req.params)) {
+    return cb('No product id found in reqest parameters.');
   }
-  var product = req.body.product;
-  if (!('id' in product)) {
-    return cb(new Error('No id found for product.'));
-  }
+  var productID = req.params.productID;
 
-  this.id = product.id;
-  return cb(null);
+  // Check id is valid string.
+  if (util.isValidString(productID)) {
+    this.id = productID;
+    return cb(null);
+  } else {
+    return cb(new Error('Unknown format for productID request parameters.'));
+  }
+  
 };
 
 module.exports = Product;
