@@ -64,10 +64,12 @@
       // fetch again from server.
       productsService.removeProduct(product, function(err) {
         if (err) { return; /*Silently fail*/}
-
-        var index = $scope.products.indexOf(product);
-        if (index > -1) {
-          $scope.products.slice(index, 1);
+        
+        var products = $scope.products;
+        for (var i = 0; i < products.length; i++) {
+          if (products[i].id === product.id) {
+            products.splice(i, 1);
+          }
         }
       });
     };
