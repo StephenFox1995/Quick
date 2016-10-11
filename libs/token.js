@@ -52,7 +52,7 @@ token.parseAuthHeaderToken = function (req, cb) {
 token.validToken = function (req, cb) {
   token.parseAuthHeaderToken(req, function (tk) {
     if (tk) {
-      token.verify(function(err, decoded) {
+      jwt.verify(tk, secret, function (err, decoded) {
         if (err) {
           return cb(unautRes("Failed to authenticate token. Reason: " + err.message));
         }
@@ -68,11 +68,6 @@ token.validToken = function (req, cb) {
   });
 };
 
-
-
-token.verify = function (token, cb) {
-  jwt.verify(token, secret, cb);
-};
 
 token.verifySync = function(token) {
   try {
