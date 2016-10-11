@@ -1,22 +1,34 @@
 var 
-  app = require('../../app.js'),
+  app     = require('../../app.js'),
   request = require('supertest')(app),
-  chai = require('chai'),
-  expect = chai.expect;
+  chai    = require('chai'),
+  token     = require('../../libs/token'),
+  expect  = chai.expect;
 
-var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.' +
-            'eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE0NzI' + 
-            '0NzEzODAsImV4cCI6MTUwNDAwNzM4MCwiYXVkIjoid3d3LmV4YW' +
-            '1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIm' +
-            'lkIjoicmt4ZDVXTDUifQ.QJNy6o-GfXTP686zgIrEiI37strpFm7n9-ImPFMQprg';
+/**
+ * Global token.
+ */
+var globalToken = '';
+/**
+ * Global business object that was sucessfully created.
+ */
+var globalBusiness = {};
 
+/**
+ * Generate HTTP Authorization Header field.
+ * @param {string} token - The token.
+ * @return {string} Authorization header string.
+ */
+function genAuthHeaderString(token) {
+  return 'Bearer ' + token;
+}
 
 describe('POST /business.', function() {
   // Email used to sign up business.
-  var email = Math.random().toString(36).substr(2, 5) + '@stephenfox.com';
+  var email = Math.random().toString(36).substr(2, 5) + '@test.com';
   var password = 'badpassword';
 
-  it('Should add the business to the applications database and return http code 200', function(done) {
+  it('Should add the business to the database and return http code 200', function(done) {
     // Mock business.
     var body = {
       business : {
@@ -35,13 +47,17 @@ describe('POST /business.', function() {
     .expect(200)
     .expect(function(res) {
       expect(res.body.success).to.equal(true);
+      // Make sure to set the global token object
+      // and business object. This business object will be used for future mocking.
+      globalToken = res.body.token;
+      globalBusiness = token.verifySync(globalToken);
     })
     .end(function(err, res) {
       done(err);
     });  
   });
 
-  it('Should sign up with invalid details and return http code 422', function(done) {
+  it('Should add a business with invalid details and return http code 422', function(done) {
     // Mock business.
     var body = {
       business : {
@@ -64,49 +80,6 @@ describe('POST /business.', function() {
     .end(function(err, res) {
       done(err);
     }); 
-  });
-});
-
-describe('GET /business/purchases', function() {
-  it ('Should retrieve all purchases for a business', function(done) {
-     // Make GET request.
-    request
-    .get('/business/purchases')
-    .set('Authorization', token)
-    .expect(200)
-    .expect(function(res) {
-      expect(res.body.success).to.equal(true);
-    })
-    .end(function(err, res) {
-      done(err);
-    }); 
-  });
-
-  it ('Should retrieve all products for a business that has products in the database and return HTTP code 200', function(done) {
-    var businessID = 'BJjgTuli';
-    // Make GET request.
-    request.get('/business/' + businessID + '/products')
-    .expect(200)
-    .expect(function(res) {
-      expect(res.body.success).to.equal(true);
-    })
-    .end(function(err, res) {
-      done(err);
-    });
-  });
-  
-  // TODO: verify this is the actual behaviour wanted.
-  it ('Attempt to retrieve products for a business that doesn\'t actually exist and HTTP code 200', function(done) {
-    var businessID = 'BJjgTueli';
-    // Make GET request.
-    request.get('/business/' + businessID + '/products')
-    .expect(200)
-    .expect(function(res) {
-      expect(res.body.success).to.equal(true);
-    })
-    .end(function(err, res) {
-      done(err);
-    });
   });
 });
 
