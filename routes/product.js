@@ -9,9 +9,49 @@ var
 
 var router = express.Router();
 
-
+/**
+ ******************* Description ***********************
+ * Adds a new Product to the database.
+ *
+ ****************** Request ***********************
+ * This endpoint expects the request body
+ * to contain the following:
+ *  - business object
+ *    {
+ *      product {
+ * 
+ *      }
+ *    }
+ * The business object has to have the following fields.
+ * - {string} name - The name of the product.
+ * - {float} price - The price of the product.
+ * - {description} description - The description of the product.
+ * 
+ * Therefore the following would be a valid request body:
+ * {
+ *      business {
+ *        name: "Test Product",
+ *        price: 2.30,
+ *        description: "Description of product"        
+ *   
+ *      }
+ * }
+ * 
+ ******************** Responses ***********************
+ * Success - Product was successfully added
+ * - HTTP Code: 200
+ * 
+ * Failed - Missing attribute
+ * - HTTP Code: 422
+ * 
+ * Failed - Internal Server Error
+ * - HTTP Code: 500
+ *********************************************************
+ * */
 router.post('/', vr.validRequest, function (req, res) {
   var product = new Product();
+  // Set the businessID of the product to the businessID of the token from request. 
+  product.businessID = req.decoded.id;
   // Parse post request.
   product.parsePOST(req, function (err) {
     if (err) {
@@ -81,6 +121,38 @@ router.patch('/', vr.validRequest, function (req, res) {
       });
   });
 });
+
+/**
+ * GET products based on the body.
+ **/
+router.get('/', vr.validRequest, function (req, res) {
+  var businessID = req.decoded.id;
+
+  if (!businessID) {
+    return res
+      .status(httpCodes.UNPROCESSABLE_ENTITY)
+      .json({ 
+        responseMessage: "Could not process request.",
+        success: false 
+      });
+  }
+  var product = new Product();
+  product.getAllProductsForBusiness(businessID, function(err, products) {
+    if (err) {
+      return res
+        .status(httpCodes.UNPROCESSABLE_ENTITY)
+        .json({ 
+          responseMessage: "An error occurred.",
+          success: true 
+        });
+    }
+    return res.status(httpCodes.SUCCESS).json({ 
+      products: products,
+      success: true
+    });
+  });
+});
+
 
 //Todo: Validate that the product desired to be deleted belongs to the company trying to delete it.
 // Remove a product

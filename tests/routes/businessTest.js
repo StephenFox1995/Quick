@@ -1,27 +1,10 @@
 var 
   app     = require('../../app.js'),
   request = require('supertest')(app),
-  chai    = require('chai'),
-  token     = require('../../libs/token'),
+  chai    = require('chai');
   expect  = chai.expect;
 
-/**
- * Global token.
- */
-var globalToken = '';
-/**
- * Global business object that was sucessfully created.
- */
-var globalBusiness = {};
 
-/**
- * Generate HTTP Authorization Header field.
- * @param {string} token - The token.
- * @return {string} Authorization header string.
- */
-function genAuthHeaderString(token) {
-  return 'Bearer ' + token;
-}
 
 describe('POST /business.', function() {
   // Email used to sign up business.
@@ -47,10 +30,7 @@ describe('POST /business.', function() {
     .expect(200)
     .expect(function(res) {
       expect(res.body.success).to.equal(true);
-      // Make sure to set the global token object
-      // and business object. This business object will be used for future mocking.
-      globalToken = res.body.token;
-      globalBusiness = token.verifySync(globalToken);
+
     })
     .end(function(err, res) {
       done(err);

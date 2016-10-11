@@ -2,17 +2,55 @@
 
 var
   Business = require('../libs/Business'),
-
-  Product = require('../libs/Product'),
+  Product   = require('../libs/Product'),
   httpCodes = require('../libs/httpCodes'),
-  vr = require('../libs/validRequest'),
-  token = require('../libs/token'),
-  express = require('express');
+  vr        = require('../libs/validRequest'),
+  token     = require('../libs/token'),
+  express   = require('express');
 
 var router = express.Router();
 
 /**
- * Add a new Business to the database.
+ ******************* Description ***********************
+ * Adds a new Business to the database.
+ *
+ ****************** Request ***********************
+ * This endpoint expects the request body
+ * to contain the following:
+ *  - business object
+ *    {
+ *      business {
+ * 
+ *      }
+ *    }
+ * The business object has to have the following fields.
+ * - {string} name - The name of the business.
+ * - {string} address- The address of the business.
+ * - {string} contactNumber - The contact number of the business.
+ * - {string} email - The email of the business.
+ * - {string} password - The password associated with this business account.
+ * 
+ * Therefore the following would be a valid request body:
+ * {
+ *      business {
+ *        name: "Test Business",
+ *        address: "22 Test Address, Dublin",
+ *        contactNumber: "0850920992",
+ *        email: "testBusiness@test.com",
+ *        password: "strong-password"
+ *      }
+ * }
+ * 
+ ******************** Responses ***********************
+ * Success - Business was successfully added
+ * - HTTP Code: 200
+ * 
+ * Failed - Missing attribute
+ * - HTTP Code: 422
+ * 
+ * Failed - Internal Server Error
+ * - HTTP Code: 500
+ *********************************************************
  * */
 router.post('/', function (req, res) {
   var bs = new Business();
@@ -52,37 +90,7 @@ router.post('/', function (req, res) {
 
 
 
-/**
- * GET all products associated with a business.
- * URL: /business/someRandomID/products
- **/
-router.get('/:businessID/products', function (req, res) {
-  var businessID = req.params.businessID;
-  if (!businessID) {
-    return res
-      .status(httpCodes.UNPROCESSABLE_ENTITY)
-      .json({ 
-        responseMessage: "Could not process request.",
-        success: false 
-      });
-  }
 
-  var product = new Product();
-  product.getAllProductsForBusiness(businessID, function(err, products) {
-    if (err) {
-      return res
-        .status(httpCodes.UNPROCESSABLE_ENTITY)
-        .json({ 
-          responseMessage: "An error occurred.",
-          success: true 
-        });
-    }
-    return res.status(httpCodes.SUCCESS).json({ 
-      products: products,
-      success: true
-    });
-  });
-});
 
 
 /**

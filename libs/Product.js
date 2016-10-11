@@ -86,7 +86,6 @@ Product.prototype.setAttributesFromRequest = function(req) {
   this.name = product.name;
   this.price = product.price;
   this.description = product.description;
-  this.businessID = product.businessID;
   if ('options' in product) {
     // Only if the options array has an element
     // will we set it on this.
@@ -110,8 +109,7 @@ Product.prototype.validRequest = function (req) {
   return this.validStrings([    
     product.name,
     product.price,
-    product.description,
-    product.businessID]);
+    product.description]);
 };
 
 /**
