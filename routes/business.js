@@ -2,7 +2,6 @@
 
 var
   Business = require('../libs/Business'),
-  Product   = require('../libs/Product'),
   httpCodes = require('../libs/httpCodes'),
   vr        = require('../libs/validRequest'),
   token     = require('../libs/token'),

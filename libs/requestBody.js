@@ -65,5 +65,5 @@ requestBody.validProperties = function(properties, object, cb) {
       }      
     }
   }
-  return cb(null, true);
+  return cb(null);
 };

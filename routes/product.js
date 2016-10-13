@@ -1,6 +1,7 @@
 'use strict';
 
 var
+  controller = require('../libs/productRouteController'),
   Product   = require('../libs/Product'),
   httpCodes = require('../libs/httpCodes'),
   express   = require('express'),
@@ -49,48 +50,22 @@ var router = express.Router();
  *********************************************************
  * */
 router.post('/', vr.validRequest, function (req, res) {
-  var product = new Product();
-  // Set the businessID of the product to the businessID of the token from request. 
-  product.businessID = req.decoded.id;
-  // Parse post request.
-  product.parsePOST(req, function (err) {
+  controller.handlePost(req, function(err) {
     if (err) {
       return res
-        .status(httpCodes.UNPROCESSABLE_ENTITY)
+        .status(err.code)
         .json({
-          success: false,
-          responseMessage: "Could not parse Product JSON."
+          message: err.message, 
+          success: false
         });
-    }
-    // Now check to see if the businessID of the product being
-    // added matches the id from the decoded token.
-    // This is to make sure the product is actually being added by the business
-    // and not somebody else, who happens to have the business id.
-    if (product.businessID !== req.decoded.id) {
-      return res
-        .status(httpCodes.UNAUTHORIZED)
-        .json({
-          success: false,
-          responseMessage: "Not authorized to add product."
-        });
-    }
-    // Insert into database.
-    product.insert(function (err) {
-      if (err) {
-        return res
-          .status(httpCodes.INTERNAL_SERVER_ERROR)
-          .json({
-            success: false,
-            responseMessage: "Product could not be added to the database."
-          });
-      }
+    } else {
       return res
         .status(httpCodes.SUCCESS)
         .json({
           success: true,
           responseMessage: "Product was successfully added."
         });
-    });
+    }
   });
 });
 

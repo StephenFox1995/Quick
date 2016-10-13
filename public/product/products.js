@@ -20,7 +20,7 @@
      * @param {function(err, products)} callback - Callback function.
      */
     function getProducts(businessID, callback) {
-      $http.get('/business/' + businessID + '/products')
+      $http.get('/product')
         .success(function (data) {
           parseProductsFromNetworkData(data, function(products) {
             callback(null, products);

@@ -78,7 +78,7 @@ describe('POST /product.', function() {
 
 
 
-  it ('Should add a product with missing value and return http code 422', function(done) {
+  it ('Should add a product with invalid value and return http code 422', function(done) {
     var body = {
       product: {
         businessID: globalBusiness.id,
