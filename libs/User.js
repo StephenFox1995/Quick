@@ -85,8 +85,12 @@ User.prototype.verify = function (cb) {
   this.schema.findOne({email: email}, function(err, user) {
     if (err) { return cb(err); }
     
+    // Assume theres no user in the database
+    // with these credentials.
+    // This is not classed as a error, more so a incorrect
+    // verification attempt.
     if (!user || !('password' in user)) {
-      return cb(new Error('No user for email: ' + email + ' exists.'));
+      return cb(null, false);
     }
 
     // Compare hashed and plaintext password.

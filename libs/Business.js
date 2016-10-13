@@ -59,8 +59,12 @@ Business.prototype.verify = function (cb) {
   this.schema.findOne({email: email}, function(err, business) {
     if (err) { return cb(err); }
 
+    // Assume theres no user in the database
+    // with these credentials.
+    // This is not classed as a error, more so a incorrect
+    // verification attempt.
     if (!business || !('password' in business)) {
-      return cb(new Error('No business for email: ' + email + ' exists.'));
+      return cb(null, false);
     }
     
     // Compare hashed and plaintext password.

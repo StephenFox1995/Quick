@@ -3,8 +3,8 @@
 
 var 
   express   = require('express'),
-  auth      = require('../libs/authenticate'),
-  httpCodes = require('../libs/httpCodes');
+  httpCodes = require('../libs/httpCodes'),
+  controller = require('../libs/authenticateRouteController');
 
 
 var router = express.Router();
@@ -38,17 +38,12 @@ var router = express.Router();
  *
  * */
 router.post('/', function (req, res) {
-  // Get the auth type.
-  var authType = req.body.authType.toLowerCase();
-
-  // Begin authentication process.
-  auth.auth(authType, req, function (err, token) {
+  controller.handlePost(req, function(err, token) {
     if (err) {
       return res
-        .status(httpCodes.BAD_REQUEST)
+        .status(err.code)
         .json({ responseMessage: err.message });
     }
-
     return res
       .status(httpCodes.SUCCESS)
       .json({
@@ -57,7 +52,7 @@ router.post('/', function (req, res) {
         expires: token.expiresIn,
         token: token.value
       });
-  });
+  }); 
 });
 
 

@@ -1,6 +1,8 @@
+var httpCodes = require('./httpCodes');
+
 module.exports = {
   noObjectFound: function(objectName) {
-    var error = new Erorr('No "' + objectName + '" object found in request body.');
+    var error = new Error('No "' + objectName + '" object found in request body.');
     error.code = httpCodes.UNPROCESSABLE_ENTITY;
     return error; 
   },
@@ -24,13 +26,13 @@ module.exports = {
     return error;
   },
   serverError: function() {
-    var error = new Erorr('An error occurred with the server.');
+    var error = new Error('An error occurred with the server.');
     error.code = httpCodes.INTERNAL_SERVER_ERROR;
     return error;
   },
   notAuthorized: function() {
     var error = new Error('Not authorized');
-    erorr.code = httpCodes.UNAUTHORIZED;
+    error.code = httpCodes.UNAUTHORIZED;
     return error;
   }
 };
