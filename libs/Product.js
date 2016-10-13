@@ -105,25 +105,4 @@ Product.prototype.parsePATCH = function (req) {
   return product.updateFields;
 };
 
-
-/**
- * Parses delete request for product.
- * @param {function(err)} cb - Callback function.
- */
-Product.prototype.parseDelete = function(req, cb) {
-  if (!('productID' in req.params)) {
-    return cb('No product id found in reqest parameters.');
-  }
-  var productID = req.params.productID;
-
-  // Check id is valid string.
-  if (util.isValidString(productID)) {
-    this.id = productID;
-    return cb(null);
-  } else {
-    return cb(new Error('Unknown format for productID request parameters.'));
-  }
-  
-};
-
 module.exports = Product;

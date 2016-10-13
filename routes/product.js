@@ -125,34 +125,21 @@ router.patch('/', vr.validRequest, function (req, res) {
 //Todo: Validate that the product desired to be deleted belongs to the company trying to delete it.
 // Remove a product
 router.delete('/:productID', vr.validRequest, function (req, res) {
-  var product = new Product();
-  product.parseDelete(req, function (err) {
+  controller.handleDelete(req, function(err) {
     if (err) {
       return res
-        .status(httpCodes.UNPROCESSABLE_ENTITY)
+        .status(err.code)
         .json({
-          success: false,
-          responseMessage: "Could not parse Product JSON."
-        });
+          message: err.message, 
+          success: false
+        }); 
     }
-    // Delete the product.
-    product.remove(function (err) {
-      if (err) {
-        return res
-          .status(httpCodes.INTERNAL_SERVER_ERROR)
-          .json({
-            success: false,
-            responseMessage: "Product could not be removed."
-          });
-      }
-
-      return res
+    return res
       .status(httpCodes.SUCCESS)
       .json({
         success: true,
         responseMessage: "Product was successfully removed."
       });
-    });
   });
 });
 
