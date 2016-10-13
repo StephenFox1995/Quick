@@ -45,11 +45,6 @@ User.prototype.parsePOST = function(req, cb) {
  * @param   {function(err)} cb - Callback
  **/
 User.prototype.insert = function (cb) {
-  // Before saving the user; hash password.
-  var hashed = hash.hashPassword(this.password);
-  // Set the hashed user's password.
-  this.password = hashed.hash;
-
   var user = new this.schema({
     email: this.email.toLowerCase(),
     firstname: this.firstname,

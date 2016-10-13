@@ -3,7 +3,6 @@
 var
   Business    = require('../libs/Business'),
   httpCodes   = require('../libs/httpCodes'),
-  token       = require('../libs/token'),
   express     = require('express'),
   controller  = require('../libs/businessRouteController');
 

@@ -3,9 +3,7 @@
 var 
   express   = require('express'),
   httpCodes = require('../libs/httpCodes'),
-  
-  User      = require('../libs/User'),
-  token     = require('../libs/token');
+  controller = require('../libs/userRouteController');
 
 
 const router = express.Router();
@@ -17,39 +15,23 @@ const router = express.Router();
  * TODO: Make sure user doesn't already exist in database
  **/
 router.post('/', function (req, res) {
-  var user = new User();
-  user.parsePOST(req, function (err) {
+  controller.handlePost(req, function(err, token) {
     if (err) {
       return res
-        .status(httpCodes.UNPROCESSABLE_ENTITY)
+        .status(err.code)
         .json({
-          responseMessage: "Could not parse user.",
+          responseMessage: err.message,
           success: false
         });
     }
-    
-    // Save to database.
-    user.insert(function (err) {
-      if (err) {
-        return res
-          .status(httpCodes.INTERNAL_SERVER_ERROR)
-          .json({
-            responseMessage: "User could not be added to the database.",
-            success: false
-          });
-      }
-
-      // Generate token.
-      var t = token.generateToken(user);
-      return res
-        .status(httpCodes.SUCCESS)
-        .json({
-          responseMessage: "User was successfully created.",
-          success: true,
-          token: t.value,
-          expires: t.expiresIn
-        });
-    });
+    return res
+      .status(httpCodes.SUCCESS)
+      .json({
+        responseMessage: "User was successfully created.",
+        success: true,
+        token: token.value,
+        expires: token.expiresIn
+      });
   });
 });
 
