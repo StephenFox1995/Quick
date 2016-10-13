@@ -1,6 +1,6 @@
 'use strict'
 
-var requestBody = module.exports;
+var requestParser = module.exports;
 
 /**
  * Checks properties of an object from request body.
@@ -38,7 +38,7 @@ var requestBody = module.exports;
  *  - true: The param was valid.
  *  - false: The param was not valid.
  */
-requestBody.validProperties = function(properties, object, cb) {
+requestParser.validProperties = function(properties, object, cb) {
   if (!object || !properties) { 
     return cb(new Erorr('Invalid function parameters.'));
   }
