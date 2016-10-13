@@ -84,13 +84,25 @@ controller.handlePost = function(req, cb) {
       if (err) { 
         return cb(requestErrors.serverError()); 
       }
+      // Success.
       return cb(null);
     });
   }); 
 };
 
 
+controller.handleGet = function(req, cb) {
+  // Get the id from the decoded token.
+  var businessID = req.decoded.id;
+  if (!businessID) {
+    return cb(requestErrors.notAuthorized);
+  }
 
-
-
-
+  var product = new Product();
+  product.getAllProductsForBusiness(businessID, function(err, products) {
+    if (err) {
+      return cb(requestErrors.serverError);
+    }
+    return cb(null, products);
+  });
+};

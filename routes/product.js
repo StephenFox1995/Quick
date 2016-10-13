@@ -69,6 +69,28 @@ router.post('/', vr.validRequest, function (req, res) {
   });
 });
 
+/**
+ * GET products based on the body.
+ **/
+router.get('/', vr.validRequest, function (req, res) {
+  controller.handleGet(req, function(err, products) {
+    if (err) {
+      return res
+        .status(err.code)
+        .json({
+          message: err.message, 
+          success: false
+        }); 
+    }
+    return res
+      .status(httpCodes.SUCCESS)
+      .json({
+        products: products,
+        success: true
+      });
+  });
+});
+
 
 /**
  * Update a product.
@@ -97,36 +119,7 @@ router.patch('/', vr.validRequest, function (req, res) {
   });
 });
 
-/**
- * GET products based on the body.
- **/
-router.get('/', vr.validRequest, function (req, res) {
-  var businessID = req.decoded.id;
 
-  if (!businessID) {
-    return res
-      .status(httpCodes.UNPROCESSABLE_ENTITY)
-      .json({ 
-        responseMessage: "Could not process request.",
-        success: false 
-      });
-  }
-  var product = new Product();
-  product.getAllProductsForBusiness(businessID, function(err, products) {
-    if (err) {
-      return res
-        .status(httpCodes.UNPROCESSABLE_ENTITY)
-        .json({ 
-          responseMessage: "An error occurred.",
-          success: true 
-        });
-    }
-    return res.status(httpCodes.SUCCESS).json({ 
-      products: products,
-      success: true
-    });
-  });
-});
 
 
 //Todo: Validate that the product desired to be deleted belongs to the company trying to delete it.

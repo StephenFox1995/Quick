@@ -72,45 +72,6 @@ Product.prototype.update = function (updateFields, callback) {
 };
 
 
-Product.prototype.parsePOST = function (req, cb) {
-  if (this.validRequest(req)) {
-    this.setAttributesFromRequest(req);
-    return cb(null);
-  } else {
-    return cb(new Error('Could not parse product.'));
-  }
-};
-
-Product.prototype.setAttributesFromRequest = function(req) {
-  var product = req.body.product;
-  this.name = product.name;
-  this.price = product.price;
-  this.description = product.description;
-  if ('options' in product) {
-    // Only if the options array has an element
-    // will we set it on this.
-    if (product.options.length > 0) {
-      this.options = product.options;
-    }
-  }
-};
-
-/**
- * Check that the request is valid.
- * @param {object} req - The request.
- * @return {boolean} True - Valid, else: false.
- */
-Product.prototype.validRequest = function (req) {
-  if (!this.requestContainsObjects(['product'], req)) {
-    return false;
-  }
-  var product = req.body.product;
-
-  return this.validStrings([    
-    product.name,
-    product.price,
-    product.description]);
-};
 
 /**
  * Parses a PATH HTTP request in JSON.
