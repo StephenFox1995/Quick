@@ -19,6 +19,15 @@ util.isValidString = function (string) {
   }
 };
 
+/**
+ * Determines if an object is an array.
+ * @param {object} object - Object to check is an array.
+ * @return {boolean} - True: object is an Array, False: object is not an array.
+ */
+util.isArray = function (object) {
+  return Array.isArray(object);
+};
+
 
 /**
  * Generates a unique id.

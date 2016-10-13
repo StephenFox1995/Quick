@@ -78,7 +78,7 @@ router.get('/', vr.validRequest, function (req, res) {
       return res
         .status(err.code)
         .json({
-          message: err.message, 
+          responseMessage: err.message, 
           success: false
         }); 
     }
@@ -96,17 +96,13 @@ router.get('/', vr.validRequest, function (req, res) {
  * Update a product.
  */
 router.patch('/', vr.validRequest, function (req, res) {
-  var product = new Product();
-  // Get the fields for updating.
-  var updateFields = product.parsePATCH(req);
-
-  product.update(updateFields, function (err) {
+  controller.handlePatch(req, function(err) {
     if (err) {
       return res
-        .status(httpCodes.INTERNAL_SERVER_ERROR)
+        .status(err.code)
         .json({
           success: false,
-          responseMessage: "Product could not be updated."
+          responseMessage: err.message
         });
     }
 
@@ -116,7 +112,7 @@ router.patch('/', vr.validRequest, function (req, res) {
         success: true,
         responseMessage: "Product was successfully updated."
       });
-  });
+  }); 
 });
 
 

@@ -48,7 +48,9 @@ requestBody.validProperties = function(properties, object, cb) {
     var property = allProperties[i];
     // Check the object has the property.
     if (!(object.hasOwnProperty(property))) {
-      return cb(new Error('object does not contain field ' + property));
+      var error = new Error('object does not contain property ' + property)
+      error.invalidProperty = property;
+      return cb(error);
     }
     // Get the function associated with field to check
     // pass the property value from the object to the function.
@@ -59,7 +61,7 @@ requestBody.validProperties = function(properties, object, cb) {
       // Otherwise: callback with error.
       var value = object[property];  
       if (!func(value)) {
-        var error = new Error(property + ' field was not valid');
+        var error = new Error(property + ' property was not valid');
         error.invalidProperty = property;
         return cb(error);  
       }      

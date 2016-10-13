@@ -10,8 +10,8 @@ var controller = module.exports;
 
 
 var requestErrors = {
-  noProductFound: function() {
-    var error = new Erorr('No Product found in request body.');
+  noObjectFound: function(objectName) {
+    var error = new Erorr('No "' + objectName +  '" object found in request body.');
     error.code = httpCodes.UNPROCESSABLE_ENTITY;
     return error; 
   },
@@ -54,6 +54,10 @@ var expectedRequests = {
     name: util.isValidString,
     description: util.isValidString,
     price: util.isValidString,
+  },
+  PATCH: {
+    id: util.isValidString,
+    updateFields: util.isArray
   }
 };
 
@@ -74,7 +78,7 @@ controller.handlePost = function(req, cb) {
   // Check the request contains a product.
   var product = req.body.product || null;
   if (!product) {
-    return cb(requestErrors.noProductFound());
+    return cb(requestErrors.noObjectFound());
   }
 
   // Check valid request.
@@ -118,6 +122,32 @@ controller.handleGet = function(req, cb) {
     }
     return cb(null, products);
   });
+};
+
+
+controller.handlePatch = function(req, cb) {
+  if (!('updatedProduct' in req.body)) {
+    return cb(requestErrors.noObjectFound('updatedProduct'));
+  }
+
+  var product = req.body.updatedProduct;
+  // Check that the correct properties are attached to the
+  // product to update.
+  requestBody.validProperties(expectedRequests.PATCH, product, function(err) {
+    if (err) {
+      return cb(requestErrors.invalidProperties(err.invalidProperty));
+    }
+    var p = new Product();
+    p.id = product.id;
+    // Update the product with the update fields from the request.
+    p.update(product.updateFields, function(err) {
+      if (err) {
+        return cb(requestErrors.serverError());
+      }
+      return cb(null);
+    });
+  });
+
 };
 
 /**
