@@ -10,8 +10,6 @@ var
 var controller = module.exports;
 
 
-
-
 /**
  * Templates for what expected requests for /product endpoint
  * should look like. 
