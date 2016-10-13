@@ -1,7 +1,7 @@
 var 
   app     = require('../../app.js'),
   request = require('supertest')(app),
-  chai    = require('chai');
+  chai    = require('chai'),
   expect  = chai.expect;
 
 
@@ -30,7 +30,6 @@ describe('POST /business.', function() {
     .expect(200)
     .expect(function(res) {
       expect(res.body.success).to.equal(true);
-
     })
     .end(function(err, res) {
       done(err);

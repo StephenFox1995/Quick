@@ -1,11 +1,11 @@
 'use strict';
 
 var
-  Business = require('../libs/Business'),
-  httpCodes = require('../libs/httpCodes'),
-  vr        = require('../libs/validRequest'),
-  token     = require('../libs/token'),
-  express   = require('express');
+  Business    = require('../libs/Business'),
+  httpCodes   = require('../libs/httpCodes'),
+  token       = require('../libs/token'),
+  express     = require('express'),
+  controller  = require('../libs/businessRouteController');
 
 var router = express.Router();
 
@@ -52,38 +52,23 @@ var router = express.Router();
  *********************************************************
  * */
 router.post('/', function (req, res) {
-  var bs = new Business();
-
-  bs.parsePOST(req, function (err) {
+  controller.handlePost(req, function(err, token) {
     if (err) {
       return res
-        .status(httpCodes.UNPROCESSABLE_ENTITY)
+        .status(err.code)
         .json({
-          responseMessage: "Could not parse JSON",
+          responseMessage: err.message,
           success: false
-        });
-    }
-
-    bs.insert(function (err) {
-      if (err) {
-        return res
-          .status(httpCodes.INTERNAL_SERVER_ERROR)
-          .json({
-            responseMessage: "Business could not be added to the database.",
-            success: false
-          });
-      }
-
-      var t = token.generateToken(bs);
-      return res
-        .status(httpCodes.SUCCESS)
-        .json({
-          responseMessage: "Business was successfully created.",
-          success: true,
-          token: t.value,
-          expires: t.expiresIn
-        });
-    });
+        }); 
+    }       
+    return res
+      .status(httpCodes.SUCCESS)
+      .json({
+        responseMessage: "Business was successfully created.",
+        success: true,
+        token: token.value,
+        expires: token.expiresIn
+      });
   });
 });
 

@@ -74,7 +74,7 @@ User.prototype.insert = function (cb) {
 
 /**
  * Verifies that the user exists and their password is correct.
- * If the user exists, the properties for the user will be set.
+ * If the user exists, the properties for the user will be set on an instance.
  * @param   {function(err)} cb - Callback.
  * */
 User.prototype.verify = function (cb) {
