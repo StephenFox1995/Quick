@@ -14,43 +14,38 @@
   <script src="/javascripts/session.js"></script>
   <script src="/javascripts/orders.js"></script>  
   <script src="/javascripts/ordersController.js"></script>
-  
-
-    
-
   <link href="/stylesheets/container.css" rel="stylesheet" type="text/css" />
   <link href="/stylesheets/orders.css" rel="stylesheet" type="text/css" />
-  
   
   <title>Quick - Orders</title>
 </head>
 
 <body>
-  <h3>Orders</h3>
   <div ng-controller="OrdersController">
+  <h3 class="page-heading">{{businessName}}'s Orders</h3>
   <div class="container" ng-repeat="order in orders">
-      <div class="row orderHeadingWrap">
-        <div class="col-lg-12 col-md-12 col-xs-12 orderHeading">ORDER</div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="items">
-          <div class="orderItem">{{order.product.name}}</div>
-        </div>
-      </div>
-      <hr>
-      <div class="row orderPriceWrap">
-        <div class="col-md-12 col-xs-12 orderPrice">€{{order.product.price}}</div>
-      </div>
-      <div class="row orderTimeWrap">
-        <div class="col-md-12 col-xs-12 orderTime">{{order.createdAt}}</div>
-      </div>
-      <hr>
-      <div class="row buttonWrap">
-        <button type="button" class="btn btn-success">Accept</button>
-        <button type="button" class="btn btn-danger">Decline</button>
-      </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-xs-12">Order</div>
     </div>
+    <div><b>Order ID:</b> {{order.id}}</div>
+    <hr>
+    
+    <div class="row">
+      <div class="col-md-12 col-xs-12"><b>Product:</b> {{order.product.name}}</div>
+    </div>
+    <hr>
+
+    <div class="row">
+      <div class="col-md-12 col-xs-12">€{{order.product.price}}</div>
+      <div class="col-md-12 col-xs-12"><b>Time:</b>{{order.createdAt}}</div>
+    </div>
+    <hr>
+    
+    <div class="row pull-right btns">
+      <button type="button" class="btn btn-success">Accept</button>
+      <button type="button" class="btn btn-danger">Decline</button>
+    </div>
+  </div>
   </div>
 </body>
 </html>

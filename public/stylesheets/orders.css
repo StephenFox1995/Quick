@@ -1,84 +1,8 @@
-
-html {
-  height: 100%;
+.btns {
+  margin-right: 1%;
+  margin-bottom: 1%;
 }
 
-body {
-  background-color: #F0F0F0;
-  height: 100%;
+.page-heading {
+  text-align: center;
 }
-
-
-.container {
-  border-color: #E2DEDE;
-  background-color: white;
-  border-width: 0.5px;
-  border-radius: 2px;
-  border-style: solid;
-  margin-top: 2%;
-  -webkit-box-shadow: 10px 10px 5px 0px #C9C9C9;
-  -moz-box-shadow: 10px 10px 5px 0px #C9C9C9;
-  box-shadow: 2px 2px 3px 0px #C9C9C9;
-}
-
-
-.purchaseHeadingWrap {
-    margin-top: 2%;
-}
-.purchaseHeading {
-  font-family: "AvenirNext-Bold";
-  letter-spacing: 2px;
-  font-size: 20px;
-  text-align:center;
-  color: #808080;
-}
-
-.items {
-  margin-top: 2%;
-  margin-left: 5%;
-}
-.purchaseItem {
-  font-family: "AvenirNext-DemiBold";
-  font-size: 20px;
-  color: #808080;
-}
-
-.purchaseLocationWrap {
-  margin-left: 5%;
-}
-.purchaseLocation {
-  font-family: "AvenirNext-Medium";
-  color: #808080;
-}
-
-.purchasePriceWrap { 
-  padding-right:5%;
-}
-.purchasePrice {
-  text-align:  right;
-  font-family: "AvenirNext-DemiBold";
-  font-size: 30px;
-  color: #808080;
-}
-
-.purchaseTimeWrap {
-  padding-right:5%;
-  padding-bottom: 1%;
-}
-.purchaseTime {
-  text-align:  right;
-  font-family: "AvenirNext-DemiBold";
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: #808080;
-}
-
-
-.buttonWrap {
-  text-align:right;
-  margin-top: 2%;
-  margin-right: 5%;
-  margin-bottom: 2%;
-}
-
-
