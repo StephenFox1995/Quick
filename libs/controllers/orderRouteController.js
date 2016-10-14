@@ -4,11 +4,12 @@ var
   util        = require('../util'),
   parser      = require('../requestParser'),
   errors      = require('../errors'),
-  Order     = require('../Order');
+  Order       = require('../Order');
 
 
 
 var controller = module.exports;
+
 
 var expectedRequests = {
   POST: {
@@ -25,7 +26,7 @@ var expectedRequests = {
  */
 controller.handlePost = function(req, cb) {
   // Grab the user id from the token.
-  var userID = req.decoded || null;
+  var userID = req.decoded.id || null;
   if (!userID) {
     return cb(errors.notAuthorized());
   }
@@ -45,7 +46,7 @@ controller.handlePost = function(req, cb) {
     o.userID = userID;
     o.businessID = order.businessID;
     o.productID = order.productID;
-    
+
     // Insert the order to the database.
     o.insert(function(err, orderID) {
       if (err) {
@@ -53,5 +54,31 @@ controller.handlePost = function(req, cb) {
       }
       return cb(null, orderID);
     });
+  });
+};
+
+/**
+ * Handles a GET request on the /order endpoint.
+ * 
+ * @param {req} req - The request.
+ * @param {function(err, orderID)} cb - Callback function.
+ */
+controller.handleGet = function(req, cb) {
+  // Client could be a user or business.
+  var clientID = req.decoded.id || null;
+  if (!clientID) {
+    return cb(errors.notAuthorized());
+  }
+  var clientType = req.decoded.clientType || null;
+  if (!clientType) {
+    return cb(errors.notAuthorized());
+  }
+  var order = new Order();
+  order.id = clientID;
+  order.get(clientType, function(err, orders) {
+    if (err) {
+      return cb(errors.serverError());
+    }
+    return cb(null, orders);
   });
 };

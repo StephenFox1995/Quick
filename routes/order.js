@@ -28,5 +28,23 @@ router.post('/', vr.validRequest, function(req, res) {
   });
 });
 
+router.get('/', vr.validRequest, function(req, res) {
+  controller.handleGet(req, function(err, orders) {
+    if (err) {
+      return res
+        .status(err.code)
+        .json({
+          success: false,
+          responseMessage: err.message });
+    }
+    return res
+      .status(httpCodes.SUCCESS)
+      .json({
+        success: true,
+        orders: orders 
+      });
+  }); 
+});
+
 
 module.exports = router;
