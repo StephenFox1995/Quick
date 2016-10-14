@@ -27,11 +27,11 @@ var expectedRequests = {
  * @param {function(err, token)} cb - Callback function.
  */
 controller.handlePost = function(req, cb) {
-  var user = req.body.user || null;
-  if (!user) {
+  if (typeof req.body.user === undefined) {
     return cb(errors.noObjectFound('user'));
   }
-  
+
+  var user = req.body.user;
   // Check valid request.
   parser.validProperties(expectedRequests.POST, user, function(err) {
     if (err) {

@@ -109,10 +109,10 @@ controller.handleGet = function(req, cb) {
  * @param {function(err)} cb - Callback function.
  */
 controller.handlePatch = function(req, cb) {
-  var product = req.body.updatedProduct || null;
-  if (!product) {
+  if (typeof req.body.updatedProduct === undefined) {
     return cb(errors.noObjectFound('updatedProduct'));
   }
+  var product = req.body.updatedProduct;
 
   // Check that the correct properties are attached to the
   // product to update.
@@ -141,10 +141,11 @@ controller.handlePatch = function(req, cb) {
  */
 controller.handleDelete = function(req, cb) {
   // Get the product id from the request url.
-  var productID = req.params.productID || null;
-  if (!productID) {
+  if (typeof req.params.productID === undefined) {
     return cb(errors.missingParam('productID'));
   }
+  
+  var productID = req.params.productID;
   // Delete the product.
   var product = new Product();
   product.id = productID;

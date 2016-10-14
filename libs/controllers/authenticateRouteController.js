@@ -57,10 +57,10 @@ controller.handlePost = function(req, cb) {
  * @return  {undefined} 
  * */
 function authUser(req, cb) {
-  var user = req.body.user || null;
-  if (!user) {
+  if (typeof req.body.user === undefined) {
     return cb(errors.noObjectFound('user'));
   }
+  var user = req.body.user;
 
   // Check that user has email, password.
   parser.validProperties(expectedRequests.POST_USER, user, function(err) {
@@ -103,10 +103,10 @@ function authUser(req, cb) {
  * @return  {undefined}
  * */
 function authBusiness(req, cb) {
-  var business = req.body.business || null;
-  if (!business) {
+  if (typeof req.body.business === undefined) {
     return cb(errors.noObjectFound('business'));
   }
+  var business = req.body.business;
 
   // Check that user has email, password.
   parser.validProperties(expectedRequests.POST_BUSINESS, business, function(err) {

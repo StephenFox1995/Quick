@@ -28,11 +28,11 @@ var expectedRequests = {
  * @param {function(err, token)} cb - Callback function.
  */
 controller.handlePost = function(req, cb) {
-  var business = req.body.business || null;
-  if (!business) {
+  if (typeof req.body.business === undefined) {
     return cb(errors.noObjectFound('business'));
   }
   
+  var business = req.body.business;
   // Check valid request.
   parser.validProperties(expectedRequests.POST, business, function(err) {
     if (err) {
@@ -54,7 +54,7 @@ controller.handlePost = function(req, cb) {
       delete b.password;
       // Genearate and pass token.
       try {
-        var token = tk.generateToken('busines', b);
+        var token = tk.generateToken('business', b);
       } catch (e) {
         return cb(errors.serverError());
       }
