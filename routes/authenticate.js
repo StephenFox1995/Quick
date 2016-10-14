@@ -4,7 +4,7 @@
 var 
   express   = require('express'),
   httpCodes = require('../libs/httpCodes'),
-  controller = require('../libs/authenticateRouteController');
+  controller = require('../libs/controllers/authenticateRouteController');
 
 
 var router = express.Router();

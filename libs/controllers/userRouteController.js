@@ -1,12 +1,12 @@
 'use strict';
 
 var 
-  util        = require('./util'),
-  parser      = require('./requestParser'),
-  errors      = require('./errors'),
-  tk          = require('./token'),
-  User        = require('./User'),
-  hash        = require('./hash');
+  util        = require('../util'),
+  parser      = require('../requestParser'),
+  errors      = require('../errors'),
+  tk          = require('../token'),
+  User        = require('../User'),
+  hash        = require('../hash');
 
 var controller = module.exports;
 

@@ -1,8 +1,7 @@
 'use strict';
 
 var
-  controller = require('../libs/productRouteController'),
-  Product   = require('../libs/Product'),
+  controller = require('../libs/controllers/productRouteController'),
   httpCodes = require('../libs/httpCodes'),
   express   = require('express'),
   vr        = require('../libs/validRequest');

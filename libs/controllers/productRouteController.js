@@ -1,10 +1,10 @@
 'use strict';
 
 var 
-  util        = require('./util'),
-  parser      = require('./requestParser'),
-  errors      = require('./errors'),
-  Product     = require('./Product');
+  util        = require('../util'),
+  parser      = require('../requestParser'),
+  errors      = require('../errors'),
+  Product     = require('../Product');
 
 
 var controller = module.exports;

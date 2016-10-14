@@ -2,12 +2,12 @@
 
 
 var 
-  util        = require('./util'),
-  parser      = require('./requestParser'),
-  errors      = require('./errors'),
-  User        = require('./User'),
-  Business    = require('./Business'),
-  tk          = require('./token');
+  util        = require('../util'),
+  parser      = require('../requestParser'),
+  errors      = require('../errors'),
+  User        = require('../User'),
+  Business    = require('../Business'),
+  tk          = require('../token');
 
 var controller = module.exports;
 
@@ -16,11 +16,11 @@ var expectedRequests = {
   AUTH_TYPE_POST: {
     authType: util.isValidString
   },
-  AUTH_USER_POST: {
+  POST_USER: {
     email: util.isValidString,
     password: util.isValidString
   },
-  AUTH_BUSINESS_POST: {
+  POST_BUSINESS: {
     email: util.isValidString,
     password: util.isValidString
   }
@@ -63,7 +63,7 @@ function authUser(req, cb) {
   }
 
   // Check that user has email, password.
-  parser.validProperties(expectedRequests.AUTH_USER_POST, user, function(err) {
+  parser.validProperties(expectedRequests.POST_USER, user, function(err) {
     if (err) {
       return cb(errors.invalidProperties(err.invalidProperty));
     }
@@ -105,7 +105,7 @@ function authBusiness(req, cb) {
   }
 
   // Check that user has email, password.
-  parser.validProperties(expectedRequests.AUTH_USER_POST, business, function(err) {
+  parser.validProperties(expectedRequests.POST_BUSINESS, business, function(err) {
     if (err) {
       return cb(errors.invalidProperties(err.invalidProperty));
     }

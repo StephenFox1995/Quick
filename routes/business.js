@@ -4,7 +4,7 @@ var
   Business    = require('../libs/Business'),
   httpCodes   = require('../libs/httpCodes'),
   express     = require('express'),
-  controller  = require('../libs/businessRouteController');
+  controller  = require('../libs/controllers/businessRouteController');
 
 var router = express.Router();
 

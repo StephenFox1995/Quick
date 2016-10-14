@@ -3,7 +3,7 @@
 var 
   express   = require('express'),
   httpCodes = require('../libs/httpCodes'),
-  controller = require('../libs/userRouteController');
+  controller = require('../libs/controllers/userRouteController');
 
 
 const router = express.Router();

@@ -1,8 +1,6 @@
 'use strict';
 
 var 
-  util      = require('./util'),
-  hash      = require('../libs/hash'),
   mongoose  = require('mongoose'),
   models    = require('../models/mongoose/models')(mongoose),
   hash      = require('../libs/hash');
