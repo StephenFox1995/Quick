@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="businessOrders">
+<html ng-app="orders">
 
 <head>
   <meta charset="utf-8">
@@ -10,13 +10,16 @@
   <% include /imports/auth0-jwt %>
   <% include /imports/bootstrap %>
   <% include /partials/businessNavBar %>
+  
+  <script src="/javascripts/session.js"></script>
+  <script src="/javascripts/orders.js"></script>  
+  <script src="/javascripts/ordersController.js"></script>
+  
+
     
-  <script src="../javascripts/session.js"></script>
-  <script src="../javascripts/token.js"></script>
-  <script src="../javascripts/businessOrders.js"></script>
-  <script src="../javascripts/orders.js"></script>
-  <link href="../stylesheets/container.css" rel="stylesheet" type="text/css" />
-  <link href="../stylesheets/purchase.css" rel="stylesheet" type="text/css" />
+
+  <link href="/stylesheets/container.css" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/orders.css" rel="stylesheet" type="text/css" />
   
   
   <title>Quick - Orders</title>
@@ -24,26 +27,23 @@
 
 <body>
   <h3>Orders</h3>
-  <div ng-controller="BusinessOrdersController">
-  <div class="container" ng-repeat="purchase in purchases">
-      <div class="row purchaseHeadingWrap">
-        <div class="col-lg-12 col-md-12 col-xs-12 purchaseHeading">ORDER</div>
+  <div ng-controller="OrdersController">
+  <div class="container" ng-repeat="order in orders">
+      <div class="row orderHeadingWrap">
+        <div class="col-lg-12 col-md-12 col-xs-12 orderHeading">ORDER</div>
       </div>
       <hr>
       <div class="row">
         <div class="items">
-          <div class="purchaseItem">- Chicken Meal</div>
-          <div class="purchaseItem">- XL fries</div>
-          <div class="purchaseItem">- XL CocaCola</div>
-          <div class="purchaseItem">- S Cheese Dips</div>
+          <div class="orderItem">{{order.product.name}}</div>
         </div>
       </div>
       <hr>
-      <div class="row purchasePriceWrap">
-        <div class="col-md-12 col-xs-12 purchasePrice">€{{purchase.productPrice}}</div>
+      <div class="row orderPriceWrap">
+        <div class="col-md-12 col-xs-12 orderPrice">€{{order.product.price}}</div>
       </div>
-      <div class="row purchaseTimeWrap">
-        <div class="col-md-12 col-xs-12 purchaseTime">12th Jan, 13:45</div>
+      <div class="row orderTimeWrap">
+        <div class="col-md-12 col-xs-12 orderTime">{{order.createdAt}}</div>
       </div>
       <hr>
       <div class="row buttonWrap">
@@ -51,7 +51,6 @@
         <button type="button" class="btn btn-danger">Decline</button>
       </div>
     </div>
-  </div>
   </div>
 </body>
 </html>

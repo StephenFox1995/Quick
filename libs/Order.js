@@ -88,6 +88,7 @@ Order.prototype.get = function(client, cb) {
       $project: {
         id: "$_id",
         _id: 0,
+        createdAt: 1,
         product: {
           id: "$_id",
           businessID: 1,
