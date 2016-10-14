@@ -53,7 +53,11 @@ controller.handlePost = function(req, cb) {
       // Delete password so not attached to token.
       delete u.password;
       // Genearate and pass token.
-      var token = tk.generateToken(u);
+      try {
+        var token = tk.generateToken('user', u);
+      } catch (e) {
+        return cb(errors.serverError());
+      }
       return cb(null, token);
     });
   });

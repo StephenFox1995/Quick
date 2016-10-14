@@ -80,7 +80,11 @@ function authUser(req, cb) {
         return (errors.serverError());
       }
       if (verified) {
-        var token = tk.generateToken(u);
+        try {
+          var token = tk.generateToken('user', u);
+        } catch (e) {
+          return cb(errors.serverError());
+        }
         return cb(null, token);
       } else {
         return cb(errors.notAuthorized());
@@ -122,7 +126,11 @@ function authBusiness(req, cb) {
         return cb(errors.serverError());
       }
       if (verified) {
-        var token = tk.generateToken(b);
+        try {
+          var token = tk.generateToken('business', b);
+        } catch (e) {
+          return cb(errors.serverError());
+        }
         return cb(null, token);
       } else {
         return cb(errors.notAuthorized());

@@ -91,19 +91,30 @@ token.renew = function (token, cb) {
 
 /**
  * Generates a JSON Web Token, with the object argument.
+ * @param   {string} clientType - 'business' or 'user'
  * @param   {object} object - The object to generate the token for.
  * @return  {Object} token            - A token object.
  * @return  {string} token.value      - The token generated.
  * @return  {string} token.expiresIn  - The expiration time of the token.
  * */
-token.generateToken = function (object) {
-  // Generate expiration time for token.
-  var expires = ms(ms('10 hours'));
-  var token = jwt.sign(object, secret, { expiresIn: expires });
-  return {
-    value: token,
-    expiresIn: expires
-  };
+token.generateToken = function (clientType, object) {
+  if (typeof clientType !== 'string') {
+    throw new Error('clientType must be a string');
+  }
+  if (clientType.toLowerCase() === 'business' ||
+      clientType.toLowerCase() === 'user') {
+    // Attach clientType to the object.
+    object.clientType = clientType;
+    // Generate expiration time for token.
+    var expires = ms(ms('10 hours'));
+    var token = jwt.sign(object, secret, { expiresIn: expires });
+    return {
+      value: token,
+      expiresIn: expires
+    };
+  } else {
+    throw new Error('clientType must be either "business" or "user"');
+  }
 };
 
 

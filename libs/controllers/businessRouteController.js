@@ -40,7 +40,7 @@ controller.handlePost = function(req, cb) {
     }
 
     var b = new Business();
-    b.email = business.name;
+    b.email = business.email;
     b.password = hash.hashPassword(business.password).hash; // hash password
     b.name = business.name;
     b.address = business.address;
@@ -53,7 +53,11 @@ controller.handlePost = function(req, cb) {
       // Delete password so not attached to token.
       delete b.password;
       // Genearate and pass token.
-      var token = tk.generateToken(b);
+      try {
+        var token = tk.generateToken('busines', b);
+      } catch (e) {
+        return cb(errors.serverError());
+      }
       return cb(null, token);
     });
   });
