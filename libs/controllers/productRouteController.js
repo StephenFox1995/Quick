@@ -23,6 +23,9 @@ var expectedRequests = {
   PATCH: {
     id: util.isValidString,
     updateFields: util.isArray
+  },
+  GET: {
+    id: util.isValidString
   }
 };
 
@@ -74,12 +77,21 @@ controller.handlePost = function(req, cb) {
  * @param {function(err, products)} cb - Callback function.
  */
 controller.handleGet = function(req, cb) {
-  // Get the id from the decoded token.
-  var businessID = req.decoded.id;
+  var businessID;
+  // Check if the request is coming from a business
+  // by asessing the incoming token.
+  if (typeof req.decoded !== undefined) {
+    if (req.decoded.clientType !== 'user') {
+      businessID = req.decoded.id;
+    }
+  }
+  if ('businessID' in req.query) {
+    businessID = req.query.businessID;
+  }
   if (!businessID) {
     return cb(errors.notAuthorized());
   }
-
+  
   var product = new Product();
   product.getAllProductsForBusiness(businessID, function(err, products) {
     if (err) {
