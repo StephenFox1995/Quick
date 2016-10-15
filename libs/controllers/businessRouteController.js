@@ -21,6 +21,17 @@ var expectedRequests = {
   }
 };
 
+
+/**
+ * Handles a GET request on the /business endpoint.
+ * 
+ * @param {req} req - The request.
+ * @param {function(err, token)} cb - Callback function.
+ */
+controller.handleGet = function(req, cb) {
+  return new Business().all(cb);
+};
+
 /**
  * Handles a POST request on the /business endpoint.
  * 
@@ -62,4 +73,5 @@ controller.handlePost = function(req, cb) {
     });
   });
 };
+
 

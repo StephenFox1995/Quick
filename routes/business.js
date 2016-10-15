@@ -73,20 +73,19 @@ router.post('/', function (req, res) {
 
 
 
-
-
-
 /**
  * /business/all
  * Returns all businesses in the database.
  * */
 router.get('/all', function (req, res) {
-  var business = new Business();
-  business.all(function(err, businesses) {
+  controller.handleGet(req, function(err, businesses) {
     if (err) {
       return res
-        .status(httpCodes.INTERNAL_SERVER_ERROR)
-        .json({ responseMessage: "An error occurred" });
+        .status(err.code)
+        .json({
+          responseMessage: err.message,
+          success: false
+        }); 
     }
     return res.status(httpCodes.SUCCESS).json(businesses);
   });
