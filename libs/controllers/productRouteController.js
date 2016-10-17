@@ -59,6 +59,7 @@ controller.handlePost = function(req, cb) {
     p.description = product.description;
     p.price = product.price;
     p.businessID = businessID;
+    p.options = product.options;
     // Insert into database.
     p.insert(function (err) {
       if (err) { 
