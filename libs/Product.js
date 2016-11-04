@@ -34,6 +34,16 @@ Product.prototype.insert = function (cb) {
 };
 
 /**
+ * Gets a product in the database.
+ * @param {string} id - The id of the product.
+ * @param {function(err, product)} - Callback function.
+ */
+Product.prototype.get = function(id, cb) {
+  this.schema.findOne({_id: id}, cb);
+};
+
+
+/**
  * Removes a product from the database.
  * @param {function(err)} cb - Callback function.
  */

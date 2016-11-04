@@ -6,14 +6,15 @@ var
   errors      = require('../errors'),
   tk          = require('../token'),
   User        = require('../User'),
-  hash        = require('../hash');
+  hash        = require('../hash'),
+  validator   = require('validator');
 
 var controller = module.exports;
 
 // Expected requests.
 var expectedRequests = {
   POST: {
-    email: util.isValidString,
+    email: validator.isEmail,
     password: util.isValidString,
     firstname: util.isValidString,
     lastname: util.isValidString

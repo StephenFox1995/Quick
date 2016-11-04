@@ -34,12 +34,12 @@ app.use(express.static(path.join(__dirname, 'public')));
  *  ROUTES
  ***********************/
 app.use('/', routes);
+app.use('/views', views);
+app.use('/authenticate', auth);
 app.use('/user', user);
 app.use('/business', business);
 app.use('/product', product);
 app.use('/order', order);
-app.use('/views', views);
-app.use('/authenticate', auth);
 
 
 /**
