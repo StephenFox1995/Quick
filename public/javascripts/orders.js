@@ -12,7 +12,7 @@
     };
 
     /**
-     * Request orders from the backed for a business.
+     * Request orders from the backend for a business.
      */
     function getOrders(callback) {
       // Get all the orders for the business.

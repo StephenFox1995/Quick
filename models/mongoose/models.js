@@ -65,8 +65,6 @@ module.exports = function (mongoose) {
       status: String
     });
   }
-
-
   return {
     User: mongoose.model('User', User),
     Business: mongoose.model('Business', Business),
