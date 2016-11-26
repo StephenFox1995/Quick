@@ -37,6 +37,7 @@ controller.handlePost = function(req, cb) {
     return cb(errors.noObjectFound('order'));
   }
 
+	console.log(order.location)
   // Check that there is the appropriate properties in request.
   parser.validProperties(expectedRequests.POST, order, function(err) {
     if (err) {
