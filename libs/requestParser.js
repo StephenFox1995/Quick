@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var requestParser = module.exports;
 
@@ -48,7 +48,7 @@ requestParser.validProperties = function(properties, object, cb) {
     var property = allProperties[i];
     // Check the object has the property.
     if (!(object.hasOwnProperty(property))) {
-      var error = new Error('object does not contain property ' + property)
+      var error = new Error('object does not contain property ' + property);
       error.invalidProperty = property;
       return cb(error);
     }

@@ -61,6 +61,10 @@ module.exports = function (mongoose) {
         type: ObjectId,
         ref: 'User'
       },
+      location: {
+        latitude: Number,
+        longitutde: Number
+      },
       createdAt: { type: Date, default: Date.now },
       status: String
     });

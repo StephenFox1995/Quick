@@ -15,7 +15,7 @@ var controller = module.exports;
 var expectedRequests = {
   POST: {
     businessID: util.isValidString,
-    productID: util.isValidString
+    id: util.isValidString,
   }
 };
 
@@ -37,7 +37,6 @@ controller.handlePost = function(req, cb) {
     return cb(errors.noObjectFound('order'));
   }
 
-	console.log(order.location)
   // Check that there is the appropriate properties in request.
   parser.validProperties(expectedRequests.POST, order, function(err) {
     if (err) {
@@ -48,7 +47,7 @@ controller.handlePost = function(req, cb) {
     o.userID = userID;
     o.businessID = order.businessID;
     o.productID = order.productID;
-
+    
     // Insert the order to the database.
     o.insert(function(err, orderID) {
       if (err) {
