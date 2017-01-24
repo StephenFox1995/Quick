@@ -19,6 +19,10 @@ util.isValidString = function (string) {
   }
 };
 
+util.isNumber = function(type) {
+  return type(type) === 'number';
+};
+
 /**
  * Determines if an object is an array.
  * @param {object} type - Type to check is an array.

@@ -4,8 +4,7 @@ var
   util        = require('../util'),
   parser      = require('../requestParser'),
   errors      = require('../errors'),
-  Order       = require('../Order'),
-  Product     = require('../Product');
+  Order       = require('../Order');
 
 
 
@@ -15,7 +14,8 @@ var controller = module.exports;
 var expectedRequests = {
   POST: {
     businessID: util.isValidString,
-    id: util.isValidString,
+    location: util.isObject,
+    totalPrice: util.isNumber
   }
 };
 
@@ -37,16 +37,17 @@ controller.handlePost = function(req, cb) {
     return cb(errors.noObjectFound('order'));
   }
 
-  // Check that there is the appropriate properties in request.
+  // Check that there is the appropriate properties in order.
   parser.validProperties(expectedRequests.POST, order, function(err) {
     if (err) {
       return cb(errors.invalidProperties(err.invalidProperty));
     }
 
     var o = new Order();
-    o.userID = userID;
-    o.businessID = order.businessID;
-    o.productID = order.productID;
+    o.userID      = userID;
+    o.businessID  = order.businessID;
+    o.location    = order.location;
+    o.totalPrice  = order.totalPrice;
     
     // Insert the order to the database.
     o.insert(function(err, orderID) {
@@ -82,4 +83,4 @@ controller.handleGet = function(req, cb) {
     }
     return cb(null, orders);
   });
-}
+};

@@ -3,9 +3,17 @@
 var 
   fs        = require('fs'),
   globals   = require('../libs/globals'),
-  mongoose  = require('mongoose');
+  mongoose  = require('mongoose'),
+  util      = require('util');
 
 var database = exports;
+
+function connString(uri, port, database, user=undefined, password=undefined) {
+  if (user === 'undefined' && password == 'undefined') {
+    return util.format("mongodb://%s:%s/%s", uri, port, database);
+  }
+  return util.format("mongodb://%s:%s@%s:%s/%s", user, password, uri, port, database);
+}
 
 database.setupMongo = function(callback) {
   var configFileContents;
@@ -19,7 +27,7 @@ database.setupMongo = function(callback) {
   }
 
   // Get the Mongo details.
-  var mongoDetails = JSON.parse(configFileContents).mongodb;
+  var mongoDetails = JSON.parse(configFileContents).databases[0];
   if (mongoDetails) {
     globals.Globals.mongoDetails = {};
     globals.Globals.mongoDetails.port = mongoDetails.port;
@@ -27,30 +35,35 @@ database.setupMongo = function(callback) {
     globals.Globals.mongoDetails.database = mongoDetails.database;
 
     // Create Mongo url from config file.
-    var url = 'mongodb://' + mongoDetails.uri + ':' + mongoDetails.port + '/' + mongoDetails.database;
-    mongoose.connect(url);
+    var user = mongoDetails.username || undefined;
+    var password = mongoDetails.password || undefined;
+
+    var cString = connString(mongoDetails.uri, mongoDetails.port, mongoDetails.database, user, password);
+    mongoose.connect(cString);
 
     // CONNECTION EVENTS
     // When successfully connected
     mongoose.connection.on('connected', function () {  
-      console.log('Mongoose default connection open to ' + url);
+      console.log('MongoDB connection open');
       callback(null);
     }); 
 
     // If the connection throws an error
     mongoose.connection.on('error', function (err) {  
-      console.log('Mongoose default connection error: ' + err);
+      console.log('MongoDB connection error ' + err);
       callback(err);
     }); 
 
     // When the connection is disconnected
     mongoose.connection.on('disconnected', function () {  
-      console.log('Mongoose default connection disconnected'); 
+      console.log('MongoDB connection disconnected'); 
     });
   } else {
     console.log('Configuration file does not contain MongoDB details.');
-    return false;
+    callback(new Error('Configuration file does not contain MongoDB details.'));
   }
 };
+
+
 
 

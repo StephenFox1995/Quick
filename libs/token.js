@@ -138,7 +138,7 @@ token.setApplicationTokenSecret = function () {
   var fileContents = JSON.parse(tokenSecretFile);
   if (fileContents) {
     // Set the token secret
-    secret = fileContents.tokenSecret;
+    secret = fileContents.token.secret;
     return true;
   } else {
     console.log('Could not find token secret in file.');
