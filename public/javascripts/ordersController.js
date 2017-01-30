@@ -8,12 +8,14 @@
   function OrdersController($scope, ordersService, sessionService) {
     $scope.businessName = sessionService.getClientName();
     $scope.orders = [];
-
-    (function getOrders() {
-      ordersService.getOrders(function(err, data) {
-        if (err) { /**Display to business that orders could not be displayed. */}
-        $scope.orders = data.orders;
-      });
-    })();    
+    
+    (function beginPriorityQueue() {
+      ordersService.beginPriorityQueue()
+        .then(function(resolve, reject) {
+          ordersService.observePriorityQueue(function(err, data) {
+            console.log(data);
+          }, 10000);
+        });
+    })();
   };
 })();
