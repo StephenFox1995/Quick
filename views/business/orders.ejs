@@ -22,18 +22,17 @@
 <body>
   <div ng-controller="OrdersController">
   <h3 class="page-heading">{{businessName}}'s Orders</h3>
+  <p class="page-heading">{{statusMessage}}</p>
+
   <div class="container" ng-repeat="order in orders">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-xs-12">Order</div>
+      <div class="col-lg-12 col-md-12 col-xs-12">Order: {{order.id}}</div>
     </div>
-    <div><b>Order ID:</b> {{order.id}}</div>
-    <hr>
-    
+    <hr> 
     <div class="row" >
       <div class="col-md-12 col-xs-12"><b>Product:</b> {{order.product.name}}</div>
     </div>
     <hr>
-
     <div class="row">
       <div class="col-md-12 col-xs-12">€{{order.cost}}</div>
       <div class="col-md-12 col-xs-12"><b>Created</b>{{order.createdAt}}</div>
@@ -42,7 +41,6 @@
       <div class="col-md-12 col-xs-12"><b>Assigned To:</b>{{order.workerID}}</div>
     </div>
     <hr>
-    
     <div class="row pull-right btns">
       <button type="button" class="btn btn-success">Finish</button>
     </div>

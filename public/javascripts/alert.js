@@ -1,4 +1,4 @@
-(function() {
+(() => {
   angular.module('alert', [])
   .directive('alert', alert);
 
@@ -15,16 +15,16 @@
    * @return {object} - Directive object.
    */
   function alert() {
-    var html = 
+    const html =
     '<div class="row">' +
       '<div class="alert alert-{{alertStyle}}">' +
         '<strong>{{alertTitle}}!</strong> {{alertMessage}}' +
-      '</div>' + 
-    '</div>';  
+      '</div>' +
+    '</div>';
     return {
       restrict: 'E',
       replace: true,
-      template: html
-    };  
+      template: html,
+    };
   }
 })();
