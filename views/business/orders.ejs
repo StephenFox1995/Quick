@@ -29,20 +29,22 @@
     <div><b>Order ID:</b> {{order.id}}</div>
     <hr>
     
-    <div class="row">
+    <div class="row" >
       <div class="col-md-12 col-xs-12"><b>Product:</b> {{order.product.name}}</div>
     </div>
     <hr>
 
     <div class="row">
-      <div class="col-md-12 col-xs-12">€{{order.product.price}}</div>
-      <div class="col-md-12 col-xs-12"><b>Time:</b>{{order.createdAt}}</div>
+      <div class="col-md-12 col-xs-12">€{{order.cost}}</div>
+      <div class="col-md-12 col-xs-12"><b>Created</b>{{order.createdAt}}</div>
+      <div class="col-md-12 col-xs-12"><b>Release:</b>{{order.release}}</div>
+      <div class="col-md-12 col-xs-12"><b>Deadline:</b>{{order.deadline}}</div>
+      <div class="col-md-12 col-xs-12"><b>Assigned To:</b>{{order.workerID}}</div>
     </div>
     <hr>
     
     <div class="row pull-right btns">
-      <button type="button" class="btn btn-success">Accept</button>
-      <button type="button" class="btn btn-danger">Decline</button>
+      <button type="button" class="btn btn-success">Finish</button>
     </div>
   </div>
   </div>

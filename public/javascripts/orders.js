@@ -21,8 +21,32 @@
      */
     function getOrder(id) {
       return new Promise(function(resolve, reject) {
-        $http.get('/order').then(resolve, reject);
+        $http.get('/order/' + id).then(resolve, reject);
       });
+    }
+
+    /**
+     * Merges order data with that of task data.
+     */
+    function getOrderAndMergeWithTask(id, task) {
+      return new Promise(function(resolve, reject) {
+        getOrder(id).then(function(response) {
+          order = response.data.order;
+          var merged = {
+            createdAt: task.createdAtISO,
+            release: task.releaseISO,
+            deadline: task.deadlineISO,
+            processing: task.processing,
+            workerID: task.assignedWorkerID,
+            products: order.products,
+            cost: order.cost,
+            id: order.id
+          };
+          resolve(merged);
+        }).catch(function(err) {
+          reject(err);
+        });
+      })
     }
 
     /**
@@ -74,33 +98,13 @@
       }, refresh);
     };
 
-//  {
-//     "processing": 200,
-//     "createdAtISO": "2017-01-28T14:26:45.780000",
-//     "releaseISO": "2017-01-28T14:28:32.780000",
-//     "profit": 2.2,
-//     "deadlineISO": "2017-01-28T14:31:52.780000",
-//     "assignedWorkerID": "W_Andrew",
-//     "id": "588ded22206e88b4547367b6"
-//   },
-    function getOrdersFromResponseData(response, callback) {
-      var orderIDs = response.map(function(x) { return x.id; });
-      let orderRequestPromises = orderIDs.map(function(orderID) { 
-        return getOrder(orderID);
+    function getOrdersFromResponseData(data, callback) {
+      let orderRequestPromises = data.map(function(task) { 
+        return getOrderAndMergeWithTask(task.id, task);
       })
       Promise.all(orderRequestPromises).then(function(data) {
         callback(data);
       })
     }
-
-    // function getOrdersFromQueue(queue, callback) {
-    //   let orderIDs = queue.map(function(x) { x.id; });
-    //   let orderRequestPromises = orderIDs.map(function(orderID) {
-    //     getOrder(orderID);
-    //   });
-    //   Promise.all(orderRequestPromises).then(function(values) {
-    //     callback(null, values);
-    //   });
-    // }
   }
 })();

@@ -61,7 +61,7 @@ Order.prototype.get = function(client, cb) {
 
 Order.prototype.getByID = function(id, cb) {
   var match = { _id: id }
-  this.schema.find({_id: id}, cb)
+  this.schema.findOne({_id: id}, cb)
   // this.schema.aggregate([{ $match: match }], cb)
 }
 

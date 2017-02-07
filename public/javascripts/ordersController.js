@@ -12,7 +12,7 @@
       ordersService.beginOrderService().then(function(data) {
         ordersService.observeOrderQueue(function(err, response) {
           ordersService.getOrdersFromResponseData(response.data, function(data) {
-            
+            $scope.orders = data;
           });
         }, 10000);
       }).catch(function(err) {
