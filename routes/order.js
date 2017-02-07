@@ -18,7 +18,6 @@ router.post('/', vr.validRequest, function(req, res) {
           responseMessage: err.message
         });
     }
-
     return res
       .status(httpCodes.SUCCESS)
       .json({
@@ -44,6 +43,24 @@ router.get('/', vr.validRequest, function(req, res) {
         orders: orders 
       });
   }); 
+});
+
+router.get('/:id', vr.validRequest, function(req, res) {
+  controller.handleGetByID(req, function(err, order) {
+    if (err) {
+      return res
+        .status(err.code)
+        .json({
+          success: false,
+          responseMessage: err.message });
+    }
+    return res
+      .status(httpCodes.SUCCESS)
+      .json({
+        success: true,
+        order: order 
+      });
+  })
 });
 
 

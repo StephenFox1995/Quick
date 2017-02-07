@@ -22,7 +22,8 @@ Order.prototype.insert = function(cb) {
     userID: this.userID,
     coordinates: this.coordinates,
     processing: this.processing,
-    status: this.status
+    status: this.status,
+    cost: this.cost
   });
 
   // Add order to database.
@@ -52,60 +53,17 @@ Order.prototype.get = function(client, cb) {
   } else {
     return cb(new Error('Unknown Client'));
   }
-  // match.status = "unprocessed" // TODO: check what client wants
-
+  match.status = "unprocessed" // TODO: check what client wants
+  console.log(clientID)
   // TODO: if client is business remove $lookup for business in pipeline.
-  this.schema.aggregate([
-    { 
-      $match: match
-    },
-    { 
-      $lookup: {
-        from: "products", 
-        localField: "productID", 
-        foreignField: "_id", 
-        as: "product"
-      },
-    },
-    { 
-      $unwind: "$product" 
-    },
-    { 
-      $lookup: {
-        from: "businesses", 
-        localField: "businessID", 
-        foreignField: "_id", 
-        as: "business"
-      },
-    },
-    { 
-      $unwind: "$business" 
-    },
-    { 
-      $project: {
-        id: "$_id",
-        _id: 0,
-        createdAt: 1,
-        product: {
-          id: "$_id",
-          businessID: 1,
-          specifiedID: 1,
-          name: 1,
-          price: 1,
-          description: 1,
-          options: 1,
-          createdAt: 1,
-        },
-        business: {
-          id: "$_id",
-          name: 1,
-          address: 1,
-          contactNumber: 1,
-          email: 1
-        }
-      },
-    }
-  ], cb);
+  this.schema.aggregate([{ $match: match }], cb);
 };
+
+Order.prototype.getByID = function(id, cb) {
+  var match = { _id: id }
+  this.schema.find({_id: id}, cb)
+  // this.schema.aggregate([{ $match: match }], cb)
+}
+
 
 module.exports = Order;

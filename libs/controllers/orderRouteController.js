@@ -15,7 +15,8 @@ var expectedRequests = {
   POST: {
     cost: util.isNumber,
     businessID: util.isValidString,
-    coordinates: util.isObject
+    coordinates: util.isObject,
+    processing: util.isNumber
   }
 };
 
@@ -47,9 +48,9 @@ controller.handlePost = function(req, cb) {
     o.userID      = userID;
     o.businessID  = order.businessID;
     o.coordinates = order.coordinates;
-    o.cost  = order.cost;
-    o.status = 'unprocessed';
-    o.processing = 700
+    o.cost        = order.cost;
+    o.status      = 'unprocessed';
+    o.processing  = order.processing
 
     // Insert the order to the database.
     o.insert(function(err, orderID) {
@@ -85,6 +86,17 @@ controller.handleGet = function(req, cb) {
   });
 };
 
+// Get an order by its id.
+controller.handleGetByID = function(req, cb) {
+  let id = req.params.id;
+  var order = new Order();
+  order.getByID(id, function(err, order) {
+    if (err) {
+      return cb(errors.serverError())
+    }
+    return cb(null, order)
+  });
+}
 
 controller.processRequestData = function(req) {
   var clientID = req.decoded.id || null;
