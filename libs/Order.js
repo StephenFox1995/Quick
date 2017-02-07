@@ -19,7 +19,10 @@ Order.prototype.insert = function(cb) {
   var order = new this.schema({
     businessID: this.businessID,
     productID: this.productID,
-    userID: this.userID
+    userID: this.userID,
+    coordinates: this.coordinates,
+    processing: this.processing,
+    status: this.status
   });
 
   // Add order to database.
@@ -39,24 +42,18 @@ Order.prototype.insert = function(cb) {
  * @param {function(err, orders)} cb - Callback function.
  */
 Order.prototype.get = function(client, cb) {
-  if (typeof client !== 'string') {
-    return cb(new Error('Client must be string'));
-  }
-  
+  let clientID = client.clientID;
+  let clientType = client.clientType;
   var match = {};
-  if (client === 'user') {
-    // Create the match for pipeline using a users id.
-    match["userID"] = new mongoose.Types.ObjectId(this.id);
-  }
-  else if(client === 'business') {
-    // Create the match for pipeline using a business id.
-    match["businessID"] = new mongoose.Types.ObjectId(this.id);
-  } 
-  else {
-    // If neither client business or user, forward on error.
+  if (clientType === 'user') {
+    match["userID"] = new mongoose.Types.ObjectId(clientID);
+  } else if(clientType === 'business') {
+    match["businessID"] = new mongoose.Types.ObjectId(clientID);
+  } else {
     return cb(new Error('Unknown Client'));
   }
-  
+  // match.status = "unprocessed" // TODO: check what client wants
+
   // TODO: if client is business remove $lookup for business in pipeline.
   this.schema.aggregate([
     { 

@@ -13,9 +13,9 @@ var controller = module.exports;
 
 var expectedRequests = {
   POST: {
+    cost: util.isNumber,
     businessID: util.isValidString,
-    location: util.isObject,
-    totalPrice: util.isNumber
+    coordinates: util.isObject
   }
 };
 
@@ -46,9 +46,11 @@ controller.handlePost = function(req, cb) {
     var o = new Order();
     o.userID      = userID;
     o.businessID  = order.businessID;
-    o.location    = order.location;
-    o.totalPrice  = order.totalPrice;
-    
+    o.coordinates = order.coordinates;
+    o.cost  = order.cost;
+    o.status = 'unprocessed';
+    o.processing = 700
+
     // Insert the order to the database.
     o.insert(function(err, orderID) {
       if (err) {
@@ -66,21 +68,32 @@ controller.handlePost = function(req, cb) {
  * @param {function(err, orderID)} cb - Callback function.
  */
 controller.handleGet = function(req, cb) {
+  var reqData = null;
+  try {
+    reqData = controller.processRequestData(req);
+  } catch (e) {
+    return cb(e.message)
+  }
+
   // Client could be a user or business.
-  var clientID = req.decoded.id || null;
-  if (!clientID) {
-    return cb(errors.notAuthorized());
-  }
-  var clientType = req.decoded.clientType || null;
-  if (!clientType) {
-    return cb(errors.notAuthorized());
-  }
   var order = new Order();
-  order.id = clientID;
-  order.get(clientType, function(err, orders) {
+  order.get(reqData, function(err, orders) {
     if (err) {
       return cb(errors.serverError());
     }
     return cb(null, orders);
   });
 };
+
+
+controller.processRequestData = function(req) {
+  var clientID = req.decoded.id || null;
+  if (!clientID) {
+    throw(new Error(errors.notAuthorized()));
+  }
+  var clientType = req.decoded.clientType || null;
+  if (!clientType) {
+    throw(new Error(errors.notAuthorized()));
+  }
+  return { clientID: clientID, clientType, clientType };
+}

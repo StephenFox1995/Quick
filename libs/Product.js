@@ -1,5 +1,3 @@
-'use strict';
-
 var 
   BusinessObject  = require('../libs/BusinessObject'),
   mongoose        = require('mongoose'),
@@ -73,7 +71,7 @@ Product.prototype.getAllProductsForBusiness = function(businessID, cb) {
       price: 1,
       description: 1,
       options: 1,
-      createdAt: 1,  
+      createdAt: 1,
     }
   }], cb); 
 };
@@ -92,6 +90,5 @@ Product.prototype.update = function (updateFields, cb) {
     product.save(cb);
   });
 };
-
 
 module.exports = Product;

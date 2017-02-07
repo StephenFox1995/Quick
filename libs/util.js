@@ -20,7 +20,7 @@ util.isValidString = function (string) {
 };
 
 util.isNumber = function(type) {
-  return type(type) === 'number';
+  return typeof(type) === 'number';
 };
 
 /**

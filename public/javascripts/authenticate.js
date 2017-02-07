@@ -1,5 +1,4 @@
 (function () {
-  'use strict';
   angular
     .module('authenticate', [
       'routes',
@@ -11,7 +10,7 @@
   AuthenticateController.inject = ['$scope', 'whereTo', 'authService', 'sessionService', 'ROUTES'];
   function AuthenticateController($scope, whereTo, authService, sessionService, ROUTES) {
     $scope.httpBody = {};
-    $scope.authenticate = function () {  
+    $scope.authenticate = function () {
       // Attempt to authenticate the user.
       authService.authenticate($scope.httpBody, function (err, data) {
         if (err) {

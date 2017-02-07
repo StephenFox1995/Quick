@@ -8,14 +8,16 @@
   function OrdersController($scope, ordersService, sessionService) {
     $scope.businessName = sessionService.getClientName();
     $scope.orders = [];
-    
-    (function beginPriorityQueue() {
-      ordersService.beginPriorityQueue()
-        .then(function(resolve, reject) {
-          ordersService.observePriorityQueue(function(err, data) {
-            console.log(data);
-          }, 10000);
-        });
+    (function () {
+      ordersService.beginOrderService().then(function(data) {
+        ordersService.observeOrderQueue(function(err, response) {
+          ordersService.getOrdersFromResponseData(response.data, function(data) {
+            
+          });
+        }, 10000);
+      }).catch(function(err) {
+        console.log("Could not begin priority queue")
+      });
     })();
   };
 })();

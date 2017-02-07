@@ -49,10 +49,9 @@ module.exports = function (mongoose) {
 
     var Order = new Schema({
       id: ObjectId,
-      productID: {
-        type: ObjectId,
-        ref: 'Product'
-      },
+      products: [],
+      processing: Number,
+      cost: Number,
       businessID: {
         type: ObjectId,
         ref: 'Business',
@@ -61,9 +60,9 @@ module.exports = function (mongoose) {
         type: ObjectId,
         ref: 'User'
       },
-      location: {
-        latitude: Number,
-        longitutde: Number
+      coordinates: {
+        lat: Number,
+        lng: Number
       },
       createdAt: { type: Date, default: Date.now },
       status: String

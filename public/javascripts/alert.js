@@ -11,7 +11,7 @@
    *  -  info
    *  -  warning
    *  -  danger
-   * 
+   *
    * @return {object} - Directive object.
    */
   function alert() {
