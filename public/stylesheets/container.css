@@ -8,15 +8,20 @@
   -webkit-box-shadow: 10px 10px 5px 0px #C9C9C9;
   -moz-box-shadow: 10px 10px 5px 0px #C9C9C9;
   box-shadow: 2px 2px 3px 0px #C9C9C9;
+  padding: 10px 10px 10px 10px;
 }
 
 .heading {
   margin-top: 2%;
-  font-family: "AvenirNext-Bold";
   letter-spacing: 1px;
   font-size: 20px;
   text-align:center;
   color: #808080;
+}
+
+.display-button {
+  float: right;
+
 }
 
 .button-wrap {

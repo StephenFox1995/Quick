@@ -1,34 +1,31 @@
-'use strict';
+const vr = require('../libs/validRequest');
+const httpCodes = require('../libs/httpCodes');
+const controller = require('../libs/controllers/orderRouteController');
+const express = require('express');
 
-var 
-  vr        = require('../libs/validRequest'),
-  httpCodes = require('../libs/httpCodes'),
-  controller = require('../libs/controllers/orderRouteController'),
-  express = require('express');
+const router = express.Router();
 
-var router = express.Router();
-
-router.post('/', vr.validRequest, function(req, res) {
-  controller.handlePost(req, function(err, orderID) {
+router.post('/', vr.validRequest, (req, res) => {
+  controller.handlePost(req, (err, orderID) => {
     if (err) {
       return res
         .status(err.code)
         .json({
           success: false,
-          responseMessage: err.message
+          responseMessage: err.message,
         });
     }
     return res
       .status(httpCodes.SUCCESS)
       .json({
         success: true,
-        order: { id: orderID } 
+        order: { id: orderID },
       });
   });
 });
 
-router.get('/', vr.validRequest, function(req, res) {
-  controller.handleGet(req, function(err, orders) {
+router.get('/', vr.validRequest, (req, res) => {
+  controller.handleGet(req, (err, orders) => {
     if (err) {
       return res
         .status(err.code)
@@ -40,13 +37,13 @@ router.get('/', vr.validRequest, function(req, res) {
       .status(httpCodes.SUCCESS)
       .json({
         success: true,
-        orders: orders 
+        orders,
       });
-  }); 
+  });
 });
 
-router.get('/:id', vr.validRequest, function(req, res) {
-  controller.handleGetByID(req, function(err, order) {
+router.get('/:id', vr.validRequest, (req, res) => {
+  controller.handleGetByID(req, (err, order) => {
     if (err) {
       return res
         .status(err.code)
@@ -58,9 +55,9 @@ router.get('/:id', vr.validRequest, function(req, res) {
       .status(httpCodes.SUCCESS)
       .json({
         success: true,
-        order: order 
+        order,
       });
-  })
+  });
 });
 
 

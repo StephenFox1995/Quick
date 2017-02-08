@@ -1,59 +1,55 @@
-'use strict';
-
-var 
-  util        = require('../util'),
-  parser      = require('../requestParser'),
-  errors      = require('../errors'),
-  Order       = require('../Order');
+const util = require('../util');
+const parser = require('../requestParser');
+const errors = require('../errors');
+const Order = require('../Order');
 
 
+const controller = module.exports;
 
-var controller = module.exports;
 
-
-var expectedRequests = {
+const expectedRequests = {
   POST: {
     cost: util.isNumber,
     businessID: util.isValidString,
     coordinates: util.isObject,
-    processing: util.isNumber
-  }
+    processing: util.isNumber,
+  },
 };
 
 /**
  * Handles a POST request on the /order endpoint.
- * 
+ *
  * @param {req} req - The request.
  * @param {function(err, orderID)} cb - Callback function.
  */
-controller.handlePost = function(req, cb) {
+controller.handlePost = (req, cb) => {
   // Grab the user id from the token.
-  var userID = req.decoded.id || null;
+  const userID = req.decoded.id || null;
   if (!userID) {
     return cb(errors.notAuthorized());
   }
   // Get the order from req body.
-  var order = req.body.order || null;
+  const order = req.body.order || null;
   if (!order) {
     return cb(errors.noObjectFound('order'));
   }
 
   // Check that there is the appropriate properties in order.
-  parser.validProperties(expectedRequests.POST, order, function(err) {
+  parser.validProperties(expectedRequests.POST, order, (err) => {
     if (err) {
       return cb(errors.invalidProperties(err.invalidProperty));
     }
 
-    var o = new Order();
-    o.userID      = userID;
-    o.businessID  = order.businessID;
+    const o = new Order();
+    o.userID = userID;
+    o.businessID = order.businessID;
     o.coordinates = order.coordinates;
-    o.cost        = order.cost;
-    o.status      = 'unprocessed';
-    o.processing  = order.processing
+    o.cost = order.cost;
+    o.status = 'unprocessed';
+    o.processing = order.processing;
 
     // Insert the order to the database.
-    o.insert(function(err, orderID) {
+    o.insert((err, orderID) => {
       if (err) {
         return cb(errors.serverError());
       }
@@ -64,21 +60,21 @@ controller.handlePost = function(req, cb) {
 
 /**
  * Handles a GET request on the /order endpoint.
- * 
+ *
  * @param {req} req - The request.
  * @param {function(err, orderID)} cb - Callback function.
  */
-controller.handleGet = function(req, cb) {
-  var reqData = null;
+controller.handleGet = (req, cb) => {
+  let reqData = null;
   try {
     reqData = controller.processRequestData(req);
   } catch (e) {
-    return cb(e.message)
+    return cb(e.message);
   }
 
   // Client could be a user or business.
-  var order = new Order();
-  order.get(reqData, function(err, orders) {
+  const order = new Order();
+  order.get(reqData, (err, orders) => {
     if (err) {
       return cb(errors.serverError());
     }
@@ -87,25 +83,25 @@ controller.handleGet = function(req, cb) {
 };
 
 // Get an order by its id.
-controller.handleGetByID = function(req, cb) {
-  let id = req.params.id;
-  var order = new Order();
-  order.getByID(id, function(err, order) {
+controller.handleGetByID = (req, cb) => {
+  const id = req.params.id;
+  const order = new Order();
+  order.getByID(id, (err, result) => {
     if (err) {
-      return cb(errors.serverError())
+      return cb(errors.serverError());
     }
-    return cb(null, order)
+    return cb(null, result);
   });
-}
+};
 
-controller.processRequestData = function(req) {
-  var clientID = req.decoded.id || null;
+controller.processRequestData = function processRequestData(req) {
+  const clientID = req.decoded.id || null;
   if (!clientID) {
-    throw(new Error(errors.notAuthorized()));
+    throw (new Error(errors.notAuthorized()));
   }
-  var clientType = req.decoded.clientType || null;
+  const clientType = req.decoded.clientType || null;
   if (!clientType) {
-    throw(new Error(errors.notAuthorized()));
+    throw (new Error(errors.notAuthorized()));
   }
-  return { clientID: clientID, clientType, clientType };
-}
+  return { clientID, clientType };
+};

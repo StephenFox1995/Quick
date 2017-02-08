@@ -59,9 +59,7 @@
           business: {
             id: sessionService.getClientID(),
             workers: [
-              { name: 'Andrew Worker', id: 'W_Andrew', multitask: 2 },
-              { name: 'Sinead Worker', id: 'W_Sinead', multitask: 2 },
-              { name: 'Stephen Worker', id: 'W_Stephen', multitask: 2 },
+              { name: 'Stephen Worker', id: 'W_Stephen', multitask: 3 },
             ],
           },
           refresh: 2000,
@@ -95,7 +93,10 @@
     }
 
     function getOrdersFromResponseData(data, callback) {
-      const orderRequestPromises = data.map(task => getOrderAndMergeWithTask(task.id, task));
+      const assignedTasks = data.state.assignedTasks;
+      const unassignedTasks = data.state.unassignedTasks;
+      const tasks = assignedTasks.concat(unassignedTasks);
+      const orderRequestPromises = tasks.map(task => getOrderAndMergeWithTask(task.id, task));
       Promise.all(orderRequestPromises).then(response => callback(response));
     }
   }

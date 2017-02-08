@@ -11,7 +11,7 @@ Order.prototype.Schema = models.Order;
  * Adds a new order to the database.
  * @param {function(err, orderID)} - Callback function.
  */
-Order.prototype.insert = (cb) => {
+Order.prototype.insert = function insert(cb) {
   const order = new this.Schema({
     businessID: this.businessID,
     productID: this.productID,
@@ -21,7 +21,6 @@ Order.prototype.insert = (cb) => {
     status: this.status,
     cost: this.cost,
   });
-
   // Add order to database.
   order.save((err, result) => cb(err, result._id));
 };
@@ -32,7 +31,7 @@ Order.prototype.insert = (cb) => {
  * @param {string} client - Either 'business' or 'user'
  * @param {function(err, orders)} cb - Callback function.
  */
-Order.prototype.get = (client, cb) => {
+Order.prototype.get = function get(client, cb) {
   const clientID = client.clientID;
   const clientType = client.clientType;
   const match = {};
@@ -48,9 +47,8 @@ Order.prototype.get = (client, cb) => {
   return this.Schema.aggregate([{ $match: match }], cb);
 };
 
-Order.prototype.getByID = (id, cb) => {
+Order.prototype.getByID = function getByID(id, cb) {
   this.Schema.findOne({ _id: id }, cb);
-  // this.Schema.aggregate([{ $match: match }], cb)
 };
 
 module.exports = Order;
