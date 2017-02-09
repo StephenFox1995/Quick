@@ -13,6 +13,7 @@
       getOrder,
       observeOrderQueue,
       getOrdersFromResponseData,
+      addEmployee
     };
     /**
      * Request an order by id.
@@ -98,6 +99,19 @@
       const tasks = assignedTasks.concat(unassignedTasks);
       const orderRequestPromises = tasks.map(task => getOrderAndMergeWithTask(task.id, task));
       Promise.all(orderRequestPromises).then(response => callback(response));
+    }
+
+
+    function addEmployee(employee) {
+      return new Promise((resolve, reject) => {
+        const dataToSend = {
+          business: {
+            id: sessionService.getClientID(),
+            workers: [employee],
+          },
+        };
+        $http.post('http://localhost:6566/addworkers', dataToSend).then(resolve, reject);
+      });
     }
   }
 })();
