@@ -7,6 +7,7 @@
     "test": "mocha"
   },
   "dependencies": {
+    "angular-visjs": "^4.16.0",
     "bcryptjs": "^2.3.0",
     "body-parser": "~1.13.2",
     "chai": "^3.5.0",

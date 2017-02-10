@@ -4,18 +4,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-
   <% include /imports/jQuery %>
   <% include /imports/angularJS %>
   <% include /imports/auth0-jwt %>
   <% include /imports/bootstrap %>
   <% include /partials/businessNavBar %>
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js"></script>
+  <script src="/javascripts/vis.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css" rel="stylesheet" type="text/css">
   <script src="/javascripts/session.js"></script>
   <script src="/javascripts/orders.js"></script>  
   <script src="/javascripts/ordersController.js"></script>
   <link href="/stylesheets/container.css" rel="stylesheet" type="text/css" />
   <link href="/stylesheets/orders.css" rel="stylesheet" type="text/css" />
+  
+  
   <title>Quick - Orders</title>
 </head>
 
@@ -23,7 +26,7 @@
   <div ng-controller="OrdersController">
   <h3 class="page-heading">{{businessName}}'s Orders</h3>
   <p class="page-heading">{{statusMessage}}</p>
-  
+
   <!--addworkers form-->
   <div class="container" ng-submit="addEmployee()">
     <button class="display-button">Hide</button>
@@ -40,6 +43,19 @@
     </form>
     <p class="page-heading">{{addEmployeeMessage}}</p>
   </div>
+
+  
+  <div class="container">
+    <div><b>Realtime data</b></div>
+    Employees needed:
+    <ul>
+      <li>13.30 - 13.35: <b>3</b></li>
+      <li>13.38 - 13.45: <b>3</b></li>
+      <li>13.50 - 14.10: <b>5</b></li>
+    </ul>
+    <vis-timeline data="data" options="options" events="events"></vis-timeline>
+  </div>
+  
 
   <div class="container" ng-repeat="order in orders">
     <div class="row">
@@ -64,4 +80,3 @@
   </div>
   </div>
 </body>
-</html>

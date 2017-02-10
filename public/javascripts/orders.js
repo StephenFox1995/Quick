@@ -2,6 +2,7 @@
   angular
     .module('orders', [
       'session',
+      'ngVis',
     ])
     .factory('ordersService', ordersService);
 
@@ -39,7 +40,7 @@
             workerID: task.assignedWorkerID,
             products: order.products,
             cost: order.cost,
-            id: order.id,
+            id: order._id,
           };
           resolve(merged);
         }).catch((err) => {
