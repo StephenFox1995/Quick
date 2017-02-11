@@ -3,8 +3,8 @@
     .module('orders')
     .controller('OrdersController', OrdersController);
 
-  OrdersController.inject = ['$scope', 'ordersService', 'sessionService', 'VisDataSet'];
-  function OrdersController($scope, ordersService, sessionService, VisDataSet) {
+  OrdersController.inject = ['$scope', 'ordersService', 'sessionService', 'VisDataSet', '$interval'];
+  function OrdersController($scope, ordersService, sessionService, VisDataSet, $interval) {
     const lScope = $scope;
     lScope.businessName = sessionService.getClientName();
     lScope.orders = [];
@@ -21,7 +21,7 @@
     };
 
     function setTimeline(orders) {
-      const timelineData = orders.map(function (order) {
+      const timelineData = orders.map((order) => {
         const content = order.workerID || 'Unassigned';
         return {
           id: order.id,
@@ -32,33 +32,43 @@
       });
       lScope.data = { items: new VisDataSet(timelineData) };
     }
+    /**
+     * Checks to see if the new data that was fetched
+     * is the exact same as the data we already have in cache.
+     */
+    function containsNewOrders(newOrders) {
+      const cachedIDs = lScope.orders.map(order => order.id);
+      const result = newOrders.filter(o => cachedIDs.indexOf(o.id) === -1);
+      return result.length > 0;
+    }
 
-    function handleQueueUpdates(err, response) {
-      ordersService.getOrdersFromResponseData(response.data, (data, error) => {
-        if (error) {
-          lScope.statusMessage = error.message;
-        } else {
-          lScope.statusMessage = 'Loaded';
-          lScope.orders = data;
-          setTimeline(data);
-        }
-      });
+    function getOrderQueue() {
+      ordersService.getOrderQueue()
+        .then((orders) => {
+          if (containsNewOrders(orders)) {
+            lScope.statusMessage = '';
+            lScope.orders = orders;
+            setTimeline(orders);
+          }
+        })
+        .catch(() => {
+          lScope.statusMessage = 'Could not load orders';
+        });
     }
 
     (function initialize() {
       ordersService.beginOrderService()
-        .then(() => {
-          ordersService.observeOrderQueue(handleQueueUpdates, 5000);
-        })
+        .then(() => { $interval(getOrderQueue, 5000); })
         .catch((err) => {
-          // Process already exists, thats ok, now fetch orders.
           if (err.status === 400) {
-            ordersService.observeOrderQueue(handleQueueUpdates, 5000);
+            $interval(getOrderQueue, 5000); // Process already exists, thats ok, now fetch orders.
           } else {
             lScope.statusMessage = 'Could not load orders';
+            lScope.$apply();
           }
         });
     }());
+
 
     lScope.addEmployee = () => {
       ordersService.addEmployee(lScope.employeeToAdd)

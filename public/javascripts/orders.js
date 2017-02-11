@@ -8,57 +8,12 @@
 
   ordersService.inject = ['$http', '$interval', 'sessionService'];
   function ordersService($http, $interval, sessionService) {
-    this.ordersCache = [];
     return {
       getOrderQueue,
       beginOrderService,
-      getOrder,
-      observeOrderQueue,
-      getOrdersFromResponseData,
       addEmployee,
-      finishOrder
+      finishOrder,
     };
-    /**
-     * Request an order by id.
-     */
-    function getOrder(id) {
-      return new Promise((resolve, reject) => {
-        $http.get(`/order/${id}`).then(resolve, reject);
-      });
-    }
-
-    /**
-     * Checks to see if the new data that was fetched
-     * is the exact same as the data we already have in cache.
-     */
-    function isUpdated(data) {
-      const cachedIDs = this.ordersCache.map(order => order.id);
-      const newIDs = data.map(order => order.id);
-    }
-
-    /**
-     * Merges order data with that of task data.
-     */
-    function getOrderAndMergeWithTask(id, task) {
-      return new Promise((resolve, reject) => {
-        getOrder(id).then((response) => {
-          const order = response.data.order;
-          const merged = {
-            createdAt: task.createdAtISO,
-            release: task.releaseISO,
-            deadline: task.deadlineISO,
-            processing: task.processing,
-            workerID: task.assignedWorkerID,
-            products: order.products,
-            cost: order.cost,
-            id: order._id,
-          };
-          resolve(merged);
-        }).catch((err) => {
-          reject(err);
-        });
-      });
-    }
 
     /**
      * Begins a new order queue worker by calling
@@ -81,6 +36,23 @@
         $http.post(url, postData).then(resolve, reject);
       });
     }
+    
+    function parseOrdersFromQueueResponse(response) {
+      const assignedTasks = response.state.assignedTasks;
+      const unassignedTasks = response.state.unassignedTasks;
+      const parse = task => ({
+        createdAt: task.createdAtISO,
+        release: task.releaseISO,
+        deadline: task.deadlineISO,
+        processing: task.processing,
+        workerID: task.assignedWorkerID,
+        products: null,
+        cost: task.profit,
+        id: task.id,
+      });
+      const orders = assignedTasks.map(parse);
+      return orders.concat(unassignedTasks.map(parse));
+    }
 
     /**
      * Gets the orders from the proactive module.
@@ -90,28 +62,10 @@
     function getOrderQueue() {
       return new Promise((resolve, reject) => {
         const url = `http://localhost:6566/tasks?id=${sessionService.getClientID()}`;
-        $http.get(url).then(resolve, reject);
+        $http.get(url).then((data) => { // parse out orders.
+          resolve(parseOrdersFromQueueResponse(data.data));
+        }).catch(() => { reject(); });
       });
-    }
-
-    /**
-     * Observes the priority queue by sending
-     * a http GET request every x second to check orders.
-     */
-    function observeOrderQueue(callback, refresh) {
-      $interval(() => {
-        getOrderQueue()
-        .then((data) => { callback(null, data); })
-        .catch(() => { callback(new Error('A network error orccured.')); });
-      }, refresh);
-    }
-
-    function getOrdersFromResponseData(data, callback) {
-      const assignedTasks = data.state.assignedTasks;
-      const unassignedTasks = data.state.unassignedTasks;
-      const tasks = assignedTasks.concat(unassignedTasks);
-      const orderRequestPromises = tasks.map(task => getOrderAndMergeWithTask(task.id, task));
-      Promise.all(orderRequestPromises).then(response => callback(response));
     }
 
     function addEmployee(employee) {
