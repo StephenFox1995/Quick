@@ -19,6 +19,7 @@
       start: Date.now(),
       end: (Date.now() + (30 * 10000)),
     };
+
     function setTimeline(orders) {
       const timelineData = orders.map(function (order) {
         const content = order.workerID || 'Unassigned';
@@ -66,6 +67,10 @@
         }).catch(() => {
           lScope.addEmployeeMessage = 'Could not add employee';
         });
+    };
+
+    lScope.finishOrder = (orderID) => {
+      ordersService.finishOrder(orderID);
     };
   }
 })();
