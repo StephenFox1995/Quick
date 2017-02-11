@@ -3,7 +3,7 @@
     .module('orders')
     .controller('OrdersController', OrdersController);
 
-  OrdersController.inject = ['$scope', 'ordersService', 'sessionService', 'vis.DataSet'];
+  OrdersController.inject = ['$scope', 'ordersService', 'sessionService', 'VisDataSet'];
   function OrdersController($scope, ordersService, sessionService, VisDataSet) {
     const lScope = $scope;
     lScope.businessName = sessionService.getClientName();
@@ -16,12 +16,15 @@
     lScope.options = {
       autoResize: true,
       rollingMode: true,
+      start: Date.now(),
+      end: (Date.now() + (30 * 10000)),
     };
     function setTimeline(orders) {
       const timelineData = orders.map(function (order) {
+        const content = order.workerID || 'Unassigned';
         return {
           id: order.id,
-          content: order.workerID,
+          content,
           start: order.release,
           end: order.deadline,
         };
@@ -40,7 +43,6 @@
         }
       });
     }
-
 
     (function initialize() {
       ordersService.beginOrderService()

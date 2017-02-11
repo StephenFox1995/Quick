@@ -51,4 +51,13 @@ Order.prototype.getByID = function getByID(id, cb) {
   this.Schema.findOne({ _id: id }, cb);
 };
 
+/**
+ * Sets the order status to processed.
+ */
+Order.prototype.finish = function finishOrder(id, cb) {
+  this.Schema.update(
+    { _id: id },
+    { $set: { status: 'processed' } }, cb);
+};
+
 module.exports = Order;

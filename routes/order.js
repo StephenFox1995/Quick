@@ -60,5 +60,24 @@ router.get('/:id', vr.validRequest, (req, res) => {
   });
 });
 
+router.post('/finish/:id', vr.validRequest, (req, res) => {
+  controller.handleFinishOrder(req, (err) => {
+    if (err) {
+      res
+      .status(err.code)
+      .json({
+        success: false,
+        responseMessage: err.message,
+      });
+    } else {
+      res
+      .status(httpCodes.SUCCESS)
+      .json({
+        success: true,
+      });
+    }
+  });
+});
+
 
 module.exports = router;

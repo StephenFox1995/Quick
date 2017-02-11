@@ -69,16 +69,17 @@ controller.handleGet = (req, cb) => {
   try {
     reqData = controller.processRequestData(req);
   } catch (e) {
-    return cb(e.message);
+    cb(e.message);
   }
 
   // Client could be a user or business.
   const order = new Order();
   order.get(reqData, (err, orders) => {
     if (err) {
-      return cb(errors.serverError());
+      cb(errors.serverError());
+    } else {
+      cb(null, orders);
     }
-    return cb(null, orders);
   });
 };
 
@@ -94,6 +95,19 @@ controller.handleGetByID = (req, cb) => {
   });
 };
 
+controller.handleFinishOrder = (req, cb) => {
+  const id = req.params.id;
+  const order = new Order();
+  order.finish(id, (err, result) => {
+    if (err) {
+      cb(errors.serverError());
+    } else {
+      cb(null, result);
+    }
+  });
+};
+
+// Process request data to look for certain attributes.
 controller.processRequestData = function processRequestData(req) {
   const clientID = req.decoded.id || null;
   if (!clientID) {

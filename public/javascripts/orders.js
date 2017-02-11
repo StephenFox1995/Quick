@@ -8,13 +8,15 @@
 
   ordersService.inject = ['$http', '$interval', 'sessionService'];
   function ordersService($http, $interval, sessionService) {
+    this.ordersCache = [];
     return {
       getOrderQueue,
       beginOrderService,
       getOrder,
       observeOrderQueue,
       getOrdersFromResponseData,
-      addEmployee
+      addEmployee,
+      finishOrder
     };
     /**
      * Request an order by id.
@@ -23,6 +25,15 @@
       return new Promise((resolve, reject) => {
         $http.get(`/order/${id}`).then(resolve, reject);
       });
+    }
+
+    /**
+     * Checks to see if the new data that was fetched
+     * is the exact same as the data we already have in cache.
+     */
+    function isUpdated(data) {
+      const cachedIDs = this.ordersCache.map(order => order.id);
+      const newIDs = data.map(order => order.id);
     }
 
     /**
@@ -61,7 +72,8 @@
           business: {
             id: sessionService.getClientID(),
             workers: [
-              { name: 'Stephen Worker', id: 'W_Stephen', multitask: 3 },
+              { name: 'Stephen Worker', id: 'W_Stephen', multitask: 2 },
+              { name: 'Stephen Worker', id: 'W_Neil', multitask: 1 },
             ],
           },
           refresh: 2000,
@@ -102,7 +114,6 @@
       Promise.all(orderRequestPromises).then(response => callback(response));
     }
 
-
     function addEmployee(employee) {
       return new Promise((resolve, reject) => {
         const dataToSend = {
@@ -112,6 +123,20 @@
           },
         };
         $http.post('http://localhost:6566/addworkers', dataToSend).then(resolve, reject);
+      });
+    }
+
+    function finishOrder(orderID) {
+      return new Promise((resolve, reject) => {
+        const dataToSend = {
+          business: {
+            id: sessionService.getClientID(),
+          },
+          taskID: orderID,
+        };
+        const removeTaskPromise = $http.post('http://localhost:6566/removetask', dataToSend);
+        const finishOrderPromise = $http.post(`/order/finish/${orderID}`);
+        Promise.all([removeTaskPromise, finishOrderPromise]).then(resolve, reject);
       });
     }
   }
