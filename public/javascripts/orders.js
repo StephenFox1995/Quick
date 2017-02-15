@@ -13,6 +13,7 @@
       beginOrderService,
       addEmployee,
       finishOrder,
+      getEmployees,
     };
 
     /**
@@ -36,7 +37,7 @@
         $http.post(url, postData).then(resolve, reject);
       });
     }
-    
+
     function parseOrdersFromQueueResponse(response) {
       const assignedTasks = response.state.assignedTasks;
       const unassignedTasks = response.state.unassignedTasks;
@@ -77,6 +78,12 @@
           },
         };
         $http.post('http://localhost:6566/addworkers', dataToSend).then(resolve, reject);
+      });
+    }
+
+    function getEmployees() {
+      return new Promise((resolve, reject) => {
+        $http.get(`http://localhost:6566/workers?id=${sessionService.getClientID()}`).then(resolve, reject);
       });
     }
 

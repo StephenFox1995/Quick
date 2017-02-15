@@ -48,7 +48,7 @@
     function signUp(endPoint, httpBody, callback) {
       $http.post(endPoint, httpBody)
         .success(function (data) {
-          verify(data) ? callback(null, data): callback(new Error(), data);
+          verify(data) ? callback(null, data) : callback(new Error(), data);
         })
         .error(function (data) {
           callback(new Error(), data);

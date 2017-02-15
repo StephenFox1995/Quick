@@ -1,6 +1,5 @@
-'use strict';
-
 var mongoose = require('mongoose');
+
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
@@ -16,7 +15,7 @@ module.exports = function (mongoose) {
       lastname: String,
       email: String,
       password: String,
-      createdAt: { type: Date, default: Date.now }
+      createdAt: { type: Date, default: Date.now },
     });
 
     var Business = new Schema({
@@ -26,7 +25,15 @@ module.exports = function (mongoose) {
       contactNumber: String,
       email: String,
       password: String,
-      createdAt: { type: Date, default: Date.now }
+      createdAt: { type: Date, default: Date.now },
+      coordinates: {
+        lat: Number,
+        lng: Number,
+      },
+      period: {
+        begin: Number,
+        end: Number,
+      },
     });
 
     var Product = new Schema({
@@ -35,15 +42,15 @@ module.exports = function (mongoose) {
       specifiedID: String,
       businessID: {
         type: ObjectId,
-        ref: 'Business'
+        ref: 'Business',
       },
       price: Number,
       description: String,
       options: [{
         name: String,
-        values: [{name: String, priceDelta: Number}]
+        values: [{ name: String, priceDelta: Number }],
       }],
-      createdAt: { type: Date, default: Date.now }
+      createdAt: { type: Date, default: Date.now },
     });
 
 
@@ -58,14 +65,14 @@ module.exports = function (mongoose) {
       },
       userID: {
         type: ObjectId,
-        ref: 'User'
+        ref: 'User',
       },
       coordinates: {
         lat: Number,
-        lng: Number
+        lng: Number,
       },
       createdAt: { type: Date, default: Date.now },
-      status: String
+      status: String,
     });
   }
   return {
@@ -75,4 +82,3 @@ module.exports = function (mongoose) {
     Order: mongoose.model('Order', Order)
   };
 };
-

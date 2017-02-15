@@ -19,13 +19,16 @@
     <input type="text" ng-model="httpBody.business.name">
     <p>Address</p>
     <input type="text" ng-model="httpBody.business.address">
+    <p>Open</p>
+    <input type="text" ng-model="httpBody.business.period.begin">
+    </p>Close</p>
+    <input type="text" ng-model="httpBody.business.period.end">
     <p>Contact Number</p>
     <input type="text" ng-model="httpBody.business.contactNumber">
     <p>Email</p>
     <input type="text" ng-model="httpBody.business.email">
     <p>Password</p>
     <input type="text" ng-model="httpBody.business.password">
-
     <button type="submit" ng-click="signUp()">Sign Up</button >
     {{message}}
 </div>

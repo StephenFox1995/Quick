@@ -1,38 +1,52 @@
-'use strict';
-
-var 
-  mongoose  = require('mongoose'),
-  models    = require('../models/mongoose/models')(mongoose),
-  hash      = require('../libs/hash');  
-
+const mongoose = require('mongoose');
+const models = require('../models/mongoose/models')(mongoose);
+const hash = require('../libs/hash');
+const util = require('../libs/util');
+const request = require('request');
 /**
  * Business object
  */
 function Business() { }
 
 
-Business.prototype.schema = models.Business;
+Business.prototype.Schema = models.Business;
 
 /**
  * Inserts a business into the database.
  * @param {function(err)} cb - Callback function.
  */
 Business.prototype.insert = function (cb) {
-  var business = new this.schema({
+  const business = new this.Schema({
     email: this.email.toLowerCase(),
     password: this.password,
     name: this.name,
     address: this.address,
-    contactNumber: this.contactNumber
+    contactNumber: this.contactNumber,
+    coordinates: null,
+    period: this.period,
   });
 
-  var me = this; // Keep context.
-  business.save(function(err, business) {
-    if (business) {
-      me.id = business._id.toHexString();
-      return cb(null);
+  // Before inserting geocode the businesses address.
+  const geocodeURL = util.geocodeURL(this.address);
+  const me = this; // Keep context.
+  request(geocodeURL, (err, response, body) => {
+    const data = JSON.parse(body);
+    if ('geometry' in data.results[0]) {
+      if ('location' in data.results[0].geometry) {
+        const coordinates = data.results[0].geometry.location;
+        business.coordinates = coordinates;
+        business.save((error, result) => {
+          if (error) {
+            cb(err);
+          } else {
+            me.id = result._id.toHexString();
+            cb(null);
+          }
+        });
+      }
+    } else {
+      cb(new Error('Invalid Address given'));
     }
-    return cb(err);
   });
 };
 
@@ -42,11 +56,11 @@ Business.prototype.insert = function (cb) {
  * @param   {function(err)} cb - Callback.
  * */
 Business.prototype.verify = function (cb) {
-  var me = this;
-  var email = this.email.toLowerCase();
-  var password = this.password;
+  const me = this;
+  const email = this.email.toLowerCase();
+  const password = this.password;
 
-  this.schema.findOne({email: email}, function(err, business) {
+  this.Schema.findOne({ email: email }, function(err, business) {
     if (err) { return cb(err); }
 
     // Assume theres no user in the database
@@ -83,18 +97,17 @@ Business.prototype.verify = function (cb) {
  * @param   {function(err)} cb - Callback function.
  */
 Business.prototype.all = function(cb) {
-  this.schema.aggregate([{
+  this.Schema.aggregate([{
     $project: {
-      id: "$_id",
+      id: '$_id',
       _id: 0,
       email: 1,
       name: 1,
       address: 1,
       contactNumber: 1,
-      createdAt: 1, 
-    }}
-  ], cb);
+      createdAt: 1,
+    },
+  }], cb);
 };
-
 
 module.exports = Business;
