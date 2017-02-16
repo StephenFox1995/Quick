@@ -51,8 +51,8 @@ module.exports = function (mongoose) {
         values: [{ name: String, priceDelta: Number }],
       }],
       createdAt: { type: Date, default: Date.now },
+      processing: Number,
     });
-
 
     var Order = new Schema({
       id: ObjectId,
@@ -73,6 +73,7 @@ module.exports = function (mongoose) {
       },
       createdAt: { type: Date, default: Date.now },
       status: String,
+      travelMode: String,
     });
   }
   return {

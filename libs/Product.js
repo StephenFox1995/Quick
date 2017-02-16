@@ -9,7 +9,7 @@ function Product() {}
 
 Product.prototype = new BusinessObject();
 Product.prototype.constructor = Product;
-Product.prototype.schema = models.Product;
+Product.prototype.Schema = models.Product;
 
 
 /**
@@ -17,18 +17,17 @@ Product.prototype.schema = models.Product;
  * @param {function(err)} cb - Callback function.
  */
 Product.prototype.insert = function (cb) {
-  var product = new this.schema({
+  const product = new this.Schema({
     specifiedID: this.specifiedID,
     businessID: this.businessID,
     name: this.name,
     price: this.price,
     description: this.description,
     options: this.options,
+    processing: this.processing,
   });
   // Save the product.
-  product.save(function(err, product) {
-    return cb(err);
-  });
+  product.save(err => cb(err));
 };
 
 /**
@@ -36,8 +35,8 @@ Product.prototype.insert = function (cb) {
  * @param {string} id - The id of the product.
  * @param {function(err, product)} - Callback function.
  */
-Product.prototype.get = function(id, cb) {
-  this.schema.findOne({_id: id}, cb);
+Product.prototype.get = function get(id, cb) {
+  this.Schema.findOne({ _id: id }, cb);
 };
 
 
@@ -45,8 +44,8 @@ Product.prototype.get = function(id, cb) {
  * Removes a product from the database.
  * @param {function(err)} cb - Callback function.
  */
-Product.prototype.remove = function(cb) {
-  this.schema.remove({_id: this.id}, cb);
+Product.prototype.remove = function remove(cb) {
+  this.Schema.remove({ _id: this.id }, cb);
 };
 
 
@@ -56,14 +55,14 @@ Product.prototype.remove = function(cb) {
  * @param {function(err, products)} cb - Callback function.
  */
 Product.prototype.getAllProductsForBusiness = function(businessID, cb) {
-  this.schema.aggregate([{
+  this.Schema.aggregate([{
     $match: {
-      businessID: new mongoose.Types.ObjectId(businessID)
-    }
+      businessID: new mongoose.Types.ObjectId(businessID),
+    },
   },
-  { 
+  {
     $project: {
-      id: "$_id",
+      id: '$_id',
       _id: 1,
       businessID: 1,
       specifiedID: 1,
@@ -72,8 +71,8 @@ Product.prototype.getAllProductsForBusiness = function(businessID, cb) {
       description: 1,
       options: 1,
       createdAt: 1,
-    }
-  }], cb); 
+    },
+  }], cb);
 };
 
 /**
@@ -82,7 +81,7 @@ Product.prototype.getAllProductsForBusiness = function(businessID, cb) {
  * @param {function(err)} cb - Callback function.
  */
 Product.prototype.update = function (updateFields, cb) {
-  this.schema.findById(this.id, function(err, product) {
+  this.Schema.findById(this.id, function(err, product) {
     // Assign all the new update fields to product and save.
     for (var i = 0; i < updateFields.length; i++) {
       product[updateFields[i].column] = updateFields[i].newValue;

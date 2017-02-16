@@ -1,32 +1,29 @@
-'use strict';
+const util = require('../util');
+const parser = require('../requestParser');
+const errors = require('../errors');
+const Product = require('../Product');
 
-var 
-  util        = require('../util'),
-  parser      = require('../requestParser'),
-  errors      = require('../errors'),
-  Product     = require('../Product');
-
-
-var controller = module.exports;
+const controller = module.exports;
 
 
 /**
  * Templates for what expected requests for /product endpoint
- * should look like. 
+ * should look like.
  */
-var expectedRequests = {
+const expectedRequests = {
   POST: {
     name: util.isValidString,
     description: util.isValidString,
     price: util.isValidString,
+    processing: util.isNumber,
   },
   PATCH: {
     id: util.isValidString,
-    updateFields: util.isArray
+    updateFields: util.isArray,
   },
   GET: {
-    id: util.isValidString
-  }
+    id: util.isValidString,
+  },
 };
 
 
@@ -36,15 +33,15 @@ var expectedRequests = {
  * @param {req} req - The request.
  * @param {function(err)} cb - Callback function.
  */
-controller.handlePost = function(req, cb) {
+controller.handlePost = (req, cb) => {
   // Get the businessID from the decoded token.
-  var businessID = req.decoded.id;
+  const businessID = req.decoded.id;
   if (!businessID) {
     return cb(errors.notAuthorized());
   }
 
   // Check the request contains a product.
-  var product = req.body.product || null;
+  const product = req.body.product || null;
   if (!product) {
     return cb(errors.noObjectFound());
   }
@@ -53,22 +50,23 @@ controller.handlePost = function(req, cb) {
   parser.validProperties(expectedRequests.POST, product, function(err) {
     if (err) {
       return cb(errors.invalidProperties(err.invalidProperty));
-    };
-    var p = new Product();
+    }
+    const p = new Product();
     p.name = product.name;
     p.description = product.description;
     p.price = product.price;
     p.businessID = businessID;
     p.options = product.options;
+    p.processing = product.processing;
     // Insert into database.
-    p.insert(function (err) {
-      if (err) { 
-        return cb(errors.serverError()); 
+    p.insert((error) => {
+      if (error) {
+        cb(errors.serverError());
+      } else {
+        cb(null);
       }
-      // Success.
-      return cb(null);
     });
-  }); 
+  });
 };
 
 /**
@@ -77,11 +75,11 @@ controller.handlePost = function(req, cb) {
  * @param {req} req - The request.
  * @param {function(err, products)} cb - Callback function.
  */
-controller.handleGet = function(req, cb) {
-  var businessID;
+controller.handleGet = (req, cb) => {
+  let businessID;
   // Check if the request is coming from a business
   // by asessing the incoming token.
-  if (typeof req.decoded !== undefined) {
+  if (typeof req.decoded !== 'undefined') {
     if (req.decoded.clientType !== 'user') {
       businessID = req.decoded.id;
     }
@@ -92,9 +90,9 @@ controller.handleGet = function(req, cb) {
   if (!businessID) {
     return cb(errors.notAuthorized());
   }
-  
-  var product = new Product();
-  product.getAllProductsForBusiness(businessID, function(err, products) {
+
+  const product = new Product();
+  product.getAllProductsForBusiness(businessID, (err, products) => {
     if (err) {
       return cb(errors.serverError());
     }
@@ -105,52 +103,49 @@ controller.handleGet = function(req, cb) {
 
 /**
  * Handles a PATCH request on the /product endpoint.
- * 
  * @param {req} req - The request.
  * @param {function(err)} cb - Callback function.
  */
-controller.handlePatch = function(req, cb) {
-  if (typeof req.body.updatedProduct === undefined) {
+controller.handlePatch = (req, cb) => {
+  if (typeof req.body.updatedProduct === 'undefined') {
     return cb(errors.noObjectFound('updatedProduct'));
   }
-  var product = req.body.updatedProduct;
+  const product = req.body.updatedProduct;
 
   // Check that the correct properties are attached to the
   // product to update.
-  parser.validProperties(expectedRequests.PATCH, product, function(err) {
+  parser.validProperties(expectedRequests.PATCH, product, (err) => {
     if (err) {
       return cb(errors.invalidProperties(err.invalidProperty));
     }
-    var p = new Product();
+    const p = new Product();
     p.id = product.id;
     // Update the product with the update fields from the request.
-    p.update(product.updateFields, function(err) {
-      if (err) {
+    p.update(product.updateFields, (error) => {
+      if (error) {
         return cb(errors.serverError());
       }
       return cb(null);
     });
   });
-
 };
 
 /**
  * Handles a DELETE request on the /product/:productID endpoint.
- * 
  * @param {req} req - The request.
  * @param {function(err)} cb - Callback function.
  */
-controller.handleDelete = function(req, cb) {
+controller.handleDelete = (req, cb) => {
   // Get the product id from the request url.
-  if (typeof req.params.productID === undefined) {
+  if (typeof req.params.productID === 'undefined') {
     return cb(errors.missingParam('productID'));
   }
-  
-  var productID = req.params.productID;
+
+  const productID = req.params.productID;
   // Delete the product.
-  var product = new Product();
+  const product = new Product();
   product.id = productID;
-  product.remove(function(err) {
+  product.remove((err) => {
     if (err) {
       return cb(errors.serverError());
     }

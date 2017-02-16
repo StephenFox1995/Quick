@@ -60,7 +60,7 @@ Business.prototype.verify = function (cb) {
   const email = this.email.toLowerCase();
   const password = this.password;
 
-  this.Schema.findOne({ email: email }, function(err, business) {
+  this.Schema.findOne({ email }, function(err, business) {
     if (err) { return cb(err); }
 
     // Assume theres no user in the database
@@ -70,7 +70,6 @@ Business.prototype.verify = function (cb) {
     if (!business || !('password' in business)) {
       return cb(null, false);
     }
-    
     // Compare hashed and plaintext password.
     hash.compare(password, business.password, function(err, verified) {
       // Remove password from the business object.

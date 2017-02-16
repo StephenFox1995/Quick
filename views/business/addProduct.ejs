@@ -54,6 +54,11 @@
           <div class="col-sm-10">
             <input type="text" class="form-control bottom-space" id="inputName" placeholder="Name" ng-model="product.name" required>
           </div>
+          <!--processing-->
+          <label for="processing" class="col-sm-2 control-label">Processing Time (minutes)</label>
+          <div class="col-sm-10">
+            <input type="number" step="1.0" class="form-control bottom-space" id="inputProcessing" placeholder="Processing" ng-model="product.processing" required>
+          </div>
           <!--description-->
           <label for="description" class="col-sm-2 control-label">Description</label>
           <div class="col-sm-10">
@@ -70,8 +75,6 @@
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{value}} <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   <li drop-item id="Euro €"><a href="">Euro € </a></li>
-                  <li drop-item id="US Dollar $"><a href="">US Dollar $ </a></li>
-                  <li drop-item id="British Sterling £"><a href="">British Sterling £</a></li>
                 </ul>
               </div>
               <input type="number" step="0.01" class="form-control bottom-space" aria-label="..." ng-model="product.price" valid-number required />

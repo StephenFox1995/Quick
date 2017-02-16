@@ -8,7 +8,7 @@
       'alert',
     ])
     .controller('ProductsController', ProductsController);
-  
+
   ProductsController.inject = ['$scope', 'productsService', 'sessionService'];
   function ProductsController($scope, productsService, sessionService) {
     $scope.products = [];

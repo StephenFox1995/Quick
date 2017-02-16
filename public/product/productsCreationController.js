@@ -1,43 +1,41 @@
-(function () {
-  'use strict';
+(() => {
   angular.module('products')
   .controller('ProductsCreationController', ProductsCreationController);
 
-  
   /**
    * ProductsCreationController is the default controller
    * for creating Products.
    */
-  ProductsCreationController.inject = ['$scope', 'productsService', 'sessionService', 'Product'];
-  function ProductsCreationController($scope, productsService, sessionService, Product) {
-    $scope.product = {
-      options: []
+  ProductsCreationController.inject = ['$scope', 'productsService', 'sessionService'];
+  function ProductsCreationController($scope, productsService, sessionService) {
+    const lScope = $scope;
+    lScope.product = {
+      options: [],
     };
-    $scope.httpBody = {
-      product: {}
+    lScope.httpBody = {
+      product: {},
     };
-    $scope.showAlert = false;
-
-    $scope.addProduct = function () {
+    lScope.showAlert = false;
+    lScope.addProduct = () => {
       // Get the business id.
-      var businessID = sessionService.getClientID();
-      $scope.product.businessID = businessID;
+      const businessID = sessionService.getClientID();
+      lScope.product.businessID = businessID;
+      lScope.product.processing *= 60;
       // Get copy of product.
-      angular.copy($scope.product, $scope.httpBody.product);
-      
-      //TODO:  Perform checks on scope.
-      productsService.addProduct($scope.httpBody, function (err, callback) {
+      angular.copy(lScope.product, lScope.httpBody.product);
+
+      productsService.addProduct(lScope.httpBody, (err) => {
         if (err) {
-          $scope.showAlert = true;
-          $scope.alertStyle = 'danger';
-          $scope.alertTitle = 'Error';
-          $scope.alertMessage = 'There was a problem trying to add the product, please try again.';
+          lScope.showAlert = true;
+          lScope.alertStyle = 'danger';
+          lScope.alertTitle = 'Error';
+          lScope.alertMessage = 'There was a problem trying to add the product, please try again.';
           return;
         }
-        $scope.showAlert = true;
-        $scope.alertStyle = 'success';
-        $scope.alertTitle = 'Success';
-        $scope.alertMessage = 'Product was added!';
+        lScope.showAlert = true;
+        lScope.alertStyle = 'success';
+        lScope.alertTitle = 'Success';
+        lScope.alertMessage = 'Product was added!';
       });
     };
   }
