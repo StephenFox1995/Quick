@@ -65,6 +65,7 @@ Product.prototype.getAllProductsForBusiness = function(businessID, cb) {
       id: '$_id',
       _id: 1,
       businessID: 1,
+      processing: 1,
       specifiedID: 1,
       name: 1,
       price: 1,

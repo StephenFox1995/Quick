@@ -20,6 +20,7 @@ Order.prototype.insert = function insert(cb) {
     processing: this.processing,
     status: this.status,
     cost: this.cost,
+    travelMode: this.travelMode,
   });
   // Add order to database.
   order.save((err, result) => cb(err, result._id));

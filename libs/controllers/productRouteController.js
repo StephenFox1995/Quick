@@ -29,7 +29,7 @@ const expectedRequests = {
 
 /**
  * Handles a POST request on the /product endpoint.
- * 
+
  * @param {req} req - The request.
  * @param {function(err)} cb - Callback function.
  */

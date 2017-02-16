@@ -47,6 +47,7 @@ controller.handlePost = (req, cb) => {
     o.cost = order.cost;
     o.status = 'unprocessed';
     o.processing = order.processing;
+    o.travelMode = order.travelMode;
 
     // Insert the order to the database.
     o.insert((err, orderID) => {
