@@ -47,7 +47,7 @@
         deadline: task.deadlineISO,
         processing: task.processing,
         workerID: task.assignedWorkerID,
-        products: null,
+        products: task.data,
         cost: task.profit,
         id: task.id,
       });

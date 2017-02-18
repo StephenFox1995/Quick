@@ -68,15 +68,27 @@
     </div>
     <hr> 
     <div class="row" >
-      <div class="col-md-12 col-xs-12"><b>Product:</b> {{order.product.name}}</div>
+      <div class="col-md-12 col-xs-12" ng-repeat="product in order.products">
+        <b>Product:</b> {{product.product.name}}
+        <ul>
+          <li ng-repeat="option in product.product.options">
+            <b>{{option.name}}: </b>
+            <ul>
+              <li ng-repeat="value in option.values">
+                {{value.name}}
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
     <hr>
     <div class="row">
-      <div class="col-md-12 col-xs-12">Cost: <b>€{{order.cost}}</b></div>
-      <div class="col-md-12 col-xs-12"><b>Created</b>{{order.createdAt}}</div>
-      <div class="col-md-12 col-xs-12"><b>Release:</b>{{order.release}}</div>
-      <div class="col-md-12 col-xs-12"><b>Deadline:</b>{{order.deadline}}</div>
-      <div class="col-md-12 col-xs-12"><b>Assigned To:</b>{{order.workerID}}</div>
+      <div class="col-md-12 col-xs-12"><b>Cost: </b>€{{order.cost}} </div>
+      <div class="col-md-12 col-xs-12"><b>Created: </b>{{order.createdAt | date:'medium'}}</div>
+      <div class="col-md-12 col-xs-12"><b>Release: </b>{{order.release | date:'medium'}}</div>
+      <div class="col-md-12 col-xs-12"><b>Deadline: </b>{{order.deadline | date:'medium'}}</div>
+      <div class="col-md-12 col-xs-12"><b>Assigned To: </b>{{order.workerID}}</div>
     </div>
     <hr>
     <div class="row pull-right btns">
