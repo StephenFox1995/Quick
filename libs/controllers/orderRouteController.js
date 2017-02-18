@@ -13,6 +13,7 @@ const expectedRequests = {
     businessID: util.isValidString,
     coordinates: util.isObject,
     processing: util.isNumber,
+    products: util.isObject,
   },
 };
 
@@ -48,6 +49,7 @@ controller.handlePost = (req, cb) => {
     o.status = 'unprocessed';
     o.processing = order.processing;
     o.travelMode = order.travelMode;
+    o.products = order.products;
 
     // Insert the order to the database.
     o.insert((err, orderID) => {

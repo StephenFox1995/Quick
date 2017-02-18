@@ -14,7 +14,7 @@ Order.prototype.Schema = models.Order;
 Order.prototype.insert = function insert(cb) {
   const order = new this.Schema({
     businessID: this.businessID,
-    productID: this.productID,
+    products: this.products,
     userID: this.userID,
     coordinates: this.coordinates,
     processing: this.processing,
