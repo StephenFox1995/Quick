@@ -56,12 +56,14 @@
 
     function monitorQueue() {
       ordersService.getOrderQueue()
-        .then((orders) => {
+        .then((data) => {
           if (lScope.ignoreNewOrdersCheck) {
-            setOrders(orders);
+            setOrders(data.orders);
             lScope.ignoreNewOrdersCheck = false;
-          } else if (containsNewOrders(orders)) {
-            setOrders(orders);
+            lScope.utilization = data.utilization;
+          } else if (containsNewOrders(data.orders)) {
+            setOrders(data.orders);
+            lScope.utilization = data.utilization;
           }
         })
         .catch(() => {

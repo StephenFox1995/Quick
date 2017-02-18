@@ -55,6 +55,10 @@
       return orders.concat(unassignedTasks.map(parse));
     }
 
+    function parseUtlizationFromQueueResponse(response) {
+      return response.state.conflicts.utilization.conflicts;
+    }
+
     /**
      * Gets the orders from the proactive module.
      * These orders are expected to be ordered correctly
@@ -64,7 +68,11 @@
       return new Promise((resolve, reject) => {
         const url = `http://localhost:6566/tasks?id=${sessionService.getClientID()}`;
         $http.get(url).then((data) => { // parse out orders.
-          resolve(parseOrdersFromQueueResponse(data.data));
+          const parsed = {
+            orders: parseOrdersFromQueueResponse(data.data),
+            utilization: parseUtlizationFromQueueResponse(data.data),
+          };
+          resolve(parsed);
         }).catch(() => { reject(); });
       });
     }

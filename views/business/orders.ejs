@@ -45,20 +45,18 @@
     
     <div class="col-lg-3 col-md-5 col-xs-12 employee-list">
       <b>Current Employees</b>
-      <ul ng-repeat="employee in employees" >
-        <li>{{employee.id}}</li>
+      <ul>
+        <li ng-repeat="employee in employees">{{employee.id}}</li>
       </ul>
     </div>
   </div>
 
   
-  <div class="container">
+  <div class="container" >
     <div><b>Realtime data</b></div>
     Employees needed:
     <ul>
-      <li>13.30 - 13.35: <b>3</b></li>
-      <li>13.38 - 13.45: <b>3</b></li>
-      <li>13.50 - 14.10: <b>5</b></li>
+      <li ng-repeat="util in utilization">{{util.begin | date:'medium'}} - {{util.end | date:'medium'}} <b>{{util.workersNeeded}}</b></li>
     </ul>
     <vis-timeline data="data" options="options" events="events"></vis-timeline>
   </div>
