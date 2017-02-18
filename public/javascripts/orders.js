@@ -28,8 +28,8 @@
           business: {
             id: sessionService.getClientID(),
             workers: [
-              { name: 'Stephen Worker', id: 'W_Stephen', multitask: 2 },
-              { name: 'Stephen Worker', id: 'W_Neil', multitask: 1 },
+              { name: 'Stephen Worker', id: 'W_Stephen', multitask: 2, begin: '09.30', end: '18.30' },
+              { name: 'Stephen Worker', id: 'W_Neil', multitask: 1, begin: '13.30', end: '18.30' },
             ],
           },
           refresh: 2000,

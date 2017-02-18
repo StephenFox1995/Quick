@@ -56,7 +56,24 @@
     <div><b>Realtime data</b></div>
     Employees needed:
     <ul>
-      <li ng-repeat="util in utilization">{{util.begin | date:'medium'}} - {{util.end | date:'medium'}} <b>{{util.workersNeeded}}</b></li>
+      <li ng-repeat="util in utilization">
+        {{util.begin | date:'mediumTime'}} - {{util.end | date:'mediumTime'}} <b>{{util.workersNeeded}}
+        <div ng-if="util.status == 'warning'">
+          <div style="color: red">
+          </b> status: {{util.status}} availableEmployess: {{util.availableWorkers}}
+          </div>
+        </div ng-if>
+        <div ng-if="util.status == 'busy'">
+          <div style="color: yellow">
+          </b> status: {{util.status}} availableEmployess: {{util.availableWorkers}}
+        </div>
+        </div ng-if>
+        <div ng-if="util.status == 'ok'">
+          <div style="color: green">
+          </b> status: {{util.status}} availableEmployess: {{util.availableWorkers}}
+        </div>
+        </div ng-if>
+        </li>
     </ul>
     <vis-timeline data="data" options="options" events="events"></vis-timeline>
   </div>
@@ -66,7 +83,7 @@
     <div class="row">
       <div class="col-lg-12 col-md-12 col-xs-12">Order: {{order.id}}</div>
     </div>
-    <hr> 
+    <hr>
     <div class="row" >
       <div class="col-md-12 col-xs-12" ng-repeat="product in order.products">
         <b>Product:</b> {{product.product.name}}
@@ -85,9 +102,9 @@
     <hr>
     <div class="row">
       <div class="col-md-12 col-xs-12"><b>Cost: </b>€{{order.cost}} </div>
-      <div class="col-md-12 col-xs-12"><b>Created: </b>{{order.createdAt | date:'medium'}}</div>
-      <div class="col-md-12 col-xs-12"><b>Release: </b>{{order.release | date:'medium'}}</div>
-      <div class="col-md-12 col-xs-12"><b>Deadline: </b>{{order.deadline | date:'medium'}}</div>
+      <div class="col-md-12 col-xs-12"><b>Created: </b>{{order.createdAt | date:'mediumTime'}}</div>
+      <div class="col-md-12 col-xs-12"><b>Release: </b>{{order.release | date:'mediumTime'}}</div>
+      <div class="col-md-12 col-xs-12"><b>Deadline: </b>{{order.deadline | date:'mediumTime'}}</div>
       <div class="col-md-12 col-xs-12"><b>Assigned To: </b>{{order.workerID}}</div>
     </div>
     <hr>
