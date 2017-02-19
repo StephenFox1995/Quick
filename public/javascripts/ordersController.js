@@ -61,9 +61,11 @@
             setOrders(data.orders);
             lScope.ignoreNewOrdersCheck = false;
             lScope.utilization = data.utilization;
+            console.log('shud1');
           } else if (containsNewOrders(data.orders)) {
             setOrders(data.orders);
             lScope.utilization = data.utilization;
+            console.log('shud2');
           }
         })
         .catch(() => {
