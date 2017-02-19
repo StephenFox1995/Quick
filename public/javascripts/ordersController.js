@@ -9,12 +9,11 @@
     lScope.businessName = sessionService.getClientName();
     lScope.orders = [];
     lScope.employeeToAdd = {};
-    lScope.statusMessage = 'Loading orders...';
+    lScope.statusMessage = '';
     lScope.addEmployeeMessage = '';
     lScope.timelineData = [];
     lScope.employees = [];
     lScope.ignoreNewOrdersCheck = false;
-    lScope.data = { items: new VisDataSet(lScope.timelineData) };
     lScope.options = {
       autoResize: true,
       rollingMode: true,
@@ -61,11 +60,9 @@
             setOrders(data.orders);
             lScope.ignoreNewOrdersCheck = false;
             lScope.utilization = data.utilization;
-            console.log('shud1');
           } else if (containsNewOrders(data.orders)) {
             setOrders(data.orders);
             lScope.utilization = data.utilization;
-            console.log('shud2');
           }
         })
         .catch(() => {
@@ -81,20 +78,34 @@
         });
     }
 
-    (function initialize() {
-      ordersService.beginOrderService()
-        .then(() => { $interval(monitorQueue, 1000); })
-        .catch((err) => {
-          if (err.status === 400) {
-            $interval(monitorQueue, 1000); // Process already exists, thats ok, now fetch orders.
-          } else {
-            lScope.statusMessage = 'Could not load orders';
-            lScope.$apply();
-          }
-        });
-    }());
+    // Begins the service to monitor orders.
+    lScope.begin = (multitask) => {
+      // first check local storage if a task has already begun.
+      if (localStorage.getItem('serviceStarted') === 'true') {
+        $interval(monitorQueue, 1000);
+      } else {
+        ordersService.beginOrderService(multitask)
+          .then(() => {
+            localStorage.setItem('serviceStarted', true);
+            localStorage.setItem('multitask', multitask);
+            lScope.statusMessage = 'Loaded';
+            $interval(monitorQueue, 1000);
+          })
+          .catch((err) => {
+            if (err.status === 400) {
+              $interval(monitorQueue, 1000); // Process already exists, thats ok, now fetch orders.
+            } else {
+              lScope.statusMessage = 'Could not load orders';
+              lScope.$apply();
+            }
+          });
+      }
+    };
 
+
+    // Adds an employee to start handling tasks.
     lScope.addEmployee = () => {
+      lScope.employeeToAdd.multitask = localStorage.getItem('multitask');
       ordersService.addEmployee(lScope.employeeToAdd)
         .then(() => {
           lScope.ignoreNewOrdersCheck = true;
@@ -108,5 +119,11 @@
       ordersService.finishOrder(orderID);
       lScope.ignoreNewOrdersCheck = true;
     };
+
+    (() => {
+      if (localStorage.getItem('serviceStarted') === 'true') {
+        $interval(monitorQueue, 1000);
+      }
+    })();
   }
 })();

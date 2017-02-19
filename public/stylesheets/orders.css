@@ -11,9 +11,6 @@
   margin-left: 15px;
 }
 
-.warning > td {
-  color: #FF7575
-}
-.tr-busy > td {
-  color: #FF7575
+.begin {
+  margin-top: 2%;
 }

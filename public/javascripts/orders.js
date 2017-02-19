@@ -16,21 +16,23 @@
       getEmployees,
     };
 
+    // Creates a new employee object.
+    function worker(name, id, multitask, begin, end) {
+      return { name, id, multitask, end };
+    }
+
     /**
      * Begins a new order queue worker by calling
      * the proactive module. This will monitor the orders
      * for the current business.
      */
-    function beginOrderService() {
+    function beginOrderService(multitask) {
       return new Promise((resolve, reject) => {
         const url = 'http://localhost:6566/beginservice';
         const postData = {
           business: {
             id: sessionService.getClientID(),
-            workers: [
-              { name: 'Stephen Worker', id: 'W_Stephen', multitask: 2, begin: '09.30', end: '18.30' },
-              { name: 'Stephen Worker', id: 'W_Neil', multitask: 2, begin: '13.30', end: '18.30' },
-            ],
+            multitask,
           },
           refresh: 2000,
         };
