@@ -1,20 +1,20 @@
-var 
-  express           = require('express'),
-  path              = require('path'),
-  logger            = require('morgan'),
-  cookieParser      = require('cookie-parser'),
-  bodyParser        = require('body-parser'),
-  routes            = require('./routes/index'),
-  user              = require('./routes/user'),
-  business          = require('./routes/business'),
-  product           = require('./routes/product'),
-  order             = require('./routes/order'),
-  auth              = require('./routes/authenticate'),
-  views             = require('./routes/views'),
-  config            = require('./config/runConfig'),
-  assert            = require('assert');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const routes = require('./routes/index');
+const user = require('./routes/user');
+const business = require('./routes/business');
+const product = require('./routes/product');
+const order = require('./routes/order');
+const prediction = require('./routes/prediction');
+const auth = require('./routes/authenticate');
+const views = require('./routes/views');
+const config = require('./config/runConfig');
+const assert = require('assert');
 
-var app = express();
+const app = express();
 
 
 
@@ -23,14 +23,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-/***********************
+/* **********************
  *  ROUTES
  ***********************/
 app.use('/', routes);
@@ -40,6 +40,7 @@ app.use('/user', user);
 app.use('/business', business);
 app.use('/product', product);
 app.use('/order', order);
+app.use('/prediction', prediction);
 
 
 /**

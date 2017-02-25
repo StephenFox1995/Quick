@@ -30,7 +30,9 @@ router.get('/orders', function (req, res) {
 router.get('/products', function (req, res) {
   return res.render('business/products');
 });
-
+router.get('/prediction', function (req, res) {
+  return res.render('business/prediction');
+});
 
 
 // ******************Developer******************
