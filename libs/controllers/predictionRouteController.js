@@ -12,8 +12,8 @@ controller.handleOrderPrediction = (req, cb) => {
   prediction.getOrderPrediction(businessID, cb);
 };
 
-controller.handleOrderPredictionForNextHour = (req, cb) => {
+controller.handleOrderPredictionCurrentHour = (req, cb) => {
   const businessID = req.params.id;
   const prediction = new Prediction();
-  prediction.getOrderPredictionNextHour(businessID, cb);
+  prediction.getOrderPredictionCurrentHour(businessID, cb);
 };

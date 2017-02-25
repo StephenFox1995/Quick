@@ -3,8 +3,8 @@
     .module('orders')
     .controller('OrdersController', OrdersController);
 
-  OrdersController.inject = ['$scope', 'ordersService', 'sessionService', 'VisDataSet', '$interval'];
-  function OrdersController($scope, ordersService, sessionService, VisDataSet, $interval) {
+  OrdersController.inject = ['$scope', 'ordersService', 'sessionService', 'VisDataSet', '$interval', 'predictionService'];
+  function OrdersController($scope, ordersService, sessionService, VisDataSet, $interval, predictionService) {
     const lScope = $scope;
     lScope.businessName = sessionService.getClientName();
     lScope.orders = [];
@@ -75,6 +75,14 @@
         })
         .catch(() => {
           lScope.statusMessage = 'Could not load employees';
+        });
+      
+      predictionService.orderPredictionCurrentHour()
+        .then((response) => {
+          lScope.expectedOrders = response.data.predictions.data[0].data.prediction
+        })
+        .catch(() => {
+
         });
     }
 

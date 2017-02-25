@@ -17,13 +17,13 @@ router.get('/order/business/:id', (req, res) => {
       .status(httpCodes.SUCCESS)
       .json({
         success: true,
-        predictions: result ,
+        predictions: result,
       });
   });
 });
 
-router.get('/order/business/:id/nexthour', (req, res) => {
-  controller.handleOrderPredictionForNextHour(req, (err, data) => {
+router.get('/order/business/:id/currenthour', (req, res) => {
+  controller.handleOrderPredictionCurrentHour(req, (err, data) => {
     if (err) {
       return res
         .status(err.code)

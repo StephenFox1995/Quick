@@ -13,6 +13,7 @@
   <script src="/javascripts/vis.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css" rel="stylesheet" type="text/css">
   <script src="/javascripts/session.js"></script>
+  <script src="/javascripts/prediction.js"></script>
   <script src="/javascripts/orders.js"></script>
   <script src="/javascripts/ordersController.js"></script>
   <link href="/stylesheets/container.css" rel="stylesheet" type="text/css" />
@@ -79,7 +80,8 @@
 
   
   <div class="container" >
-    <div><b>Realtime data</b></div>    
+    <div><b>Realtime data</b></div>  
+    <p>Expected orders for this hour: {{expectedOrders}}</p>
     <table class="table table-bordered">
       <thead>
         <tr>

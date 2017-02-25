@@ -7,7 +7,11 @@ angular
 
 predictionService.inject = ['$http', 'sessionService'];
 function predictionService($http, sessionService) {
-  return { orderPredictionDataForBusiness, transformPredictionData };
+  return { 
+    orderPredictionDataForBusiness, 
+    transformPredictionData,
+    orderPredictionCurrentHour,
+  };
   /**
    * Gets the prediction data for a business.
    */
@@ -24,6 +28,13 @@ function predictionService($http, sessionService) {
   function transformPredictionData(data) {
     return data.map((record) => { 
       return { x: record.timestamp, y: parseFloat(record.prediction) } 
+    });
+  }
+
+  function orderPredictionCurrentHour() {
+    return new Promise((resolve, reject) => {
+      const url = `/prediction/order/business/${sessionService.getClientID()}/currenthour`;
+      $http.get(url).then(resolve, reject);
     });
   }
 }

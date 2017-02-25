@@ -3,6 +3,7 @@
     .module('orders', [
       'session',
       'ngVis',
+      'prediction'
     ])
     .factory('ordersService', ordersService);
 

@@ -11,7 +11,7 @@ Prediction.prototype.getOrderPrediction = function getOrderPrediction(id, cb) {
   this.Schema.findOne({ "businessID": new mongoose.Types.ObjectId(id) }, cb);
 };
 
-Prediction.prototype.getOrderPredictionNextHour = function (id, cb) {
+Prediction.prototype.getOrderPredictionCurrentHour = function (id, cb) {
   this.Schema.aggregate([
     { $unwind: "$data" },
     { $match: {
