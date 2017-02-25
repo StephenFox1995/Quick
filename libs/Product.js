@@ -1,7 +1,6 @@
-var 
-  BusinessObject  = require('../libs/BusinessObject'),
-  mongoose        = require('mongoose'),
-  models          = require('../models/mongoose/models')(mongoose);
+const BusinessObject = require('../libs/BusinessObject');
+const mongoose = require('mongoose');
+const models = require('../models/mongoose/models')(mongoose);
 
 
 

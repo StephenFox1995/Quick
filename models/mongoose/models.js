@@ -75,11 +75,13 @@ module.exports = function (mongoose) {
       status: String,
       travelMode: String,
     });
+    var Prediction = new Schema({});
   }
   return {
     User: mongoose.model('User', User),
     Business: mongoose.model('Business', Business),
     Product: mongoose.model('Product', Product),
-    Order: mongoose.model('Order', Order)
+    Order: mongoose.model('Order', Order),
+    Prediction: mongoose.model('Prediction', Prediction)
   };
 };

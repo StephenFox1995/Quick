@@ -4,7 +4,7 @@ const router = express.Router();
 const httpCodes = require('../libs/httpCodes');
 
 router.get('/order/business/:id', (req, res) => {
-  controller.handleOrderPrediction(req, (err, data) => {
+  controller.handleOrderPrediction(req, (err, result) => {
     if (err) {
       return res
         .status(err.code)
@@ -17,7 +17,26 @@ router.get('/order/business/:id', (req, res) => {
       .status(httpCodes.SUCCESS)
       .json({
         success: true,
-        prediction: { data: data },
+        predictions: result ,
+      });
+  });
+});
+
+router.get('/order/business/:id/nexthour', (req, res) => {
+  controller.handleOrderPredictionForNextHour(req, (err, data) => {
+    if (err) {
+      return res
+        .status(err.code)
+        .json({
+          success: false,
+          responseMessage: err.message
+        });
+    }
+    return res
+      .status(httpCodes.SUCCESS)
+      .json({
+        success: true,
+        predictions: { data: data },
       });
   });
 });
