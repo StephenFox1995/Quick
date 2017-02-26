@@ -15,6 +15,7 @@
       addEmployee,
       finishOrder,
       getEmployees,
+      removeEmployee,
     };
 
     // Creates a new employee object.
@@ -95,6 +96,13 @@
     function getEmployees() {
       return new Promise((resolve, reject) => {
         $http.get(`http://localhost:6566/workers?id=${sessionService.getClientID()}`).then(resolve, reject);
+      });
+    }
+
+    function removeEmployee(employeeID) {
+      return new Promise((resolve, reject) => {
+        $http.delete(`http://localhost:6566/workers?id=${sessionService.getClientID()}&workerID=${employeeID}`)
+          .then(resolve, reject);
       });
     }
 

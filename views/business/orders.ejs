@@ -44,6 +44,7 @@
         <table class="table table-bordered">
           <thead>
             <tr>
+              <th>Remove </th>
               <th>ID </th>
               <th>Shift </th>
               <th>Assigned</th>
@@ -51,6 +52,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="employee in employees">
+              <td><button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="removeEmployee(employee.id)">Remove</button></td>
               <td>{{employee.id}} </td>
               <td>{{employee.begin | date:'mediumTime'}} - {{employee.end | date:'mediumTime'}} </td>
               <td>{{employee.assignedTasks}} </td>

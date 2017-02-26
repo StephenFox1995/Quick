@@ -123,10 +123,15 @@
         });
     };
 
+    lScope.removeEmployee = (employeeID) => {
+      ordersService.removeEmployee(employeeID);
+    }
+    
     lScope.finishOrder = (orderID) => {
       ordersService.finishOrder(orderID);
       lScope.ignoreNewOrdersCheck = true;
     };
+
 
     (() => {
       if (localStorage.getItem('serviceStarted') === 'true') {

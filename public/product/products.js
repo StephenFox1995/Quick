@@ -100,9 +100,10 @@
                                        product.name, 
                                        product.price, 
                                        product.businessID, 
-                                       product.specifiedID, 
+                                       product.specifiedID,
                                        options, 
-                                       product.description, 
+                                       product.description,
+                                       product.processing,
                                        product.createdAt);
           products.push(newProduct);  
           if (index === data.products.length - 1) {

@@ -10,10 +10,13 @@ function PredictionController($scope, predictionService, VisDataSet, sessionServ
       .then(data => {
         const graphData = 
           predictionService.transformPredictionData(data.data.predictions.data);
+        
         $scope.data = { items: new vis.DataSet(graphData) };
         $scope.options = {
-          dataAxis: { showMinorLabels: false },
-          legend: { left: { position: "bottom-left" } },
+          style: 'bar',
+          barChart: { width: 500, align:'right', sideBySide:true },
+          drawPoints: false,
+          legend: { left: { position: "top-left" } },
           start: graphData[0].x,
           end: graphData[graphData.length - 1].x,
         };
