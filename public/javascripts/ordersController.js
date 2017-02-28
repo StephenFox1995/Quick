@@ -127,8 +127,8 @@
       ordersService.removeEmployee(employeeID);
     }
     
-    lScope.finishOrder = (orderID) => {
-      ordersService.finishOrder(orderID);
+    lScope.finishOrder = (order) => {
+      ordersService.finishOrder(order);
       lScope.ignoreNewOrdersCheck = true;
     };
 

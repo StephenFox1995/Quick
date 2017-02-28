@@ -74,6 +74,9 @@ module.exports = function (mongoose) {
       createdAt: { type: Date, default: Date.now },
       status: String,
       travelMode: String,
+      release: Date,
+      deadline: Date,
+      finish: Date,
     });
     var Prediction = new Schema({});
   }

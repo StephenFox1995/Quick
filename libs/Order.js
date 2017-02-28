@@ -6,6 +6,17 @@ function Order() {}
 Order.prototype = new BusinessObject();
 Order.prototype.constructor = Order;
 Order.prototype.Schema = models.Order;
+Order.prototype.businessID = null;
+Order.prototype.products = null;
+Order.prototype.userID = null;
+Order.prototype.coordinates = null;
+Order.prototype.processing = null;
+Order.prototype.status = null;
+Order.prototype.cost = null;
+Order.prototype.travelMode = null;
+Order.prototype.release = null;
+Order.prototype.deadline = null;
+Order.prototype.finishTime = null;
 
 /**
  * Adds a new order to the database.
@@ -21,6 +32,9 @@ Order.prototype.insert = function insert(cb) {
     status: this.status,
     cost: this.cost,
     travelMode: this.travelMode,
+    release: null,
+    deadline: null,
+    finish: null,
   });
   // Add order to database.
   order.save((err, result) => cb(err, result._id));
@@ -58,7 +72,12 @@ Order.prototype.getByID = function getByID(id, cb) {
 Order.prototype.finish = function finishOrder(id, cb) {
   this.Schema.update(
     { _id: id },
-    { $set: { status: 'processed' } }, cb);
+    { $set: { 
+      status: 'processed',
+      deadline: this.deadline,
+      release: this.release,
+      finish: this.finishTime,
+    } }, cb);
 };
 
 module.exports = Order;

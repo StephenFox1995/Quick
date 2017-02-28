@@ -106,16 +106,17 @@
       });
     }
 
-    function finishOrder(orderID) {
+    function finishOrder(order) {
       return new Promise((resolve, reject) => {
-        const dataToSend = {
+        const dataToSendToQueue = {
           business: {
             id: sessionService.getClientID(),
           },
-          taskID: orderID,
+          taskID: order.id,
         };
-        const removeTaskPromise = $http.post('http://localhost:6566/removetask', dataToSend);
-        const finishOrderPromise = $http.post(`/order/finish/${orderID}`);
+        const dataToSendToWebServer = { order };
+        const removeTaskPromise = $http.post('http://localhost:6566/removetask', dataToSendToQueue);
+        const finishOrderPromise = $http.post(`/order/finish/${order.id}`, dataToSendToWebServer);
         Promise.all([removeTaskPromise, finishOrderPromise]).then(resolve, reject);
       });
     }

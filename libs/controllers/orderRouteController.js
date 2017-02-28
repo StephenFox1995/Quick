@@ -100,7 +100,13 @@ controller.handleGetByID = (req, cb) => {
 
 controller.handleFinishOrder = (req, cb) => {
   const id = req.params.id;
+  const reqOrder = req.body.order;
   const order = new Order();
+  // Set these order attributes so they
+  // the database records them correctly.
+  order.release = reqOrder.release;
+  order.deadline = reqOrder.deadline;
+  order.finishTime = Date.now();
   order.finish(id, (err, result) => {
     if (err) {
       cb(errors.serverError());
