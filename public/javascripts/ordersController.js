@@ -14,6 +14,7 @@
     lScope.timelineData = [];
     lScope.employees = [];
     lScope.ignoreNewOrdersCheck = false;
+    lScope.queueMonitor = null;
     lScope.options = {
       autoResize: true,
       rollingMode: true,
@@ -90,18 +91,18 @@
     lScope.begin = (multitask) => {
       // first check local storage if a task has already begun.
       if (localStorage.getItem('serviceStarted') === 'true') {
-        $interval(monitorQueue, 1000);
+        lScope.queueMonitor = $interval(monitorQueue, 1000);
       } else {
         ordersService.beginOrderService(multitask)
           .then(() => {
             localStorage.setItem('serviceStarted', true);
             localStorage.setItem('multitask', multitask);
             lScope.statusMessage = 'Loaded';
-            $interval(monitorQueue, 1000);
+            lScope.queueMonitor = $interval(monitorQueue, 1000);
           })
           .catch((err) => {
             if (err.status === 400) {
-              $interval(monitorQueue, 1000); // Process already exists, thats ok, now fetch orders.
+              lScope.queueMonitor = $interval(monitorQueue, 1000); // Process already exists, thats ok, now fetch orders.
             } else {
               lScope.statusMessage = 'Could not load orders';
               lScope.$apply();
@@ -109,6 +110,20 @@
           });
       }
     };
+
+    lScope.shutdown = () => {
+      ordersService.shutdownOrderServer()
+        .then(() => {
+          lScope.statusMessage = 'Successfully shutdown'
+          $interval.cancel(lScope.queueMonitor);
+          localStorage.setItem('serviceStarted', false);
+          lScope.$apply();
+        })
+        .catch((data) => {
+          lScope.statusMessage = 'Could not shutdown.'
+          lScope.$apply();
+        })
+    }
 
 
     // Adds an employee to start handling tasks.
@@ -135,7 +150,7 @@
 
     (() => {
       if (localStorage.getItem('serviceStarted') === 'true') {
-        $interval(monitorQueue, 1000);
+        lScope.queueMonitor = $interval(monitorQueue, 1000);
       }
     })();
   }

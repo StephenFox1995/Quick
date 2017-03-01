@@ -16,6 +16,7 @@
       finishOrder,
       getEmployees,
       removeEmployee,
+      shutdownOrderServer
     };
 
     // Creates a new employee object.
@@ -39,6 +40,13 @@
           refresh: 2000,
         };
         $http.post(url, postData).then(resolve, reject);
+      });
+    }
+
+    function shutdownOrderServer() {
+      return new Promise((resolve, reject) => {
+        const url = `http://localhost:6566/stopservice?id=${sessionService.getClientID()}`;
+        $http.get(url).then(resolve, reject);
       });
     }
 
