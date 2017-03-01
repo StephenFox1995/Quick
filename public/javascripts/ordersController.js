@@ -81,6 +81,7 @@
       predictionService.orderPredictionCurrentHour()
         .then((response) => {
           lScope.expectedOrders = response.data.predictions.data[0].data.prediction
+          lScope.$apply();
         })
         .catch(() => {
 

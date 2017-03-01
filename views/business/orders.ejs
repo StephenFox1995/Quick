@@ -83,7 +83,7 @@
     </div>
   </div>
 
-  
+  <!--realtime data-->
   <div class="container" >
     <div><b>Realtime data</b></div>  
     <p>Expected orders for this hour: {{expectedOrders}}</p>
@@ -99,26 +99,33 @@
       <tbody>
         <tr ng-repeat="util in utilization">
           <td>{{util.begin | date:'mediumTime'}} - {{util.end | date:'mediumTime'}} </td>
-          <td>{{util.status}} </td>
+          <td>
+            <div ng-switch="util.status">
+              <div ng-switch-when="warning">
+                <div style="color: #FF7575">
+                  {{util.status}}
+                </div>
+              </div>
+              <div ng-switch-when="busy" >
+                <div style="color: #F5A926">
+                  {{util.status}}
+                </div>
+              </div>
+              <div ng-switch-when="ok">
+                <div style="color: green">
+                  {{util.status}}
+                </div>
+              </div>
+              <div ng-switch-default>
+                {{util.status}}
+              </div>
+            </div>
+          </td>
           <td>{{util.workersNeeded}} </td>
           <td>{{util.availableWorkers}} </td>
         </tr>
       </tbody>
     </table>
-    <!--<ul>
-      <li ng-repeat="util in utilization">
-        {{util.begin | date:'mediumTime'}} - {{util.end | date:'mediumTime'}} <b>{{util.workersNeeded}}</b>
-        <span ng-if="util.status == 'warning'" style="color: #FF7575">
-          {{util.status}} available employees: <b>{{util.availableWorkers}}</b>
-        </span>
-        <span ng-if="util.status == 'busy'" style="color: #F5A926">
-          {{util.status}} available employees: <b>{{util.availableWorkers}}</b>
-        </span>
-        <span ng-if="util.status == 'ok'" style="color: green">
-          {{util.status}} available employees: <b>{{util.availableWorkers}}</b>
-        </span>
-      </li>
-    </ul>-->
     <vis-timeline data="data" options="options" events="events"></vis-timeline>
   </div>
   
