@@ -15,3 +15,6 @@
 .begin {
   margin-top: 2%;
 }
+.time-remaining {
+  text-align: right;
+}

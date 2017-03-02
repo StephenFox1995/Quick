@@ -3,7 +3,15 @@
     .module('orders')
     .controller('OrdersController', OrdersController);
 
-  OrdersController.inject = ['$scope', 'ordersService', 'sessionService', 'VisDataSet', '$interval', 'predictionService'];
+  OrdersController.inject = [
+    '$scope',
+    'ordersService',
+    'sessionService',
+    'VisDataSet',
+    '$interval',
+    'predictionService',
+    'timer'
+  ];
   function OrdersController($scope, ordersService, sessionService, VisDataSet, $interval, predictionService) {
     const lScope = $scope;
     lScope.businessName = sessionService.getClientName();
@@ -122,6 +130,7 @@
         })
         .catch((data) => {
           lScope.statusMessage = 'Could not shutdown.'
+          localStorage.setItem('serviceStarted', false);
           lScope.$apply();
         })
     }
@@ -134,6 +143,7 @@
         .then(() => {
           lScope.ignoreNewOrdersCheck = true;
           lScope.addEmployeeMessage = 'Employee Added';
+          lScope.$apply();
         }).catch(() => {
           lScope.addEmployeeMessage = 'Could not add employee';
         });

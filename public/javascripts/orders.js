@@ -3,12 +3,13 @@
     .module('orders', [
       'session',
       'ngVis',
-      'prediction'
+      'prediction',
+      'angularMoment'
     ])
     .factory('ordersService', ordersService);
 
-  ordersService.inject = ['$http', '$interval', 'sessionService'];
-  function ordersService($http, $interval, sessionService) {
+  ordersService.inject = ['$http', '$interval', 'sessionService', 'moment'];
+  function ordersService($http, $interval, sessionService, moment) {
     return {
       getOrderQueue,
       beginOrderService,
@@ -50,6 +51,15 @@
       });
     }
 
+    function secondsBetweenNowAndThen(now, then) {
+      // var now  = "01/08/2016 15:00:00";
+      // var then = "04/02/2016 14:20:30";
+      var diff = moment.duration(moment(then).diff(moment(now))).asSeconds();
+      // return diff;
+      console.log(moment(now).to(then));
+      return moment(now).to(then);
+    }
+
     function parseOrdersFromQueueResponse(response) {
       const assignedTasks = response.state.assignedTasks;
       const unassignedTasks = response.state.unassignedTasks;
@@ -61,6 +71,7 @@
         workerID: task.assignedWorkerID,
         products: task.data,
         cost: task.profit,
+        countdown: secondsBetweenNowAndThen(new Date(), new Date(task.deadlineISO)),
         id: task.id,
       });
       const orders = assignedTasks.map(parse);
