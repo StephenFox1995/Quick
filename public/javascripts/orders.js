@@ -52,12 +52,11 @@
     }
 
     function secondsBetweenNowAndThen(now, then) {
-      // var now  = "01/08/2016 15:00:00";
-      // var then = "04/02/2016 14:20:30";
-      var diff = moment.duration(moment(then).diff(moment(now))).asSeconds();
-      // return diff;
-      console.log(moment(now).to(then));
       return moment(now).to(then);
+    }
+
+    function sortByReleaseDate(a, b) {
+      return (a.release < b.release) ? -1 : ((a.release > b.release) ? 1 : 0);
     }
 
     function parseOrdersFromQueueResponse(response) {
@@ -71,11 +70,13 @@
         workerID: task.assignedWorkerID,
         products: task.data,
         cost: task.profit,
-        countdown: secondsBetweenNowAndThen(new Date(), new Date(task.deadlineISO)),
+        deadlineCountdown: secondsBetweenNowAndThen(new Date(), new Date(task.deadlineISO)),
+        releaseCountdown: secondsBetweenNowAndThen(new Date(), new Date(task.releaseISO)),
         id: task.id,
       });
       const orders = assignedTasks.map(parse);
-      return orders.concat(unassignedTasks.map(parse));
+
+      return orders.concat(unassignedTasks.map(parse)).sort(sortByReleaseDate);
     }
 
     function parseUtlizationFromQueueResponse(response) {

@@ -24,7 +24,6 @@
     lScope.ignoreNewOrdersCheck = false;
     lScope.queueMonitor = null;
     lScope.options = {
-      autoResize: true,
       rollingMode: true,
       start: Date.now(),
       end: (Date.now() + (30 * 10000)),
@@ -49,7 +48,6 @@
     function setOrders(orders) {
       lScope.statusMessage = '';
       lScope.orders = orders;
-      setTimeline(orders);
     }
 
     /**
@@ -66,13 +64,13 @@
       ordersService.getOrderQueue()
         .then((data) => {
           if (lScope.ignoreNewOrdersCheck) {
-            setOrders(data.orders);
+            setTimeline(data.orders);
             lScope.ignoreNewOrdersCheck = false;
-            lScope.utilization = data.utilization;
           } else if (containsNewOrders(data.orders)) {
-            setOrders(data.orders);
-            lScope.utilization = data.utilization;
+            setTimeline(data.orders);
           }
+          setOrders(data.orders);
+          lScope.utilization = data.utilization;
         })
         .catch(() => {
           lScope.statusMessage = 'Could not load orders';
@@ -156,6 +154,7 @@
     lScope.finishOrder = (order) => {
       ordersService.finishOrder(order);
       lScope.ignoreNewOrdersCheck = true;
+      lScope.$apply();
     };
 
 
