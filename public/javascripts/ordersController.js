@@ -31,7 +31,7 @@
 
     function setTimeline(orders) {
       const timelineData = orders.map((order) => {
-        const content = order.workerID || 'Unassigned';
+        const content = (order.workerID || 'Unassigned') + ' order: ' + order.id;
         return {
           id: order.id,
           content,
