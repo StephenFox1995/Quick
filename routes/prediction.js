@@ -41,6 +41,44 @@ router.get('/order/business/:id/currenthour', (req, res) => {
   });
 });
 
+router.get('/employeesneeded/business/:id', (req, res) => {
+  controller.handleEmployeesNeededPrediction(req, (err, result) => {
+    if (err) {
+      return res
+        .status(err.code)
+        .json({
+          success: false,
+          responseMessage: err.message
+        });
+    }
+    return res
+      .status(httpCodes.SUCCESS)
+      .json({
+        success: true,
+        predictions: result,
+      });
+  });
+});
+
+router.get('/employeesneeded/business/:id/currenthour', (req, res) => {
+  controller.handleEmployeesNeededCurrentHour(req, (err, data) => {
+    if (err) {
+      return res
+        .status(err.code)
+        .json({
+          success: false,
+          responseMessage: err.message
+        });
+    }
+    return res
+      .status(httpCodes.SUCCESS)
+      .json({
+        success: true,
+        predictions: { data: data },
+      });
+  });
+});
+
 module.exports = router;
 
 

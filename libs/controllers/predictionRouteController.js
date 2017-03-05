@@ -17,3 +17,15 @@ controller.handleOrderPredictionCurrentHour = (req, cb) => {
   const prediction = new Prediction();
   prediction.getOrderPredictionCurrentHour(businessID, cb);
 };
+
+controller.handleEmployeesNeededPrediction = (req, cb) => {
+  const businessID = req.params.id;
+  const prediction = new Prediction();
+  prediction.getEmployeesNeededPrediction(businessID, cb);
+}
+
+controller.handleEmployeesNeededCurrentHour = (req, cb) => {
+  const businessID = req.params.id;
+  const prediction = new Prediction();
+  prediction.getEmployeesNeededCurrentHour(businessID, cb);
+}

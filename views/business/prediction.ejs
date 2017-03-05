@@ -12,15 +12,34 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js"></script>
   <script src="/javascripts/vis.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/prediction.css" rel="stylesheet" type="text/css">
   <script src="/javascripts/session.js"></script>
   <script src="/javascripts/prediction.js"></script>
   <script src="/javascripts/predictionController.js"></script>
   <link href="/stylesheets/container.css" rel="stylesheet" type="text/css" />
   
   <title>Quick - Predictions</title>
-
+  
   <body ng-controller="PredictionController">
     <h3 class="page-heading">{{businessName}} Prediction Data</h3>
+    <div class="container">
+      <div class="row">
+        <form class="col-lg-2 col-md-3 col-xs-5" ng-submit="begin(multitask)">
+          <div class="form-group">
+            <label for="setMultitask">Expected multitask</label>
+            <input type="number" class="form-control" id="setMultitask" ng-model="multitask" placeholder="Expected multitask" required>
+          </div>
+          <button type="submit" class="btn btn-default">Begin</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="shutdown()">Shutdown</button>
+        </form>
+      </div>
+    </div>
+    <div>
+      <div class="container">
+        <h5>Predicted Orders</h5>
+        <vis-graph2d data="data" options="options"></vis-graph2d>
+      </div>
+    </div>
     <div>
       <div class="container">
         <h5>Predicted Orders</h5>

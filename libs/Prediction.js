@@ -8,7 +8,7 @@ function Prediction() { }
 Prediction.prototype.Schema = models.Prediction;
 
 Prediction.prototype.getOrderPrediction = function getOrderPrediction(id, cb) {
-  this.Schema.findOne({ "businessID": new mongoose.Types.ObjectId(id) }, cb);
+  this.Schema.findOne({ "businessID": new mongoose.Types.ObjectId(id), swarmType: "ORDERAMOUNT" }, cb);
 };
 
 Prediction.prototype.getOrderPredictionCurrentHour = function (id, cb) {
@@ -17,11 +17,29 @@ Prediction.prototype.getOrderPredictionCurrentHour = function (id, cb) {
     { $match: {
         $and: [
           { businessID: new mongoose.Types.ObjectId(id) },
-          { "data.timestamp": { $eq: dateObjectForLastHour() } }]
+          { "data.timestamp": { $eq: dateObjectForLastHour() } },
+          { "swarmType": "ORDERAMOUNT" }]
       }
     }
   ], cb);
 };
+
+Prediction.prototype.getEmployeesNeededPrediction = function getEmployeesNeededPrediction(id, cb) {
+  this.Schema.findOne({ "businessID": new mongoose.Types.ObjectId(id), swarmType: "EXPECTEDEMPLOYEES" }, cb);
+};
+
+Prediction.prototype.getEmployeesNeededCurrentHour = function (id, cb) {
+  this.Schema.aggregate([
+    { $unwind: "$data" },
+    { $match: {
+        $and: [
+          { businessID: new mongoose.Types.ObjectId(id) },
+          { "data.timestamp": { $eq: dateObjectForLastHour() } },
+          { "swarmType": "EXPECTEDEMPLOYEES" }]
+      }
+    }
+  ], cb);
+}
 
 // Creates a date object for the last hour.
 function dateObjectForLastHour() {
