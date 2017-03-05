@@ -92,6 +92,14 @@
         .catch(() => {
 
         });
+      predictionService.employeesneededPredictionCurrentHour()
+        .then((response) => {
+          lScope.expectedEmployees = response.data.predictions.data[0].data.prediction
+          lScope.$apply();
+        })
+        .catch(() => {
+
+        });
     }
 
     // Begins the service to monitor orders.

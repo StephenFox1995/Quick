@@ -11,6 +11,8 @@ function predictionService($http, sessionService) {
     orderPredictionDataForBusiness, 
     transformPredictionData,
     orderPredictionCurrentHour,
+    employeePredictionDataForBusiness,
+    employeesneededPredictionCurrentHour,
   };
   /**
    * Gets the prediction data for a business.
@@ -18,6 +20,16 @@ function predictionService($http, sessionService) {
   function orderPredictionDataForBusiness() {
     return new Promise((resolve, reject) => {
       const url = `/prediction/order/business/${sessionService.getClientID()}`;
+      $http.get(url).then(resolve, reject);
+    });
+  }
+
+  /**
+   * Gets the prediction data for a business.
+   */
+  function employeePredictionDataForBusiness() {
+    return new Promise((resolve, reject) => {
+      const url = `/prediction/employeesneeded/business/${sessionService.getClientID()}`;
       $http.get(url).then(resolve, reject);
     });
   }
@@ -34,6 +46,13 @@ function predictionService($http, sessionService) {
   function orderPredictionCurrentHour() {
     return new Promise((resolve, reject) => {
       const url = `/prediction/order/business/${sessionService.getClientID()}/currenthour`;
+      $http.get(url).then(resolve, reject);
+    });
+  }
+
+  function employeesneededPredictionCurrentHour() {
+    return new Promise((resolve, reject) => {
+      const url = `/prediction/employeesneeded/business/${sessionService.getClientID()}/currenthour`;
       $http.get(url).then(resolve, reject);
     });
   }
