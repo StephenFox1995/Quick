@@ -10,9 +10,16 @@
     'VisDataSet',
     '$interval',
     'predictionService',
-    'timer'
+    'moment'
   ];
-  function OrdersController($scope, ordersService, sessionService, VisDataSet, $interval, predictionService) {
+  function OrdersController(
+    $scope, 
+    ordersService, 
+    sessionService, 
+    VisDataSet, 
+    $interval, 
+    predictionService, 
+    moment) {
     const lScope = $scope;
     lScope.businessName = sessionService.getClientName();
     lScope.orders = [];
@@ -60,6 +67,17 @@
       return result.length > 0;
     }
 
+    function currentUtlizationStatus(utilization) {
+      for (var i = 0; i < utilization.length; i++) {
+        let startRange = new Date(utilization[i].begin);
+        let endRange = new Date(utilization[i].end);
+        if (moment(new Date()).isBetween(startRange, endRange)) {
+          return utilization[i].status;
+        }
+      }
+      return "ok";
+    }
+
     function monitorQueue() {
       ordersService.getOrderQueue()
         .then((data) => {
@@ -71,6 +89,7 @@
           }
           setOrders(data.orders);
           lScope.utilization = data.utilization;
+          lScope.utilizationStatus = currentUtlizationStatus(data.utilization);
         })
         .catch(() => {
           lScope.statusMessage = 'Could not load orders';

@@ -75,7 +75,6 @@
         id: task.id,
       });
       const orders = assignedTasks.map(parse);
-
       return orders.concat(unassignedTasks.map(parse)).sort(sortByReleaseDate);
     }
 
