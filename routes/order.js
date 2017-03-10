@@ -31,7 +31,8 @@ router.get('/', vr.validRequest, (req, res) => {
         .status(err.code)
         .json({
           success: false,
-          responseMessage: err.message });
+          responseMessage: err.message 
+        });
     }
     return res
       .status(httpCodes.SUCCESS)
@@ -40,6 +41,24 @@ router.get('/', vr.validRequest, (req, res) => {
         orders,
       });
   });
+});
+
+router.get('/collection/:businessid/:id', (req,  res) => {
+  controller.handleOrderCollectionTime(req, (err, body) => {
+    if (err) {
+      return res
+        .status(err.code)
+        .json({
+          success: false,
+          responseMessage: err.message });
+    }
+    return res
+      .status(httpCodes.SUCCESS)
+      .json({
+        success: true,
+        order: body,
+      });
+  })
 });
 
 router.get('/:id', vr.validRequest, (req, res) => {

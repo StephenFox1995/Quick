@@ -2,7 +2,7 @@ const util = require('../util');
 const parser = require('../requestParser');
 const errors = require('../errors');
 const Order = require('../Order');
-
+const request = require('request');
 
 const controller = module.exports;
 
@@ -56,11 +56,17 @@ controller.handlePost = (req, cb) => {
       if (err) {
         return cb(errors.serverError());
       }
-      return cb(null, orderID);
+      return cb(null, orderID)
     });
   });
 };
 
+controller.handleOrderCollectionTime = (req, cb) => {
+  const url = `http://localhost:6566/tasks/deadline?id=${req.params.id}&businessid=${req.params.businessid}`;
+  request(url, function(err, res, body) {
+    cb(err, body);
+  });
+}
 /**
  * Handles a GET request on the /order endpoint.
  *

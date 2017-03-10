@@ -9,7 +9,7 @@ predictionService.inject = ['$http', 'sessionService'];
 function predictionService($http, sessionService) {
   return { 
     orderPredictionDataForBusiness, 
-    transformPredictionData,
+    transformOrderPredictionData,
     orderPredictionCurrentHour,
     employeePredictionDataForBusiness,
     employeesneededPredictionCurrentHour,
@@ -37,9 +37,18 @@ function predictionService($http, sessionService) {
   /**
    * Transforms prediction to graph representation.
    */
-  function transformPredictionData(data) {
+  function transformOrderPredictionData(data) {
+    const predictionData = data.map((record) => { 
+      return { x: record.timestamp, y: parseFloat(record.prediction), group: "Expected Orders" } 
+    });
+    const actualData = data.map((record) => { 
+      return { x: record.timestamp, y: parseFloat(record.orders), group: "Actual Orders" } 
+    });
+    return predictionData.concat(actualData)
+  }
+  function transformRealData(data, group, field) {
     return data.map((record) => { 
-      return { x: record.timestamp, y: parseFloat(record.prediction) } 
+      return { x: record.timestamp, y: parseFloat(record[field]) } 
     });
   }
 
