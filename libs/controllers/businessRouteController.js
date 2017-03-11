@@ -4,6 +4,8 @@ const errors = require('../errors');
 const tk = require('../token');
 const Business = require('../Business');
 const hash = require('../hash');
+const request = require('request');
+const moment = require('moment');
 
 const controller = module.exports;
 
@@ -19,6 +21,16 @@ const expectedRequests = {
   },
 };
 
+function currentUtlizationStatus(utilization) {
+  for (var i = 0; i < utilization.length; i++) {
+    let startRange = new Date(utilization[i].begin);
+    let endRange = new Date(utilization[i].end);
+    if (moment(new Date()).isBetween(startRange, endRange)) {
+      return utilization[i].status;
+    }
+  }
+  return "ok";
+}
 
 /**
  * Handles a GET request on the /business endpoint.
@@ -28,6 +40,17 @@ const expectedRequests = {
 controller.handleGet = function handleGet(req, cb) {
   return new Business().all(cb);
 };
+
+controller.handleStatus = function(req, cb) {
+  const businessID = req.params.businessid;
+  const url = `http://localhost:6566/tasks?id=${businessID}`;
+  request(url, function(err, res, body) {
+    if (res.statusCode == 200) {
+      let status = currentUtlizationStatus(JSON.parse(body))
+      cb(err, status);
+    }
+  });
+}
 
 /**
  * Handles a POST request on the /business endpoint.

@@ -4,7 +4,8 @@ var
   Business    = require('../libs/Business'),
   httpCodes   = require('../libs/httpCodes'),
   express     = require('express'),
-  controller  = require('../libs/controllers/businessRouteController');
+  controller  = require('../libs/controllers/businessRouteController'),
+  vr          = require('../libs/validRequest');
 
 var router = express.Router();
 
@@ -90,6 +91,24 @@ router.get('/all', function (req, res) {
     return res.status(httpCodes.SUCCESS).json(businesses);
   });
 });
+
+router.get('/status/:businessid', function (req, res) {
+  controller.handleStatus(req, function(err, status) {
+    if (err) {
+      return res
+        .status(err.code)
+        .json({
+          responseMessage: err.message,
+          success: false
+        }); 
+    }
+    return res
+      .status(httpCodes.SUCCESS)
+      .json({
+        status: status
+      });
+  })
+})
 
 module.exports = router;
 
