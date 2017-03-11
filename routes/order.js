@@ -56,7 +56,7 @@ router.get('/collection/:businessid/:id', (req,  res) => {
       .status(httpCodes.SUCCESS)
       .json({
         success: true,
-        order: body,
+        collection: body.task.deadlineISO,
       });
   })
 });

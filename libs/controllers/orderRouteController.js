@@ -64,7 +64,9 @@ controller.handlePost = (req, cb) => {
 controller.handleOrderCollectionTime = (req, cb) => {
   const url = `http://localhost:6566/tasks/deadline?id=${req.params.id}&businessid=${req.params.businessid}`;
   request(url, function(err, res, body) {
-    cb(err, body);
+    if (res.statusCode == 200) {
+      cb(err, JSON.parse(body));
+    }
   });
 }
 /**
