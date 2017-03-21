@@ -91,7 +91,7 @@
     <!--status-->
     <div class="row">
       <div ng-switch="utilizationStatus" class="pull-right col-lg-3 col-md-3 col-xs-5">
-        <div ng-switch-when="warning">
+        <div ng-switch-when="very busy">
           <div class="alert alert-danger" role="alert">Current Status: <b>{{utilizationStatus}}</b></div>
         </div>
         <div ng-switch-when="busy" >
@@ -130,7 +130,7 @@
           <td>{{util.begin | date:'mediumTime'}} - {{util.end | date:'mediumTime'}} </td>
           <td>
             <div ng-switch="util.status">
-              <div ng-switch-when="warning">
+              <div ng-switch-when="very busy">
                 <div style="color: #FF7575">
                   <b>{{util.status}}</b>
                 </div>
