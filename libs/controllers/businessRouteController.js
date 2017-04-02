@@ -46,7 +46,8 @@ controller.handleStatus = function(req, cb) {
   const url = `http://localhost:6566/tasks?id=${businessID}`;
   request(url, function(err, res, body) {
     if (res.statusCode == 200) {
-      let status = currentUtlizationStatus(JSON.parse(body))
+      let utilization = JSON.parse(body).state.conflicts.utilization;
+      let status = currentUtlizationStatus(utilization)
       cb(err, status);
     }
   });
