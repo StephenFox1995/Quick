@@ -63,9 +63,9 @@
       const assignedTasks = response.state.assignedTasks;
       const unassignedTasks = response.state.unassignedTasks;
       const parse = task => ({
-        createdAt: task.createdAtISO,
-        release: task.releaseISO,
-        deadline: task.deadlineISO,
+        createdAt: new Date(task.createdAtISO),
+        release: new Date(task.releaseISO),
+        deadline: new Date(task.deadlineISO),
         processing: task.processing,
         workerID: task.assignedWorkerID,
         products: task.data,
@@ -79,7 +79,12 @@
     }
 
     function parseUtlizationFromQueueResponse(response) {
-      return response.state.conflicts.utilization;
+      var utilization = response.state.conflicts.utilization;
+      utilization.forEach((u) => {
+        u.begin = new Date(u.begin);
+        u.end = new Date(u.end);
+      });
+      return utilization;
     }
 
     /**

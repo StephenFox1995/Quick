@@ -2,6 +2,7 @@ const vr = require('../libs/validRequest');
 const httpCodes = require('../libs/httpCodes');
 const controller = require('../libs/controllers/orderRouteController');
 const express = require('express');
+var moment = require('moment-timezone');
 
 const router = express.Router();
 
@@ -56,7 +57,7 @@ router.get('/collection/:businessid/:id', (req,  res) => {
       .status(httpCodes.SUCCESS)
       .json({
         success: true,
-        collection: body.task.deadlineISO,
+        collection: moment(body.task.deadlineISO).tz("Europe/Dublin").format(),
       });
   })
 });

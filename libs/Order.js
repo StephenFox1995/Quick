@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const BusinessObject = require('../libs/BusinessObject');
 const models = require('../models/mongoose/models')(mongoose);
 
+
 function Order() {}
 Order.prototype = new BusinessObject();
 Order.prototype.constructor = Order;
